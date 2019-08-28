@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getUsers, getUsersSuccess, getUsersError } from '../../../Redux/Actions';
+import { getUsers, getUsersSuccess, getUsersError } from '../../../Redux/Actions/UsersActions';
 
 import Navigation from '../Shared/Navigation/Navigation';
 

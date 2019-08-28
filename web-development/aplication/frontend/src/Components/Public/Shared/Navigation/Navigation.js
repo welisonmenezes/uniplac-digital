@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { setUserLogginStatus } from '../../../../Redux/Actions/UserActions';
 
 class Navigation extends Component {
 
+    handleLogout = () => {
+        localStorage.removeItem('islogged');
+        this.props.setUserLogginStatus(false);
+        console.log('this.props.isUserLoggedin: ', this.props.isUserLoggedin)
+    };
+
     render() {
+
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <Link to="/">
@@ -20,21 +31,25 @@ class Navigation extends Component {
                                 <span className="nav-link">Home</span>
                             </Link>
                         </li>
-                        <li className="nav-item">
-                            <Link to="/not-found">
-                                <span className="nav-link">NotFound</span>
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/admin">
-                                <span className="nav-link">Admin</span>
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/login">
-                                <span className="nav-link">Login</span>
-                            </Link>
-                        </li>
+                        { (this.props.isUserLoggedin) && 
+                            <li className="nav-item">
+                                <Link to="/admin">
+                                    <span className="nav-link">Admin</span>
+                                </Link>
+                            </li>
+                        }
+                        { (this.props.isUserLoggedin) && 
+                            <li className="nav-item" onClick={this.handleLogout}>
+                                <span className="nav-link">Logout</span>
+                            </li>
+                        }
+                        { (!this.props.isUserLoggedin) && 
+                            <li className="nav-item">
+                                <Link to="/login">
+                                    <span className="nav-link">Login</span>
+                                </Link>
+                            </li>
+                        }
                     </ul>
                 </div>
             </nav>
@@ -43,4 +58,13 @@ class Navigation extends Component {
 
 }
 
-export default Navigation;
+const mapStateToProps = store => ({
+    isUserLoggedin: store.userState.isUserLoggedin
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+    setUserLogginStatus
+  }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
