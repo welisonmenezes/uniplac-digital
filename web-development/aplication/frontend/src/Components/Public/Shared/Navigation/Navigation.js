@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -7,16 +7,24 @@ import { setUserLogginStatus } from '../../../../Redux/Actions/UserActions';
 
 class Navigation extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = { redirect: false };
+    }
+
     handleLogout = () => {
         localStorage.removeItem('islogged');
         this.props.setUserLogginStatus(false);
-        console.log('this.props.isUserLoggedin: ', this.props.isUserLoggedin)
+        if (/admin*/.test(window.location.pathname)) {
+            this.setState({redirect: true});
+        }
     };
 
     render() {
 
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                { (this.state.redirect) && <Redirect to="/admin" /> }
                 <Link to="/">
                     <span className="navbar-brand">Navbar</span>
                 </Link>
@@ -38,7 +46,7 @@ class Navigation extends Component {
                                 </Link>
                             </li>
                         }
-                        { (this.props.isUserLoggedin) && 
+                        { (true) && 
                             <li className="nav-item" onClick={this.handleLogout}>
                                 <span className="nav-link">Logout</span>
                             </li>
