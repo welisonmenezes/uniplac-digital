@@ -6,9 +6,9 @@ const EmbedBlot = ReactQuill.Quill.import('blots/block/embed');
 export class MyVideo extends EmbedBlot {
 
     static create(value) {
-        if (typeof value === 'object' && value.url) {
-            var node = super.create(value);
-            const ytUrl = `https://www.youtube.com/embed/${GetYoutubeVideoId(value.url)}`;
+        if (typeof value === 'object' && value.videoUrl) {
+            const node = super.create(value);
+            const ytUrl = `https://www.youtube.com/embed/${GetYoutubeVideoId(value.videoUrl)}`;
             node.setAttribute('src', ytUrl);
             node.style.width = value.width;
             node.style.height = value.height;
@@ -23,6 +23,8 @@ export class MyVideo extends EmbedBlot {
                     node.style.marginLeft = 'auto';
                     node.style.marginRight = 'auto';
                     node.style.display = 'flex';
+                    break;
+                default:
                     break;
             }
             return node;

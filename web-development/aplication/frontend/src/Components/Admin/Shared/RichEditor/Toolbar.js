@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import AudioIcon from './images/speaker.svg';
+//import AudioIcon from './images/speaker.svg';
 
 class Toolbar extends Component {
     render() {
@@ -50,10 +50,13 @@ class Toolbar extends Component {
               <button className='ql-image'></button>
               <button className='ql-video'></button>
               <button className='ql-my-image' value='my-image'>
-                <img  src={AudioIcon}  alt='' />
+                I
               </button>
               <button className='ql-my-video' value='my-video'>
                 V
+              </button>
+              <button className='ql-my-audio' value='my-audio'>
+                A
               </button>
             </span>
             <span className='ql-formats'>

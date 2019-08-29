@@ -17,7 +17,7 @@
 .RichEditor.is-fullscreen .ql-editor{
     height: 100vh;
 }
-#ImageEditor, #VideoEditor{
+.configuration-panel{
     overflow: hidden;
     position: absolute;
     top: 0;
@@ -29,7 +29,6 @@
     -webkit-transition: height .5;
     transition: height .5s;
 }
-#ImageEditor.opened,
-#VideoEditor.opened{
+.configuration-panel.opened{
     height: 100vh;
 }
