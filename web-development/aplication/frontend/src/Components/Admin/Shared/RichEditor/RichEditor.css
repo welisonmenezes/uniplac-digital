@@ -1,7 +1,8 @@
 .ql-my-image img,
 .ql-my-video img,
 .ql-my-audio img,
-.ql-fullscreen img{
+.ql-fullscreen img,
+.ql-my-link img{
     vertical-align: top;
     float: left;
     max-width: 18px;

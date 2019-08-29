@@ -4,6 +4,7 @@ import icoYoutube from './images/youtube.svg';
 import icoSoundcloud from './images/soundcloud.svg';
 import icoImage from './images/image.svg';
 import icoFullscreen from './images/fullscreen.svg';
+import icoLink from './images/link.svg';
 
 class Toolbar extends Component {
     render() {
@@ -47,9 +48,11 @@ class Toolbar extends Component {
             <span className='ql-formats'>
               <button className='ql-blockquote'></button>
               <button className='ql-code-block'></button>
-              <button className='ql-link'></button>
             </span>
             <span className='ql-formats'>
+              <button className='ql-my-link' value='my-link'>
+                <img src={icoLink} alt="ico link" />
+              </button>
               <button className='ql-my-image' value='my-image'>
                 <img src={icoImage} alt="ico" />
               </button>

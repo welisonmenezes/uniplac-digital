@@ -43,11 +43,15 @@ export const GetYoutubeVideoId = (url) => {
 }
 
 export const IsSoundCloudUrl = (url) => {
-    console.log(url)
     const regExp = /((http:\/\/(soundcloud\.com\/.*|soundcloud\.com\/.*\/.*|soundcloud\.com\/.*\/sets\/.*|soundcloud\.com\/groups\/.*|snd\.sc\/.*))|(https:\/\/(soundcloud\.com\/.*|soundcloud\.com\/.*\/.*|soundcloud\.com\/.*\/sets\/.*|soundcloud\.com\/groups\/.*)))/i;
     return regExp.test(url);
 }
 
 export const GetFileExtension = (filename) => {
     return filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
+}
+
+export const IsAnUrl = (url) => {
+    const regExp = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/;
+    return regExp.test(url);
 }

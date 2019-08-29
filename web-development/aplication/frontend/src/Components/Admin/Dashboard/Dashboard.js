@@ -6,7 +6,7 @@ import RichEditor from '../Shared/RichEditor/RichEditor';
 class Dashboard extends Component {
 
   getEditorValue = (editorValue) => {
-    console.log('RichEditor Data: ', editorValue);
+    //console.log('RichEditor Data: ', editorValue);
   };
 
   render() {

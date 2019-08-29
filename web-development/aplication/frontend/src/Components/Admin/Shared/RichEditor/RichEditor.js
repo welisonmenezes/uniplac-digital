@@ -8,11 +8,13 @@ import {
     CloseFullscreen,
     GetYoutubeVideoId,
     GetFileExtension,
-    IsSoundCloudUrl } from '../../../../Utils/Utils';
+    IsSoundCloudUrl,
+    IsAnUrl } from '../../../../Utils/Utils';
 import Toolbar from './Toolbar';
 import './MyImage';
 import './MyVideo';
 import './MyAudio';
+import './MyLink';
 
 class RichEditor extends Component {
 
@@ -31,6 +33,9 @@ class RichEditor extends Component {
             'my-audio': function (value) {
                 self.toggleConfigurationPanel('audio');
             },
+            'my-link': function (value) {
+                self.toggleConfigurationPanel('link');
+            },
             'fullscreen': function (value) {
                 self.openFullscreen();
             }
@@ -46,9 +51,12 @@ class RichEditor extends Component {
             currentImage: null,
             currentVideo: null,
             currentAudio: null,
+            currentLink: null,
             width: 'auto',
             height: 'auto',
-            position: 'normal'
+            position: 'normal',
+            target: '_self',
+            title: null
         };
         this.handleEditorChange = this.handleEditorChange.bind(this);
         self = this;
@@ -94,6 +102,33 @@ class RichEditor extends Component {
         this.toggleConfigurationPanel('audio');
     }
 
+    insertLinkIntoEditor(editor) {
+        editor.focus();
+        const range = editor.getSelection();
+        if (range) {
+            editor.formatText(range.index, range.length, 'mylink', this.getConfigurations());
+        }
+        this.toggleConfigurationPanel('link');
+    }
+
+    handleFakeUploadImage() {
+        const element = document.getElementById('RichEditorInputFile');
+        const file = element.files[0];
+        const extension = GetFileExtension(file.name).toLowerCase();
+        const accepts = element.getAttribute('accept').split(',');
+        if (accepts.indexOf('.' + extension) > -1) {
+            const reader = new FileReader();
+            reader.onloadend = function () {
+                self.setState({ currentImage: reader.result });
+                document.getElementById('RichEditorImage').src = reader.result;
+            }
+            reader.readAsDataURL(file);
+        } else {
+            element.value = null;
+            alert('Tipo de arquivo inválido. Apenas imagem.');
+        }
+    }
+
     handleAddImage() {
         this.insertImageIntoEditor(this.quillRef);
     }
@@ -114,29 +149,22 @@ class RichEditor extends Component {
         }
     }
 
+    handleAddLink() {
+        if (IsAnUrl(this.state.currentLink)) {
+            this.insertLinkIntoEditor(this.quillRef);
+        } else {
+            alert('Apenas urls válidas.');
+        }
+    }
+
     handleEditorChange(value) {
         this.setState({ text: value });
         this.props.parentGettingTheEditorValue(this.state.text);
     }
-
-    handleChangeWidth(e) {
-        self.setState({ width: e.target.value });
-    }
-
-    handleChangeHeight(e) {
-        self.setState({ height: e.target.value });
-    }
-
-    handleChangePosition(e) {
-        self.setState({ position: e.target.value });
-    }
-
-    handleVideoUrl(e) {
-        self.setState({ currentVideo: e.target.value });
-    }
-
-    handleAudioUrl(e) {
-        self.setState({ currentAudio: e.target.value });
+    
+    handleChange(e) {
+        const stateName = e.target.getAttribute('data-state-name');
+        self.setState({[stateName]: e.target.value});
     }
 
     openFullscreen() {
@@ -156,21 +184,18 @@ class RichEditor extends Component {
             currentImage: null,
             currentAudio: null,
             currentVideo: null,
+            currentLink: null,
             width: 'auto',
             height: 'auto',
-            position: 'normal'
+            position: 'normal',
+            target: '_self',
+            title: null
         });
-        const imageEl = document.getElementById('RichEditorInputFile');
-        const videoEl = document.getElementById('RichEditorFieldVideo');
-        const audioEl = document.getElementById('RichEditorFieldAudio');
-        if (imageEl) {
-            imageEl.value = null;
-        }
-        if (videoEl) {
-            videoEl.value = null;
-        }
-        if (audioEl) {
-            audioEl.value = null;
+        const els = document.querySelectorAll('.configuration-panel input, .configuration-panel select');
+        if (els && els.length) {
+            els.forEach(el => {
+                el.value = null;
+            });
         }
     }
 
@@ -198,26 +223,11 @@ class RichEditor extends Component {
             position: this.state.position,
             imageUrl: this.state.currentImage,
             videoUrl: this.state.currentVideo,
-            audioUrl: this.state.currentAudio
+            audioUrl: this.state.currentAudio,
+            linkUrl: this.state.currentLink,
+            title: this.state.title,
+            target: this.state.target
         };
-    }
-
-    encodeImageFileAsURL() {
-        const element = document.getElementById('RichEditorInputFile');
-        const file = element.files[0];
-        const extension = GetFileExtension(file.name).toLowerCase();
-        const accepts = element.getAttribute('accept').split(',');
-        if (accepts.indexOf('.' + extension) > -1) {
-            const reader = new FileReader();
-            reader.onloadend = function () {
-                self.setState({ currentImage: reader.result });
-                document.getElementById('RichEditorImage').src = reader.result;
-            }
-            reader.readAsDataURL(file);
-        } else {
-            element.value = null;
-            alert('Tipo de arquivo inválido. Apenas imagem.');
-        }
     }
 
     render() {
@@ -239,7 +249,7 @@ class RichEditor extends Component {
                                     id="RichEditorInputFile"
                                     name="files"
                                     accept=".jpg,.jpeg,.png,.gif"
-                                    onChange={() => { this.encodeImageFileAsURL() }} />
+                                    onChange={() => { this.handleFakeUploadImage() }} />
                                 <div>
                                     {(this.state.currentImage) &&
                                         <img id="RichEditorImage" src="" alt="Preview da imagem" />
@@ -252,17 +262,21 @@ class RichEditor extends Component {
                                         <input
                                             type="number"
                                             placeholder="Largura"
-                                            onChange={this.handleChangeWidth} />
+                                            data-state-name="width"
+                                            onChange={this.handleChange} />
                                     </div>
                                     <div>
                                         <input
                                             type="number"
                                             placeholder="Largura"
-                                            onChange={this.handleChangeHeight} />
+                                            data-state-name="height"
+                                            onChange={this.handleChange} />
                                     </div>
                                 </div>
                                 <div>
-                                    <select onChange={this.handleChangePosition}>
+                                    <select
+                                        data-state-name="position"
+                                        onChange={this.handleChange}>
                                         <option value="normal">Normal</option>
                                         <option value="left">Esquerda</option>
                                         <option value="center">Centralizado</option>
@@ -283,7 +297,11 @@ class RichEditor extends Component {
                         <button onClick={() => this.toggleConfigurationPanel('video') }>Cancelar</button>
                         <div className="row">
                             <div className="col-md-6">
-                                <input type="text" id="RichEditorFieldVideo" onChange={this.handleVideoUrl} />
+                                <input
+                                    type="text"
+                                    id="RichEditorFieldVideo"
+                                    data-state-name="currentVideo"
+                                    onChange={this.handleChange} />
                                 <div>
                                     {(this.state.currentVideo) &&
                                         <p>video here</p>
@@ -296,17 +314,21 @@ class RichEditor extends Component {
                                         <input
                                             type="number"
                                             placeholder="Largura"
-                                            onChange={this.handleChangeWidth} />
+                                            data-state-name="width"
+                                            onChange={this.handleChange} />
                                     </div>
                                     <div>
                                         <input
                                             type="number"
                                             placeholder="Largura"
-                                            onChange={this.handleChangeHeight} />
+                                            data-state-name="height"
+                                            onChange={this.handleChange} />
                                     </div>
                                 </div>
                                 <div>
-                                    <select onChange={this.handleChangePosition}>
+                                    <select 
+                                        data-state-name="position"
+                                        onChange={this.handleChange}>
                                         <option value="normal">Normal</option>
                                         <option value="left">Esquerda</option>
                                         <option value="center">Centralizado</option>
@@ -327,7 +349,11 @@ class RichEditor extends Component {
                         <button onClick={() => this.toggleConfigurationPanel('audio') }>Cancelar</button>
                         <div className="row">
                             <div className="col-md-6">
-                                <input type="text" id="RichEditorFieldAudio" onChange={this.handleAudioUrl} />
+                                <input
+                                    type="text"
+                                    id="RichEditorFieldAudio"
+                                    data-state-name="currentAudio"
+                                    onChange={this.handleChange} />
                                 <div>
                                     {(this.state.currentAudio) &&
                                         <p>audio here</p>
@@ -340,17 +366,21 @@ class RichEditor extends Component {
                                         <input
                                             type="number"
                                             placeholder="Largura"
-                                            onChange={this.handleChangeWidth} />
+                                            data-state-name="width"
+                                            onChange={this.handleChange} />
                                     </div>
                                     <div>
                                         <input
                                             type="number"
                                             placeholder="Largura"
-                                            onChange={this.handleChangeHeight} />
+                                            data-state-name="height"
+                                            onChange={this.handleChange} />
                                     </div>
                                 </div>
                                 <div>
-                                    <select onChange={this.handleChangePosition}>
+                                    <select
+                                        data-state-name="position"
+                                        onChange={this.handleChange}>
                                         <option value="normal">Normal</option>
                                         <option value="left">Esquerda</option>
                                         <option value="center">Centralizado</option>
@@ -360,6 +390,53 @@ class RichEditor extends Component {
                                 {(this.state.currentAudio) &&
                                     <div>
                                         <button onClick={() => { this.handleAddAudio() }}>Add audio</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="LinkEditor" className="configuration-panel link">
+                    <div>
+                        <button onClick={() => this.toggleConfigurationPanel('link') }>Cancelar</button>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div>
+                                    <div>
+                                        <input
+                                            type="text"
+                                            id="RichEditorFieldLink"
+                                            data-state-name="currentLink"
+                                            onChange={this.handleChange} />
+                                        <div>
+                                            {(this.state.currentLink) &&
+                                                <p>link here</p>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div>
+                                    <div>
+                                        <input
+                                            type="text"
+                                            placeholder="Título"
+                                            data-state-name="title"
+                                            onChange={this.handleChange} />
+                                    </div>
+                                    <div>
+                                        <select
+                                            data-state-name="target"
+                                            onChange={this.handleChange}>
+                                            <option value="_self">Abrir na mesma janela</option>
+                                            <option value="_blank">Abrir em outra janela</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                {(this.state.currentLink) &&
+                                    <div>
+                                        <button onClick={() => { this.handleAddLink() }}>Add link</button>
                                     </div>
                                 }
                             </div>
