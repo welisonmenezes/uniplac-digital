@@ -25,7 +25,13 @@ class RichEditor extends Component {
         super(props);
         this.quillRef = null;
         this.reactQuillRef = null;
-        this.state = { text: '', currentImage: null };
+        this.state = {
+            text: '',
+            currentImage: null,
+            width: 'auto',
+            height: 'auto',
+            position: 'left'
+        };
         this.handleEditorChange = this.handleEditorChange.bind(this);
         self = this;
     }
@@ -43,18 +49,18 @@ class RichEditor extends Component {
         this.quillRef = this.reactQuillRef.getEditor();
     }
 
-    handleEditorChange(value) {
-        this.setState({ text: value });
-    }
-
     insertImageIntoEditor(editor) {
         editor.focus();
-        const img = `<img src="${this.state.currentImage}" alt="test" style="width:200;float: none;" />`;
+        const width = this.state.width + 'px';
+        const height = this.state.height + 'px';
+        const position = (this.state.position === 'left') ? 'left' : 'right';
+        const img = `<img src="${this.state.currentImage}" alt="test" width="${this.state.width}" height="auto" />`;
         const replaced = '##$$image$$##';
         const index = editor.getSelection().index;
         editor.insertText(index, replaced);
         let content = editor.root.innerHTML;
         content = content.replace(replaced, img);
+        console.log(content)
         this.setState({text: content, currentImage: null});
         const el = document.getElementById('ImageEditor');
         el.classList.remove('opened');
@@ -62,6 +68,22 @@ class RichEditor extends Component {
 
     handleAddImage() {
         this.insertImageIntoEditor(this.quillRef);
+    }
+
+    handleEditorChange(value) {
+        this.setState({ text: value });
+    }
+
+    handleChangeWidth(e) {
+        self.setState({ width: e.target.value });
+    }
+
+    handleChangeHeight(e) {
+        self.setState({ height: e.target.value });
+    }
+
+    handleChangePosition(e) {
+        self.setState({ position: e.target.value });
     }
 
     encodeImageFileAsURL() {
@@ -100,7 +122,32 @@ class RichEditor extends Component {
                         </div>
                         <div className="col-md-6">
                             form config
-                            <button onClick={() => { this.handleAddImage() }}>Add image</button>
+                            <div>
+                                <div>
+                                    <input 
+                                        type="number"
+                                        placeholder="Largura"
+                                        onChange={ this.handleChangeWidth } />
+                                </div>
+                                <div>
+                                    <input
+                                        type="number"
+                                        placeholder="Largura"
+                                        onChange={ this.handleChangeHeight } />
+                                </div>
+                            </div>
+                            <div>
+                                <select onChange={ this.handleChangePosition }>
+                                    <option value="left">Esquerda</option>
+                                    <option value="center">Centralizado</option>
+                                    <option value="right">Direita</option>
+                                </select>
+                            </div>
+                            { (this.state.currentImage) &&
+                                <div>
+                                    <button onClick={() => { this.handleAddImage() }}>Add image</button>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
