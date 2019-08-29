@@ -5,6 +5,31 @@ import './RichEditor.css';
 
 import Toolbar from './Toolbar';
 
+const EmbedBlot = ReactQuill.Quill.import('blots/block/embed');
+
+class MyImage extends EmbedBlot{
+    static create(value) {
+        console.log('value', value)
+        if (typeof value === 'string') {
+            var node =  super.create(value);
+            node.setAttribute('src', 'https://www.hostinger.com.br/tutoriais/wp-content/uploads/sites/12/2018/03/o-que-e-html.png');
+            node.style.float = 'right';
+            return node;
+        } else {
+            return super.create(value);
+        }
+    }
+
+    static value(node) {
+        return {node: node};
+    }
+}
+MyImage.blotName = 'myimage';
+MyImage.tagName = 'img';
+//MyImage.className = 'myimage';
+ReactQuill.Quill.register('formats/myimage', MyImage);
+
+
 
 class RichEditor extends Component {
 
@@ -15,8 +40,14 @@ class RichEditor extends Component {
         'container': '#toolbar',
         'handlers': {
             'audio': function (value) {
-                const el = document.getElementById('ImageEditor');
-                el.classList.add('opened');
+                var range = this.quill.getSelection();
+                console.log('range; ', range)
+                if (range) {      
+                    this.quill.insertEmbed(range.index, 'myimage', 'https://www.hostinger.com.br/tutoriais/wp-content/uploads/sites/12/2018/03/o-que-e-html.png');
+                }
+                
+                //const el = document.getElementById('ImageEditor');
+                //el.classList.add('opened');
             }
         }
     };
