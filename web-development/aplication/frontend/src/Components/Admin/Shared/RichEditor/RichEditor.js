@@ -2,32 +2,10 @@ import React, { Component } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './RichEditor.css';
-
+import { IsInt, OpenFullscreen, CloseFullscreen } from '../../../../Utils/Utils';
 import Toolbar from './Toolbar';
+import './MyImage';
 
-const EmbedBlot = ReactQuill.Quill.import('blots/block/embed');
-
-class MyImage extends EmbedBlot{
-    static create(value) {
-        console.log('value', value)
-        if (typeof value === 'string') {
-            var node =  super.create(value);
-            node.setAttribute('src', 'https://www.hostinger.com.br/tutoriais/wp-content/uploads/sites/12/2018/03/o-que-e-html.png');
-            node.style.float = 'right';
-            return node;
-        } else {
-            return super.create(value);
-        }
-    }
-
-    static value(node) {
-        return {node: node};
-    }
-}
-MyImage.blotName = 'myimage';
-MyImage.tagName = 'img';
-//MyImage.className = 'myimage';
-ReactQuill.Quill.register('formats/myimage', MyImage);
 
 
 
@@ -40,14 +18,10 @@ class RichEditor extends Component {
         'container': '#toolbar',
         'handlers': {
             'audio': function (value) {
-                var range = this.quill.getSelection();
-                console.log('range; ', range)
-                if (range) {      
-                    this.quill.insertEmbed(range.index, 'myimage', 'https://www.hostinger.com.br/tutoriais/wp-content/uploads/sites/12/2018/03/o-que-e-html.png');
-                }
-                
-                //const el = document.getElementById('ImageEditor');
-                //el.classList.add('opened');
+                self.toggleImagePanel();
+            },
+            'fullscreen': function (value) {
+                self.openFullscreen();
             }
         }
     };
@@ -61,7 +35,7 @@ class RichEditor extends Component {
             currentImage: null,
             width: 'auto',
             height: 'auto',
-            position: 'left'
+            position: 'normal'
         };
         this.handleEditorChange = this.handleEditorChange.bind(this);
         self = this;
@@ -82,19 +56,11 @@ class RichEditor extends Component {
 
     insertImageIntoEditor(editor) {
         editor.focus();
-        const width = this.state.width + 'px';
-        const height = this.state.height + 'px';
-        const position = (this.state.position === 'left') ? 'left' : 'right';
-        const img = `<img src="${this.state.currentImage}" alt="test" width="${this.state.width}" height="auto" />`;
-        const replaced = '##$$image$$##';
-        const index = editor.getSelection().index;
-        editor.insertText(index, replaced);
-        let content = editor.root.innerHTML;
-        content = content.replace(replaced, img);
-        console.log(content)
-        this.setState({text: content, currentImage: null});
-        const el = document.getElementById('ImageEditor');
-        el.classList.remove('opened');
+        var range = editor.getSelection();
+        if (range) {
+            editor.insertEmbed(range.index, 'myimage', this.getImageConfigurations());
+        }
+        this.toggleImagePanel();
     }
 
     handleAddImage() {
@@ -117,12 +83,55 @@ class RichEditor extends Component {
         self.setState({ position: e.target.value });
     }
 
+    openFullscreen() {
+        const el = document.querySelector('.RichEditor');
+        if (el.classList.contains('is-fullscreen')) {
+            CloseFullscreen();
+            el.classList.remove('is-fullscreen');
+        } else {
+            OpenFullscreen(el);
+            el.classList.add('is-fullscreen');
+        }
+        
+    }
+
+    resetImageFields() {
+        this.setState({
+            currentImage: null,
+            width: 'auto',
+            height: 'auto',
+            position: 'normal'
+        });
+        document.getElementById('RichEditorInputFile').value = null;
+    }
+
+    toggleImagePanel() {
+        const el = document.getElementById('ImageEditor');
+        if (el.classList.contains('opened')) {
+            el.classList.remove('opened');
+            self.resetImageFields();
+        } else {
+            el.classList.add('opened');
+        }
+    }
+
+    getImageConfigurations() {
+        let width = (IsInt(this.state.width)) ? this.state.width + 'px' : 'auto';
+        let height = (IsInt(this.state.height)) ? + this.state.height + 'px' : 'auto';
+        return {
+            width,
+            height,
+            position: this.state.position,
+            url: this.state.currentImage
+        };
+    }
+
     encodeImageFileAsURL() {
         var element = document.getElementById('RichEditorInputFile');
         var file = element.files[0];
         var reader = new FileReader();
         reader.onloadend = function () {
-            self.setState({currentImage: reader.result});
+            self.setState({ currentImage: reader.result });
             document.getElementById('RichEditorImage').src = reader.result;
         }
         reader.readAsDataURL(file);
@@ -142,43 +151,46 @@ class RichEditor extends Component {
                     onChange={this.handleEditorChange} />
 
                 <div id="ImageEditor">
-                    <div className="row">
-                        <div className="col-md-6">
-                            <input type="file" id="RichEditorInputFile" name="files" onChange={() => { this.encodeImageFileAsURL() }} />
-                            <div>
-                                { (this.state.currentImage) &&
-                                    <img id="RichEditorImage" src="" alt="Preview da imagem" />
+                    <div>
+                        <button onClick={this.toggleImagePanel}>Cancelar</button>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <input type="file" id="RichEditorInputFile" name="files" onChange={() => { this.encodeImageFileAsURL() }} />
+                                <div>
+                                    {(this.state.currentImage) &&
+                                        <img id="RichEditorImage" src="" alt="Preview da imagem" />
+                                    }
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div>
+                                    <div>
+                                        <input
+                                            type="number"
+                                            placeholder="Largura"
+                                            onChange={this.handleChangeWidth} />
+                                    </div>
+                                    <div>
+                                        <input
+                                            type="number"
+                                            placeholder="Largura"
+                                            onChange={this.handleChangeHeight} />
+                                    </div>
+                                </div>
+                                <div>
+                                    <select onChange={this.handleChangePosition}>
+                                        <option value="normal">Normal</option>
+                                        <option value="left">Esquerda</option>
+                                        <option value="center">Centralizado</option>
+                                        <option value="right">Direita</option>
+                                    </select>
+                                </div>
+                                {(this.state.currentImage) &&
+                                    <div>
+                                        <button onClick={() => { this.handleAddImage() }}>Add image</button>
+                                    </div>
                                 }
                             </div>
-                        </div>
-                        <div className="col-md-6">
-                            form config
-                            <div>
-                                <div>
-                                    <input 
-                                        type="number"
-                                        placeholder="Largura"
-                                        onChange={ this.handleChangeWidth } />
-                                </div>
-                                <div>
-                                    <input
-                                        type="number"
-                                        placeholder="Largura"
-                                        onChange={ this.handleChangeHeight } />
-                                </div>
-                            </div>
-                            <div>
-                                <select onChange={ this.handleChangePosition }>
-                                    <option value="left">Esquerda</option>
-                                    <option value="center">Centralizado</option>
-                                    <option value="right">Direita</option>
-                                </select>
-                            </div>
-                            { (this.state.currentImage) &&
-                                <div>
-                                    <button onClick={() => { this.handleAddImage() }}>Add image</button>
-                                </div>
-                            }
                         </div>
                     </div>
                 </div>

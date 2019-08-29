@@ -12,6 +12,10 @@
 .RichEditor{
     height: 100vh;
     position: relative;
+    background: #ffffff;
+}
+.RichEditor.is-fullscreen .ql-editor{
+    height: 100vh;
 }
 #ImageEditor{
     overflow: hidden;

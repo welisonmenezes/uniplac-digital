@@ -55,6 +55,7 @@ class Toolbar extends Component {
             </span>
             <span className='ql-formats'>
               <button className='ql-clean'></button>
+              <button className='ql-fullscreen' value='fullscreen'>fullscreen</button>
             </span>
           </div>
         );
