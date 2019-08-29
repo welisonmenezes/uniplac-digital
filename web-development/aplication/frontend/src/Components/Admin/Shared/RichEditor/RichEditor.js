@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './RichEditor.css';
-import { IsInt, OpenFullscreen, CloseFullscreen, GetYoutubeVideoId } from '../../../../Utils/Utils';
+import {
+    IsInt,
+    OpenFullscreen,
+    CloseFullscreen,
+    GetYoutubeVideoId,
+    GetFileExtension } from '../../../../Utils/Utils';
 import Toolbar from './Toolbar';
 import './MyImage';
 import './MyVideo';
@@ -183,12 +188,19 @@ class RichEditor extends Component {
     encodeImageFileAsURL() {
         var element = document.getElementById('RichEditorInputFile');
         var file = element.files[0];
-        var reader = new FileReader();
-        reader.onloadend = function () {
-            self.setState({ currentImage: reader.result });
-            document.getElementById('RichEditorImage').src = reader.result;
+        const extension = GetFileExtension(file.name).toLowerCase();
+        const accepts = element.getAttribute('accept').split(',');
+        if (accepts.indexOf('.' + extension) > -1) {
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                self.setState({ currentImage: reader.result });
+                document.getElementById('RichEditorImage').src = reader.result;
+            }
+            reader.readAsDataURL(file);
+        } else {
+            element.value = null;
+            alert('Tipo de arquivo inválido. Apenas imagem.');
         }
-        reader.readAsDataURL(file);
     }
 
     render() {
@@ -205,7 +217,12 @@ class RichEditor extends Component {
                         <button onClick={this.toggleImagePanel}>Cancelar</button>
                         <div className="row">
                             <div className="col-md-6">
-                                <input type="file" id="RichEditorInputFile" name="files" onChange={() => { this.encodeImageFileAsURL() }} />
+                                <input
+                                    type="file"
+                                    id="RichEditorInputFile"
+                                    name="files"
+                                    accept=".jpg,.jpeg,.png,.gif"
+                                    onChange={() => { this.encodeImageFileAsURL() }} />
                                 <div>
                                     {(this.state.currentImage) &&
                                         <img id="RichEditorImage" src="" alt="Preview da imagem" />
