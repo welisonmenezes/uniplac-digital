@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
-//import AudioIcon from './images/speaker.svg';
+import icoYoutube from './images/youtube.svg';
+import icoSoundcloud from './images/soundcloud.svg';
+import icoImage from './images/image.svg';
+import icoFullscreen from './images/fullscreen.svg';
 
 class Toolbar extends Component {
     render() {
@@ -47,21 +50,21 @@ class Toolbar extends Component {
               <button className='ql-link'></button>
             </span>
             <span className='ql-formats'>
-              <button className='ql-image'></button>
-              <button className='ql-video'></button>
               <button className='ql-my-image' value='my-image'>
-                I
+                <img src={icoImage} alt="ico" />
               </button>
               <button className='ql-my-video' value='my-video'>
-                V
+                <img src={icoYoutube} alt="youtube" />
               </button>
               <button className='ql-my-audio' value='my-audio'>
-                A
+                <img src={icoSoundcloud} alt="soundcloud" />
               </button>
             </span>
             <span className='ql-formats'>
               <button className='ql-clean'></button>
-              <button className='ql-fullscreen' value='fullscreen'>fullscreen</button>
+              <button className='ql-fullscreen' value='fullscreen'>
+                <img src={icoFullscreen} alt="ico" />
+              </button>
             </span>
           </div>
         );
