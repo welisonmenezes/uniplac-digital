@@ -246,41 +246,49 @@ class RichEditor extends Component {
                     onChange={this.handleEditorChange} />
                 <div id="ImageEditor" className="configuration-panel image">
                     <div>
-                        <button onClick={() => this.toggleConfigurationPanel('image') }>Cancelar</button>
+                        <button className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('image') }>Cancelar</button>
                         <div className="row">
                             <div className="col-md-6">
-                                <input
-                                    type="file"
-                                    id="RichEditorInputFile"
-                                    name="files"
-                                    accept=".jpg,.jpeg,.png,.gif"
-                                    onChange={() => { this.handleFakeUploadImage() }} />
-                                <div>
+                                <div className="form-group">
+                                    <label>Selecione uma imagem:</label>
+                                    <input
+                                        type="file"
+                                        id="RichEditorInputFile"
+                                        name="files"
+                                        accept=".jpg,.jpeg,.png,.gif"
+                                        className="form-control"
+                                        onChange={() => { this.handleFakeUploadImage() }} />
+                                </div>
+                                <div className="form-group">
                                     {(this.state.currentImage) &&
                                         <img id="previewImage" src={this.state.currentImage} alt="Preview da imagem" />
                                     }
                                 </div>
                             </div>
                             <div className="col-md-6">
-                                <div>
-                                    <div>
+                                <div className="row">
+                                    <div className="form-grou col-md-6">
+                                        <label>Informe a largura:</label>
                                         <input
                                             type="number"
-                                            placeholder="Largura"
                                             data-state-name="width"
+                                            className="form-control"
                                             onChange={this.handleChange} />
                                     </div>
-                                    <div>
+                                    <div className="form-group col-md-6">
+                                        <label>Informe a altura:</label>
                                         <input
                                             type="number"
-                                            placeholder="Largura"
                                             data-state-name="height"
+                                            className="form-control"
                                             onChange={this.handleChange} />
                                     </div>
                                 </div>
-                                <div>
+                                <div className="form-group">
+                                    <label>Selecione o posicionamento:</label>
                                     <select
                                         data-state-name="position"
+                                        className="form-control"
                                         onChange={this.handleChange}>
                                         <option value="normal">Normal</option>
                                         <option value="left">Esquerda</option>
@@ -289,8 +297,8 @@ class RichEditor extends Component {
                                     </select>
                                 </div>
                                 {(this.state.currentImage) &&
-                                    <div>
-                                        <button onClick={() => { this.handleAddImage() }}>Add image</button>
+                                    <div className="form-group">
+                                        <button className="btn btn-primary" onClick={() => { this.handleAddImage() }}>Add image</button>
                                     </div>
                                 }
                             </div>
@@ -299,15 +307,22 @@ class RichEditor extends Component {
                 </div>
                 <div id="VideoEditor" className="configuration-panel video">
                     <div>
-                        <button onClick={() => this.toggleConfigurationPanel('video') }>Cancelar</button>
+                        <button className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('video') }>Cancelar</button>
                         <div className="row">
                             <div className="col-md-6">
-                                <input
-                                    type="text"
-                                    id="RichEditorFieldVideo"
-                                    data-state-name="currentVideo"
-                                    onChange={this.handleChange} />
-                                <div>
+                                <div className="form-group">
+                                    <label>
+                                        Informe a URL do vídeo: <br />
+                                        <small><b>Apenas vídeos do Youtube</b></small>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="RichEditorFieldVideo"
+                                        data-state-name="currentVideo"
+                                        className="form-control"
+                                        onChange={this.handleChange} />
+                                </div>
+                                <div className="form-group">
                                     <Iframe iframe={'<iframe src="" id="previewVideo"></iframe>'} />
                                     {(this.state.currentVideo && GetYoutubeVideoId(this.state.currentVideo)) &&
                                         <div>
@@ -324,25 +339,29 @@ class RichEditor extends Component {
                                 </div>
                             </div>
                             <div className="col-md-6">
-                                <div>
-                                    <div>
+                                <div className="row">
+                                    <div className="form-group col-md-6">
+                                        <label>Informe a largura:</label>
                                         <input
                                             type="number"
-                                            placeholder="Largura"
                                             data-state-name="width"
+                                            className="form-control"
                                             onChange={this.handleChange} />
                                     </div>
-                                    <div>
+                                    <div className="form-group col-md-6">
+                                        <label>Informe a altura:</label>
                                         <input
                                             type="number"
-                                            placeholder="Largura"
                                             data-state-name="height"
+                                            className="form-control"
                                             onChange={this.handleChange} />
                                     </div>
                                 </div>
-                                <div>
+                                <div className="form-group">
+                                    <label>Informe o posicionamento:</label>
                                     <select 
                                         data-state-name="position"
+                                        className="form-control"
                                         onChange={this.handleChange}>
                                         <option value="normal">Normal</option>
                                         <option value="left">Esquerda</option>
@@ -351,8 +370,8 @@ class RichEditor extends Component {
                                     </select>
                                 </div>
                                 {(this.state.currentVideo && GetYoutubeVideoId(this.state.currentVideo)) &&
-                                    <div>
-                                        <button onClick={() => { this.handleAddVideo() }}>Add vídeo</button>
+                                    <div className="form-group">
+                                        <button className="btn btn-primary" onClick={() => { this.handleAddVideo() }}>Add vídeo</button>
                                     </div>
                                 }
                             </div>
@@ -361,15 +380,22 @@ class RichEditor extends Component {
                 </div>
                 <div id="AudioEditor" className="configuration-panel audio">
                     <div>
-                        <button onClick={() => this.toggleConfigurationPanel('audio') }>Cancelar</button>
+                        <button className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('audio') }>Cancelar</button>
                         <div className="row">
                             <div className="col-md-6">
-                                <input
-                                    type="text"
-                                    id="RichEditorFieldAudio"
-                                    data-state-name="currentAudio"
-                                    onChange={this.handleChange} />
-                                <div>
+                                <div className="form-group">
+                                    <label>
+                                        Informe a URL do áudio: <br />
+                                        <small><b>Apenas áudios do Soundcloud</b></small>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        id="RichEditorFieldAudio"
+                                        data-state-name="currentAudio"
+                                        className="form-control"
+                                        onChange={this.handleChange} />
+                                </div>
+                                <div className="form-group">
                                     <Iframe iframe={'<iframe src="" id="previewAudio"></iframe>'} />
                                     {(this.state.currentAudio) && IsSoundCloudUrl(this.state.currentAudio) &&
                                         <div>
@@ -386,25 +412,29 @@ class RichEditor extends Component {
                                 </div>
                             </div>
                             <div className="col-md-6">
-                                <div>
-                                    <div>
+                                <div className="row">
+                                    <div className="form-group col-md-6">
+                                        <label>Informe a largura:</label>
                                         <input
                                             type="number"
-                                            placeholder="Largura"
                                             data-state-name="width"
+                                            className="form-control"
                                             onChange={this.handleChange} />
                                     </div>
-                                    <div>
+                                    <div className="form-group col-md-6">
+                                        <label>Informe a altura:</label>
                                         <input
                                             type="number"
-                                            placeholder="Largura"
                                             data-state-name="height"
+                                            className="form-control"
                                             onChange={this.handleChange} />
                                     </div>
                                 </div>
-                                <div>
+                                <div className="form-group">
+                                    <label>Informe o posicionamento:</label>
                                     <select
                                         data-state-name="position"
+                                        className="form-control"
                                         onChange={this.handleChange}>
                                         <option value="normal">Normal</option>
                                         <option value="left">Esquerda</option>
@@ -413,8 +443,8 @@ class RichEditor extends Component {
                                     </select>
                                 </div>
                                 {(this.state.currentAudio) &&
-                                    <div>
-                                        <button onClick={() => { this.handleAddAudio() }}>Add audio</button>
+                                    <div className="form-group">
+                                        <button className="btn btn-primary" onClick={() => { this.handleAddAudio() }}>Add audio</button>
                                     </div>
                                 }
                             </div>
@@ -423,45 +453,45 @@ class RichEditor extends Component {
                 </div>
                 <div id="LinkEditor" className="configuration-panel link">
                     <div>
-                        <button onClick={() => this.toggleConfigurationPanel('link') }>Cancelar</button>
+                        <button className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('link') }>Cancelar</button>
                         <div className="row">
                             <div className="col-md-6">
                                 <div>
-                                    <div>
+                                    <div className="form-group">
+                                        <label>Informe a URL:</label>
                                         <input
                                             type="text"
                                             id="RichEditorFieldLink"
                                             data-state-name="currentLink"
+                                            className="form-control"
                                             onChange={this.handleChange} />
-                                        <div>
-                                            {(this.state.currentLink) &&
-                                                <p>link here</p>
-                                            }
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-6">
                                 <div>
-                                    <div>
+                                    <div className="form-group">
+                                        <label>Informe o título:</label>
                                         <input
                                             type="text"
-                                            placeholder="Título"
                                             data-state-name="title"
+                                            className="form-control"
                                             onChange={this.handleChange} />
                                     </div>
-                                    <div>
+                                    <div className="form-group">
+                                        <label>Informe em qual janela abrir:</label>
                                         <select
                                             data-state-name="target"
+                                            className="form-control"
                                             onChange={this.handleChange}>
                                             <option value="_self">Abrir na mesma janela</option>
                                             <option value="_blank">Abrir em outra janela</option>
                                         </select>
                                     </div>
                                 </div>
-                                {(this.state.currentLink) &&
+                                {(this.state.currentLink) && IsAnUrl(this.state.currentLink) &&
                                     <div>
-                                        <button onClick={() => { this.handleAddLink() }}>Add link</button>
+                                        <button className="btn btn-primary" onClick={() => { this.handleAddLink() }}>Add link</button>
                                     </div>
                                 }
                             </div>
