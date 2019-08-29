@@ -116,6 +116,7 @@ class RichEditor extends Component {
 
     handleEditorChange(value) {
         this.setState({ text: value });
+        this.props.parentGettingTheEditorValue(this.state.text);
     }
 
     handleChangeWidth(e) {

@@ -5,13 +5,17 @@ import RichEditor from '../Shared/RichEditor/RichEditor';
 
 class Dashboard extends Component {
 
+  getEditorValue = (editorValue) => {
+    console.log('RichEditor Data: ', editorValue);
+  };
+
   render() {
     return (
       <div className="Dashboard">
         <Navigation></Navigation>
         <h1>Dashboard</h1>
         <hr />
-        <RichEditor />
+        <RichEditor parentGettingTheEditorValue={this.getEditorValue} />
       </div>
     );
   }
