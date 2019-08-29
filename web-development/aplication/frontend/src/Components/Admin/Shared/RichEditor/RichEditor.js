@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './RichEditor.css';
-import { IsInt, OpenFullscreen, CloseFullscreen } from '../../../../Utils/Utils';
+import { IsInt, OpenFullscreen, CloseFullscreen, GetYoutubeVideoId } from '../../../../Utils/Utils';
 import Toolbar from './Toolbar';
 import './MyImage';
-
-
-
+import './MyVideo';
 
 class RichEditor extends Component {
 
@@ -17,8 +15,11 @@ class RichEditor extends Component {
     toolbarConfig = {
         'container': '#toolbar',
         'handlers': {
-            'audio': function (value) {
+            'my-image': function (value) {
                 self.toggleImagePanel();
+            },
+            'my-video': function (value) {
+                self.toggleVideoPanel();
             },
             'fullscreen': function (value) {
                 self.openFullscreen();
@@ -33,6 +34,7 @@ class RichEditor extends Component {
         this.state = {
             text: '',
             currentImage: null,
+            currentVideo: null,
             width: 'auto',
             height: 'auto',
             position: 'normal'
@@ -63,8 +65,25 @@ class RichEditor extends Component {
         this.toggleImagePanel();
     }
 
+    insertVideoIntoEditor(editor) {
+        editor.focus();
+        var range = editor.getSelection();
+        if (range) {
+            editor.insertEmbed(range.index, 'myvideo', this.getVideoConfigurations());
+        }
+        this.toggleVideoPanel();
+    }
+
     handleAddImage() {
         this.insertImageIntoEditor(this.quillRef);
+    }
+
+    handleAddVideo() {
+        if ((GetYoutubeVideoId(this.state.currentVideo))){
+            this.insertVideoIntoEditor(this.quillRef);
+        } else {
+            alert('Apenas vídeos do youtube');
+        }
     }
 
     handleEditorChange(value) {
@@ -81,6 +100,10 @@ class RichEditor extends Component {
 
     handleChangePosition(e) {
         self.setState({ position: e.target.value });
+    }
+
+    handleVideoUrl(e) {
+        self.setState({ currentVideo: e.target.value });
     }
 
     openFullscreen() {
@@ -105,11 +128,31 @@ class RichEditor extends Component {
         document.getElementById('RichEditorInputFile').value = null;
     }
 
+    resetVideoFields() {
+        this.setState({
+            currentVideo: null,
+            width: 'auto',
+            height: 'auto',
+            position: 'normal'
+        });
+        document.getElementById('RichEditorFieldVideo').value = null;
+    }
+
     toggleImagePanel() {
         const el = document.getElementById('ImageEditor');
         if (el.classList.contains('opened')) {
             el.classList.remove('opened');
             self.resetImageFields();
+        } else {
+            el.classList.add('opened');
+        }
+    }
+
+    toggleVideoPanel() {
+        const el = document.getElementById('VideoEditor');
+        if (el.classList.contains('opened')) {
+            el.classList.remove('opened');
+            self.resetVideoFields();
         } else {
             el.classList.add('opened');
         }
@@ -126,6 +169,17 @@ class RichEditor extends Component {
         };
     }
 
+    getVideoConfigurations() {
+        let width = (IsInt(this.state.width)) ? this.state.width + 'px' : 'auto';
+        let height = (IsInt(this.state.height)) ? + this.state.height + 'px' : 'auto';
+        return {
+            width,
+            height,
+            position: this.state.position,
+            url: this.state.currentVideo
+        };
+    }
+
     encodeImageFileAsURL() {
         var element = document.getElementById('RichEditorInputFile');
         var file = element.files[0];
@@ -139,17 +193,13 @@ class RichEditor extends Component {
 
     render() {
         return (
-
             <div className='RichEditor'>
-
                 <Toolbar />
-
                 <ReactQuill
                     ref={(el) => { this.reactQuillRef = el }}
                     value={this.state.text}
                     modules={{ toolbar: this.toolbarConfig }}
                     onChange={this.handleEditorChange} />
-
                 <div id="ImageEditor">
                     <div>
                         <button onClick={this.toggleImagePanel}>Cancelar</button>
@@ -194,10 +244,53 @@ class RichEditor extends Component {
                         </div>
                     </div>
                 </div>
+                <div id="VideoEditor">
+                    <div>
+                        <button onClick={this.toggleVideoPanel}>Cancelar</button>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <input type="text" id="RichEditorFieldVideo" onChange={this.handleVideoUrl} />
+                                <div>
+                                    {(this.state.currentVideo) &&
+                                        <p>video here</p>
+                                    }
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div>
+                                    <div>
+                                        <input
+                                            type="number"
+                                            placeholder="Largura"
+                                            onChange={this.handleChangeWidth} />
+                                    </div>
+                                    <div>
+                                        <input
+                                            type="number"
+                                            placeholder="Largura"
+                                            onChange={this.handleChangeHeight} />
+                                    </div>
+                                </div>
+                                <div>
+                                    <select onChange={this.handleChangePosition}>
+                                        <option value="normal">Normal</option>
+                                        <option value="left">Esquerda</option>
+                                        <option value="center">Centralizado</option>
+                                        <option value="right">Direita</option>
+                                    </select>
+                                </div>
+                                {(this.state.currentVideo) &&
+                                    <div>
+                                        <button onClick={() => { this.handleAddVideo() }}>Add vídeo</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
 }
-
 
 export default RichEditor;

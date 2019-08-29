@@ -49,8 +49,11 @@ class Toolbar extends Component {
             <span className='ql-formats'>
               <button className='ql-image'></button>
               <button className='ql-video'></button>
-              <button className='ql-audio' value='audio'>
+              <button className='ql-my-image' value='my-image'>
                 <img  src={AudioIcon}  alt='' />
+              </button>
+              <button className='ql-my-video' value='my-video'>
+                V
               </button>
             </span>
             <span className='ql-formats'>
