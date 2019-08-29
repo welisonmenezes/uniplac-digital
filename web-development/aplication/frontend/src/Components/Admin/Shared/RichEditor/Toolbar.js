@@ -45,10 +45,10 @@ class Toolbar extends Component {
             </span>
             <span className='ql-formats'>
               <select className='ql-color ql-picker ql-color-picker'>
-                { this.colors.map(color => <option value={color}></option>) }
+                { this.colors.map(color => <option value={color} key={color}></option>) }
               </select>
               <select className='ql-background ql-picker ql-color-picker'>
-                { this.colors.map(color => <option value={color}></option>) }
+                { this.colors.map(color => <option value={color} key={color}></option>) }
               </select>
             </span>
             <span className='ql-formats'>

@@ -39,3 +39,11 @@
 .configuration-panel.opened{
     height: 100vh;
 }
+
+.RichEditor iframe[src=""]{
+    display: none;
+}
+
+.RichEditor .hide{
+    display: none;
+}

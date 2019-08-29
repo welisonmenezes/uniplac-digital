@@ -9,12 +9,17 @@ import {
     GetYoutubeVideoId,
     GetFileExtension,
     IsSoundCloudUrl,
-    IsAnUrl } from '../../../../Utils/Utils';
+    IsAnUrl,
+    CreateYoutubeIframe } from '../../../../Utils/Utils';
 import Toolbar from './Toolbar';
 import './MyImage';
 import './MyVideo';
 import './MyAudio';
 import './MyLink';
+
+function Iframe(props) {
+    return (<div dangerouslySetInnerHTML={ {__html:  props.iframe?props.iframe:""}} />);
+  }
 
 class RichEditor extends Component {
 
@@ -303,8 +308,15 @@ class RichEditor extends Component {
                                     data-state-name="currentVideo"
                                     onChange={this.handleChange} />
                                 <div>
-                                    {(this.state.currentVideo) &&
-                                        <p>video here</p>
+                                    <Iframe iframe={'<iframe src="" id="previewVideo"></iframe>'} />
+                                    {(this.state.currentVideo && GetYoutubeVideoId(this.state.currentVideo)) &&
+                                        <div>
+                                            { CreateYoutubeIframe(document.getElementById('previewVideo'), this.getConfigurations()) }
+                                        </div>
+                                        
+                                    }
+                                    {(!GetYoutubeVideoId(this.state.currentVideo)) && 
+                                        <div className="hide">{ (setTimeout(() => {document.getElementById('previewVideo').setAttribute('src','')}, 1)) }</div>
                                     }
                                 </div>
                             </div>
@@ -335,7 +347,7 @@ class RichEditor extends Component {
                                         <option value="right">Direita</option>
                                     </select>
                                 </div>
-                                {(this.state.currentVideo) &&
+                                {(this.state.currentVideo && GetYoutubeVideoId(this.state.currentVideo)) &&
                                     <div>
                                         <button onClick={() => { this.handleAddVideo() }}>Add vídeo</button>
                                     </div>
