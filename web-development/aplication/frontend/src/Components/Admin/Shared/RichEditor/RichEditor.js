@@ -10,7 +10,8 @@ import {
     GetFileExtension,
     IsSoundCloudUrl,
     IsAnUrl,
-    CreateYoutubeIframe } from '../../../../Utils/Utils';
+    CreateYoutubeIframe,
+    CreateSoundCloudIframe } from '../../../../Utils/Utils';
 import Toolbar from './Toolbar';
 import './MyImage';
 import './MyVideo';
@@ -125,7 +126,6 @@ class RichEditor extends Component {
             const reader = new FileReader();
             reader.onloadend = function () {
                 self.setState({ currentImage: reader.result });
-                document.getElementById('RichEditorImage').src = reader.result;
             }
             reader.readAsDataURL(file);
         } else {
@@ -257,7 +257,7 @@ class RichEditor extends Component {
                                     onChange={() => { this.handleFakeUploadImage() }} />
                                 <div>
                                     {(this.state.currentImage) &&
-                                        <img id="RichEditorImage" src="" alt="Preview da imagem" />
+                                        <img id="previewImage" src={this.state.currentImage} alt="Preview da imagem" />
                                     }
                                 </div>
                             </div>
@@ -313,10 +313,13 @@ class RichEditor extends Component {
                                         <div>
                                             { CreateYoutubeIframe(document.getElementById('previewVideo'), this.getConfigurations()) }
                                         </div>
-                                        
                                     }
                                     {(!GetYoutubeVideoId(this.state.currentVideo)) && 
-                                        <div className="hide">{ (setTimeout(() => {document.getElementById('previewVideo').setAttribute('src','')}, 1)) }</div>
+                                        <div className="hide">{ (setTimeout(() => {
+                                            if (document.getElementById('previewVideo')) {
+                                                document.getElementById('previewVideo').setAttribute('src','')
+                                            }
+                                        }, 1)) }</div>
                                     }
                                 </div>
                             </div>
@@ -367,8 +370,18 @@ class RichEditor extends Component {
                                     data-state-name="currentAudio"
                                     onChange={this.handleChange} />
                                 <div>
-                                    {(this.state.currentAudio) &&
-                                        <p>audio here</p>
+                                    <Iframe iframe={'<iframe src="" id="previewAudio"></iframe>'} />
+                                    {(this.state.currentAudio) && IsSoundCloudUrl(this.state.currentAudio) &&
+                                        <div>
+                                            { CreateSoundCloudIframe(document.getElementById('previewAudio'), this.getConfigurations()) }
+                                        </div>
+                                    }
+                                    {(!IsSoundCloudUrl(this.state.currentAudio)) && 
+                                        <div className="hide">{ (setTimeout(() => {
+                                            if (document.getElementById('previewAudio')) {
+                                                document.getElementById('previewAudio').setAttribute('src','')
+                                            }
+                                        }, 1)) }</div>
                                     }
                                 </div>
                             </div>

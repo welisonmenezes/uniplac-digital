@@ -84,3 +84,28 @@ export const CreateYoutubeIframe = (node, config, mustReturn) => {
         return node;
     }
 };
+
+export const CreateSoundCloudIframe = (node, config, mustReturn) => {
+    const scUlr = `https://w.soundcloud.com/player/?url=${encodeURI(config.audioUrl)}`;
+    node.setAttribute('src', scUlr);
+    node.style.width = config.width;
+    node.style.height = config.height;
+    switch (config.position) {
+        case 'left':
+            node.style.float = config.position;
+            break;
+        case 'right':
+            node.style.float = config.position;
+            break;
+        case 'center':
+            node.style.marginLeft = 'auto';
+            node.style.marginRight = 'auto';
+            node.style.display = 'flex';
+            break;
+        default:
+            break;
+    }
+    if (mustReturn) {
+        return node;
+    }
+};
