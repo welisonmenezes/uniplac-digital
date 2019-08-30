@@ -1,5 +1,10 @@
 from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
 from api import api
+import sys
+sys.path.insert(0, './api/Models')
+from ImageModel import registerModels
+
 
 def create_app():
 
@@ -8,6 +13,14 @@ def create_app():
     
     # apply app configurations
     app.config.from_pyfile('config.py')
+    
+    """
+    db = SQLAlchemy(app)
+    Image = registerModels(db)
+    img = Image('img-here')
+    db.session.add(img)
+    db.session.commit()
+    """
 
     # routes all nonexistent route to /
     @app.route('/', defaults={'path': ''})

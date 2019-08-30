@@ -12,6 +12,8 @@ api = Api(api_bp)
 
 # import the resources
 from UserResource import UserResource
+from ImageResource import ImageResource
 
 # register the resources
 api.add_resource(UserResource, '/user')
+api.add_resource(ImageResource, '/image')
