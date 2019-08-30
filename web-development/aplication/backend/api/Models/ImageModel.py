@@ -1,12 +1,14 @@
-def registerModels(db):
-    class Image(db.Model):
-        id = db.Column(db.Integer, primary_key=True)
-        image = db.Column(db.Text)
+from flask_sqlalchemy import SQLAlchemy
 
-        def __init__(self, image):
-            self.image = image
+db = SQLAlchemy()
 
-        def __repr__(self):
-            return '<Image %r>' % self.image
+class Image(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    image = db.Column(db.Text)
 
-    return Image
+    def __init__(self, image):
+        self.image = image
+
+    def __repr__(self):
+        return '<Image %r>' % self.image
+
