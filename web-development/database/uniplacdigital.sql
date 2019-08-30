@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 23-Ago-2019 às 20:02
+-- Generation Time: 30-Ago-2019 às 21:03
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.2
 
@@ -41,8 +41,8 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`ID`, `Category`, `Description`) VALUES
-(1, 'Sistemas de Informação', 'Lorem ipsum'),
-(2, 'Direito', 'Lorem ipsum');
+(1, 'Sistemas de Informação', 'Conteúdo sobtre Sistemas de Informação'),
+(2, 'Engenharia', 'Conteúdo sobre Engenharia');
 
 -- --------------------------------------------------------
 
@@ -65,7 +65,7 @@ CREATE TABLE `configuration` (
 --
 
 INSERT INTO `configuration` (`ID`, `Name`, `Phone`, `Email`, `CreatedAt`, `UpdatedAt`, `UpdatedBy`) VALUES
-(1, 'Uniplac Lages', '4922333322', 'uniplac@lages.com', '2019-08-23 00:00:00', '2019-08-23 00:00:00', 1);
+(2, 'Uniplac Lages', '9999-9977', 'uniplaclages@email.com', '2019-08-30 00:00:00', '2019-08-30 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -83,7 +83,8 @@ CREATE TABLE `configurationimage` (
 --
 
 INSERT INTO `configurationimage` (`ConfigurationID`, `ImageID`) VALUES
-(1, 1);
+(2, 1),
+(2, 2);
 
 -- --------------------------------------------------------
 
@@ -93,7 +94,7 @@ INSERT INTO `configurationimage` (`ConfigurationID`, `ImageID`) VALUES
 
 CREATE TABLE `image` (
   `ID` int(11) NOT NULL,
-  `ImageData` longblob NOT NULL,
+  `ImageData` mediumtext NOT NULL,
   `CreatedAt` datetime NOT NULL,
   `UpdatedAt` datetime NOT NULL,
   `UpdatedBy` int(11) NOT NULL
@@ -104,7 +105,8 @@ CREATE TABLE `image` (
 --
 
 INSERT INTO `image` (`ID`, `ImageData`, `CreatedAt`, `UpdatedAt`, `UpdatedBy`) VALUES
-(1, 0x89504e470d0a1a0a0000000d4948445200000020000000200804000000d973b27f0000000467414d410000b18f0bfc6105000000206348524d00007a26000080840000fa00000080e8000075300000ea6000003a98000017709cba513c00000002624b47440000aa8d2332000000097048597300000ec400000ec401952b0e1b0000000774494d4507e30801021f303ccf0574000001444944415448c7a594bf4bc34014803f4d83160505155c741047ff055d6c91ee05c13fc2c9c9ff43173737a14b0517053b893f36d14504290e3a16a42608a5e7d026b9bbe4d2e4eebd2df7beef1e39de03535459a0404c1bf14bd68a084cf80d822d37dc5a10e1968204b712c8b88540c54b0baa5c2bb8a051049b8af136f5d4698f015f7479e6910e6199dbd3f9cb05bbf67894f76cbbe002c19013666441bb143eca075612419dc042f1c292abe2964aa2d8a16fa13896ff844d1721ebe08d051f3cd1c457dea7c5391d5ee9e2b39cf1fc1566b9923fd4b42ee459d8e090b7540f3fcca94e55a10f93c701ef9aa2a9b7252bb2a6719e3345709a2e4914a671dee72f16dc6515440af33e68c4977c67178c14790b658f010241602aa8114cd84847e31e302b36c98f56be6072acd243780e823e61b1bd690e9f4f970e60a84d8f452cfe03c1e14ce32e8da9dc0000002574455874646174653a63726561746500323031392d30382d30315430303a33313a34382b30323a3030185714320000002574455874646174653a6d6f6469667900323031392d30382d30315430303a33313a34382b30323a3030690aac8e0000001974455874536f667477617265007777772e696e6b73636170652e6f72679bee3c1a0000000049454e44ae426082, '2019-08-23 00:00:00', '2019-08-23 00:00:00', 1);
+(1, 'base64 here', '2019-08-30 00:00:00', '2019-08-30 00:00:00', 1),
+(2, 'base64 here', '2019-08-30 00:00:00', '2019-08-30 00:00:00', 2);
 
 -- --------------------------------------------------------
 
@@ -115,8 +117,8 @@ INSERT INTO `image` (`ID`, `ImageData`, `CreatedAt`, `UpdatedAt`, `UpdatedBy`) V
 CREATE TABLE `post` (
   `ID` int(11) NOT NULL,
   `Title` varchar(100) NOT NULL,
-  `Excerpt` varchar(255) NOT NULL,
-  `Content` longtext NOT NULL,
+  `Description` varchar(255) NOT NULL,
+  `Content` text NOT NULL,
   `ImageID` int(11) DEFAULT NULL,
   `EntryDate` datetime NOT NULL,
   `DepartureDate` datetime NOT NULL,
@@ -132,9 +134,9 @@ CREATE TABLE `post` (
 -- Extraindo dados da tabela `post`
 --
 
-INSERT INTO `post` (`ID`, `Title`, `Excerpt`, `Content`, `ImageID`, `EntryDate`, `DepartureDate`, `CreatedAt`, `UpdatedAt`, `StatusID`, `UserID`, `TypeID`, `CategoryID`) VALUES
-(2, 'Title test', 'Excerpt test', 'Content test', 1, '2019-08-23 00:00:00', '2019-08-23 00:00:00', '2019-08-23 00:00:00', '2019-08-23 00:00:00', 2, 1, 1, NULL),
-(3, 'Test two', 'Excertp test two', 'Content test two', 1, '2019-08-23 00:00:00', '2019-08-23 00:00:00', '2019-08-23 00:00:00', '2019-08-23 00:00:00', 2, 1, 1, 1);
+INSERT INTO `post` (`ID`, `Title`, `Description`, `Content`, `ImageID`, `EntryDate`, `DepartureDate`, `CreatedAt`, `UpdatedAt`, `StatusID`, `UserID`, `TypeID`, `CategoryID`) VALUES
+(3, 'Título 1', 'Descrição 1', 'Conteúdo 1', 1, '2019-08-31 00:00:00', '2019-09-27 00:00:00', '2019-08-30 00:00:00', '2019-08-30 00:00:00', 1, 1, 2, NULL),
+(4, 'Título 2', 'Descrição 2', 'Conteúdo 2', 2, '2019-08-30 00:00:00', '2019-10-05 00:00:00', '2019-08-30 00:00:00', '2019-08-30 00:00:00', 2, 2, 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -152,8 +154,10 @@ CREATE TABLE `role` (
 --
 
 INSERT INTO `role` (`ID`, `Role`) VALUES
-(1, 'Admin'),
-(2, 'Editor');
+(1, 'Administrador'),
+(2, 'Editor'),
+(3, 'Publicador'),
+(4, 'Usuário');
 
 -- --------------------------------------------------------
 
@@ -171,8 +175,8 @@ CREATE TABLE `status` (
 --
 
 INSERT INTO `status` (`ID`, `Status`) VALUES
-(1, 'Waiting'),
-(2, 'Aproved');
+(1, 'Publicado'),
+(2, 'Em espera');
 
 -- --------------------------------------------------------
 
@@ -190,8 +194,9 @@ CREATE TABLE `type` (
 --
 
 INSERT INTO `type` (`ID`, `Type`) VALUES
-(1, 'News'),
-(2, 'Infos');
+(1, 'Anúncio'),
+(2, 'Notícia'),
+(3, 'Aviso');
 
 -- --------------------------------------------------------
 
@@ -201,9 +206,11 @@ INSERT INTO `type` (`ID`, `Type`) VALUES
 
 CREATE TABLE `user` (
   `ID` int(11) NOT NULL,
-  `Name` varchar(255) NOT NULL,
+  `FirstName` varchar(100) NOT NULL,
+  `LastName` varchar(100) NOT NULL,
   `Email` varchar(255) NOT NULL,
   `Password` varchar(100) NOT NULL,
+  `Registry` varchar(10) NOT NULL,
   `Phone` varchar(15) DEFAULT NULL,
   `CreatedAt` datetime NOT NULL,
   `UpdatedAt` datetime NOT NULL,
@@ -214,8 +221,9 @@ CREATE TABLE `user` (
 -- Extraindo dados da tabela `user`
 --
 
-INSERT INTO `user` (`ID`, `Name`, `Email`, `Password`, `Phone`, `CreatedAt`, `UpdatedAt`, `RoleID`) VALUES
-(1, 'Welison', 'welison@email.com', '123456', '49991919292', '2019-08-23 00:00:00', '2019-08-23 00:00:00', 1);
+INSERT INTO `user` (`ID`, `FirstName`, `LastName`, `Email`, `Password`, `Registry`, `Phone`, `CreatedAt`, `UpdatedAt`, `RoleID`) VALUES
+(1, 'Welison', 'Menezes', 'welisonmenezes@email.com', '123456', '111111', '9999-9999', '2019-08-30 00:00:00', '2019-08-30 00:00:00', 1),
+(2, 'Fulano', 'de Tal', 'fulano@email.com', '123456', '121212', '9999-9988', '2019-08-30 00:00:00', '2019-08-30 00:00:00', 2);
 
 --
 -- Indexes for dumped tables
@@ -283,6 +291,8 @@ ALTER TABLE `type`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`ID`,`RoleID`),
+  ADD UNIQUE KEY `Registry_UNIQUE` (`Registry`),
+  ADD UNIQUE KEY `Email_UNIQUE` (`Email`),
   ADD KEY `fk_Users_Role1_idx` (`RoleID`);
 
 --
@@ -299,25 +309,25 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `configuration`
 --
 ALTER TABLE `configuration`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `status`
@@ -329,13 +339,13 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `type`
 --
 ALTER TABLE `type`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
