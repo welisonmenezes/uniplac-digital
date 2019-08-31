@@ -142,7 +142,7 @@ class RichEditor extends Component {
                 })
                     .then(data => data.json())
                     .then(data => {
-                        self.setState({ currentImage: 'http://127.0.0.1:5000/media/' + data.id });
+                        self.setState({ currentImage: 'http://127.0.0.1:5000/api/media/' + data.id });
                         self.setState({loadingImage: false});
                     }, error => {
                         self.setState({loadingImage: false});
