@@ -28,11 +28,10 @@ class MediaResource(Resource):
 
             imgdata = base64.b64decode(cleanBase64)
             response = make_response(imgdata)
-            response.headers.set('Content-Type', 'image/png')
+            response.headers.set('Content-Type', imageType)
             return response
         else:
             imgdata = base64.b64decode(notFoundImage)
             response = make_response(imgdata)
             response.headers.set('Content-Type', 'image/png')
             return response
-

@@ -64,7 +64,8 @@ class RichEditor extends Component {
             position: 'normal',
             target: '_self',
             title: null,
-            loadingImage: false
+            loadingImage: false,
+            uploadError: null
         };
         this.handleEditorChange = this.handleEditorChange.bind(this);
         self = this;
@@ -124,34 +125,44 @@ class RichEditor extends Component {
         const file = element.files[0];
         const extension = GetFileExtension(file.name).toLowerCase();
         const accepts = element.getAttribute('accept').split(',');
-        if (accepts.indexOf('.' + extension) > -1) {
-            const reader = new FileReader();
-            reader.onloadend = function () {
-                //console.log('reader.result: ', reader.result);
-
-                self.setState({loadingImage: true});
-                fetch('http://127.0.0.1:5000/api/image', {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        image: reader.result
+        self.setState({uploadError: null});
+        if (file.size <= 5017969) {
+            if (accepts.indexOf('.' + extension) > -1) {
+                const reader = new FileReader();
+                reader.onloadend = function () {
+                    self.setState({loadingImage: true});
+                    fetch('http://127.0.0.1:5000/api/image', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            image: reader.result
+                        })
                     })
-                })
-                    .then(data => data.json())
-                    .then(data => {
-                        self.setState({ currentImage: 'http://127.0.0.1:5000/api/media/' + data.id });
-                        self.setState({loadingImage: false});
-                    }, error => {
-                        self.setState({loadingImage: false});
-                    });
+                        .then(data => data.json())
+                        .then(data => {
+                            if (data && data.id) {
+                                self.setState({ currentImage: 'http://127.0.0.1:5000/api/media/' + data.id });
+                            } else {
+                                element.value = null;
+                                self.setState({uploadError: data.message});
+                            }
+                            self.setState({loadingImage: false});
+                        }, error => {
+                            element.value = null;
+                            self.setState({loadingImage: false});
+                        });
+                }
+                reader.readAsDataURL(file);
+            } else {
+                element.value = null;
+                self.setState({uploadError: 'Tipo de arquivo inválido'});
             }
-            reader.readAsDataURL(file);
         } else {
             element.value = null;
-            alert('Tipo de arquivo inválido. Apenas imagem.');
+            self.setState({uploadError: 'O tamanho da imagem não deve exceder 5mb'});
         }
     }
 
@@ -216,7 +227,8 @@ class RichEditor extends Component {
             position: 'normal',
             target: '_self',
             title: null,
-            loadingImage: false
+            loadingImage: false,
+            uploadError: null
         });
         const els = document.querySelectorAll('.configuration-panel input, .configuration-panel select');
         if (els && els.length) {
@@ -287,6 +299,9 @@ class RichEditor extends Component {
                                     }
                                     {(this.state.loadingImage) &&
                                         <p>Enviado...</p>
+                                    }
+                                    {(this.state.uploadError) &&
+                                        <p>{ this.state.uploadError }</p>
                                     }
                                 </div>
                             </div>
