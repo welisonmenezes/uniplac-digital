@@ -17,4 +17,3 @@ class Image(db.Model):
 
 class ImageSchema(ma.Schema):
     id = fields.Integer()
-    image = fields.String()
