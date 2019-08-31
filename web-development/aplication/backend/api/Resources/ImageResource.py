@@ -27,12 +27,15 @@ class ImageResource(Resource):
     def post(self):
         json_data = request.get_json()
         if json_data:
-            print(json_data)
             try:
                 image = Image(json_data['image'])
                 db.session.add(image)
                 db.session.commit()
-                return {'image': 'salvo com sucesso'}
+                last_id = image.id
+                return {
+                    'message': 'Salvo com sucess',
+                    'id': last_id
+                }
             except:
                 return {'image': 'erro ao salvar'}
         else:

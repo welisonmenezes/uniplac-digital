@@ -1,7 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, make_response
 from api import api
+import base64
+import re
 
-from api.Models.ImageModel import db
+from api.Models.ImageModel import db, Image
 
 def create_app():
 
@@ -19,6 +21,31 @@ def create_app():
     @app.route('/<path:path>')
     def index(path):
         return render_template('index.html'), 200
+
+    @app.route('/media/<int:id>')
+    def displayMedia(id):
+        image = Image.query.get(id)
+        if image:
+
+            imageType = 'image/png'
+            baseType = re.search('data:image/(.+?);base64,', image.image)
+            cleanBase64 = image.image
+
+            if baseType:
+                cleanBase64 = cleanBase64.replace(baseType.group(0), '')
+                if (baseType.group(1) == 'png'):
+                    imageType = 'image/png'
+                elif (baseType.group(1) == 'jpg' or baseType.group(1) == 'jpeg'):
+                    imageType = 'image/jpg'
+                elif (baseType.group(1) == 'gif'):
+                    imageType = 'image/gif'
+
+            imgdata = base64.b64decode(cleanBase64)
+            response = make_response(imgdata)
+            response.headers.set('Content-Type', 'image/png')
+            return response
+            
+        return 'no image found', 404
 
     # initialize the api blueprint
     app.register_blueprint(api.api_bp)

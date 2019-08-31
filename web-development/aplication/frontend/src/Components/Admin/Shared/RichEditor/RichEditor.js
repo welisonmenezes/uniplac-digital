@@ -125,6 +125,7 @@ class RichEditor extends Component {
         if (accepts.indexOf('.' + extension) > -1) {
             const reader = new FileReader();
             reader.onloadend = function () {
+                console.log('reader.result: ', reader.result);
                 self.setState({ currentImage: reader.result });
             }
             reader.readAsDataURL(file);
