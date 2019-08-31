@@ -6,9 +6,14 @@ def hasPermissionByToken(token):
             if (token):
                 try:
                     decoded = jwt.decode(token, 'welisonmenezes', algorithms=['HS256'])
-                    return decoded, 200
+                    if (decoded['permission'] == 'admin'):
+                        return fn(*args,**kwargs)
+                    else:
+                        return {'message': 'permissao negada'}, 403
                 except:
                     return {'message': 'token inválido'}, 403
+            else:
+                return {'message': 'missing token'}, 403
         return decorated                                          
     return decorator
 

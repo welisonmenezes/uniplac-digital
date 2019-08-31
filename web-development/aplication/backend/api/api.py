@@ -16,4 +16,4 @@ from ImageResource import ImageResource
 
 # register the resources
 api.add_resource(UserResource, '/user')
-api.add_resource(ImageResource, '/image')
+api.add_resource(ImageResource, '/image', '/image/<int:id>')

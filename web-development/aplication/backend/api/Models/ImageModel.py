@@ -1,5 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
+from marshmallow import Schema, fields, pre_load, validate
+from flask_marshmallow import Marshmallow
 
+ma = Marshmallow()
 db = SQLAlchemy()
 
 class Image(db.Model):
@@ -12,3 +15,6 @@ class Image(db.Model):
     def __repr__(self):
         return '<Image %r>' % self.image
 
+class ImageSchema(ma.Schema):
+    id = fields.Integer()
+    image = fields.String()
