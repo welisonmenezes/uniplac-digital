@@ -11,7 +11,8 @@ import {
     IsSoundCloudUrl,
     IsAnUrl,
     CreateYoutubeIframe,
-    CreateSoundCloudIframe } from '../../../../Utils/Utils';
+    CreateSoundCloudIframe
+} from '../../../../Utils/Utils';
 import Toolbar from './Toolbar';
 import './MyImage';
 import './MyVideo';
@@ -19,8 +20,8 @@ import './MyAudio';
 import './MyLink';
 
 function Iframe(props) {
-    return (<div dangerouslySetInnerHTML={ {__html:  props.iframe?props.iframe:""}} />);
-  }
+    return (<div dangerouslySetInnerHTML={{ __html: props.iframe ? props.iframe : "" }} />);
+}
 
 class RichEditor extends Component {
 
@@ -62,7 +63,8 @@ class RichEditor extends Component {
             height: 'auto',
             position: 'normal',
             target: '_self',
-            title: null
+            title: null,
+            loadingImage: false
         };
         this.handleEditorChange = this.handleEditorChange.bind(this);
         self = this;
@@ -125,8 +127,26 @@ class RichEditor extends Component {
         if (accepts.indexOf('.' + extension) > -1) {
             const reader = new FileReader();
             reader.onloadend = function () {
-                console.log('reader.result: ', reader.result);
-                self.setState({ currentImage: reader.result });
+                //console.log('reader.result: ', reader.result);
+
+                self.setState({loadingImage: true});
+                fetch('http://127.0.0.1:5000/api/image', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        image: reader.result
+                    })
+                })
+                    .then(data => data.json())
+                    .then(data => {
+                        self.setState({ currentImage: 'http://127.0.0.1:5000/media/' + data.id });
+                        self.setState({loadingImage: false});
+                    }, error => {
+                        self.setState({loadingImage: false});
+                    });
             }
             reader.readAsDataURL(file);
         } else {
@@ -140,7 +160,7 @@ class RichEditor extends Component {
     }
 
     handleAddVideo() {
-        if ((GetYoutubeVideoId(this.state.currentVideo))){
+        if ((GetYoutubeVideoId(this.state.currentVideo))) {
             this.insertVideoIntoEditor(this.quillRef);
         } else {
             alert('Apenas vídeos do Youtube.');
@@ -167,10 +187,10 @@ class RichEditor extends Component {
         this.setState({ text: value });
         this.props.parentGettingTheEditorValue(this.state.text);
     }
-    
+
     handleChange(e) {
         const stateName = e.target.getAttribute('data-state-name');
-        self.setState({[stateName]: e.target.value});
+        self.setState({ [stateName]: e.target.value });
     }
 
     openFullscreen() {
@@ -182,7 +202,7 @@ class RichEditor extends Component {
             OpenFullscreen(el);
             el.classList.add('is-fullscreen');
         }
-        
+
     }
 
     resetConfigurationFields() {
@@ -195,7 +215,8 @@ class RichEditor extends Component {
             height: 'auto',
             position: 'normal',
             target: '_self',
-            title: null
+            title: null,
+            loadingImage: false
         });
         const els = document.querySelectorAll('.configuration-panel input, .configuration-panel select');
         if (els && els.length) {
@@ -207,7 +228,7 @@ class RichEditor extends Component {
 
     toggleConfigurationPanel(type) {
         let extraClassName = '.' + type;
-        const els = document.querySelectorAll('.configuration-panel'+extraClassName);
+        const els = document.querySelectorAll('.configuration-panel' + extraClassName);
         if (els && els.length) {
             els.forEach(el => {
                 if (el.classList.contains('opened')) {
@@ -247,7 +268,7 @@ class RichEditor extends Component {
                     onChange={this.handleEditorChange} />
                 <div id="ImageEditor" className="configuration-panel image">
                     <div>
-                        <button className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('image') }>Cancelar</button>
+                        <button className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('image')}>Cancelar</button>
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="form-group">
@@ -263,6 +284,9 @@ class RichEditor extends Component {
                                 <div className="form-group">
                                     {(this.state.currentImage) &&
                                         <img id="previewImage" src={this.state.currentImage} alt="Preview da imagem" />
+                                    }
+                                    {(this.state.loadingImage) &&
+                                        <p>Enviado...</p>
                                     }
                                 </div>
                             </div>
@@ -308,7 +332,7 @@ class RichEditor extends Component {
                 </div>
                 <div id="VideoEditor" className="configuration-panel video">
                     <div>
-                        <button className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('video') }>Cancelar</button>
+                        <button className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('video')}>Cancelar</button>
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="form-group">
@@ -327,15 +351,15 @@ class RichEditor extends Component {
                                     <Iframe iframe={'<iframe src="" id="previewVideo"></iframe>'} />
                                     {(this.state.currentVideo && GetYoutubeVideoId(this.state.currentVideo)) &&
                                         <div>
-                                            { CreateYoutubeIframe(document.getElementById('previewVideo'), this.getConfigurations()) }
+                                            {CreateYoutubeIframe(document.getElementById('previewVideo'), this.getConfigurations())}
                                         </div>
                                     }
-                                    {(!GetYoutubeVideoId(this.state.currentVideo)) && 
-                                        <div className="hide">{ (setTimeout(() => {
+                                    {(!GetYoutubeVideoId(this.state.currentVideo)) &&
+                                        <div className="hide">{(setTimeout(() => {
                                             if (document.getElementById('previewVideo')) {
-                                                document.getElementById('previewVideo').setAttribute('src','')
+                                                document.getElementById('previewVideo').setAttribute('src', '')
                                             }
-                                        }, 1)) }</div>
+                                        }, 1))}</div>
                                     }
                                 </div>
                             </div>
@@ -360,7 +384,7 @@ class RichEditor extends Component {
                                 </div>
                                 <div className="form-group">
                                     <label>Informe o posicionamento:</label>
-                                    <select 
+                                    <select
                                         data-state-name="position"
                                         className="form-control"
                                         onChange={this.handleChange}>
@@ -381,7 +405,7 @@ class RichEditor extends Component {
                 </div>
                 <div id="AudioEditor" className="configuration-panel audio">
                     <div>
-                        <button className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('audio') }>Cancelar</button>
+                        <button className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('audio')}>Cancelar</button>
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="form-group">
@@ -400,15 +424,15 @@ class RichEditor extends Component {
                                     <Iframe iframe={'<iframe src="" id="previewAudio"></iframe>'} />
                                     {(this.state.currentAudio) && IsSoundCloudUrl(this.state.currentAudio) &&
                                         <div>
-                                            { CreateSoundCloudIframe(document.getElementById('previewAudio'), this.getConfigurations()) }
+                                            {CreateSoundCloudIframe(document.getElementById('previewAudio'), this.getConfigurations())}
                                         </div>
                                     }
-                                    {(!IsSoundCloudUrl(this.state.currentAudio)) && 
-                                        <div className="hide">{ (setTimeout(() => {
+                                    {(!IsSoundCloudUrl(this.state.currentAudio)) &&
+                                        <div className="hide">{(setTimeout(() => {
                                             if (document.getElementById('previewAudio')) {
-                                                document.getElementById('previewAudio').setAttribute('src','')
+                                                document.getElementById('previewAudio').setAttribute('src', '')
                                             }
-                                        }, 1)) }</div>
+                                        }, 1))}</div>
                                     }
                                 </div>
                             </div>
@@ -454,7 +478,7 @@ class RichEditor extends Component {
                 </div>
                 <div id="LinkEditor" className="configuration-panel link">
                     <div>
-                        <button className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('link') }>Cancelar</button>
+                        <button className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('link')}>Cancelar</button>
                         <div className="row">
                             <div className="col-md-6">
                                 <div>
