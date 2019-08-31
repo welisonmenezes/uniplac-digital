@@ -19,17 +19,5 @@
     "buildtoflask": "react-scripts build && rmdir /Q /S ..\\backend\\ui && md ..\\backend\\ui && xcopy /E /Y build ..\\backend\\ui",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }
