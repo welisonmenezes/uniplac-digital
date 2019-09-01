@@ -13,6 +13,9 @@ def create_app():
 
     # initialize the db conexion
     db.init_app(app)
+    
+    #with app.app_context():
+    #    db.create_all()
 
     # routes all nonexistent route to /
     @app.route('/', defaults={'path': ''})
