@@ -14,10 +14,28 @@ class ImageResource(Resource):
     #@hasPermissionByToken(encoded_jwt)
     def get(self, id=None):
         if not id:
+            #images_schema = ImageSchema(many=True)
+            #images = Image.query.all()
+            #images = images_schema.dump(images)
+            #return images, 200
+
+            args = request.args
+            page = 0
+            if (args and args['page']):
+                page = int(args['page'])
             images_schema = ImageSchema(many=True)
-            images = Image.query.all()
+            paginate = Image.query.filter(id==None).paginate(page=page, per_page=1, error_out=False)
+            images = paginate.items
             images = images_schema.dump(images)
-            return images, 200
+            return {
+                'data': images,
+                'pagination': {
+                    'next_num': paginate.next_num,
+                    'prev_num': paginate.prev_num,
+                    'total': paginate.total
+                }
+            }, 200
+
         else:
             image_schema = ImageSchema()
             image = Image.query.get(id)

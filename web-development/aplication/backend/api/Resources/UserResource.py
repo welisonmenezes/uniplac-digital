@@ -8,6 +8,8 @@ encoded_jwt = getJWTEncode()
 class UserResource(Resource):
     @hasPermissionByToken(encoded_jwt)
     def get(self):
+        args = request.args
+        print(args)
         return {'user': 'get'}
 
     def post(self):
