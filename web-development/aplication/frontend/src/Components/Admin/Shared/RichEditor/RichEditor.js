@@ -7,7 +7,6 @@ import {
     OpenFullscreen,
     CloseFullscreen,
     GetYoutubeVideoId,
-    GetFileExtension,
     IsSoundCloudUrl,
     IsAnUrl,
     CreateYoutubeIframe,
@@ -18,6 +17,7 @@ import './MyImage';
 import './MyVideo';
 import './MyAudio';
 import './MyLink';
+import UploadButton from '../UploadButton/UploadButton';
 
 function Iframe(props) {
     return (<div dangerouslySetInnerHTML={{ __html: props.iframe ? props.iframe : "" }} />);
@@ -118,52 +118,6 @@ class RichEditor extends Component {
             editor.formatText(range.index, range.length, 'mylink', this.getConfigurations());
         }
         this.toggleConfigurationPanel('link');
-    }
-
-    handleFakeUploadImage() {
-        const element = document.getElementById('RichEditorInputFile');
-        const file = element.files[0];
-        const extension = GetFileExtension(file.name).toLowerCase();
-        const accepts = element.getAttribute('accept').split(',');
-        self.setState({uploadError: null});
-        if (file.size <= 5017969) {
-            if (accepts.indexOf('.' + extension) > -1) {
-                const reader = new FileReader();
-                reader.onloadend = function () {
-                    self.setState({loadingImage: true});
-                    fetch('http://127.0.0.1:5000/api/image', {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            image: reader.result
-                        })
-                    })
-                        .then(data => data.json())
-                        .then(data => {
-                            if (data && data.id) {
-                                self.setState({ currentImage: 'http://127.0.0.1:5000/api/media/' + data.id });
-                            } else {
-                                element.value = null;
-                                self.setState({uploadError: data.message});
-                            }
-                            self.setState({loadingImage: false});
-                        }, error => {
-                            element.value = null;
-                            self.setState({loadingImage: false});
-                        });
-                }
-                reader.readAsDataURL(file);
-            } else {
-                element.value = null;
-                self.setState({uploadError: 'Tipo de arquivo inválido'});
-            }
-        } else {
-            element.value = null;
-            self.setState({uploadError: 'O tamanho da imagem não deve exceder 5mb'});
-        }
     }
 
     handleAddImage() {
@@ -269,6 +223,14 @@ class RichEditor extends Component {
         };
     }
 
+    getUploadButtonState = (childState) => {
+        this.setState({
+            currentImage: childState.currentImage,
+            uploadError: childState.uploadError,
+            loadingImage: childState.loadingImage
+        });
+    }
+
     render() {
         return (
             <div className='RichEditor'>
@@ -285,13 +247,7 @@ class RichEditor extends Component {
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <label>Selecione uma imagem:</label>
-                                    <input
-                                        type="file"
-                                        id="RichEditorInputFile"
-                                        name="files"
-                                        accept=".jpg,.jpeg,.png,.gif"
-                                        className="form-control"
-                                        onChange={() => { this.handleFakeUploadImage() }} />
+                                    <UploadButton getUploadButtonState={this.getUploadButtonState} />
                                 </div>
                                 <div className="form-group">
                                     {(this.state.currentImage) &&
