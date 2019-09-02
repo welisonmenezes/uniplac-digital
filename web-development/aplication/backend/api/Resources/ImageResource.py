@@ -14,13 +14,8 @@ class ImageResource(Resource):
     #@hasPermissionByToken(encoded_jwt)
     def get(self, id=None):
         if not id:
-            #images_schema = ImageSchema(many=True)
-            #images = Image.query.all()
-            #images = images_schema.dump(images)
-            #return images, 200
-
             args = request.args
-            page = 0
+            page = 1
             if (args and args['page']):
                 page = int(args['page'])
             images_schema = ImageSchema(many=True)
@@ -35,14 +30,17 @@ class ImageResource(Resource):
                     'total': paginate.total
                 }
             }, 200
-
         else:
             image_schema = ImageSchema()
             image = Image.query.get(id)
             if image:
                 image = image_schema.dump(image)
                 return image, 200
-            return {'error': 'no image'}, 404
+            return {
+                'error': True,
+                'code': '103',
+                'message': 'Imagem não encontrada'
+            }, 404
 
 
     def post(self):
@@ -64,6 +62,7 @@ class ImageResource(Resource):
                             'id': last_id
                         }, 200
                     except:
+                        db.session.rollback()
                         return {
                             'error': True,
                             'code': '101',
@@ -97,13 +96,30 @@ class ImageResource(Resource):
                 try:
                     image.image = json_data['image']
                     db.session.commit()
-                    return {'image': 'editado com sucesso'}, 200
+                    return {
+                        'message': 'Imagem editada com sucesso',
+                        'id': id
+                    }, 200
                 except:
-                    return {'image': 'erro ao editar'}
+                    db.session.rollback()
+                    return {
+                        'error': True,
+                        'code': '103',
+                        'message': 'Erro ao tentar editar a imagem'
+                    }, 500
             else:
-               return {'image': 'imagem não encontrada'} 
+               return {
+                    'error': True,
+                    'code': '103',
+                    'message': 'Imagem não encontrada'
+                }, 404
         else:
-            return {'image': 'requisição errada'}
+            return {
+                'error': True,
+                'code': '103',
+                'message': 'Identificador da imagem não enviado'
+            }, 400
+
 
     @hasPermissionByToken(encoded_jwt)
     def delete(self, id=None):
@@ -113,12 +129,27 @@ class ImageResource(Resource):
                 try:
                     db.session.delete(image)
                     db.session.commit()
-                    return {'image': 'deletada com sucesso'}
+                    return {
+                        'message': 'Imagem deletada com sucesso',
+                        'id': id
+                    }, 200
                 except:
-                    return {'image': 'erro ao deletar'}
+                    db.session.rollback()
+                    return {
+                        'error': True,
+                        'code': '103',
+                        'message': 'Erro ao tentar deletar a imagem'
+                    }, 500
             else:
-                return {'image': 'imagem não encontrada'} 
+                return {
+                    'error': True,
+                    'code': '103',
+                    'message': 'Imagem não encontrada'
+                }, 404
         else:
-            return {'image': 'requisição errada'}
-        return {'image': 'delete'}
+            return {
+                'error': True,
+                'code': '103',
+                'message': 'Identificador da imagem não enviado'
+            }, 400
 

@@ -14,9 +14,16 @@ def create_app():
     # initialize the db conexion
     db.init_app(app)
     
-    #with app.app_context():
+    # ATENTION: uncomment only when recreate all database
+    # with app.app_context():
     #    db.drop_all()
     #    db.create_all()
+
+    # fix bug: flask_sqlalchemy close connection
+    @app.teardown_appcontext
+    def shutdown_session(response_or_exc):
+        db.session.close_all()
+        return response_or_exc
 
     # routes all nonexistent route to /
     @app.route('/', defaults={'path': ''})

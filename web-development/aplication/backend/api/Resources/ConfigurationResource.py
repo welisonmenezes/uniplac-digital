@@ -11,7 +11,11 @@ class ConfigurationResource(Resource):
         if config:
             config = config_schema.dump(config)
             return config, 200
-        return {'error': 'no config'}, 404
+        return {
+            'error': True,
+            'code': '101',
+            'message': 'Dados ainda não cadastrados'
+        }, 400
 
 
     def post(self):
@@ -29,8 +33,8 @@ def manageConfiguration():
         try:
             config.name = 'updated33'
 
-            #image = Image.query.get(2)
-            #config.images.append(image)
+            image = Image.query.get(1)
+            config.images.append(image)
             #config.images.remove(image)
 
             db.session.commit()
@@ -49,6 +53,13 @@ def manageConfiguration():
         try:
             config = Configuration('add', '2222-4444', 'add@email.com')
             db.session.add(config)
+
+            image = Image.query.get(1)
+            config.images.append(image)
+            #config.images.remove(image)
+
+            print(config)
+
             db.session.commit()
             config = config_schema.dump(config)
             return {
@@ -56,6 +67,7 @@ def manageConfiguration():
                 'message': 'Dados cirados com sucesso'
             }, 201
         except:
+            db.session.rollback()
             return {
                 'error': True,
                 'code': '101',
