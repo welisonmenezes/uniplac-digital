@@ -35,7 +35,7 @@ body:
     "role" = "string",
     "email" = "string",
     "phone" = "string",
-    "image_id" = "number",
+    "image_id" = "number"
 }
 ```
 
@@ -57,7 +57,7 @@ body:
     "role" = "string",
     "email" = "string",
     "phone" = "string",
-    "image_id" = "number",
+    "image_id" = "number"
 }
 ```
 
