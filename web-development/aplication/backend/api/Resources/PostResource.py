@@ -4,6 +4,7 @@ import sys
 sys.path.insert(0, './api/Models')
 from Model import db, Post, PostSchema
 from Auth import hasPermissionByToken, getJWTEncode
+from MustHaveId import mustHaveId
 
 class PostResource(Resource):
     def get(self, id=None):
@@ -94,9 +95,10 @@ class PostResource(Resource):
             }, 400
         
 
+    @mustHaveId
     def put(self, id=None):
         json_data = request.get_json()
-        if id and json_data:
+        if json_data:
             post = Post.query.filter_by(id=id).first()
             if post:
                 try:
@@ -146,36 +148,31 @@ class PostResource(Resource):
             return {
                 'error': True,
                 'code': '103',
-                'message': 'Identificador do post não enviado'
+                'message': 'Dados não enviados'
             }, 400
 
+
+    @mustHaveId
     def delete(self, id=None):
-        if id:
-            post = Post.query.filter_by(id=id).first()
-            if post:
-                try:
-                    db.session.delete(post)
-                    db.session.commit()
-                    return {
-                        'message': 'Post deletado com sucesso',
-                        'id': id
-                    }, 200
-                except:
-                    db.session.rollback()
-                    return {
-                        'error': True,
-                        'code': '103',
-                        'message': 'Erro ao tentar deletar o post'
-                    }, 500
-            else:
+        post = Post.query.filter_by(id=id).first()
+        if post:
+            try:
+                db.session.delete(post)
+                db.session.commit()
+                return {
+                    'message': 'Post deletado com sucesso',
+                    'id': id
+                }, 200
+            except:
+                db.session.rollback()
                 return {
                     'error': True,
                     'code': '103',
-                    'message': 'Post não encontrado'
-                }, 404
+                    'message': 'Erro ao tentar deletar o post'
+                }, 500
         else:
             return {
                 'error': True,
                 'code': '103',
-                'message': 'Identificador do post não enviado'
-            }, 400
+                'message': 'Post não encontrado'
+            }, 404

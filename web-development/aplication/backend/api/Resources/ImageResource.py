@@ -8,6 +8,7 @@ sys.path.insert(0, './api/Models')
 from Model import db, Image, ImageSchema
 from Auth import hasPermissionByToken, getJWTEncode
 from Utils import getBase64Size
+from MustHaveId import mustHaveId
 
 encoded_jwt = getJWTEncode()
 class ImageResource(Resource):
@@ -88,9 +89,10 @@ class ImageResource(Resource):
                     }, 400
         
 
+    @mustHaveId
     def put(self, id=None):
         json_data = request.get_json()
-        if id and json_data:
+        if json_data:
             image = Image.query.filter_by(id=id).first()
             if image:
                 try:
@@ -117,39 +119,33 @@ class ImageResource(Resource):
             return {
                 'error': True,
                 'code': '103',
-                'message': 'Identificador da imagem não enviado'
+                'message': 'O Campo image não pode ser vazio'
             }, 400
 
 
     @hasPermissionByToken(encoded_jwt)
+    @mustHaveId
     def delete(self, id=None):
-        if id:
-            image = Image.query.filter_by(id=id).first()
-            if image:
-                try:
-                    db.session.delete(image)
-                    db.session.commit()
-                    return {
-                        'message': 'Imagem deletada com sucesso',
-                        'id': id
-                    }, 200
-                except:
-                    db.session.rollback()
-                    return {
-                        'error': True,
-                        'code': '103',
-                        'message': 'Erro ao tentar deletar a imagem'
-                    }, 500
-            else:
+        image = Image.query.filter_by(id=id).first()
+        if image:
+            try:
+                db.session.delete(image)
+                db.session.commit()
+                return {
+                    'message': 'Imagem deletada com sucesso',
+                    'id': id
+                }, 200
+            except:
+                db.session.rollback()
                 return {
                     'error': True,
                     'code': '103',
-                    'message': 'Imagem não encontrada'
-                }, 404
+                    'message': 'Erro ao tentar deletar a imagem'
+                }, 500
         else:
             return {
                 'error': True,
                 'code': '103',
-                'message': 'Identificador da imagem não enviado'
-            }, 400
+                'message': 'Imagem não encontrada'
+            }, 404
 
