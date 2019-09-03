@@ -5,6 +5,7 @@
 #### Listar usuários:
 método:
 `GET`
+
 endpoint:
 `/user`
 
@@ -12,6 +13,7 @@ endpoint:
 
 método:
 `GET`
+
 endpoint:
 `/user/<int:id>`
 
@@ -19,8 +21,10 @@ endpoint:
 
 método:
 `POST`
+
 endpoint
 `/user`
+
 body:
 ```
 {
@@ -39,8 +43,10 @@ body:
 
 método:
 `PUT`
+
 endpoint
 `/user`
+
 body:
 ```
 {
@@ -59,6 +65,7 @@ body:
 
 método:
 `DELETE`
+
 endpoint:
 `/user/<int:id>`
 
@@ -69,6 +76,7 @@ endpoint:
 #### Listar posts:
 método:
 `GET`
+
 endpoint:
 `/post`
 
@@ -76,6 +84,7 @@ endpoint:
 
 método:
 `GET`
+
 endpoint:
 `/post/<int:id>`
 
@@ -83,8 +92,10 @@ endpoint:
 
 método:
 `POST`
+
 endpoint
 `/post`
+
 body:
 ```
 {
@@ -105,8 +116,10 @@ body:
 
 método:
 `PUT`
+
 endpoint
 `/post`
+
 body:
 ```
 {
@@ -127,6 +140,7 @@ body:
 
 método:
 `DELETE`
+
 endpoint:
 `/post/<int:id>`
 
@@ -137,6 +151,7 @@ endpoint:
 #### Listar imagens:
 método:
 `GET`
+
 endpoint:
 `/image`
 
@@ -144,6 +159,7 @@ endpoint:
 
 método:
 `GET`
+
 endpoint:
 `/image/<int:id>`
 
@@ -151,8 +167,10 @@ endpoint:
 
 método:
 `POST`
+
 endpoint
 `/image`
+
 body:
 ```
 {
@@ -164,8 +182,10 @@ body:
 
 método:
 `PUT`
+
 endpoint
 `/image`
+
 body:
 ```
 {
@@ -177,6 +197,7 @@ body:
 
 método:
 `DELETE`
+
 endpoint:
 `/image/<int:id>`
 
@@ -187,6 +208,7 @@ endpoint:
 #### Listar categorias:
 método:
 `GET`
+
 endpoint:
 `/media`
 
@@ -197,6 +219,7 @@ endpoint:
 #### Listar categorias:
 método:
 `GET`
+
 endpoint:
 `/category`
 
@@ -204,6 +227,7 @@ endpoint:
 
 método:
 `GET`
+
 endpoint:
 `/category/<int:id>`
 
@@ -211,8 +235,10 @@ endpoint:
 
 método:
 `POST`
+
 endpoint
 `/category`
+
 body:
 ```
 {
@@ -225,8 +251,10 @@ body:
 
 método:
 `PUT`
+
 endpoint
 `/category`
+
 body:
 ```
 {
@@ -239,6 +267,7 @@ body:
 
 método:
 `DELETE`
+
 endpoint:
 `/category/<int:id>`
 
@@ -248,6 +277,7 @@ endpoint:
 #### Ver configurações:
 método:
 `GET`
+
 endpoint:
 `/configuration`
 
@@ -255,8 +285,10 @@ endpoint:
 
 método:
 `POST`
+
 endpoint
 `/configuration`
+
 body:
 ```
 {
@@ -270,8 +302,10 @@ body:
 
 método:
 `PUT`
+
 endpoint
 `/configuration`
+
 body:
 ```
 {
