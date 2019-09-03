@@ -63,16 +63,17 @@ class PostResource(Resource):
                     json_data['user_id'],
                     None)
 
-                try:
-                    cat_id = int(json_data['category_id'])
-                    if (cat_id):
-                        post.category_id = cat_id
-                except:
-                    return {
-                        'error': True,
-                        'code': '101',
-                        'message': 'O Id da categoria deve ser um número.'
-                    }, 501 
+                if json_data.get('category_id'):
+                    try:
+                        cat_id = int(json_data['category_id'])
+                        if (cat_id):
+                            post.category_id = cat_id
+                    except:
+                        return {
+                            'error': True,
+                            'code': '101',
+                            'message': 'O Id da categoria deve ser um número.'
+                        }, 501 
 
                 db.session.add(post)
                 db.session.commit()
@@ -114,17 +115,17 @@ class PostResource(Resource):
                     post.user_id = json_data['user_id']
                     post.category_id = None
 
-
-                    try:
-                        cat_id = int(json_data['category_id'])
-                        if (cat_id):
-                            post.category_id = cat_id
-                    except:
-                        return {
-                            'error': True,
-                            'code': '101',
-                            'message': 'O Id da categoria deve ser um número.'
-                        }, 501 
+                    if json_data.get('category_id'):
+                        try:
+                            cat_id = int(json_data['category_id'])
+                            if (cat_id):
+                                post.category_id = cat_id
+                        except:
+                            return {
+                                'error': True,
+                                'code': '101',
+                                'message': 'O Id da categoria deve ser um número.'
+                            }, 501 
 
 
                     db.session.commit()

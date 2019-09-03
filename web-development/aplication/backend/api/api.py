@@ -21,7 +21,7 @@ from PostResource import PostResource
 from CategoryResource import CategoryResource
 
 # register the resources
-api.add_resource(UserResource, '/user')
+api.add_resource(UserResource, '/user', '/user/<int:id>')
 api.add_resource(ImageResource, '/image', '/image/<int:id>')
 api.add_resource(MediaResource, '/media/<int:id>')
 api.add_resource(ConfigurationResource, '/configuration')
