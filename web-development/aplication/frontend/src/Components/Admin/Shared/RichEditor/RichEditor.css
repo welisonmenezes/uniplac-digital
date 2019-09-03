@@ -1,5 +1,12 @@
-.ql-audio img{
+.ql-my-image img,
+.ql-my-video img,
+.ql-my-audio img,
+.ql-fullscreen img,
+.ql-my-link img{
     vertical-align: top;
+    float: left;
+    max-width: 18px;
+    max-height: 18px;
 }
 .ql-editor{
     height: 90vh;
@@ -12,8 +19,12 @@
 .RichEditor{
     height: 100vh;
     position: relative;
+    background: #ffffff;
 }
-#ImageEditor{
+.RichEditor.is-fullscreen .ql-editor{
+    height: 100vh;
+}
+.configuration-panel{
     overflow: hidden;
     position: absolute;
     top: 0;
@@ -25,6 +36,14 @@
     -webkit-transition: height .5;
     transition: height .5s;
 }
-#ImageEditor.opened{
+.configuration-panel.opened{
     height: 100vh;
+}
+
+.RichEditor iframe[src=""]{
+    display: none;
+}
+
+.RichEditor .hide{
+    display: none;
 }
