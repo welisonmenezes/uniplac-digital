@@ -68,8 +68,10 @@ class Post(db.Model):
     created_at = db.Column(db.Date, default=now, nullable=False)
     updated_at = db.Column(db.Date, default=now, onupdate=now, nullable=False)
     image_id = db.Column(db.Integer, db.ForeignKey('image.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True)
 
-    def __init__(self, title, description, content, genre, status, entry_date, departure_date, image_id):
+    def __init__(self, title, description, content, genre, status, entry_date, departure_date, image_id, user_id, category_id=None):
         self.title = title
         self.description = description
         self.content = content
@@ -78,6 +80,8 @@ class Post(db.Model):
         self.entry_date = entry_date
         self.departure_date = departure_date
         self.image_id = image_id
+        self.user_id = user_id
+        self.category_id = category_id
 
     def __repr__(self):
         return '<Post %r>' % self.id
@@ -95,3 +99,39 @@ class PostSchema(ma.Schema):
     created_at = fields.DateTime()
     updated_at = fields.DateTime()
     image_id = fields.Integer()
+    user_id = fields.Integer()
+    category_id = fields.Integer()
+
+
+
+class Category(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(45), nullable=False)
+    description = db.Column(db.String(255))
+
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
+
+    def __repr__(self):
+        return '<Category %r>' % self.id
+
+class CategorySchema(ma.Schema):
+    id = fields.Integer()
+    name = fields.String()
+    description = fields.String()
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(45), nullable=False)
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return '<User %r>' % self.id
+
+class UserSchema(ma.Schema):
+    id = fields.Integer()
+    name = fields.String()

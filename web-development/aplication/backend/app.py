@@ -16,13 +16,16 @@ def create_app():
     
     # ATENTION: uncomment only when recreate all database
     # with app.app_context():
-    #    db.drop_all()
-    #    db.create_all()
+    #     db.drop_all()
+    #     db.create_all()
 
     # fix bug: flask_sqlalchemy close connection
     @app.teardown_appcontext
     def shutdown_session(response_or_exc):
-        db.session.close_all()
+        try:
+            db.session.close_all()
+        except:
+            print('Falha ao fechar a conexão')
         return response_or_exc
 
     # routes all nonexistent route to /

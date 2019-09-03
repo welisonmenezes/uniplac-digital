@@ -13,7 +13,7 @@ class PostResource(Resource):
             if (args and args['page']):
                 page = int(args['page'])
             post_schema = PostSchema(many=True)
-            paginate = Post.query.filter(id==None).paginate(page=page, per_page=1, error_out=False)
+            paginate = Post.query.filter(id==None).paginate(page=page, per_page=10, error_out=False)
             posts = paginate.items
             posts = post_schema.dump(posts)
             if posts:
@@ -57,7 +57,20 @@ class PostResource(Resource):
                     json_data['status'],
                     json_data['entry_date'],
                     json_data['departure_date'],
-                    json_data['image_id'])
+                    json_data['image_id'],
+                    json_data['user_id'],
+                    None)
+
+                try:
+                    cat_id = int(json_data['category_id'])
+                    if (cat_id):
+                        post.category_id = cat_id
+                except:
+                    return {
+                        'error': True,
+                        'code': '101',
+                        'message': 'O Id da categoria deve ser um número.'
+                    }, 501 
 
                 db.session.add(post)
                 db.session.commit()
@@ -95,6 +108,22 @@ class PostResource(Resource):
                     post.entry_date = json_data['entry_date']
                     post.departure_date = json_data['departure_date']
                     post.image_id = json_data['image_id']
+                    post.user_id = json_data['user_id']
+                    post.category_id = None
+
+
+                    try:
+                        cat_id = int(json_data['category_id'])
+                        if (cat_id):
+                            post.category_id = cat_id
+                    except:
+                        return {
+                            'error': True,
+                            'code': '101',
+                            'message': 'O Id da categoria deve ser um número.'
+                        }, 501 
+
+
                     db.session.commit()
                     return {
                         'message': 'Post editado com sucesso',
