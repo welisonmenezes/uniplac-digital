@@ -1,6 +1,5 @@
 def mustHaveId(fn):
     def wrapper(*args,**kwargs):
-        print(kwargs)
         if not kwargs.get('id'):
             return {
                 'error': True,

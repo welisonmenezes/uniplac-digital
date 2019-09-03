@@ -2,6 +2,7 @@ from flask import  request
 from flask_restful import Resource
 import sys
 sys.path.insert(0, './api/Models')
+sys.path.insert(0, './api/Utils')
 from Model import db, Post, PostSchema
 from Auth import hasPermissionByToken, getJWTEncode
 from MustHaveId import mustHaveId
