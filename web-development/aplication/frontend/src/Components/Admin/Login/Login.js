@@ -5,8 +5,6 @@ import { bindActionCreators } from 'redux';
 
 import { setUserLogginStatus } from '../../../Redux/Actions/UserActions';
 
-import Navigation from '../../Public/Shared/Navigation/Navigation';
-
 class Login extends Component {
 
   constructor(props) {
@@ -39,7 +37,6 @@ class Login extends Component {
   render() {
     return (
       <div className="Login">
-        <Navigation></Navigation>
         <div className="container">
           <div className="row justify-content-md-center">
             <div className="col-md-6">

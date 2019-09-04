@@ -27,7 +27,7 @@ class Navigation extends Component {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 {(this.state.redirect) && <Redirect to="/admin" />}
-                <Link to="/">
+                <Link to="/admin">
                     <span className="navbar-brand">Navbar</span>
                 </Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

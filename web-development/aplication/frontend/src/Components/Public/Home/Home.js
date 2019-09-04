@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 
 import { getUsers, getUsersSuccess, getUsersError } from '../../../Redux/Actions/UsersActions';
 
-import Navigation from '../Shared/Navigation/Navigation';
 import UploadButton from '../../Admin/Shared/UploadButton/UploadButton';
 
 class Home extends Component {
@@ -52,7 +51,6 @@ class Home extends Component {
 
 		return (
 			<div className="Home">
-				<Navigation></Navigation>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import Navigation from '../../Shared/Navigation/Navigation';
-
 class PostForm extends Component {
 
     constructor(props) {
@@ -14,7 +12,6 @@ class PostForm extends Component {
     render() {
         return (
             <div className="PostForm">
-                <Navigation></Navigation>
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import Navigation from '../Shared/Navigation/Navigation';
-
 class AdminUsers extends Component {
 
 	constructor(props) {
@@ -14,7 +12,6 @@ class AdminUsers extends Component {
 	render() {
 		return (
 			<div className="AdminUsers">
-				<Navigation></Navigation>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">

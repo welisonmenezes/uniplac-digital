@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import Navigation from '../Shared/Navigation/Navigation';
-
 class ConfigurationForm extends Component {
 
     constructor(props) {
@@ -14,7 +12,6 @@ class ConfigurationForm extends Component {
     render() {
         return (
             <div className="ConfigurationForm">
-                <Navigation></Navigation>
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
