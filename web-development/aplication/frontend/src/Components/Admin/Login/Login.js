@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import { setUserLogginStatus } from '../../../Redux/Actions/UserActions';
 
-import Navigation from '../Shared/Navigation/Navigation';
+import Navigation from '../../Public/Shared/Navigation/Navigation';
 
 class Login extends Component {
 
@@ -29,7 +29,7 @@ class Login extends Component {
         localStorage.setItem('islogged', true);
         this.props.setUserLogginStatus(true);
         this.setState({
-            redirect: false
+            redirect: true
         });
     } else {
         this.setState({messageError: 'Email ou senha inválidos'});

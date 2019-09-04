@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -22,6 +22,8 @@ class Navigation extends Component {
 
     render() {
 
+        console.log(this.props)
+
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 { (this.state.redirect) && <Redirect to="/admin" /> }
@@ -35,9 +37,24 @@ class Navigation extends Component {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <Link to="/">
+                            <NavLink to="/" activeClassName="active" exact>
                                 <span className="nav-link">Home</span>
-                            </Link>
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="/noticias" activeClassName="active">
+                                <span className="nav-link">Noticias</span>
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="/avisos" activeClassName="active">
+                                <span className="nav-link">Avisos</span>
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink to="/anuncios" activeClassName="active">
+                                <span className="nav-link">Anúncios</span>
+                            </NavLink>
                         </li>
                         { (this.props.isUserLoggedin) && 
                             <li className="nav-item">
@@ -46,16 +63,16 @@ class Navigation extends Component {
                                 </Link>
                             </li>
                         }
-                        { (true) && 
+                        { (this.props.isUserLoggedin) && 
                             <li className="nav-item" onClick={this.handleLogout}>
                                 <span className="nav-link">Logout</span>
                             </li>
                         }
                         { (!this.props.isUserLoggedin) && 
                             <li className="nav-item">
-                                <Link to="/login">
+                                <NavLink to="/login" activeClassName="active">
                                     <span className="nav-link">Login</span>
-                                </Link>
+                                </NavLink>
                             </li>
                         }
                     </ul>
