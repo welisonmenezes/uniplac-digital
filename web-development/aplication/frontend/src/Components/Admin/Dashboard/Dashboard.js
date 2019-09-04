@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Navigation from '../../Public/Shared/Navigation/Navigation';
+import Navigation from '../Shared/Navigation/Navigation';
 import RichEditor from '../Shared/RichEditor/RichEditor';
 
 class Dashboard extends Component {
