@@ -7,8 +7,17 @@ class AdminPosts extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
+	}
 
-		console.log(props);
+	componentDidMount() {
+		this.setState({currentPath: this.props.location.pathname});
+	}
+
+	static getDerivedStateFromProps(nextProps, prevState) {
+		if (nextProps.location.pathname !== prevState.currentPath) {
+			return ({currentPath: nextProps.location.pathname});
+		}
+		return null;
 	}
 
 	render() {
@@ -18,7 +27,7 @@ class AdminPosts extends Component {
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
-							<h1>Admin posts</h1>
+							<h1>Admin posts: { this.state.currentPath }</h1>
 						</div>
 					</div>
 				</div>

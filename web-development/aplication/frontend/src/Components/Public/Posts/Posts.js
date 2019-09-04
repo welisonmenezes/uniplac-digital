@@ -6,9 +6,20 @@ class Posts extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			currentPath: this.props.location.pathname
+		};
+	}
 
-		console.log(props);
+	componentDidMount() {
+		this.setState({currentPath: this.props.location.pathname});
+	}
+
+	static getDerivedStateFromProps(nextProps, prevState) {
+		if (nextProps.location.pathname !== prevState.currentPath) {
+			return ({currentPath: nextProps.location.pathname});
+		}
+		return null;
 	}
 
 	render() {
@@ -18,7 +29,7 @@ class Posts extends Component {
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
-							<h1>Posts</h1>
+							<h1>Posts: { this.state.currentPath }</h1>
 						</div>
 					</div>
 				</div>
