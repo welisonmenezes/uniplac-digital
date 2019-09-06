@@ -21,7 +21,6 @@ h2 {
 .wrapper .slideshow .slick-slide img {
     width: 100%;
     height: 400px;
-    margin: auto;
 }
 
 .wrapper .slideshow .slick-slide img .subtitle {
@@ -54,5 +53,6 @@ h2 {
 
 .carouse .carousel div img{
     height: 300px;
-    width: 375px;
+    width: 100%;
+    padding: 10px;
 }
