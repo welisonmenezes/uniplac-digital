@@ -5,7 +5,7 @@ sys.path.insert(0, './api/Utils')
 sys.path.insert(0, './api/Models')
 sys.path.insert(0, './api/Validations')
 from Auth import hasPermissionByToken, getJWTEncode
-from Model import db, User, UserSchema
+from Model import db, User, UserSchema, Image
 from MustHaveId import mustHaveId
 
 from UserValidations import UserValidation
@@ -55,7 +55,7 @@ class UserResource(Resource):
         if json_data:
             # validate the fields
             userValidator = UserValidation(json_data)
-            if userValidator.isValid() == True:
+            if userValidator.isValid(None, Image) == True:
                 try:
                     user = User(
                         json_data['first_name'],
@@ -100,7 +100,7 @@ class UserResource(Resource):
             if user:
                 # validate the fields
                 userValidator = UserValidation(json_data)
-                if userValidator.isValid(user) == True:
+                if userValidator.isValid(user, Image) == True:
                     try:
                         user.first_name = json_data['first_name']
                         user.last_name = json_data['last_name']
