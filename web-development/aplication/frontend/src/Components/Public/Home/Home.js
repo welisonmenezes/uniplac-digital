@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 
 import { getUsers, getUsersSuccess, getUsersError } from '../../../Redux/Actions/UsersActions';
 
-import Navigation from '../Shared/Navigation/Navigation';
 import UploadButton from '../../Admin/Shared/UploadButton/UploadButton';
 
 class Home extends Component {
@@ -52,28 +51,33 @@ class Home extends Component {
 
 		return (
 			<div className="Home">
-				<Navigation></Navigation>
-				<h1>Home</h1>
-				<hr />
-				<UploadButton getUploadButtonState={this.getUploadButtonState} />
-				<div className="form-group">
-					{(this.state.currentImage) &&
-						<img id="previewImage" src={this.state.currentImage} alt="Preview da imagem" />
-					}
-					{(this.state.loadingImage) &&
-						<p>Enviado...</p>
-					}
-					{(this.state.uploadError) &&
-						<p>{this.state.uploadError}</p>
-					}
+				<div className="container">
+					<div className="row">
+						<div className="col-md-12">
+							<h1>Home</h1>
+							<hr />
+							<UploadButton getUploadButtonState={this.getUploadButtonState} />
+							<div className="form-group">
+								{(this.state.currentImage) &&
+									<img id="previewImage" src={this.state.currentImage} alt="Preview da imagem" />
+								}
+								{(this.state.loadingImage) &&
+									<p>Enviado...</p>
+								}
+								{(this.state.uploadError) &&
+									<p>{this.state.uploadError}</p>
+								}
+							</div>
+							<hr />
+							<button onClick={() => this.loadData()}>Carregar Dados</button>
+							{(users) && users.map(user => {
+								return <p key={user.id}><b>Name: </b>{user.employee_name}</p>
+							})}
+							{(loadingUsers) && <p>carregando</p>}
+							{(errorUsers) && <p>{errorUsers}</p>}
+						</div>
+					</div>
 				</div>
-				<hr />
-				<button onClick={() => this.loadData()}>Carregar Dados</button>
-				{(users) && users.map(user => {
-					return <p key={user.id}><b>Name: </b>{user.employee_name}</p>
-				})}
-				{(loadingUsers) && <p>carregando</p>}
-				{(errorUsers) && <p>{errorUsers}</p>}
 			</div>
 		);
 	}

@@ -3,10 +3,10 @@ export const IsInt = (value) => {
         return false;
     }
     try {
+        // eslint-disable-next-line
         value = parseInt(value);
-        return !isNaN(value) &&
-            parseInt(Number(value)) === value &&
-            !isNaN(parseInt(value, 10));
+        // eslint-disable-next-line
+        return !isNaN(value) && parseInt(Number(value)) === value && !isNaN(parseInt(value, 10));
     } catch (error) {
         return false;
     }
