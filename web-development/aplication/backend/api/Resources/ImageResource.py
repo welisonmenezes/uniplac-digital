@@ -10,9 +10,7 @@ from Auth import hasPermissionByToken, getJWTEncode
 from Utils import getBase64Size
 from MustHaveId import mustHaveId
 
-encoded_jwt = getJWTEncode()
 class ImageResource(Resource):
-    #@hasPermissionByToken(encoded_jwt)
     def get(self, id=None):
         if not id:
             args = request.args
@@ -123,7 +121,6 @@ class ImageResource(Resource):
             }, 400
 
 
-    @hasPermissionByToken(encoded_jwt)
     @mustHaveId
     def delete(self, id=None):
         image = Image.query.filter_by(id=id).first()

@@ -1,5 +1,6 @@
 from flask import request
 from flask_restful import Resource
+from flask_bcrypt import Bcrypt
 import sys
 sys.path.insert(0, './api/Utils')
 sys.path.insert(0, './api/Models')
@@ -10,9 +11,10 @@ from MustHaveId import mustHaveId
 
 from UserValidations import UserValidation
 
-encoded_jwt = getJWTEncode()
+bcrypt = Bcrypt()
+
 class UserResource(Resource):
-    #@hasPermissionByToken(encoded_jwt)
+    @hasPermissionByToken(['admin', 'User'])
     def get(self, id=None):
         if not id:
             args = request.args
@@ -61,7 +63,7 @@ class UserResource(Resource):
                         json_data['first_name'],
                         json_data['last_name'],
                         json_data['registry'],
-                        json_data['password'],
+                        bcrypt.generate_password_hash(json_data['password']),
                         json_data['role'],
                         json_data['email'],
                         json_data['phone'],
@@ -105,12 +107,17 @@ class UserResource(Resource):
                         user.first_name = json_data['first_name']
                         user.last_name = json_data['last_name']
                         user.registry = json_data['registry']
-                        user.password = json_data['password']
                         user.role = json_data['role']
                         user.email = json_data['email']
                         user.phone = json_data['phone']
+
                         if json_data['image_id'] != '':
                             user.image_id = json_data['image_id']
+
+                        if json_data['password'] != '':
+                            pw_hash = bcrypt.generate_password_hash(json_data['password'])
+                            user.password = pw_hash
+
                         db.session.commit()
                         return {
                             'message': 'Usuário editado com sucesso',

@@ -10,17 +10,22 @@ class Validators():
                 return False
                 break
 
-        for field in self.requiredFields:
-            if not self.validateRequired(field[0], field[1]):
-                return False
-                break
-
         if not currentResult:
+            for field in self.requiredFields:
+                if not self.validateRequired(field[0], field[1]):
+                    return False
+                    break
+
             for field in self.uniqueFields:
                 if not self.validateUnique(field[0], field[1]):
                     return False
                     break
         else:
+            for field in self.requiredFields:
+                if not self.validateRequiredToUpdate(field[0], field[1]):
+                    return False
+                    break
+
             for field in self.uniqueFields:
                 if not self.validateUniqueToUpdate(field[0], field[1], currentResult):
                     return False
@@ -69,6 +74,13 @@ class Validators():
             return False
         return True
 
+    
+    # verifica se um campo obrigatório está preenchido menos o password se for edição
+    def validateRequiredToUpdate(self, field, message):
+        if (field == 'password'):
+            return True
+        else:
+            return self.validateRequired(field, message)
 
     # verifica se um campo é unico no banco de dados
     def validateUnique(self, field, message):
