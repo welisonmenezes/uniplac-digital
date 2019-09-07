@@ -4,19 +4,21 @@ import sys
 sys.path.insert(0, './api/Utils')
 from Model import User
 
-def hasPermissionByToken(roles):                            
+def hasPermissionByToken(roles, canSeeOwn=False):                            
     def decorator(fn):                                            
         def decorated(*args,**kwargs): 
             token = request.headers.get('Authorization')
             if (token):
                 try:
                     decoded = jwt.decode(token, '#$#gdFDKF#993FDVKkfdkj#$$2@@@@dfdlafFGÇPLO^dfe__fd', algorithms=['HS256'])
-                    print(decoded)
                     user = User.query.filter_by(registry=decoded['registry']).first()
                     if user:
                         if user.role in roles:
                             return fn(*args,**kwargs)
                         else:
+                            if 'id' in kwargs and canSeeOwn:
+                                if kwargs['id'] == user.id:
+                                    return fn(*args,**kwargs)
                             return {'message': 'permissao negada'}, 403
                     else:
                         return {'message': 'este usuario nao existe'}

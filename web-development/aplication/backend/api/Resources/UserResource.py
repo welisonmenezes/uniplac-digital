@@ -14,7 +14,7 @@ from UserValidations import UserValidation
 bcrypt = Bcrypt()
 
 class UserResource(Resource):
-    @hasPermissionByToken(['admin', 'User'])
+    @hasPermissionByToken(['admin'], True)
     def get(self, id=None):
         if not id:
             args = request.args
@@ -52,6 +52,7 @@ class UserResource(Resource):
                 'message': 'Nenhum usuário encontrado'
             }, 404
 
+    @hasPermissionByToken(['admin'], False)
     def post(self):
         json_data = request.get_json()
         if json_data:
@@ -94,6 +95,7 @@ class UserResource(Resource):
             }, 400
 
 
+    @hasPermissionByToken(['admin'], True)
     @mustHaveId
     def put(self, id=None):
         json_data = request.get_json()
@@ -146,6 +148,7 @@ class UserResource(Resource):
             }, 400
 
 
+    @hasPermissionByToken(['admin'], False)
     @mustHaveId
     def delete(self, id=None):
         user = User.query.filter_by(id=id).first()
