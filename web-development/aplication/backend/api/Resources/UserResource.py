@@ -15,7 +15,8 @@ bcrypt = Bcrypt()
 
 class UserResource(Resource):
     @hasPermissionByToken(['admin'], True)
-    def get(self, id=None):
+    def get(self, id=None, user=None):
+        #print(user.first_name)
         if not id:
             args = request.args
             page = 1
@@ -53,7 +54,7 @@ class UserResource(Resource):
             }, 404
 
     @hasPermissionByToken(['admin'], False)
-    def post(self):
+    def post(self, user=None):
         json_data = request.get_json()
         if json_data:
             # validate the fields
@@ -97,7 +98,7 @@ class UserResource(Resource):
 
     @hasPermissionByToken(['admin'], True)
     @mustHaveId
-    def put(self, id=None):
+    def put(self, id=None, user=None):
         json_data = request.get_json()
         if json_data:
             user = User.query.filter_by(id=id).first()
@@ -150,7 +151,7 @@ class UserResource(Resource):
 
     @hasPermissionByToken(['admin'], False)
     @mustHaveId
-    def delete(self, id=None):
+    def delete(self, id=None, user=None):
         user = User.query.filter_by(id=id).first()
         if user:
             try:

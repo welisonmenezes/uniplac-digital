@@ -13,7 +13,7 @@ class Navigation extends Component {
     }
 
     handleLogout = () => {
-        localStorage.removeItem('islogged');
+        localStorage.removeItem('token');
         this.props.setUserLogginStatus(false);
         if (/admin*/.test(window.location.pathname)) {
             this.setState({redirect: true});

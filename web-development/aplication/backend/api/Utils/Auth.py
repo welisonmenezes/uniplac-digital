@@ -13,6 +13,8 @@ def hasPermissionByToken(roles, canSeeOwn=False):
                     decoded = jwt.decode(token, '#$#gdFDKF#993FDVKkfdkj#$$2@@@@dfdlafFGÇPLO^dfe__fd', algorithms=['HS256'])
                     user = User.query.filter_by(registry=decoded['registry']).first()
                     if user:
+                        if 'user' in kwargs:
+                            kwargs['user'] = user
                         if user.role in roles:
                             return fn(*args,**kwargs)
                         else:
