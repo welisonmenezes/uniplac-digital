@@ -1,9 +1,7 @@
 *.mwb.bak
-/web-development/aplication/.vscode/**/*
-/web-development/aplication/__pycache__/**/*
+.vscode
 __pycache__
-/web-development/aplication/venv/**/*
-/web-development/aplication/frontend/node_modules
-/web-development/aplication/frontend/build
-/web-development/aplication/frontend/frontend
-/web-development/aplication/frontend/package-lock.json
+venv
+node_modules
+build
+package-lock.json
