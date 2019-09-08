@@ -3,12 +3,13 @@ from flask_restful import Resource
 import sys
 import base64
 import re
-sys.path.insert(0, './api/Utils')
-sys.path.insert(0, './api/Models')
-from Model import db, Image, ImageSchema
-from Auth import hasPermissionByToken, getJWTEncode
-from Utils import getBase64Size
-from MustHaveId import mustHaveId
+
+from api.Model import db, Image, ImageSchema
+
+from api.Validations.Auth import hasPermissionByToken, getJWTEncode
+from api.Validations.MustHaveId import mustHaveId
+
+from api.Utils import getBase64Size
 
 class ImageResource(Resource):
     def get(self, id=None):

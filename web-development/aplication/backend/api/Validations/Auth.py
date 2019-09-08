@@ -1,8 +1,8 @@
 from flask import request
 import jwt
-import sys
-sys.path.insert(0, './api/Utils')
-from Model import User
+from app import app
+
+from api.Model import User
 
 def hasPermissionByToken(roles, canSeeOwn=False):                            
     def decorator(fn):                                            
@@ -10,7 +10,7 @@ def hasPermissionByToken(roles, canSeeOwn=False):
             token = request.headers.get('Authorization')
             if (token):
                 try:
-                    decoded = jwt.decode(token, '#$#gdFDKF#993FDVKkfdkj#$$2@@@@dfdlafFGÇPLO^dfe__fd', algorithms=['HS256'])
+                    decoded = jwt.decode(token, app.config['JWT_SECRET_KEY'], algorithms=['HS256'])
                     user = User.query.filter_by(registry=decoded['registry']).first()
                     if user:
                         if 'user' in kwargs:
@@ -32,4 +32,4 @@ def hasPermissionByToken(roles, canSeeOwn=False):
     return decorator
 
 def getJWTEncode(user):
-    return jwt.encode({'registry': user.registry, 'role': user.role}, '#$#gdFDKF#993FDVKkfdkj#$$2@@@@dfdlafFGÇPLO^dfe__fd', algorithm='HS256')
+    return jwt.encode({'registry': user.registry, 'role': user.role}, app.config['JWT_SECRET_KEY'], algorithm='HS256')

@@ -1,17 +1,12 @@
 from flask import request
 from flask_restful import Resource
-from flask_bcrypt import Bcrypt
-import sys
-sys.path.insert(0, './api/Utils')
-sys.path.insert(0, './api/Models')
-sys.path.insert(0, './api/Validations')
-from Auth import hasPermissionByToken, getJWTEncode
-from Model import db, User, UserSchema, Image
-from MustHaveId import mustHaveId
 
-from UserValidations import UserValidation
+from app import bcrypt
+from api.Model import db, User, UserSchema, Image
 
-bcrypt = Bcrypt()
+from api.Validations.Auth import hasPermissionByToken, getJWTEncode
+from api.Validations.MustHaveId import mustHaveId
+from api.Validations.UserValidations import UserValidation
 
 class UserResource(Resource):
     @hasPermissionByToken(['admin'], True)
