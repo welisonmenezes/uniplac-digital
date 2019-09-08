@@ -7,9 +7,7 @@ from Auth import hasPermissionByToken, getJWTEncode
 from Model import db, Category, CategorySchema, Post
 from MustHaveId import mustHaveId
 
-encoded_jwt = getJWTEncode()
 class CategoryResource(Resource):
-    #@hasPermissionByToken(encoded_jwt)
     def get(self, id=None):
         if not id:
             args = request.args

@@ -1,3 +1,5 @@
+const jwtDecode = require('jwt-decode');
+
 export const IsInt = (value) => {
     if (value.toString().indexOf('.') > -1) {
         return false;
@@ -42,7 +44,7 @@ export const GetYoutubeVideoId = (url) => {
         const match = url.match(regExp);
         return (match && match[7].length === 11) ? match[7] : false;
     } catch (error) {
-       return null; 
+        return null;
     }
 };
 
@@ -109,3 +111,14 @@ export const CreateSoundCloudIframe = (node, config, mustReturn) => {
         return node;
     }
 };
+
+export const HasPermission = (permissions) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        const decoded = jwtDecode(token);
+        if (decoded['role'] && permissions.includes(decoded['role'])) {
+            return true;
+        }
+    }
+    return false;
+}

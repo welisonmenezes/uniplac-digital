@@ -1,15 +1,29 @@
+from flask import request
 import jwt
+import sys
+sys.path.insert(0, './api/Utils')
+from Model import User
 
-def hasPermissionByToken(token):                            
+def hasPermissionByToken(roles, canSeeOwn=False):                            
     def decorator(fn):                                            
         def decorated(*args,**kwargs): 
+            token = request.headers.get('Authorization')
             if (token):
                 try:
-                    decoded = jwt.decode(token, 'welisonmenezes', algorithms=['HS256'])
-                    if (decoded['permission'] == 'admin'):
-                        return fn(*args,**kwargs)
+                    decoded = jwt.decode(token, '#$#gdFDKF#993FDVKkfdkj#$$2@@@@dfdlafFGÇPLO^dfe__fd', algorithms=['HS256'])
+                    user = User.query.filter_by(registry=decoded['registry']).first()
+                    if user:
+                        if 'user' in kwargs:
+                            kwargs['user'] = user
+                        if user.role in roles:
+                            return fn(*args,**kwargs)
+                        else:
+                            if 'id' in kwargs and canSeeOwn:
+                                if kwargs['id'] == user.id:
+                                    return fn(*args,**kwargs)
+                            return {'message': 'permissao negada'}, 403
                     else:
-                        return {'message': 'permissao negada'}, 403
+                        return {'message': 'este usuario nao existe'}
                 except:
                     return {'message': 'token inválido'}, 403
             else:
@@ -17,5 +31,5 @@ def hasPermissionByToken(token):
         return decorated                                          
     return decorator
 
-def getJWTEncode():
-    return jwt.encode({'user': 'welison', 'permission': 'admin'}, 'welisonmenezes', algorithm='HS256')
+def getJWTEncode(user):
+    return jwt.encode({'registry': user.registry, 'role': user.role}, '#$#gdFDKF#993FDVKkfdkj#$$2@@@@dfdlafFGÇPLO^dfe__fd', algorithm='HS256')

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setMessageProtectedRoute } from '../../Redux/Actions/UserActions';
 
 import Navigation from './Shared/Navigation/Navigation';
 
@@ -13,10 +16,32 @@ import Login from '../Admin/Login/Login';
 
 class Public extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    handleCloseAlert = () => {
+        this.props.setMessageProtectedRoute(null);
+    }
+
     render() {
+
+        setTimeout(() => {
+            this.props.setMessageProtectedRoute(null);
+        }, 5000);
+
         return (
             <div className="Public">
                 <Navigation></Navigation>
+                {(this.props.messageProtectedRoute) &&
+                    <div className="alert alert-warning alert-dismissible fade show" role="alert">
+                        <span>{this.props.messageProtectedRoute}</span>
+                        <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={this.handleCloseAlert}>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                }
                 <Route render={({ location }) => (
                     <TransitionGroup>
                         <CSSTransition key={location.key} classNames="fade" timeout={300} transitionAppear={true} transitionEnter={false} transitionLeave={false}>
@@ -39,4 +64,13 @@ class Public extends Component {
     }
 }
 
-export default Public;
+const mapStateToProps = store => ({
+    messageProtectedRoute: store.userState.messageProtectedRoute
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators({
+        setMessageProtectedRoute
+    }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Public);
