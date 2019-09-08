@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="../../css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="../../images/favicon.png" />
+	<link rel="stylesheet" href="../../css/custom.css">
+
 </head>
 
 <body>
@@ -30,18 +32,7 @@
         </div>  
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-        <ul class="navbar-nav mr-lg-4 w-100">
-          <li class="nav-item nav-search d-none d-lg-block w-100">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="search">
-                  <i class="mdi mdi-magnify"></i>
-                </span>
-              </div>
-              <input type="text" class="form-control" placeholder="Search now" aria-label="search" aria-describedby="search">
-            </div>
-          </li>
-        </ul>
+        
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown mr-1">
             <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
@@ -178,7 +169,7 @@
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/buttons.html">Listar Notícias</a></li>
-                <li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/typography.html">Mais vistas</a></li>
+                
               </ul>
             </div>
           </li>
@@ -210,9 +201,7 @@
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="../forms/basic_elements.html"> Cadastro de Usuários </a></li>
                 <li class="nav-item"> <a class="nav-link" href="../samples/login-2.html"> Listar Usuários </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Requisições e Permissões</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/register-2.html"> Dados do Administrador </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/lock-screen.html"> Gerar Documentos </a></li>
+                
               </ul>
             </div>
           </li>
@@ -256,14 +245,31 @@
                   Status
                 </th>
               <th>
-                Ver/Editar
+                Ver/Editar/Deletar
               </th>
-              <th>
-                Deletar
-              </th>
+              
             </tr>
           </thead>
           <tbody>
+              <div class="container">
+                  <div class="row">
+                    <p style="color: blue; font-weight: bold;" class="col-1">Filtro:</p>
+                    <input class="form-control col-3" id="myInput" type="text" placeholder="pesquisar..">
+                    <br>
+
+
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Data de Admissão
+                      <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <input class="form-control" id="myInputt" type="text" placeholder="Search..">
+                      <li><a href="#">Nível de Usuário</a></li>
+                      <li><a href="#">Nome de Usuário</a></li>
+                      <li><a href="#">Data Admissão</a></li>
+
+                    </ul>
+                  </div>
+
+                </div>
             <tr>
               <td>
                 12345
@@ -279,13 +285,12 @@
               </td>
               <td>
                 <i class="mdi mdi-television-guide" style="font-size: 20px; width: 40px; text-align: center;float: left;
-                color: #0000FF"></i>
-                <a href="../../pages/forms/edicao_anuncios.html"><i class="mdi mdi-border-color " style="font-size: 20px; width: 40px; text-align: center;float: left;
-                  color: #0000FF"></i></a>
-              </td>
-              <td>
+      color: #0000FF"></i>
+                <a href="../../pages/forms/edicao.html"><i
+                    class="mdi mdi-border-color " style="font-size: 20px; width: 40px; text-align: center;float: left;
+      color: #0000FF"></i></a>
                 <i class="mdi mdi-delete-forever" style="font-size: 20px; width: 40px; text-align: center;float: left;
-                color: #FF0000"></i>
+    color: #FF0000"></i>
               </td>
             </tr>
             <tr>
@@ -303,13 +308,12 @@
               </td>
               <td>
                 <i class="mdi mdi-television-guide" style="font-size: 20px; width: 40px; text-align: center;float: left;
-                color: #0000FF"></i>
-                 <a href="../../pages/forms/edicao_anuncios.html"><i class="mdi mdi-border-color " style="font-size: 20px; width: 40px; text-align: center;float: left;
-                  color: #0000FF"></i></a>
-              </td>
-              <td>
+      color: #0000FF"></i>
+                <a href="../../pages/forms/edicao.html"><i
+                    class="mdi mdi-border-color " style="font-size: 20px; width: 40px; text-align: center;float: left;
+      color: #0000FF"></i></a>
                 <i class="mdi mdi-delete-forever" style="font-size: 20px; width: 40px; text-align: center;float: left;
-                color: #FF0000"></i>
+    color: #FF0000"></i>
               </td>
             </tr>
             <tr>
@@ -327,13 +331,12 @@
               </td>
               <td>
                 <i class="mdi mdi-television-guide" style="font-size: 20px; width: 40px; text-align: center;float: left;
-                color: #0000FF"></i>
-                 <a href="../../pages/forms/edicao_anuncios.html"><i class="mdi mdi-border-color " style="font-size: 20px; width: 40px; text-align: center;float: left;
-                  color: #0000FF"></i></a>
-              </td>
-              <td>
+      color: #0000FF"></i>
+                <a href="../../pages/forms/edicao.html"><i
+                    class="mdi mdi-border-color " style="font-size: 20px; width: 40px; text-align: center;float: left;
+      color: #0000FF"></i></a>
                 <i class="mdi mdi-delete-forever" style="font-size: 20px; width: 40px; text-align: center;float: left;
-                color: #FF0000"></i>
+    color: #FF0000"></i>
               </td>
             </tr>
             <tr>
@@ -351,13 +354,12 @@
               </td>
               <td>
                 <i class="mdi mdi-television-guide" style="font-size: 20px; width: 40px; text-align: center;float: left;
-                color: #0000FF"></i>
-                 <a href="../../pages/forms/edicao_anuncios.html"><i class="mdi mdi-border-color " style="font-size: 20px; width: 40px; text-align: center;float: left;
-                  color: #0000FF"></i></a>
-              </td>
-              <td>
+      color: #0000FF"></i>
+                <a href="../../pages/forms/edicao.html"><i
+                    class="mdi mdi-border-color " style="font-size: 20px; width: 40px; text-align: center;float: left;
+      color: #0000FF"></i></a>
                 <i class="mdi mdi-delete-forever" style="font-size: 20px; width: 40px; text-align: center;float: left;
-                color: #FF0000"></i>
+    color: #FF0000"></i>
               </td>
             </tr>
             <tr>
@@ -375,13 +377,12 @@
               </td>
               <td>
                 <i class="mdi mdi-television-guide" style="font-size: 20px; width: 40px; text-align: center;float: left;
-                color: #0000FF"></i>
-                <a href="../../pages/forms/edicao_anuncios.html"><i class="mdi mdi-border-color " style="font-size: 20px; width: 40px; text-align: center;float: left;
-                  color: #0000FF"></i></a>
-              </td>
-              <td>
+      color: #0000FF"></i>
+                <a href="../../pages/forms/edicao.html"><i
+                    class="mdi mdi-border-color " style="font-size: 20px; width: 40px; text-align: center;float: left;
+      color: #0000FF"></i></a>
                 <i class="mdi mdi-delete-forever" style="font-size: 20px; width: 40px; text-align: center;float: left;
-                color: #FF0000"></i>
+    color: #FF0000"></i>
               </td>
             </tr>
             <tr>
@@ -399,13 +400,12 @@
               </td>
               <td>
                 <i class="mdi mdi-television-guide" style="font-size: 20px; width: 40px; text-align: center;float: left;
-                color: #0000FF"></i>
-                <a href="../../pages/forms/edicao_anuncios.html"><i class="mdi mdi-border-color " style="font-size: 20px; width: 40px; text-align: center;float: left;
-                  color: #0000FF"></i></a>
-              </td>
-              <td>
+      color: #0000FF"></i>
+                <a href="../../pages/forms/edicao.html"><i
+                    class="mdi mdi-border-color " style="font-size: 20px; width: 40px; text-align: center;float: left;
+      color: #0000FF"></i></a>
                 <i class="mdi mdi-delete-forever" style="font-size: 20px; width: 40px; text-align: center;float: left;
-                color: #FF0000"></i>
+    color: #FF0000"></i>
               </td>
             </tr>
             <tr>
@@ -423,20 +423,36 @@
               </td>
               <td>
                 <i class="mdi mdi-television-guide" style="font-size: 20px; width: 40px; text-align: center;float: left;
-                color: #0000FF"></i>
-                <a href="../../pages/forms/edicao_anuncios.html"><i class="mdi mdi-border-color " style="font-size: 20px; width: 40px; text-align: center;float: left;
-                color: #0000FF"></i></a>
-              </td>
-              <td>
+      color: #0000FF"></i>
+                <a href="../../pages/forms/edicao.html"><i
+                    class="mdi mdi-border-color " style="font-size: 20px; width: 40px; text-align: center;float: left;
+      color: #0000FF"></i></a>
                 <i class="mdi mdi-delete-forever" style="font-size: 20px; width: 40px; text-align: center;float: left;
-                color: #FF0000"></i>
-
+    color: #FF0000"></i>
               </td>
             </tr>
 
           </tbody>
 
         </table>
+        <div class="template-demo" style="text-align: center">
+          <div class="btn-group" role="group"  aria-label="Basic example">
+            <button type="button" class="btn btn-primary">1</button>
+            <button type="button" class="btn btn-primary">2</button>
+            <button type="button" class="btn btn-primary">3</button>
+          </div>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary">
+              <i class="mdi mdi-heart-outline"></i>
+            </button>
+            <button type="button" class="btn btn-primary">
+              <i class="mdi mdi-calendar"></i>
+            </button>
+            <button type="button" class="btn btn-primary">
+              <i class="mdi mdi-clock"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -477,6 +493,24 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->
+  <script>
+      $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+          var value = $(this).val().toLowerCase();
+          $("#myList li").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+      $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+          var value = $(this).val().toLowerCase();
+          $(".dropdown-menu li").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+    </script>
 </body>
 
 </html>
