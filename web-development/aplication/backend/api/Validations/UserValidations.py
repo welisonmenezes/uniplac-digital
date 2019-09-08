@@ -1,7 +1,6 @@
-from Validators import Validators
-import sys
-sys.path.insert(0, './api/Models')
-from Model import User
+from api.Validations.Validators import Validators
+
+from api.Model import User
 
 class UserValidation(Validators):
     def __init__(self, req):

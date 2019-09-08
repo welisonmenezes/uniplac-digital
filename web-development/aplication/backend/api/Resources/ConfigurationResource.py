@@ -1,8 +1,7 @@
 from flask import  request
 from flask_restful import Resource
-import sys
-sys.path.insert(0, './api/Models')
-from Model import db, Configuration, ConfigurationSchema, Image
+
+from api.Model import db, Configuration, ConfigurationSchema, Image
 
 class ConfigurationResource(Resource):
     def get(self):

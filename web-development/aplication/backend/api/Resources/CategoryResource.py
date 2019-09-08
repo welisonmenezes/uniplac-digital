@@ -1,11 +1,10 @@
 from flask import request
 from flask_restful import Resource
-import sys
-sys.path.insert(0, './api/Utils')
-sys.path.insert(0, './api/Models')
-from Auth import hasPermissionByToken, getJWTEncode
-from Model import db, Category, CategorySchema, Post
-from MustHaveId import mustHaveId
+
+from api.Model import db, Category, CategorySchema, Post
+
+from api.Validations.Auth import hasPermissionByToken, getJWTEncode
+from api.Validations.MustHaveId import mustHaveId
 
 class CategoryResource(Resource):
     def get(self, id=None):

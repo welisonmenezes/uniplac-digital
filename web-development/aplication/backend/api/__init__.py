@@ -1,11 +1,6 @@
-from flask import current_app, Blueprint, request
-from flask_restful import Resource, Api
-import jwt
+from flask import current_app, Blueprint
+from flask_restful import Api
 from flask_cors import CORS
-
-# add custom path for imports
-import sys
-sys.path.insert(0, './api/Resources')
 
 # initialize the api blueprint
 api_bp = Blueprint('api', __name__, url_prefix='/api')
@@ -13,13 +8,7 @@ cors = CORS(api_bp, resources={r"/api/*": {"origins": "*"}})
 api = Api(api_bp)
 
 # import the resources
-from UserResource import UserResource
-from ImageResource import ImageResource
-from MediaResource import MediaResource
-from ConfigurationResource import ConfigurationResource
-from PostResource import PostResource
-from CategoryResource import CategoryResource
-from AuthResource import AuthResource
+from api.Resources import UserResource, ImageResource, MediaResource, ConfigurationResource, PostResource, CategoryResource, AuthResource
 
 # register the resources
 api.add_resource(UserResource, '/user', '/user/<int:id>')
