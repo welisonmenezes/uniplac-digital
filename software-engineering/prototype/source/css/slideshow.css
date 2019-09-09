@@ -16,7 +16,13 @@ h2 {
 .wrapper .slideshow .slick-slide {
     margin: 0;
     position: relative;
+}
+
+.slick-slide{
     outline: none !important;
+}
+.slick-slide a{
+    color: #3a414e;
 }
 
 .wrapper .slideshow .slick-slide > div{
@@ -50,8 +56,11 @@ h2 {
     margin-bottom: 50px;
 }
 
-.carouse .carousel div img{
-    height: 300px;
-    width: 100%;
-    padding: 10px;
+.carouse .carousel div .card{
+    margin: 0 10px;
+    border: none;
+}
+.carouse .carousel div .card h3{
+    margin-top: 20px;
+    font-size: 18px;
 }
