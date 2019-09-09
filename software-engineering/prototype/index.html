@@ -113,23 +113,33 @@
         <form class="search-form">
             <div class="container">
                 <div class="row">
-                    <div class="input-group col-md-9">
-                        <input type="text" class="form-control" placeholder="Pesquisar...">
-                        <div class="input-group-append">
-                            <button class="btn" type="button"><i class="ti-search"></i></button>
-                        </div>
-
-                    </div>
-                    <div class="col col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="inputEstado"></label>
-                            <select id="inputFilter" class="form-control" id="search-filter">
-                                <option selected>Filtro</option>
+                            <input type="text" class="form-control" placeholder="Pesquisar...">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <select class="form-control">
+                                <option selected>Tipo</option>
                                 <option>Notícias</option>
                                 <option>Anúncios</option>
                                 <option>Avisos</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <select class="form-control">
+                                <option selected>Categoria</option>
+                                <option>Sistemas de Informação</option>
+                                <option>Engenharia</option>
+                                <option>Esportes</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-primary btn-block">Filtrar</button>
                     </div>
                 </div>
             </div>

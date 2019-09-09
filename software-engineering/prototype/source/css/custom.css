@@ -235,6 +235,28 @@
     margin: 60px 0;
 }
 
+.search-form .row{
+    margin-right: -5px;
+    margin-left: -5px;
+}
+.search-form .row > div{
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.nice-select{
+    height: 38px;
+    line-height: 38px;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 100%;
+    float: none;
+    border: 1px solid #ced4da;
+}
+.nice-select .list{
+    width: 100%;
+}
+
 
 @media (max-width:991px){
     #navbarSupportedContent .icons{
