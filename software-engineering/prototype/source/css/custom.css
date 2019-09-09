@@ -283,12 +283,20 @@
     text-transform: uppercase;
     color: #2a2a2a;
 }
+
+.single_sidebar_widget{
+    padding: 24px;
+}
 .single_sidebar_widget .media{
     padding-bottom: 15px;
     border-bottom: 1px solid #f0e9ff;
 }
 .single_sidebar_widget .action{
     margin-top: 20px;
+}
+
+.single_sidebar_widget img{
+    width: 120px;
 }
 
 .blog_details{
