@@ -181,9 +181,35 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Lista de Usuários</h4>
-                                    <p class="card-description">
-
-                                    </p>
+                                    
+                                    <form class="formm-search">
+										<div class="row">
+											<div class="col-md-1">
+												<p class="btn">
+													Filtro:
+												</p>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<input type="text" class="form-control form-control-sm" placeholder="Nome">
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<select class="form-control form-control-sm">
+														<option value="">Permissão</option>
+														<option value="1">Administrador</option>
+														<option value="2">Editor</option>
+														<option value="3">Publicador</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<button type="button" class="btn btn-primary btn-sm btn-block">Filtrar</button>
+											</div>
+										</div>
+									</form>
+                                    
                                     <div class="table-responsive">
                                         <table class="table table-striped">
                                             <thead>
