@@ -1,0 +1,34 @@
+table tr td:last-child{
+    width: 180px;
+}
+button btn-group:last-child{
+    width: 80px;
+}
+table .mdi{
+    display: inline-block;
+    font-size: 20px;
+    margin: 0 10px;
+}
+table .mdi.edit{
+    color: green;
+}
+table .mdi.delete{
+    color: red;
+}
+
+.table-pagination{
+    margin-top: 40px;
+}
+
+.card-body{
+    position: relative;
+}
+.card-body .link-edit{
+    display: inline-block;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+}
+.card-body .mdi.edit{
+    font-size: 24px;
+}
