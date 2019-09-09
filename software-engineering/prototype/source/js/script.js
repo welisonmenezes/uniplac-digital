@@ -1,9 +1,10 @@
 $(".slideshow").slick({
+    lazyLoad: 'ondemand',
     arrows: false,
     autoplay: true,
     autoplaySpeed: 4000,
     infinite: true,
-    fade: true,
+    fade: false,
     pauseOnHover: false,
     pauseOnFocus: false
 });
@@ -40,8 +41,5 @@ $(".carousel").slick({
                 slidesToScroll: 1
             }
         }
-        // You can unslick at a given breakpoint now by adding:
-        // settings: "unslick"
-        // instead of a settings object
     ]
 });

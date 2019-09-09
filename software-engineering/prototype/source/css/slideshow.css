@@ -16,11 +16,18 @@ h2 {
 .wrapper .slideshow .slick-slide {
     margin: 0;
     position: relative;
+    outline: none !important;
+}
+
+.wrapper .slideshow .slick-slide > div{
+    height: 60vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat
 }
 
 .wrapper .slideshow .slick-slide img {
     width: 100%;
-    height: 400px;
 }
 
 .wrapper .slideshow .slick-slide img .subtitle {
