@@ -275,6 +275,8 @@
 .no-image .media-body{
     padding-left: 0 !important;
 }
+
+.blog_item .blog_btn,
 .media-body .blog_btn {
     font-size: 12px;
     font-weight: 500;
@@ -289,6 +291,9 @@
     margin-top: 20px;
 }
 
+.blog_details{
+    padding-top: 35px;
+}
 
 
 @media (max-width:991px){
