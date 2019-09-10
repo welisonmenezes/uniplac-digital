@@ -20,9 +20,9 @@
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="navbar-brand-wrapper d-flex justify-content-center">
                 <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
-                    <a class="navbar-brand brand-logo" href="index.html"><img src="./source/images/logoss.jpg"
+                    <a class="navbar-brand brand-logo" href="index.html"><img src="./source/images/logo.jpg"
                             alt="logo" /></a>
-                    <a class="navbar-brand brand-logo-mini" href="index.html"><img src="./source/images/logo-mini.svg"
+                    <a class="navbar-brand brand-logo-mini" href="index.html"><img src="./source/images/logo-mini.jpg"
                             alt="logo" /></a>
                     <button class="navbar-toggler navbar-toggler align-self-center" type="button"
                         data-toggle="minimize">
@@ -80,7 +80,7 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#ui-news" aria-expanded="false"
                             aria-controls="ui-news">
-                            <i class="mdi mdi-view-headline menu-icon"></i>
+                            <i class="mdi mdi-newspaper menu-icon"></i>
                             <span class="menu-title">Notícias</span>
                             <i class="menu-arrow"></i>
                         </a>
@@ -98,7 +98,7 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#ui-ads" aria-expanded="false"
                             aria-controls="ui-ads">
-                            <i class="mdi mdi-view-headline menu-icon"></i>
+                            <i class="mdi mdi-bullhorn menu-icon"></i>
                             <span class="menu-title">Anúncios</span>
                             <i class="menu-arrow"></i>
                         </a>
@@ -116,7 +116,7 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#ui-novices" aria-expanded="false"
                             aria-controls="ui-novices">
-                            <i class="mdi mdi-view-headline menu-icon"></i>
+                            <i class="mdi mdi-sim-alert menu-icon"></i>
                             <span class="menu-title">Avisos</span>
                             <i class="menu-arrow"></i>
                         </a>
@@ -134,7 +134,7 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#ui-user" aria-expanded="false"
                             aria-controls="ui-user">
-                            <i class="mdi mdi-view-headline menu-icon"></i>
+                            <i class="mdi mdi-account menu-icon"></i>
                             <span class="menu-title">Usuários</span>
                             <i class="menu-arrow"></i>
                         </a>
@@ -150,9 +150,27 @@
                         </div>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-category" aria-expanded="false"
+                            aria-controls="ui-category">
+                            <i class="mdi mdi-tag menu-icon"></i>
+                            <span class="menu-title">Categorias</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-category">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="categories.html">Ver todas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="category-form.html">Adicionar Novo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#ui-config" aria-expanded="false"
                             aria-controls="ui-config">
-                            <i class="mdi mdi-view-headline menu-icon"></i>
+                            <i class="mdi mdi-settings menu-icon"></i>
                             <span class="menu-title">Configurações</span>
                             <i class="menu-arrow"></i>
                         </a>
@@ -182,9 +200,45 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Anuncios</h4>
-                                    <p class="card-description">
-                                        Lista de Anuncios
-                                    </p>
+                                    
+                                    <form class="formm-search">
+										<div class="row">
+											<div class="col-md-1">
+												<p class="btn">
+													Filtro:
+												</p>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<input type="text" class="form-control form-control-sm" placeholder="Palavra chave">
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<select class="form-control form-control-sm">
+														<option value="">Tipo</option>
+														<option value="1">Notícias</option>
+														<option value="2">Anúncios</option>
+														<option value="3">Avisos</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<select class="form-control form-control-sm">
+														<option value="">Categoria</option>
+														<option value="1">Sistemas de Informação</option>
+														<option value="2">Engenharia</option>
+														<option value="3">Esportes</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<button type="button" class="btn btn-primary btn-sm btn-block">Filtrar</button>
+											</div>
+										</div>
+									</form>
+                                    
                                     <div class="table-responsive">
                                         <table class="table table-striped">
                                             <thead>
