@@ -192,33 +192,35 @@
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
+
                         <div class="col-md-6 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Cadastro de Login</h4>
-                                    <p class="card-description">
-                                        Dados do Login
-                                    </p>
                                     <form class="forms-sample">
                                         <div class="form-group">
-                                            <label for="exampleInputUsername1">Login</label>
-                                            <input type="text" class="form-control" id="exampleInputUsername1"
-                                                placeholder="Username">
+                                            <label>Nome</label>
+                                            <input type="text" class="form-control" placeholder="Nome">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Endereço de Email</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail1"
-                                                placeholder="Email">
+                                            <label>Sobrenome</label>
+                                            <input type="text" class="form-control" placeholder="Sobrenome">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Senha</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword1"
-                                                placeholder="Senha">
+                                            <label>Matrícula</label>
+                                            <input type="text" class="form-control" placeholder="Matrícula">
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputConfirmPassword1">Confirmação de Senha</label>
-                                            <input type="password" class="form-control"
-                                                id="exampleInputConfirmPassword1" placeholder="Confirmação Senha">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" placeholder="Email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Telefone</label>
+                                            <input type="text" class="form-control" placeholder="Telefone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Senha</label>
+                                            <input type="password" class="form-control" placeholder="Senha">
                                         </div>
                                         <div class="form-group">
                                             <label class="">Nível de Permissão</label>
@@ -226,8 +228,20 @@
                                                 <option>Nível 01</option>
                                                 <option>Nível 02</option>
                                                 <option>Nível 03</option>
-                                                <option>Nível 04 - Usuário Comum</option>
+                                                <option>Nível 04</option>
                                             </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Avatar</label>
+                                            <input type="file" name="img[]" class="file-upload-default">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control file-upload-info"
+                                                    placeholder="Upload Image">
+                                                <span class="input-group-append">
+                                                    <button class="file-upload-browse btn btn-primary"
+                                                        type="button">Upload</button>
+                                                </span>
+                                            </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary mr-2">Enviar</button>
                                         <button class="btn btn-light">Cancelar</button>
@@ -235,6 +249,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
                 <!-- content-wrapper ends -->

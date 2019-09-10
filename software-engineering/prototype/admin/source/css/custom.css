@@ -1,5 +1,9 @@
 table tr td:last-child{
     width: 180px;
+    text-align: right;
+}
+table tr th:last-child{
+    text-align: right;
 }
 button btn-group:last-child{
     width: 80px;
@@ -41,4 +45,38 @@ table a:hover{
 }
 .card-body .mdi.edit{
     font-size: 24px;
+}
+
+.form-control,
+.dataTables_wrapper select,
+select.form-control,
+.dataTables_wrapper select{
+    border: solid 1px #d3d3d3;
+}
+
+.ul-fig-banner{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+}
+.ul-fig-banner li{
+    width: 45%;
+    list-style: none;
+    margin: 10px;
+    flex-basis: 45%
+}
+.ul-fig-banner img{
+    max-width: 100%;
+}
+
+.fig-banner{
+    position: relative;
+}
+.fig-banner i{
+    position: absolute;
+    font-size: 24px;
+    cursor: pointer;
+    color: red;
+    top: -21px;
+    right: -12px;
 }

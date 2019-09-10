@@ -192,75 +192,35 @@
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
-                        <div class="col-12 grid-margin">
+                        
+                        <div class="col-md-6 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Edição dos Dados da Universidade</h4>
-                                    <form class="form-sample">
-                                        <p class="card-description">
-                                            Campus Lages
-                                        </p>
-                                        <p class="card-description">
-                                            Endereço
-                                        </p>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Telefone Fixo</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" class="form-control" placeholder="Telefone" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Celular</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" class="form-control" placeholder="Celular" />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <h4 class="card-title">Configurações do Site</h4>
+                                    <form class="forms-sample">
+                                        <div class="form-group">
+                                            <label>Título do Site</label>
+                                            <input type="text" class="form-control" placeholder="Título do Site">
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">CEP</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" class="form-control" placeholder="CEP: 88888-900" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Endereço</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" class="form-control" placeholder="Endereço" />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="form-group">
+                                            <label>Descrição do Site</label>
+                                            <input type="text" class="form-control" placeholder="Descrição do Site">
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Cidade</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="text" class="form-control" placeholder="Cidade" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group row">
-                                                    <label class="col-sm-3 col-form-label">Estado</label>
-                                                    <div class="col-sm-9">
-                                                        <select class="form-control">
-                                                            <option>SC - Santa Catarina</option>
-                                                            <option>PR - Parana</option>
-                                                            <option>RS - Rio Grande do Sul</option>
-                                                            <option>RJ - Rio de Janeiro</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="form-group">
+                                            <label>Telefone</label>
+                                            <input type="text" class="form-control" placeholder="Telefone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" placeholder="Email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Endereço</label>
+                                            <input type="text" class="form-control" placeholder="Endereço">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Horários</label>
+                                            <input type="password" class="form-control" placeholder="Horários">
                                         </div>
                                         <button type="submit" class="btn btn-primary mr-2">Enviar</button>
                                         <button class="btn btn-light">Cancelar</button>
@@ -268,6 +228,61 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Imagens do banner</h4>
+                                    <form class="forms-sample">
+                                        <div class="form-group">
+                                            <label>Adicionar Imagem</label>
+                                            <input type="file" name="img[]" class="file-upload-default">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control file-upload-info"
+                                                    placeholder="Upload Image">
+                                                <span class="input-group-append">
+                                                    <button class="file-upload-browse btn btn-primary"
+                                                        type="button">Upload</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <ul class="ul-fig-banner">
+                                        <li>
+                                            <figure class="fig-banner">
+                                                <i class="mdi mdi-close-circle"></i>
+                                                <img src="../source/img/banner-1.jpg" />
+                                            </figure>
+                                        </li>
+                                        <li>
+                                            <figure class="fig-banner">
+                                                <i class="mdi mdi-close-circle"></i>
+                                                <img src="../source/img/banner-1.jpg" />
+                                            </figure>
+                                        </li>
+                                        <li>
+                                            <figure class="fig-banner">
+                                                <i class="mdi mdi-close-circle"></i>
+                                                <img src="../source/img/banner-1.jpg" />
+                                            </figure>
+                                        </li>
+                                        <li>
+                                            <figure class="fig-banner">
+                                                <i class="mdi mdi-close-circle"></i>
+                                                <img src="../source/img/banner-1.jpg" />
+                                            </figure>
+                                        </li>
+                                        <li>
+                                            <figure class="fig-banner">
+                                                <i class="mdi mdi-close-circle"></i>
+                                                <img src="../source/img/banner-1.jpg" />
+                                            </figure>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
                 <!-- content-wrapper ends -->
