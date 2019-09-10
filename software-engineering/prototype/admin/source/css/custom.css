@@ -16,6 +16,16 @@ table .mdi.delete{
     color: red;
 }
 
+table a,
+table i{
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+}
+table a:hover{
+    text-decoration: none;
+}
+
 .table-pagination{
     margin-top: 40px;
 }
