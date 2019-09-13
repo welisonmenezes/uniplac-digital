@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import { getUsers, getUsersSuccess, getUsersError } from '../../../Redux/Actions/UsersActions';
-
-import UploadButton from '../../Admin/Shared/UploadButton/UploadButton';
 import BannerHome from './BannerHome/BannerHome';
 import FormFilter from '../Shared/FormFilter/FormFilter';
 import AdsHome from './AdsHome/AdsHome';
+import NewsHome from './NewsHome/NewsHome';
+import SideBar from '../Shared/SideBar/SideBar';
 
 class Home extends Component {
 
@@ -20,88 +16,27 @@ class Home extends Component {
 		};
 	}
 
-	loadData = () => {
-		this.props.getUsers(true);
-		this.props.getUsersError(null);
-		fetch("http://dummy.restapiexample.com/api/v1/employees")
-			.then(data => data.json())
-			.then(data => {
-				this.props.getUsersSuccess(data);
-				this.props.getUsers(false);
-				console.log(data)
-			}, error => {
-				this.props.getUsersError('Error ao carregar');
-				this.props.getUsers(false);
-			});
-	}
-
-	getUploadButtonState = (childState) => {
-		console.log(childState)
-		this.setState({
-			currentImage: childState.currentImage,
-			uploadError: childState.uploadError,
-			loadingImage: childState.loadingImage
-		});
-	}
-
 	render() {
-
-		const {
-			users,
-			loadingUsers,
-			errorUsers
-		} = this.props;
-
 		return (
 			<div className="Home">
-				<BannerHome></BannerHome>
-				<FormFilter></FormFilter>
-				<AdsHome></AdsHome>
-
-
-
-				<div className="container">
-					<div className="row">
-						<div className="col-md-12">
-							<hr />
-							<UploadButton getUploadButtonState={this.getUploadButtonState} />
-							<div className="form-group">
-								{(this.state.currentImage) &&
-									<img id="previewImage" src={this.state.currentImage} alt="Preview da imagem" />
-								}
-								{(this.state.loadingImage) &&
-									<p>Enviado...</p>
-								}
-								{(this.state.uploadError) &&
-									<p>{this.state.uploadError}</p>
-								}
+				<BannerHome />
+				<FormFilter />
+				<AdsHome />
+				<section className="blog-area section-gap">
+					<div className="container">
+						<div className="row">
+							<div className="col-lg-8">
+								<NewsHome />
 							</div>
-							<hr />
-							<button onClick={() => this.loadData()}>Carregar Dados</button>
-							{(users) && users.map(user => {
-								return <p key={user.id}><b>Name: </b>{user.employee_name}</p>
-							})}
-							{(loadingUsers) && <p>carregando</p>}
-							{(errorUsers) && <p>{errorUsers}</p>}
+							<div className="col-lg-4">
+								<SideBar />
+							</div>
 						</div>
 					</div>
-				</div>
+				</section>
 			</div>
 		);
 	}
 }
 
-const mapStateToProps = store => ({
-	users: store.usersState.users,
-	loadingUsers: store.usersState.loadingUsers,
-	errorUsers: store.usersState.errorUsers
-});
-
-const mapDispatchToProps = dispatch =>
-	bindActionCreators({
-		getUsers,
-		getUsersSuccess,
-		getUsersError
-	}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;
