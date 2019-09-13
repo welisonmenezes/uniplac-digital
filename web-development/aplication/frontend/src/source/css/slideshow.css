@@ -25,7 +25,7 @@ h2 {
     color: #3a414e;
 }
 
-.wrapper .slideshow .slick-slide > div{
+.wrapper .slideshow .slideshow-item > div{
     height: 60vh;
     background-position: center;
     background-size: cover;

@@ -101,7 +101,7 @@ class Navigation extends Component {
                                     </div>
                                     <div className="col-lg-2 pr-0 text-right">
                                         {(this.props.isUserLoggedin) &&
-                                            <Link to="/admin" target="_blank">
+                                            <Link to="/admin">
                                                 <span className="icons">
                                                     <i className="ti-user fa-lg"></i>Admin
                                                     </span>
@@ -113,7 +113,7 @@ class Navigation extends Component {
                                                     </span>
                                         }
                                         {(!this.props.isUserLoggedin) &&
-                                            <NavLink to="/login" target="_blank" activeClassName="active">
+                                            <NavLink to="/login" activeClassName="active">
                                                 <span className="icons">
                                                     <i className="ti-user fa-lg"></i>Login
                                                         </span>

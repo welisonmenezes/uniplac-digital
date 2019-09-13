@@ -41,7 +41,7 @@ class Public extends Component {
         }, 5000);
 
         return (
-            <div className="Public">
+            <div className="Public main-wrap">
                 <Navigation></Navigation>
                 {(this.props.messageProtectedRoute) &&
                     <div className="alert alert-warning alert-dismissible fade show" role="alert">

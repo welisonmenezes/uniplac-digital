@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { getUsers, getUsersSuccess, getUsersError } from '../../../Redux/Actions/UsersActions';
 
 import UploadButton from '../../Admin/Shared/UploadButton/UploadButton';
+import BannerHome from './BannerHome/BannerHome';
 
 class Home extends Component {
 
@@ -51,10 +52,10 @@ class Home extends Component {
 
 		return (
 			<div className="Home">
+				<BannerHome></BannerHome>
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">
-							<h1>Home</h1>
 							<hr />
 							<UploadButton getUploadButtonState={this.getUploadButtonState} />
 							<div className="form-group">
