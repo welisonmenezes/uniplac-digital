@@ -95,10 +95,10 @@
     .navbar-toggler[aria-expanded="false"] span:nth-child(2) {
 		opacity: 1;
 	}
-	.navbar-toggler[aria-expanded="true"] span:nth-child(2) {
+	.navbar-toggler.collapsed span:nth-child(2) {
 		opacity: 0;
 	}
-	.navbar-toggler[aria-expanded="true"] span:first-child {
+	.navbar-toggler.collapsed span:first-child {
 		transform: rotate(-45deg);
 		-webkit-transform: rotate(-45deg);
 		-ms-transform: rotate(-45deg);
@@ -107,7 +107,7 @@
 		position: relative;
 		top: 7.5px;
 	}
-	.navbar-toggler[aria-expanded="true"] span:last-child {
+	.navbar-toggler.collapsed span:last-child {
 		transform: rotate(45deg);
 		bottom: 6px;
 		position: relative;
@@ -121,6 +121,9 @@
 		margin-bottom: 4px;
 		transition: all 400ms linear;
 		cursor: pointer;
+	}
+	.navbar-toggler span:last-child{
+		margin-bottom: 0;
 	}
     .navbar .container{
         padding-left: 15px;

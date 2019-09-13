@@ -3,6 +3,8 @@ import { Link, Redirect, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { NavbarToggler, Collapse } from 'reactstrap';
+
 import { setUserLogginStatus } from '../../../../Redux/Actions/UserActions';
 import Logo from '../../../../source/img/logo.png';
 
@@ -10,7 +12,10 @@ class Navigation extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { redirect: false };
+        this.state = {
+            redirect: false,
+            isOpen: false
+        };
     }
 
     handleLogout = () => {
@@ -20,6 +25,12 @@ class Navigation extends Component {
             this.setState({ redirect: true });
         }
     };
+
+    toggle = () => {
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
+    }
 
     render() {
 
@@ -57,14 +68,12 @@ class Navigation extends Component {
                                     <img src={Logo} alt="logo" />
                                 </span>
                             </Link>
-                            <button className="navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
+                            <NavbarToggler onClick={this.toggle} className={this.state.isOpen ? 'collapsed' : ''}>
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
-                            </button>
-                            <div className="collapse navbar-collapse offset w-100" id="navbarSupportedContent">
+                            </NavbarToggler>
+                            <Collapse isOpen={this.state.isOpen} navbar id="navbarSupportedContent">
                                 <div className="row w-100 mr-0 justify-content-center">
                                     <div className="col-lg-10 pr-0">
                                         <ul className="nav navbar-nav center_nav pull-right justify-content-center">
@@ -112,7 +121,7 @@ class Navigation extends Component {
                                         }
                                     </div>
                                 </div>
-                            </div>
+                            </Collapse>
                         </nav>
                     </div>
                 </div>
