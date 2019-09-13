@@ -38,7 +38,6 @@ class Navigation extends Component {
 
     navBarFixed = () => {
         const header = document.querySelector('.header_area');
-        console.log(header)
         if (header) {
             window.onscroll = function(oEvent) {
                 var scroll = window.scrollY;
@@ -52,9 +51,6 @@ class Navigation extends Component {
     }
 
     render() {
-
-        console.log(this.props)
-
         return (
             <header className="header_area">
                 {(this.state.redirect) && <Redirect to="/admin" />}

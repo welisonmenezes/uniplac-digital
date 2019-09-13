@@ -4,6 +4,7 @@ import FormFilter from '../Shared/FormFilter/FormFilter';
 import AdsHome from './AdsHome/AdsHome';
 import NewsHome from './NewsHome/NewsHome';
 import SideBar from '../Shared/SideBar/SideBar';
+import Footer from '../Shared/Footer/Footer';
 
 class Home extends Component {
 
@@ -34,6 +35,7 @@ class Home extends Component {
 						</div>
 					</div>
 				</section>
+				<Footer />
 			</div>
 		);
 	}
