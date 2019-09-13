@@ -40,8 +40,8 @@ class Navigation extends Component {
         const header = document.querySelector('.header_area');
         if (header) {
             window.onscroll = function(oEvent) {
-                var scroll = window.scrollY;
-                if (scroll >= header.offsetHeight) {
+                const scroll = window.scrollY;
+                if (scroll >= 100) {
                     header.classList.add('navbar_fixed');
                 } else {
                     header.classList.remove('navbar_fixed');

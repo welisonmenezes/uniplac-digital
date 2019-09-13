@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import FormFilter from '../Shared/FormFilter/FormFilter';
+import Breadcrumb from '../Shared/Breadcrumb/Breadcrumb';
 
 class Posts extends Component {
 
@@ -23,13 +25,8 @@ class Posts extends Component {
 	render() {
 		return (
 			<div className="Posts">
-				<div className="container">
-					<div className="row">
-						<div className="col-md-12">
-							<h1>Posts: { this.state.currentPath }</h1>
-						</div>
-					</div>
-				</div>
+				<Breadcrumb />
+				<FormFilter />
 			</div>
 		);
 	}
