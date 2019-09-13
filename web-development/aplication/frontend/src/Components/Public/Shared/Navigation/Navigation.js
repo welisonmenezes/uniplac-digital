@@ -18,6 +18,10 @@ class Navigation extends Component {
         };
     }
 
+    componentDidMount() {
+        this.navBarFixed();
+    }
+
     handleLogout = () => {
         localStorage.removeItem('token');
         this.props.setUserLogginStatus(false);
@@ -30,6 +34,21 @@ class Navigation extends Component {
         this.setState({
             isOpen: !this.state.isOpen
         });
+    }
+
+    navBarFixed = () => {
+        const header = document.querySelector('.header_area');
+        console.log(header)
+        if (header) {
+            window.onscroll = function(oEvent) {
+                var scroll = window.scrollY;
+                if (scroll >= header.offsetHeight) {
+                    header.classList.add('navbar_fixed');
+                } else {
+                    header.classList.remove('navbar_fixed');
+                }
+            }
+        }
     }
 
     render() {
