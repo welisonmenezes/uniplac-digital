@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 import { setMessageProtectedRoute } from '../../Redux/Actions/UserActions';
 
 import '../../source/css/themify-icons.css';
-import '../../source/vendors/nice-select/css/nice-select.css';
 import '../../source/css/slick-theme.css';
 import '../../source/css/slick.css';
 import '../../source/css/slideshow.css';

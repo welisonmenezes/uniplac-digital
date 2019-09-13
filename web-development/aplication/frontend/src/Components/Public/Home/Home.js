@@ -6,6 +6,8 @@ import { getUsers, getUsersSuccess, getUsersError } from '../../../Redux/Actions
 
 import UploadButton from '../../Admin/Shared/UploadButton/UploadButton';
 import BannerHome from './BannerHome/BannerHome';
+import FormFilter from '../Shared/FormFilter/FormFilter';
+import AdsHome from './AdsHome/AdsHome';
 
 class Home extends Component {
 
@@ -53,6 +55,11 @@ class Home extends Component {
 		return (
 			<div className="Home">
 				<BannerHome></BannerHome>
+				<FormFilter></FormFilter>
+				<AdsHome></AdsHome>
+
+
+
 				<div className="container">
 					<div className="row">
 						<div className="col-md-12">

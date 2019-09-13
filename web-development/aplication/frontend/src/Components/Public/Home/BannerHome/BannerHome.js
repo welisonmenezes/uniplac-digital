@@ -8,11 +8,14 @@ class BannerHome extends Component {
 
     render() {
         const settings = {
-            dots: true,
+            lazyLoad: 'ondemand',
+            arrows: false,
+            autoplay: true,
+            autoplaySpeed: 4000,
             infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1
+            fade: false,
+            pauseOnHover: false,
+            pauseOnFocus: false
         };
         return (
             <section className="BannerHome">
