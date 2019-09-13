@@ -5,6 +5,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setMessageProtectedRoute } from '../../Redux/Actions/UserActions';
 
+import '../../source/css/themify-icons.css';
+import '../../source/vendors/nice-select/css/nice-select.css';
+import '../../source/css/slick-theme.css';
+import '../../source/css/slick.css';
+import '../../source/css/slideshow.css';
+import '../../source/css/style.css';
+import '../../source/css/responsive.css';
+import '../../source/css/custom.css';
+
 import Navigation from './Shared/Navigation/Navigation';
 
 import Home from './Home/Home';
