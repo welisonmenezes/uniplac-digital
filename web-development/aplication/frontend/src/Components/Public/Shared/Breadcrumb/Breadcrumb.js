@@ -9,11 +9,11 @@ class Breadcrumb extends Component {
                     <div className="container">
                         <div className="banner_content d-md-flex justify-content-between align-items-center">
                             <div className="mb-3 mb-md-0">
-                                <h2>Notícias</h2>
+                                <h2>{this.props.title}</h2>
                             </div>
                             <div className="page_link">
                                 <a href="#">Home</a>
-                                <strong>Notícias</strong>
+                                <strong>{this.props.title}</strong>
                             </div>
                         </div>
                     </div>

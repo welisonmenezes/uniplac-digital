@@ -8,23 +8,23 @@
     color: #797979;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+.main-wrap h1,
+.main-wrap h2,
+.main-wrap h3,
+.main-wrap h4,
+.main-wrap h5,
+.main-wrap h6 {
     font-family: "Heebo", sans-serif;
     color: #2a2a2a;
     font-weight: 500;
 }
 
-button:focus {
+.main-wrap button:focus {
     outline: none;
     box-shadow: none;
 }
 
-del {
+.main-wrap del {
     color: #797979;
     font-size: 14px;
     font-weight: 300;
@@ -37,18 +37,18 @@ del {
     padding: 0px;
 }
 
-a {
+.main-wrap a {
     text-decoration: none;
     transition: all 0.3s ease-in-out;
 }
 
-a:hover,
-a:focus {
+.main-wrap a:hover,
+.main-wrap a:focus {
     text-decoration: none;
     outline: none;
 }
 
-ul {
+.main-wrap ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -2234,10 +2234,10 @@ ul {
     }
 }
 
-b,
-sup,
-sub,
-u {
+.main-wrap b,
+.main-wrap sup,
+.main-wrap sub,
+.main-wrap u {
     color: #f8b600;
 }
 

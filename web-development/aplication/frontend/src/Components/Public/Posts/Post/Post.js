@@ -5,20 +5,25 @@ class Post extends Component {
     constructor(props) {
         super(props);
         this.state = {};
-
-        console.log(props);
     }
 
     render() {
         return (
-            <div className="Post">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <h1>Post Detail</h1>
-                        </div>
+            <div className="Post blog_left_sidebar">
+                <article className="blog_item">
+                    <div className="blog_item_img">
+                        <img className="card-img rounded-0" src={this.props.post.image} alt="" />
                     </div>
-                </div>
+                    <div className="blog_details">
+                        <a className="d-inline-block" href="#">
+                            <h2>{this.props.post.title}</h2>
+                        </a>
+                        <p>{this.props.post.description}</p>
+                        <a href="#" className="blog_btn">
+                            Ver Mais <span className="ml-2 ti-arrow-right"></span>
+                        </a>
+                    </div>
+                </article>
             </div>
         );
     }
