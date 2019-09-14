@@ -24,6 +24,7 @@ class Posts extends Component {
 	}
 
 	componentDidMount() {
+		window.scrollTo(0, 0);
 		this.setState({ currentPath: this.props.location.pathname });
 		switch (this.props.location.pathname) {
 			case '/noticias':
