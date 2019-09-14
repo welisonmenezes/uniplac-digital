@@ -28,7 +28,7 @@ class Navigation extends Component {
         if (/admin*/.test(window.location.pathname)) {
             this.setState({ redirect: true });
         }
-    };
+    }
 
     toggle = () => {
         this.setState({
@@ -50,6 +50,16 @@ class Navigation extends Component {
         }
     }
 
+    preventClickOnCurrentPage = (e) => {
+        if (e.target.parentElement) {
+            const tagA = e.target.parentElement;
+            const link = tagA.getAttribute('href');
+            if (link === window.location.pathname) {
+                e.preventDefault();
+            }
+        }
+    }
+
     render() {
         return (
             <header className="header_area">
@@ -67,7 +77,9 @@ class Navigation extends Component {
                                 <div className="float-right">
                                     <ul className="right_side">
                                         <li>
-                                            <NavLink to="/contato" activeClassName="active" exact>Contato</NavLink>
+                                            <NavLink to="/contato" activeClassName="active" exact onClick={this.preventClickOnCurrentPage}>
+                                                <span>Contato</span>
+                                            </NavLink>
                                         </li>
                                     </ul>
                                 </div>
@@ -78,11 +90,9 @@ class Navigation extends Component {
                 <div className="main_menu">
                     <div className="container">
                         <nav className="navbar navbar-expand-lg navbar-light w-100">
-                            <Link to="/">
-                                <span className="navbar-brand logo_h">
-                                    <img src={Logo} alt="logo" />
-                                </span>
-                            </Link>
+                            <NavLink to="/" onClick={this.preventClickOnCurrentPage} className="navbar-brand logo_h">
+                                <img src={Logo} alt="logo" />
+                            </NavLink>
                             <NavbarToggler onClick={this.toggle} className={this.state.isOpen ? 'collapsed' : ''}>
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
@@ -93,22 +103,22 @@ class Navigation extends Component {
                                     <div className="col-lg-10 pr-0">
                                         <ul className="nav navbar-nav center_nav pull-right justify-content-center">
                                             <li className="nav-item">
-                                                <NavLink to="/" activeClassName="active" exact>
+                                                <NavLink to="/" activeClassName="active" exact onClick={this.preventClickOnCurrentPage}>
                                                     <span className="nav-link">Home</span>
                                                 </NavLink>
                                             </li>
                                             <li className="nav-item">
-                                                <NavLink to="/noticias" activeClassName="active" exact>
+                                                <NavLink to="/noticias" activeClassName="active" exact onClick={this.preventClickOnCurrentPage}>
                                                     <span className="nav-link">Notícias</span>
                                                 </NavLink>
                                             </li>
                                             <li className="nav-item">
-                                                <NavLink to="/anuncios" activeClassName="active" exact>
+                                                <NavLink to="/anuncios" activeClassName="active" exact onClick={this.preventClickOnCurrentPage}>
                                                     <span className="nav-link">Anúncios</span>
                                                 </NavLink>
                                             </li>
                                             <li className="nav-item">
-                                                <NavLink to="/avisos" activeClassName="active" exact>
+                                                <NavLink to="/avisos" activeClassName="active" exact onClick={this.preventClickOnCurrentPage}>
                                                     <span className="nav-link">Avisos</span>
                                                 </NavLink>
                                             </li>
