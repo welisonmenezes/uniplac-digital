@@ -1,0 +1,4 @@
+.Login .btn-lg,
+.Login .btn-group-lg > .btn{
+    padding: 1rem 3rem;
+}

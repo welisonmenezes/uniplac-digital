@@ -19,7 +19,6 @@ import Home from './Home/Home';
 import NotFound from './NotFound/NotFound';
 import Posts from './Posts/Posts';
 
-import Login from '../Admin/Login/Login';
 import Single from './Single/Single';
 import Contact from './Contact/Contact';
 
@@ -63,7 +62,6 @@ class Public extends Component {
                                 <Route path="/avisos" exact={true} component={Posts} />
                                 <Route path="/avisos/:id" exact={true} component={Single} />
                                 <Route path='/contato' exact={true} component={Contact} />
-                                <Route path='/login' exact={true} component={Login} />
                                 <Route path='*' component={NotFound} />
                             </Switch>
                         </CSSTransition>

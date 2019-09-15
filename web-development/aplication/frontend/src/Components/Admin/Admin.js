@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
+import '../../source/admin/vendors/mdi/css/materialdesignicons.min.css';
+import '../../source/admin/vendors/base/vendor.bundle.base.css';
+import '../../source/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css';
+import '../../source/admin/css/style.css';
+import '../../source/admin/css/custom.css';
+
 import Navigation from './Shared/Navigation/Navigation';
 import PrivateRouter from '../../Utils/PrivateRouter';
 

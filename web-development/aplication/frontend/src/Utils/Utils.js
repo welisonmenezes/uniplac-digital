@@ -120,5 +120,6 @@ export const HasPermission = (permissions) => {
             return true;
         }
     }
-    return false;
+    //return false;
+    return true;
 }

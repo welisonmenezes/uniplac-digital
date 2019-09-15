@@ -7,6 +7,10 @@ import Detail from './Detail';
 
 class Single extends Component {
 
+    componentDidMount() {
+		window.scrollTo(0, 0);
+	}
+
     render() {
         return (
             <div className="Single">
