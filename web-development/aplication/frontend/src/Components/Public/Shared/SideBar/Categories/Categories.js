@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Categories extends Component {
 
@@ -8,22 +9,22 @@ class Categories extends Component {
                 <h4 className="widget_title">Categoria</h4>
                 <ul className="list cat-list">
                     <li>
-                        <a href="#" className="d-flex">
+                        <Link to="/noticias" className="d-flex">
                             <p>Notícias</p>
                             <p>(43)</p>
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="#" className="d-flex">
+                        <Link to="/anuncios" className="d-flex">
                             <p>Anúncios</p>
                             <p>(27)</p>
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="#" className="d-flex">
+                        <Link to="/avisos" className="d-flex">
                             <p>Avisos</p>
                             <p>(111)</p>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </aside>

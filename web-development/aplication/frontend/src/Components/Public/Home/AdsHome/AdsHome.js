@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 
 import image_1 from '../../../../source/img/blog/main-blog/m-blog-1.jpg';
@@ -85,7 +86,9 @@ class AdsHome extends Component {
                                     <h2>Anúncios</h2>
                                 </div>
                                 <div className="col text-right">
-                                    <a href="#" className="btn btn-info btn-sm">Ver Todos</a>
+                                    <Link to="/anuncios">
+                                        <span className="btn btn-info btn-sm">Ver Todos</span>
+                                    </Link>
                                 </div>
                             </div>
                             <Slider {...settings} className="carousel">
@@ -99,9 +102,9 @@ class AdsHome extends Component {
                                                 </div>
                                                 <div className="blog__slide__content">
                                                     <h3>
-                                                        <a href="#">
-                                                            New york fashion week's continued the evolution
-                                                    </a>
+                                                        <Link to={'/anuncios/' + ads.id}>
+                                                            <span>New york fashion week's continued the evolution</span>
+                                                        </Link>
                                                     </h3>
                                                 </div>
                                             </div>

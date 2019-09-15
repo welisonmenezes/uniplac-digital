@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Breadcrumb extends Component {
 
@@ -12,7 +13,9 @@ class Breadcrumb extends Component {
                                 <h2>{this.props.title}</h2>
                             </div>
                             <div className="page_link">
-                                <a href="#">Home</a>
+                                <Link to="/">
+                                    <span>Home</span>
+                                </Link>
                                 <strong>{this.props.title}</strong>
                             </div>
                         </div>

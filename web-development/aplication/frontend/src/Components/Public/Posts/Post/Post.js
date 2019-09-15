@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Post extends Component {
 
@@ -15,13 +16,15 @@ class Post extends Component {
                         <img className="card-img rounded-0" src={this.props.post.image} alt="" />
                     </div>
                     <div className="blog_details">
-                        <a className="d-inline-block" href="#">
+                        <div className="d-inline-block">
                             <h2>{this.props.post.title}</h2>
-                        </a>
+                        </div>
                         <p>{this.props.post.description}</p>
-                        <a href="#" className="blog_btn">
-                            Ver Mais <span className="ml-2 ti-arrow-right"></span>
-                        </a>
+                        <Link to={'/' + this.props.type + '/' + this.props.post.id}>
+                            <span className="blog_btn">
+                                Ver Mais <span className="ml-2 ti-arrow-right"></span>
+                            </span>
+                        </Link>
                     </div>
                 </article>
             </div>

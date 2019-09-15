@@ -19,7 +19,8 @@ class Posts extends Component {
 		super(props);
 		this.state = {
 			currentPath: this.props.location.pathname,
-			title: null
+			title: null,
+			type: null
 		};
 	}
 
@@ -28,16 +29,16 @@ class Posts extends Component {
 		this.setState({ currentPath: this.props.location.pathname });
 		switch (this.props.location.pathname) {
 			case '/noticias':
-				this.setState({ title: 'Notícias' });
+				this.setState({ title: 'Notícias', type: 'noticias' });
 				break;
 			case '/anuncios':
-				this.setState({ title: 'Anúncios' });
+				this.setState({ title: 'Anúncios', type: 'anuncios' });
 				break;
 			case '/avisos':
-				this.setState({ title: 'Avisos' });
+				this.setState({ title: 'Avisos', type: 'avisos' });
 				break;
 			default:
-				this.setState({ title: null });
+				this.setState({ title: null, type: null });
 				break;
 		}
 	}
@@ -88,7 +89,7 @@ class Posts extends Component {
 							<div className="col-lg-8">
 								{this.getPosts().map((post) => {
 									return (
-										<Post key={post.id} post={post} />
+										<Post key={post.id} post={post} type={this.state.type} />
 									)
 								})}
 								<Pagination />

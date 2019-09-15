@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import image_1 from '../../../../../source/img/blog/main-blog/m-blog-1.jpg';
 import image_2 from '../../../../../source/img/blog/main-blog/m-blog-2.jpg';
@@ -47,16 +48,20 @@ class RecentNovices extends Component {
                         <div className="media post_item" key={novice.id}>
                             <img src={novice.image} alt="post" />
                             <div className="media-body">
-                                <h3>{ novice.title }</h3>
-                                <a href="#" className="blog_btn">
-                                    Ver Mais <span className="ml-2 ti-arrow-right"></span>
-                                </a>
+                                <h3>{novice.title}</h3>
+                                <Link to={'/avisos/' + novice.id}>
+                                    <span className="blog_btn">
+                                        Ver Mais <span className="ml-2 ti-arrow-right"></span>
+                                    </span>
+                                </Link>
                             </div>
                         </div>
                     )
                 })}
                 <div className="action">
-                    <a href="#" className="btn btn-info btn-sm btn-block">Ver todos</a>
+                    <Link to="/avisos">
+                        <span className="btn btn-info btn-sm btn-block">Ver todos</span>
+                    </Link>
                 </div>
             </aside>
         );

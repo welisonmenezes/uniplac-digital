@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import image_1 from '../../../../source/img/blog/main-blog/m-blog-1.jpg';
 import image_2 from '../../../../source/img/blog/main-blog/m-blog-2.jpg';
@@ -60,16 +61,17 @@ class NewsHome extends Component {
                                         <img className="img-fluid" src={news.image} alt="" />
                                     </div>
                                     <div className="short_details">
-                                        <a className="d-block" href="#">
-                                            <h3>{ news.title }</h3>
-                                        </a>
-                                        <div className="text-wrap">
-                                            <p>{ news.description }</p>
+                                        <div className="d-block">
+                                            <h3>{news.title}</h3>
                                         </div>
-                                        <a href="#" className="blog_btn">
-                                            Ver Mais
-                                            <span className="ml-2 ti-arrow-right"></span>
-                                        </a>
+                                        <div className="text-wrap">
+                                            <p>{news.description}</p>
+                                        </div>
+                                        <Link to={'/noticias/' + news.id}>
+                                            <span className="blog_btn">
+                                                Ver Mais <span className="ml-2 ti-arrow-right"></span>
+                                            </span>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +80,9 @@ class NewsHome extends Component {
                 })}
                 <div className="row">
                     <div className="col-md-12">
-                        <a href="#" className="btn btn-info btn-block">Ver Todas a Notícias</a>
+                        <Link to="/noticias">
+                            <span className="btn btn-info btn-block">Ver Todas a Notícias</span>
+                        </Link>
                     </div>
                 </div>
             </div>
