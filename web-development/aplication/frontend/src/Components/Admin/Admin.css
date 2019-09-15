@@ -1,0 +1,14 @@
+.Admin .page-body-wrapper {
+    min-height: calc(100vh - 60px);
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 60px;
+}
+
+.Admin .navbar-toggler span{
+    background: transparent !important;
+}

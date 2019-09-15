@@ -1,89 +1,157 @@
 import React, { Component } from 'react';
-import { Link, Redirect, NavLink } from 'react-router-dom';
+import { Collapse } from 'reactstrap';
+//import { Link, Redirect, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import './Navigation.css';
+
 import { setUserLogginStatus } from '../../../../Redux/Actions/UserActions';
-import { HasPermission } from '../../../../Utils/Utils';
 
 class Navigation extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { redirect: false };
+        this.state = {
+            redirect: false,
+            menuStatus: {
+                news: false,
+                ads: false,
+                novices: false,
+                users: false,
+                categories: false,
+                configurations: false
+            }
+        };
     }
 
-    handleLogout = () => {
-        localStorage.removeItem('token');
-        this.props.setUserLogginStatus(false);
-        if (/admin*/.test(window.location.pathname)) {
-            this.setState({ redirect: true });
-        }
-    };
+    toggle = (item) => {
+        let obj = { menuStatus: {
+            news: false,
+            ads: false,
+            novices: false,
+            users: false,
+            categories: false,
+            configurations: false
+        } };
+        obj.menuStatus[item] = !this.state.menuStatus[item];
+        this.setState({ menuStatus: obj.menuStatus });
+    }
 
     render() {
 
         return (
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                {(this.state.redirect) && <Redirect to="/admin" />}
-                <Link to="/admin">
-                    <span className="navbar-brand">Navbar</span>
-                </Link>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <NavLink to="/admin" activeClassName="active" exact>
-                                <span className="nav-link">Dashboard</span>
-                            </NavLink>
-                        </li>
-                        { HasPermission(['admin']) &&
-                            <li className="nav-item">
-                                <NavLink to="/admin/noticias" activeClassName="active">
-                                    <span className="nav-link">Noticias</span>
-                                </NavLink>
-                            </li>
-                        }
-                        { HasPermission(['admin']) &&
-                            <li className="nav-item">
-                                <NavLink to="/admin/avisos" activeClassName="active">
-                                    <span className="nav-link">Avisos</span>
-                                </NavLink>
-                            </li>
-                        }
-                        { HasPermission(['admin']) &&
-                            <li className="nav-item">
-                                <NavLink to="/admin/anuncios" activeClassName="active">
-                                    <span className="nav-link">Anúncios</span>
-                                </NavLink>
-                            </li>
-                        }
-                        { HasPermission(['admin']) &&
-                            <li className="nav-item">
-                                <NavLink to="/admin/usuarios" activeClassName="active">
-                                    <span className="nav-link">Usuários</span>
-                                </NavLink>
-                            </li>
-                        }
-                        { HasPermission(['admin']) &&
-                            <li className="nav-item">
-                                <NavLink to="/admin/configuracoes" activeClassName="active">
-                                    <span className="nav-link">Configurações</span>
-                                </NavLink>
-                            </li>
-                        }
-                        <li className="nav-item">
-                            <Link to="/">
-                                <span className="nav-link">Site</span>
-                            </Link>
-                        </li>
-                        <li className="nav-item" onClick={this.handleLogout}>
-                            <span className="nav-link">Logout</span>
-                        </li>
-                    </ul>
-                </div>
+            <nav className="Navigation sidebar sidebar-offcanvas" id="sidebar">
+                <ul className="nav">
+                    <li className="nav-item">
+                        <a className="nav-link" href="index.html">
+                            <i className="mdi mdi-home menu-icon"></i>
+                            <span className="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <span className="nav-link" onClick={() => { this.toggle('news') }}>
+                            <i className="mdi mdi-newspaper menu-icon"></i>
+                            <span className="menu-title">Notícias</span>
+                            <i className="menu-arrow"></i>
+                        </span>
+                        <Collapse isOpen={this.state.menuStatus.news}>
+                            <ul className="nav flex-column sub-menu">
+                                <li className="nav-item">
+                                    <a className="nav-link" href="news.html">Ver todos</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="post-form.html">Adicionar Novo</a>
+                                </li>
+                            </ul>
+                        </Collapse>
+                    </li>
+                    <li className="nav-item">
+                        <span className="nav-link" onClick={() => { this.toggle('ads') }}>
+                            <i className="mdi mdi-bullhorn menu-icon"></i>
+                            <span className="menu-title">Anúncios</span>
+                            <i className="menu-arrow"></i>
+                        </span>
+                        <Collapse isOpen={this.state.menuStatus.ads}>
+                            <ul className="nav flex-column sub-menu">
+                                <li className="nav-item">
+                                    <a className="nav-link" href="ads.html">Ver todos</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="post-form.html">Adicionar Novo</a>
+                                </li>
+                            </ul>
+                        </Collapse>
+                    </li>
+                    <li className="nav-item">
+                        <span className="nav-link" onClick={() => { this.toggle('novices') }}>
+                            <i className="mdi mdi-sim-alert menu-icon"></i>
+                            <span className="menu-title">Avisos</span>
+                            <i className="menu-arrow"></i>
+                        </span>
+                        <Collapse isOpen={this.state.menuStatus.novices}>
+                            <ul className="nav flex-column sub-menu">
+                                <li className="nav-item">
+                                    <a className="nav-link" href="novices.html">Ver todos</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="post-form.html">Adicionar Novo</a>
+                                </li>
+                            </ul>
+                        </Collapse>
+                    </li>
+                    <li className="nav-item">
+                        <span className="nav-link" onClick={() => { this.toggle('users') }}>
+                            <i className="mdi mdi-account menu-icon"></i>
+                            <span className="menu-title">Usuários</span>
+                            <i className="menu-arrow"></i>
+                        </span>
+                        <Collapse isOpen={this.state.menuStatus.users}>
+                            <ul className="nav flex-column sub-menu">
+                                <li className="nav-item">
+                                    <a className="nav-link" href="users.html">Ver todos</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="user-form.html">Adicionar Novo</a>
+                                </li>
+                            </ul>
+                        </Collapse>
+                    </li>
+                    <li className="nav-item">
+                        <span className="nav-link" onClick={() => { this.toggle('categories') }}>
+                            <i className="mdi mdi-tag menu-icon"></i>
+                            <span className="menu-title">Categorias</span>
+                            <i className="menu-arrow"></i>
+                        </span>
+                        <Collapse isOpen={this.state.menuStatus.categories}>
+                            <ul className="nav flex-column sub-menu">
+                                <li className="nav-item">
+                                    <a className="nav-link" href="categories.html">Ver todas</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="category-form.html">Adicionar Novo</a>
+                                </li>
+                            </ul>
+                        </Collapse>
+                    </li>
+                    <li className="nav-item">
+                        <span className="nav-link" onClick={() => { this.toggle('configurations') }}>
+                            <i className="mdi mdi-settings menu-icon"></i>
+                            <span className="menu-title">Configurações</span>
+                            <i className="menu-arrow"></i>
+                        </span>
+                        <Collapse isOpen={this.state.menuStatus.configurations}>
+                            <ul className="nav flex-column sub-menu">
+                                <li className="nav-item">
+                                    <a className="nav-link" href="configurations.html">Ver Detalhes</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="config-form.html">Editar</a>
+                                </li>
+                            </ul>
+                        </Collapse>
+                    </li>
+                </ul>
             </nav>
         );
     }

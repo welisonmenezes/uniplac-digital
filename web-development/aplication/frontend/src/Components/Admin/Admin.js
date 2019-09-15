@@ -19,32 +19,42 @@ import UserForm from './AdminUsers/UserForm/UserForm';
 import ConfigurationForm from './ConfigurationForm/ConfigurationForm';
 
 import NotFound from '../Public/NotFound/NotFound';
+import Navbar from './Shared/Navbar/Navbar';
+
+import './Admin.css';
 
 class Admin extends Component {
 
     render() {
         return (
-            <div className="Admin">
-                <Navigation></Navigation>
-                <Route render={({ location }) => (
-                    <TransitionGroup>
-                        <CSSTransition key={location.key} classNames="fade" timeout={300} transitionAppear={true} transitionEnter={false} transitionLeave={false}>
-                            <Switch location={location}>
-                                <PrivateRouter path='/admin' exact={true} component={Dashboard} permissions={['admin']} />
-                                <PrivateRouter path='/admin/noticias' exact={true} component={AdminPosts} permissions={['adminx']} />
-                                <PrivateRouter path='/admin/noticias/:id' exact={true} component={PostForm} permissions={['admin']} />
-                                <PrivateRouter path='/admin/anuncios' exact={true} component={AdminPosts} permissions={['admin']} />
-                                <PrivateRouter path='/admin/anuncios/:id' exact={true} component={PostForm} permissions={['admin']} />
-                                <PrivateRouter path='/admin/avisos' exact={true} component={AdminPosts} permissions={['admin']} />
-                                <PrivateRouter path='/admin/avisos/:id' exact={true} component={PostForm} permissions={['admin']} />
-                                <PrivateRouter path='/admin/usuarios' exact={true} component={AdminUsers} permissions={['admin']} />
-                                <PrivateRouter path='/admin/usuarios/:id' exact={true} component={UserForm} permissions={['admin']} />
-                                <PrivateRouter path='/admin/configuracoes' exact={true} component={ConfigurationForm} permissions={['admin']} />
-                                <Route path='*' component={NotFound} />
-                            </Switch>
-                        </CSSTransition>
-                    </TransitionGroup>
-                )} />
+            <div className="Admin container-scroller">
+                <Navbar />
+                <div className="container-fluid page-body-wrapper">
+                    <Navigation />
+                    <div className="main-panel">
+                        <div className="content-wrapper">
+                            <Route render={({ location }) => (
+                                <TransitionGroup>
+                                    <CSSTransition key={location.key} classNames="fade" timeout={300} transitionAppear={true} transitionEnter={false} transitionLeave={false}>
+                                        <Switch location={location}>
+                                            <PrivateRouter path='/admin' exact={true} component={Dashboard} permissions={['admin']} />
+                                            <PrivateRouter path='/admin/noticias' exact={true} component={AdminPosts} permissions={['adminx']} />
+                                            <PrivateRouter path='/admin/noticias/:id' exact={true} component={PostForm} permissions={['admin']} />
+                                            <PrivateRouter path='/admin/anuncios' exact={true} component={AdminPosts} permissions={['admin']} />
+                                            <PrivateRouter path='/admin/anuncios/:id' exact={true} component={PostForm} permissions={['admin']} />
+                                            <PrivateRouter path='/admin/avisos' exact={true} component={AdminPosts} permissions={['admin']} />
+                                            <PrivateRouter path='/admin/avisos/:id' exact={true} component={PostForm} permissions={['admin']} />
+                                            <PrivateRouter path='/admin/usuarios' exact={true} component={AdminUsers} permissions={['admin']} />
+                                            <PrivateRouter path='/admin/usuarios/:id' exact={true} component={UserForm} permissions={['admin']} />
+                                            <PrivateRouter path='/admin/configuracoes' exact={true} component={ConfigurationForm} permissions={['admin']} />
+                                            <Route path='*' component={NotFound} />
+                                        </Switch>
+                                    </CSSTransition>
+                                </TransitionGroup>
+                            )} />
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

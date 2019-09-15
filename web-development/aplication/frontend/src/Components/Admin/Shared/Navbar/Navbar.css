@@ -1,0 +1,22 @@
+.navbar-nav button{
+    background: transparent !important;
+    border: none !important;
+    padding: 0 0 0 0;
+    box-shadow: none !important;
+}
+
+.Navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .navbar-dropdown {
+    position: absolute !important;
+    font-size: 0.9rem !important;
+    margin-top: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    top: 60px !important;
+}
+
+.Navbar .navbar-toggler{
+    outline: none !important;
+}
+.Navbar .navbar-toggler span{
+    height: auto;
+}
