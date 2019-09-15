@@ -181,7 +181,13 @@
     color: #71cd14;
 }
 
+.show-992{
+    display: none;
+}
 @media (max-width: 992px) {
+    .show-992{
+        display: block;
+    }
     .header_area .navbar .nav {
         float: left;
     }
@@ -292,6 +298,7 @@
     margin-top: 0px;
 }
 
+.header_area .navbar .nav .nav-item.last,
 .header_area .navbar .nav .nav-item:last-child {
     margin-right: 0px;
 }

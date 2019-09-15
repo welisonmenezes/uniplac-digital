@@ -8,6 +8,8 @@ import { NavbarToggler, Collapse } from 'reactstrap';
 import { setUserLogginStatus } from '../../../../Redux/Actions/UserActions';
 import Logo from '../../../../source/img/logo.png';
 
+import './Navigation.css';
+
 class Navigation extends Component {
 
     constructor(props) {
@@ -62,7 +64,7 @@ class Navigation extends Component {
 
     render() {
         return (
-            <header className="header_area">
+            <header className="Navigation header_area">
                 {(this.state.redirect) && <Redirect to="/admin" />}
                 <div className="top_menu">
                     <div className="container">
@@ -117,9 +119,14 @@ class Navigation extends Component {
                                                     <span className="nav-link">Anúncios</span>
                                                 </NavLink>
                                             </li>
-                                            <li className="nav-item">
+                                            <li className="nav-item last">
                                                 <NavLink to="/avisos" activeClassName="active" exact onClick={this.preventClickOnCurrentPage}>
                                                     <span className="nav-link">Avisos</span>
+                                                </NavLink>
+                                            </li>
+                                            <li className="nav-item show-992">
+                                                <NavLink to="/contato" activeClassName="active" exact onClick={this.preventClickOnCurrentPage}>
+                                                    <span className="nav-link">Contato</span>
                                                 </NavLink>
                                             </li>
                                         </ul>
