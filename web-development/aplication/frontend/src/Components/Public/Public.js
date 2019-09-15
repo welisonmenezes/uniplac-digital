@@ -21,6 +21,7 @@ import Posts from './Posts/Posts';
 
 import Login from '../Admin/Login/Login';
 import Single from './Single/Single';
+import Contact from './Contact/Contact';
 
 class Public extends Component {
 
@@ -61,6 +62,7 @@ class Public extends Component {
                                 <Route path="/anuncios/:id" exact={true} component={Single} />
                                 <Route path="/avisos" exact={true} component={Posts} />
                                 <Route path="/avisos/:id" exact={true} component={Single} />
+                                <Route path='/contato' exact={true} component={Contact} />
                                 <Route path='/login' exact={true} component={Login} />
                                 <Route path='*' component={NotFound} />
                             </Switch>
