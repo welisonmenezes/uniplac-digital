@@ -116,6 +116,9 @@ class Navbar extends Component {
                                 </span>
                                 </Link>
                                 <span className="dropdown-item" onClick={this.handleLogout}>
+                                    <i className="mdi mdi-account text-primary"></i> Perfil
+                                </span>
+                                <span className="dropdown-item" onClick={this.handleLogout}>
                                     <i className="mdi mdi-logout text-primary"></i> Sair
                                 </span>
                             </DropdownMenu>
