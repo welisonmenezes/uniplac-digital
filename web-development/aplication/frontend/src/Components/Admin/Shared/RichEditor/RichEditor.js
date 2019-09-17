@@ -242,7 +242,7 @@ class RichEditor extends Component {
                     onChange={this.handleEditorChange} />
                 <div id="ImageEditor" className="configuration-panel image">
                     <div>
-                        <button className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('image')}>Cancelar</button>
+                        <button type="button" className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('image')}>Cancelar</button>
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="form-group">
@@ -294,7 +294,7 @@ class RichEditor extends Component {
                                 </div>
                                 {(this.state.currentImage) &&
                                     <div className="form-group">
-                                        <button className="btn btn-primary" onClick={() => { this.handleAddImage() }}>Add image</button>
+                                        <button type="button" className="btn btn-primary" onClick={() => { this.handleAddImage() }}>Add image</button>
                                     </div>
                                 }
                             </div>
@@ -303,7 +303,7 @@ class RichEditor extends Component {
                 </div>
                 <div id="VideoEditor" className="configuration-panel video">
                     <div>
-                        <button className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('video')}>Cancelar</button>
+                        <button type="button" className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('video')}>Cancelar</button>
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="form-group">
@@ -367,7 +367,7 @@ class RichEditor extends Component {
                                 </div>
                                 {(this.state.currentVideo && GetYoutubeVideoId(this.state.currentVideo)) &&
                                     <div className="form-group">
-                                        <button className="btn btn-primary" onClick={() => { this.handleAddVideo() }}>Add vídeo</button>
+                                        <button type="button" className="btn btn-primary" onClick={() => { this.handleAddVideo() }}>Add vídeo</button>
                                     </div>
                                 }
                             </div>
@@ -376,7 +376,7 @@ class RichEditor extends Component {
                 </div>
                 <div id="AudioEditor" className="configuration-panel audio">
                     <div>
-                        <button className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('audio')}>Cancelar</button>
+                        <button type="button" className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('audio')}>Cancelar</button>
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="form-group">
@@ -440,7 +440,7 @@ class RichEditor extends Component {
                                 </div>
                                 {(this.state.currentAudio) &&
                                     <div className="form-group">
-                                        <button className="btn btn-primary" onClick={() => { this.handleAddAudio() }}>Add audio</button>
+                                        <button type="button" className="btn btn-primary" onClick={() => { this.handleAddAudio() }}>Add audio</button>
                                     </div>
                                 }
                             </div>
@@ -449,7 +449,7 @@ class RichEditor extends Component {
                 </div>
                 <div id="LinkEditor" className="configuration-panel link">
                     <div>
-                        <button className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('link')}>Cancelar</button>
+                        <button type="button" className="btn btn-danger" onClick={() => this.toggleConfigurationPanel('link')}>Cancelar</button>
                         <div className="row">
                             <div className="col-md-6">
                                 <div>
@@ -487,7 +487,7 @@ class RichEditor extends Component {
                                 </div>
                                 {(this.state.currentLink) && IsAnUrl(this.state.currentLink) &&
                                     <div>
-                                        <button className="btn btn-primary" onClick={() => { this.handleAddLink() }}>Add link</button>
+                                        <button type="button" className="btn btn-primary" onClick={() => { this.handleAddLink() }}>Add link</button>
                                     </div>
                                 }
                             </div>

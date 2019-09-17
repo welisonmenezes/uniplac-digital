@@ -8,8 +8,9 @@
     max-width: 18px;
     max-height: 18px;
 }
+
 .ql-editor{
-    height: 90vh;
+    height: 100%;
 }
 .ql-editor img{
     max-width: 100%;
@@ -17,12 +18,17 @@
 }
 
 .RichEditor{
-    height: 100vh;
+    height: 60vh;
     position: relative;
     background: #ffffff;
+    display: flex;
+    flex-direction: column;
 }
 .RichEditor.is-fullscreen .ql-editor{
     height: 100vh;
+}
+.RichEditor .quill{
+    flex: 1;
 }
 .configuration-panel{
     overflow: hidden;

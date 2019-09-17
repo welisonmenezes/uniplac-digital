@@ -9,3 +9,7 @@
 .fade-exit.fade-exit-active{
     display: none;
 }
+
+a:hover{
+    text-decoration: none !important;
+}
