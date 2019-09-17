@@ -31,12 +31,12 @@ class CategoryForm extends Component {
                                 <h4 className="card-title">{this.state.title}</h4>
                                 <form className="forms-sample">
                                     <div className="form-group">
-                                        <label for="exampleInputUsername1">Nome</label>
+                                        <label>Nome</label>
                                         <input type="text" className="form-control" id="exampleInputUsername1"
                                             placeholder="Nome" />
                                     </div>
                                     <div className="form-group">
-                                        <label for="exampleInputEmail1">Descrição</label>
+                                        <label>Descrição</label>
                                         <input type="text" className="form-control" id="exampleInputEmail1"
                                             placeholder="Descrição" />
                                     </div>

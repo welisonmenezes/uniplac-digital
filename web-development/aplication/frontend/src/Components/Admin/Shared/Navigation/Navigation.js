@@ -193,21 +193,10 @@ class Navigation extends Component {
                         </Collapse>
                     </li>
                     <li className="nav-item">
-                        <span className="nav-link" onClick={() => { this.toggle('configurations') }}>
+                        <NavLink to="/admin/configuracoes" className="nav-link" onClick={this.preventClickOnCurrentPage}>
                             <i className="mdi mdi-settings menu-icon"></i>
                             <span className="menu-title">Configurações</span>
-                            <i className="menu-arrow"></i>
-                        </span>
-                        <Collapse isOpen={this.state.menuStatus.configurations}>
-                            <ul className="nav flex-column sub-menu">
-                                <li className="nav-item">
-                                    <a className="nav-link" href="configurations.html">Ver Detalhes</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link" href="config-form.html">Editar</a>
-                                </li>
-                            </ul>
-                        </Collapse>
+                        </NavLink>
                     </li>
                 </ul>
             </nav>
