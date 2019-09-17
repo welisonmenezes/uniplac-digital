@@ -58,7 +58,7 @@ class Navbar extends Component {
             this.setState({ redirect: true });
         }
     };
-
+    
     hoverableCollapse = () => {
         const els = document.querySelectorAll('.sidebar .nav-item');
         if (els && els.length) {

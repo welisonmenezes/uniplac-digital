@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Collapse } from 'reactstrap';
-//import { Link, Redirect, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -21,7 +21,8 @@ class Navigation extends Component {
                 users: false,
                 categories: false,
                 configurations: false
-            }
+            },
+            inputVal: null
         };
     }
 
@@ -44,10 +45,10 @@ class Navigation extends Component {
             <nav className="Navigation sidebar sidebar-offcanvas" id="sidebar">
                 <ul className="nav">
                     <li className="nav-item">
-                        <a className="nav-link" href="index.html">
+                        <NavLink to="/admin" className="nav-link">
                             <i className="mdi mdi-home menu-icon"></i>
                             <span className="menu-title">Dashboard</span>
-                        </a>
+                        </NavLink>
                     </li>
                     <li className="nav-item">
                         <span className="nav-link" onClick={() => { this.toggle('news') }}>
@@ -58,7 +59,9 @@ class Navigation extends Component {
                         <Collapse isOpen={this.state.menuStatus.news}>
                             <ul className="nav flex-column sub-menu">
                                 <li className="nav-item">
-                                    <a className="nav-link" href="news.html">Ver todos</a>
+                                    <NavLink to="/admin/noticias" className="nav-link">
+                                        Ver todos
+                                    </NavLink>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="post-form.html">Adicionar Novo</a>

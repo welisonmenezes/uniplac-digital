@@ -12,3 +12,34 @@
 .Admin .navbar-toggler span{
     background: transparent !important;
 }
+
+.Admin .btn.btn-sm, .btn-group-sm > .btn {
+    font-size: 0.875rem;
+}
+
+.Admin .btn-sm, .btn-group-sm > .btn {
+    padding: 0.5rem 0.81rem;
+    font-size: 0.875rem;
+    line-height: 1;
+    border-radius: 0.1875rem;
+}
+
+.Admin .table{
+    min-width: 600px;
+}
+.Admin .table th,
+.Admin .table td {
+  padding: 1.25rem 0.9375rem;
+  vertical-align: middle;
+  border-top: 1px solid #f3f3f3;
+  line-height: normal;
+}
+
+.Admin .table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #f3f3f3;
+}
+
+.Admin .table tbody + tbody {
+  border-top: 2px solid #f3f3f3;
+}
