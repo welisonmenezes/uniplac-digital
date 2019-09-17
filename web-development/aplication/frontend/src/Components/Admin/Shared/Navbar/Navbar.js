@@ -83,14 +83,16 @@ class Navbar extends Component {
                                 </span>
                             </DropdownToggle>
                             <DropdownMenu right className="navbar-dropdown">
-                                <Link to="/">
+                                <Link to="/" target="_blank">
                                     <span className="dropdown-item">
                                         <i className="mdi mdi-home text-primary"></i> Ver Site
                                 </span>
                                 </Link>
-                                <span className="dropdown-item" onClick={this.handleLogout}>
-                                    <i className="mdi mdi-account text-primary"></i> Perfil
-                                </span>
+                                <Link to="/admin/usuarios/1">
+                                    <span className="dropdown-item">
+                                        <i className="mdi mdi-account text-primary"></i> Perfil
+                                    </span>
+                                </Link>
                                 <span className="dropdown-item" onClick={this.handleLogout}>
                                     <i className="mdi mdi-logout text-primary"></i> Sair
                                 </span>

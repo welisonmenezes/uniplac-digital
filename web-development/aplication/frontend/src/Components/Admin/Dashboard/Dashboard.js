@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 
 class Dashboard extends Component {
 
@@ -17,10 +18,10 @@ class Dashboard extends Component {
                                 </div>
                                 <div className="d-flex">
                                     <p className="text-primary mb-0 hover-cursor">
-                                        <a href="../index.html" target="_blank">
+                                        <Link to="/" target="_blank">
                                             <i className="mdi mdi-home text-muted hover-cursor" />
                                             Ver Site
-                                        </a>
+                                        </Link>
                                     </p>
                                 </div>
                             </div>
@@ -32,18 +33,15 @@ class Dashboard extends Component {
                         <div className="card">
                             <div className="card-body">
                                 <h4 className="card-title">
-                                    Cadastrar Notícias
+                                    Cadastrar Notícia
                                 </h4>
                                 <div className="media">
                                     <div className="media-body">
-                                        <a href="post-form.html">
-                                            <button
-                                                type="button"
-                                                className="btn btn-primary btn-icon-text"
-                                            >
-                                                Cadastrar Noticias
+                                        <Link to="/admin/noticias/add">
+                                            <button type="button" className="btn btn-primary btn-icon-text" >
+                                                Cadastrar Noticia
                                             </button>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -52,17 +50,14 @@ class Dashboard extends Component {
                     <div className="col-md-4 grid-margin stretch-card">
                         <div className="card">
                             <div className="card-body">
-                                <h4 className="card-title">Cadastrar Avisos</h4>
+                                <h4 className="card-title">Cadastrar Aviso</h4>
                                 <div className="media">
                                     <div className="media-body">
-                                        <a href="post-form.html">
-                                            <button
-                                                type="button"
-                                                className="btn btn-primary btn-icon-text"
-                                            >
-                                                Cadastrar Avisos
+                                        <Link to="/admin/avisos/add">
+                                            <button type="button" className="btn btn-primary btn-icon-text" >
+                                                Cadastrar Aviso
                                             </button>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -72,18 +67,15 @@ class Dashboard extends Component {
                         <div className="card">
                             <div className="card-body">
                                 <h4 className="card-title">
-                                    Cadastrar Anuncios
+                                    Cadastrar Anuncio
                                 </h4>
                                 <div className="media">
                                     <div className="media-body">
-                                        <a href="post-form.html">
-                                            <button
-                                                type="button"
-                                                className="btn btn-primary btn-icon-text"
-                                            >
-                                                Cadastrar Anuncios
+                                        <Link to="/admin/anuncios/add">
+                                            <button type="button" className="btn btn-primary btn-icon-text" >
+                                                Cadastrar Anúncio
                                             </button>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
