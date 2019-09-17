@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
-import './FormFilter.css';
+import './FilterUsers.css';
 
-class FormFilter extends Component {
+class FilterUsers extends Component {
     render() {
         return (
-            <div className="FormFilter">
+            <div className="FilterUsers">
                 <form className="formm-search">
                     <div className="row">
                         <div className="col-md-1">
@@ -16,19 +16,17 @@ class FormFilter extends Component {
                                 <input
                                     type="text"
                                     className="form-control form-control-sm"
-                                    placeholder="Palavra chave"
+                                    placeholder="Nome"
                                 />
                             </div>
                         </div>
                         <div className="col-md-3">
                             <div className="form-group">
                                 <select className="form-control form-control-sm">
-                                    <option value="">Categoria</option>
-                                    <option value="1">
-                                        Sistemas de Informação
-                                    </option>
-                                    <option value="2">Engenharia</option>
-                                    <option value="3">Esportes</option>
+                                    <option value="">Permissão</option>
+                                    <option value="1">Usuário</option>
+                                    <option value="2">Administrador</option>
+                                    <option value="3">Editor</option>
                                 </select>
                             </div>
                         </div>
@@ -44,4 +42,4 @@ class FormFilter extends Component {
     }
 }
 
-export default FormFilter;
+export default FilterUsers;

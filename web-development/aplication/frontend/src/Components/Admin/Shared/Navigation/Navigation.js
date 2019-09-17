@@ -159,10 +159,14 @@ class Navigation extends Component {
                         <Collapse isOpen={this.state.menuStatus.users}>
                             <ul className="nav flex-column sub-menu">
                                 <li className="nav-item">
-                                    <a className="nav-link" href="users.html">Ver todos</a>
+                                    <NavLink to="/admin/usuarios" onClick={this.preventClickOnCurrentPage}>
+                                        <span className="nav-link" >Ver Todos</span>
+                                    </NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="user-form.html">Adicionar Novo</a>
+                                    <NavLink to="/admin/usuarios/add" onClick={this.preventClickOnCurrentPage}>
+                                        <span className="nav-link" >Adicionar Novo</span>
+                                    </NavLink>
                                 </li>
                             </ul>
                         </Collapse>

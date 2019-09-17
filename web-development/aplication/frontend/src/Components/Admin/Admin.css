@@ -68,3 +68,8 @@
 .Admin textarea{
   min-height: 100px;
 }
+
+.Admin .table td .badge{
+  line-height: 22px;
+  padding-right: 15px;
+}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import FormFilter from '../Shared/FormFilter/FormFilter';
+import FilterPosts from './FilterPosts/FilterPosts';
 import Pagination from '../Shared/Pagination/Pagination';
 
 class AdminPosts extends Component {
@@ -83,7 +83,7 @@ class AdminPosts extends Component {
 							<div className="card">
 								<div className="card-body">
 									<h4 className="card-title">{this.state.title}</h4>
-									<FormFilter />
+									<FilterPosts />
 									<div className="table-responsive">
 										<table className="table table-striped">
 											<thead>
