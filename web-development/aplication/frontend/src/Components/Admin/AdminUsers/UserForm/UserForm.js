@@ -76,7 +76,7 @@ class UserForm extends Component {
                                         </div>
                                     </div>
                                     <button type="submit" className="btn btn-primary mr-2">Enviar</button>
-                                    <button className="btn btn-light">Cancelar</button>
+                                    <button type="button" className="btn btn-light">Cancelar</button>
                                 </form>
                             </div>
                         </div>

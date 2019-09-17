@@ -180,10 +180,14 @@ class Navigation extends Component {
                         <Collapse isOpen={this.state.menuStatus.categories}>
                             <ul className="nav flex-column sub-menu">
                                 <li className="nav-item">
-                                    <a className="nav-link" href="categories.html">Ver todas</a>
+                                    <NavLink to="/admin/categorias" onClick={this.preventClickOnCurrentPage}>
+                                        <span className="nav-link" >Ver Todos</span>
+                                    </NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="category-form.html">Adicionar Novo</a>
+                                    <NavLink to="/admin/categorias/add" onClick={this.preventClickOnCurrentPage}>
+                                        <span className="nav-link" >Adicionar Novo</span>
+                                    </NavLink>
                                 </li>
                             </ul>
                         </Collapse>

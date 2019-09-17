@@ -83,7 +83,7 @@ class PostForm extends Component {
                                         </select>
                                     </div>
                                     <button type="submit" className="btn btn-primary mr-2">Salvar</button>
-                                    <button className="btn btn-light">Cancelar</button>
+                                    <button type="button" className="btn btn-light">Cancelar</button>
                                 </form>
                             </div>
                         </div>

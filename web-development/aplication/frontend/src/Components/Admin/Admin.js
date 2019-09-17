@@ -22,6 +22,8 @@ import NotFound from '../Public/NotFound/NotFound';
 import Navbar from './Shared/Navbar/Navbar';
 
 import './Admin.css';
+import AdminCategories from './AdminCategories/AdminCategories';
+import CategoryForm from './AdminCategories/CategoryForm/CategoryForm';
 
 class Admin extends Component {
 
@@ -38,15 +40,29 @@ class Admin extends Component {
                                     <CSSTransition key={location.key} classNames="fade" timeout={300} transitionAppear={true} transitionEnter={false} transitionLeave={false}>
                                         <Switch location={location}>
                                             <PrivateRouter path='/admin' exact={true} component={Dashboard} permissions={['admin']} />
-                                            <PrivateRouter path='/admin/noticias' exact={true} component={AdminPosts} permissions={['adminx']} />
+
+                                            <PrivateRouter path='/admin/noticias' exact={true} component={AdminPosts} permissions={['admin']} />
+                                            <PrivateRouter path='/admin/noticias/add' exact={true} component={PostForm} permissions={['admin']} />
                                             <PrivateRouter path='/admin/noticias/:id' exact={true} component={PostForm} permissions={['admin']} />
+
                                             <PrivateRouter path='/admin/anuncios' exact={true} component={AdminPosts} permissions={['admin']} />
+                                            <PrivateRouter path='/admin/anuncios/add' exact={true} component={PostForm} permissions={['admin']} />
                                             <PrivateRouter path='/admin/anuncios/:id' exact={true} component={PostForm} permissions={['admin']} />
+
                                             <PrivateRouter path='/admin/avisos' exact={true} component={AdminPosts} permissions={['admin']} />
+                                            <PrivateRouter path='/admin/avisos/add' exact={true} component={PostForm} permissions={['admin']} />
                                             <PrivateRouter path='/admin/avisos/:id' exact={true} component={PostForm} permissions={['admin']} />
+
                                             <PrivateRouter path='/admin/usuarios' exact={true} component={AdminUsers} permissions={['admin']} />
+                                            <PrivateRouter path='/admin/usuarios/add' exact={true} component={UserForm} permissions={['admin']} />
                                             <PrivateRouter path='/admin/usuarios/:id' exact={true} component={UserForm} permissions={['admin']} />
+
+                                            <PrivateRouter path='/admin/categorias' exact={true} component={AdminCategories} permissions={['admin']} />
+                                            <PrivateRouter path='/admin/categorias/add' exact={true} component={CategoryForm} permissions={['admin']} />
+                                            <PrivateRouter path='/admin/categorias/:id' exact={true} component={CategoryForm} permissions={['admin']} />
+
                                             <PrivateRouter path='/admin/configuracoes' exact={true} component={ConfigurationForm} permissions={['admin']} />
+
                                             <Route path='*' component={NotFound} />
                                         </Switch>
                                     </CSSTransition>
