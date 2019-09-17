@@ -1,45 +1,94 @@
 import React, { Component } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import RichEditor from '../../Shared/RichEditor/RichEditor';
 
 class PostForm extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            modal: false
-          };
-
-        console.log(props);
+			currentPath: this.props.location.pathname,
+			title: null,
+			type: null
+		};
     }
 
-    toggle = () => {
-        this.setState(prevState => ({
-            modal: !prevState.modal
-        }));
-    }
+    componentDidMount() {
+		window.scrollTo(0, 0);
+		this.setState({ currentPath: this.props.location.pathname });
+		switch (this.props.location.pathname) {
+			case '/admin/noticias/add':
+				this.setState({ title: 'Cadastrar Notícia', type: 'noticias' });
+                break;
+			case '/admin/anuncios/add':
+				this.setState({ title: 'Cadastrar Anúncio', type: 'anuncios' });
+				break;
+			case '/admin/avisos/add':
+				this.setState({ title: 'Cadastrar Aviso', type: 'avisos' });
+				break;
+			default:
+                const regNews = /admin\/noticias\/[0-9]/g;
+                const regAds = /admin\/anuncios\/[0-9]/g;
+                const regNovices = /admin\/avisos\/[0-9]/g;
+                if (regNews.test(this.props.location.pathname)) {
+                    this.setState({ title: 'Editar Notícia', type: 'noticias' });
+                } else if (regAds.test(this.props.location.pathname)) {
+                    this.setState({ title: 'Editar Anúncio', type: 'anuncios' });
+                } else if (regNovices.test(this.props.location.pathname)) {
+                    this.setState({ title: 'Editar Aviso', type: 'avisos' });
+                }
+				break;
+		}
+	}
 
     render() {
         return (
             <div className="PostForm">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <h1>Admin post form</h1>
-                            <Button onClick={this.toggle} color="danger">Danger!</Button>
-
-                            <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                                <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
-                                <ModalBody>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                            </ModalBody>
-                                <ModalFooter>
-                                    <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-                                    <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-                                </ModalFooter>
-                            </Modal>
-
+                <div className="row">
+                    <div className="col-lg-12 grid-margin stretch-card">
+                        <div className="card">
+                            <div className="card-body">
+                                <h4 className="card-title">{this.state.title}</h4>
+                                <form className="forms-sample">
+                                    <div className="form-group">
+                                        <label>Título</label>
+                                        <input type="text" className="form-control" />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Descrição</label>
+                                        <textarea className="form-control"></textarea>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Conteúdo</label>
+                                        <RichEditor></RichEditor>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Imagem de Destaque</label>
+                                        <input type="file" name="img[]" className="file-upload-default" />
+                                        <div className="input-group">
+                                            <input type="text" className="form-control file-upload-info"
+                                                placeholder="Upload Image" />
+                                            <span className="input-group-append">
+                                                <button className="file-upload-browse btn btn-primary"
+                                                    type="button">Upload</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="">Categoria</label>
+                                        <select className="form-control">
+                                            <option>Catetoria 01</option>
+                                            <option>Catetoria 02</option>
+                                            <option>Catetoria 03</option>
+                                            <option>Catetoria 04</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" className="btn btn-primary mr-2">Salvar</button>
+                                    <button className="btn btn-light">Cancelar</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         );

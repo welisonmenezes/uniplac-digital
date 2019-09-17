@@ -26,6 +26,10 @@ class Navigation extends Component {
         };
     }
 
+    componentDidMount() {
+        this.hoverableCollapse();
+    }
+
     toggle = (item) => {
         let obj = { menuStatus: {
             news: false,
@@ -39,13 +43,46 @@ class Navigation extends Component {
         this.setState({ menuStatus: obj.menuStatus });
     }
 
+    hoverableCollapse = () => {
+        const els = document.querySelectorAll('.sidebar .nav-item');
+        if (els && els.length) {
+            els.forEach(el => {
+                ['mouseenter', 'mouseleave'].forEach(evt => {
+                    el.addEventListener(evt, () => {
+                        const body = document.querySelector('body');
+                        const sidebarIconOnly = body.classList.contains('sidebar-icon-only');
+                        if (!('ontouchstart' in document.documentElement)) {
+                            if (sidebarIconOnly) {
+                                if (evt === 'mouseenter') {
+                                    el.classList.add('hover-open');
+                                } else {
+                                    el.classList.remove('hover-open');
+                                }
+                            }
+                        }
+                    }, false)
+                });
+            });
+        }
+    }
+
+    preventClickOnCurrentPage = (e) => {
+        if (e.target.parentElement) {
+            const tagA = e.target.parentElement;
+            const link = tagA.getAttribute('href');
+            if (link === window.location.pathname) {
+                e.preventDefault();
+            }
+        }
+    }
+
     render() {
 
         return (
             <nav className="Navigation sidebar sidebar-offcanvas" id="sidebar">
                 <ul className="nav">
                     <li className="nav-item">
-                        <NavLink to="/admin" className="nav-link">
+                        <NavLink to="/admin" className="nav-link" onClick={this.preventClickOnCurrentPage}>
                             <i className="mdi mdi-home menu-icon"></i>
                             <span className="menu-title">Dashboard</span>
                         </NavLink>
@@ -59,12 +96,14 @@ class Navigation extends Component {
                         <Collapse isOpen={this.state.menuStatus.news}>
                             <ul className="nav flex-column sub-menu">
                                 <li className="nav-item">
-                                    <NavLink to="/admin/noticias" className="nav-link">
-                                        Ver todos
+                                    <NavLink to="/admin/noticias" onClick={this.preventClickOnCurrentPage}>
+                                        <span className="nav-link" >Ver Todos</span>
                                     </NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="post-form.html">Adicionar Novo</a>
+                                    <NavLink to="/admin/noticias/add" onClick={this.preventClickOnCurrentPage}>
+                                        <span className="nav-link" >Adicionar Novo</span>
+                                    </NavLink>
                                 </li>
                             </ul>
                         </Collapse>
@@ -78,10 +117,14 @@ class Navigation extends Component {
                         <Collapse isOpen={this.state.menuStatus.ads}>
                             <ul className="nav flex-column sub-menu">
                                 <li className="nav-item">
-                                    <a className="nav-link" href="ads.html">Ver todos</a>
+                                    <NavLink to="/admin/anuncios" onClick={this.preventClickOnCurrentPage}>
+                                        <span className="nav-link" >Ver Todos</span>
+                                    </NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="post-form.html">Adicionar Novo</a>
+                                    <NavLink to="/admin/anuncios/add" onClick={this.preventClickOnCurrentPage}>
+                                        <span className="nav-link" >Adicionar Novo</span>
+                                    </NavLink>
                                 </li>
                             </ul>
                         </Collapse>
@@ -95,10 +138,14 @@ class Navigation extends Component {
                         <Collapse isOpen={this.state.menuStatus.novices}>
                             <ul className="nav flex-column sub-menu">
                                 <li className="nav-item">
-                                    <a className="nav-link" href="novices.html">Ver todos</a>
+                                    <NavLink to="/admin/avisos" onClick={this.preventClickOnCurrentPage}>
+                                        <span className="nav-link" >Ver Todos</span>
+                                    </NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="post-form.html">Adicionar Novo</a>
+                                    <NavLink to="/admin/avisos/add" onClick={this.preventClickOnCurrentPage}>
+                                        <span className="nav-link" >Adicionar Novo</span>
+                                    </NavLink>
                                 </li>
                             </ul>
                         </Collapse>

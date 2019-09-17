@@ -19,10 +19,6 @@ class Navbar extends Component {
         };
     }
 
-    componentDidMount() {
-        this.hoverableCollapse();
-    }
-
     handleToggleMenu = () => {
         const sideMenu = document.querySelector('.sidebar-offcanvas');
         if (sideMenu) {
@@ -58,29 +54,6 @@ class Navbar extends Component {
             this.setState({ redirect: true });
         }
     };
-    
-    hoverableCollapse = () => {
-        const els = document.querySelectorAll('.sidebar .nav-item');
-        if (els && els.length) {
-            els.forEach(el => {
-                ['mouseenter', 'mouseleave'].forEach(evt => {
-                    el.addEventListener(evt, () => {
-                        const body = document.querySelector('body');
-                        const sidebarIconOnly = body.classList.contains('sidebar-icon-only');
-                        if (!('ontouchstart' in document.documentElement)) {
-                            if (sidebarIconOnly) {
-                                if (evt === 'mouseenter') {
-                                    el.classList.add('hover-open');
-                                } else {
-                                    el.classList.remove('hover-open');
-                                }
-                            }
-                        }
-                    }, false)
-                });
-            });
-        }
-    }
 
     render() {
         return (

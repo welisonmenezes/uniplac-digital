@@ -1,15 +1,36 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import FormFilter from '../Shared/FormFilter/FormFilter';
+import Pagination from '../Shared/Pagination/Pagination';
 
 class AdminPosts extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			currentPath: this.props.location.pathname,
+			title: null,
+			type: null
+		};
 	}
 
 	componentDidMount() {
-		this.setState({currentPath: this.props.location.pathname});
+		window.scrollTo(0, 0);
+		this.setState({ currentPath: this.props.location.pathname });
+		switch (this.props.location.pathname) {
+			case '/admin/noticias':
+				this.setState({ title: 'Notícias', type: 'noticias' });
+				break;
+			case '/admin/anuncios':
+				this.setState({ title: 'Anúncios', type: 'anuncios' });
+				break;
+			case '/admin/avisos':
+				this.setState({ title: 'Avisos', type: 'avisos' });
+				break;
+			default:
+				this.setState({ title: null, type: null });
+				break;
+		}
 	}
 
 	static getDerivedStateFromProps(nextProps, prevState) {
@@ -61,10 +82,8 @@ class AdminPosts extends Component {
 						<div className="col-lg-12 grid-margin stretch-card">
 							<div className="card">
 								<div className="card-body">
-									<h4 className="card-title">Notícias</h4>
-
+									<h4 className="card-title">{this.state.title}</h4>
 									<FormFilter />
-
 									<div className="table-responsive">
 										<table className="table table-striped">
 											<thead>
@@ -82,12 +101,12 @@ class AdminPosts extends Component {
 														<td>{ post.title }</td>
 														<td>{ post.data }</td>
 														<td>
-															<a href="../single-blog.html" target="_blank">
+															<Link to={'/' + this.state.type + '/' + post.id} target="_blank">
 																<i className="mdi mdi-television-guide view"></i>
-															</a>
-															<a href="post-form.html">
+															</Link>
+															<Link to={'/admin/' + this.state.type + '/' + post.id}>
 																<i className="mdi mdi-border-color edit"></i>
-															</a>
+															</Link>
 															<i className="mdi mdi-delete-forever delete"></i>
 														</td>
 													</tr>)
@@ -95,18 +114,10 @@ class AdminPosts extends Component {
 											</tbody>
 										</table>
 									</div>
-									<div className="table-pagination">
-										<div className="btn-group" role="group" aria-label="Basic example">
-											<button type="button" className="btn btn-primary">1</button>
-											<button type="button" className="btn btn-primary">2</button>
-											<button type="button" className="btn btn-primary">3</button>
-										</div>
-									</div>
+									<Pagination />
 								</div>
 							</div>
-
 						</div>
-
 					</div>
 			</div>
 		);

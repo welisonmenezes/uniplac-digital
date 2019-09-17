@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 
+import './FormFilter.css';
+
 class FormFilter extends Component {
     render() {
         return (
-            <div>
+            <div className="FormFilter">
                 <form className="formm-search">
                     <div className="row">
                         <div className="col-md-1">
