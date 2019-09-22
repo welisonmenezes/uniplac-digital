@@ -32,6 +32,9 @@ app.register_blueprint(usuarioBP)
 app.register_blueprint(categoriaBP)
 app.register_blueprint(configuracaoBP)
 app.register_blueprint(postBP)
+app.register_blueprint(loginBP)
+app.register_blueprint(siteBP)
+app.register_blueprint(dashboardBP)
 
 if __name__ == "__main__":
     app.run()
