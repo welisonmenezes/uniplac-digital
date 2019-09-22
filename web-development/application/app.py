@@ -21,5 +21,9 @@ def index():
 def admin():
     return render_template('base-admin.html'), 200
 
+@app.route('/login')
+def login():
+    return render_template('base-login.html'), 200
+
 if __name__ == "__main__":
     app.run()
