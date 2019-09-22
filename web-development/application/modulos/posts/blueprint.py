@@ -5,57 +5,71 @@ postBP = Blueprint('posts', __name__, url_prefix='/admin', template_folder='temp
 
 @postBP.route('/noticias')
 def noticias_index():
-    return 'listagem de notícias aqui', 200
-
+    titulo = 'Notícias'
+    return render_template('/posts/index.html', titulo=titulo), 200
 
 @postBP.route('/noticias/cadastrar')
 def noticias_cadastrar():
-    return 'formulário de cadastro de notícias aqui', 200
-
+    titulo = 'Notícias'
+    operacao = 'Cadastro'
+    return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao), 200
 
 @postBP.route('/noticias/editar')
 def noticias_editar():
-    return 'formulário de edição de notícias aqui', 200
+    titulo = 'Notícias'
+    operacao = 'Edição'
+    return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao), 200
 
-
-@postBP.route('/noticias/deletar')
+@postBP.route('/noticias/deletar', methods=['GET', 'POST'])
 def noticias_deletar():
-    return 'lógica para remover notícias aqui', 200
+    titulo = 'Notícias'
+    pergunta = 'Deseja realmente excluir a notícia [0002223]'
+    return render_template('/posts/deletar.html', titulo=titulo, pergunta=pergunta), 200
+
 
 @postBP.route('/anuncios')
 def anuncios_index():
-    return 'listagem de anúncios aqui', 200
-
+    titulo = 'Anúncios'
+    return render_template('/posts/index.html', titulo=titulo), 200
 
 @postBP.route('/anuncios/cadastrar')
 def anuncios_cadastrar():
-    return 'formulário de cadastro de anúncios aqui', 200
-
+    titulo = 'Anúncios'
+    operacao = 'Cadastro'
+    return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao), 200
 
 @postBP.route('/anuncios/editar')
 def anuncios_editar():
-    return 'formulário de edição de anúncios aqui', 200
+    titulo = 'Anúncios'
+    operacao = 'Edição'    
+    return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao), 200
 
-
-@postBP.route('/anuncios/deletar')
+@postBP.route('/anuncios/deletar', methods=['GET', 'POST'])
 def anuncios_deletar():
-    return 'lógica para remover anúncios aqui', 200
+    titulo = 'Anúncios'
+    pergunta = 'Deseja realmente excluir a anúncio [0002223]'
+    return render_template('/posts/deletar.html', titulo=titulo, pergunta=pergunta), 200
+
 
 @postBP.route('/avisos')
 def avisos_index():
-    return 'listagem de avisos aqui', 200
-
+    titulo = 'Avisos'
+    return render_template('/posts/index.html', titulo=titulo), 200
 
 @postBP.route('/avisos/cadastrar')
 def avisos_cadastrar():
-    return 'formulário de cadastro de avisos aqui', 200
-
+    titulo = 'Avisos'
+    operacao = 'Cadastro'
+    return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao), 200
 
 @postBP.route('/avisos/editar')
 def avisos_editar():
-    return 'formulário de edição de avisos aqui', 200
+    titulo = 'Avisos'
+    operacao = 'Edição'
+    return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao), 200
 
-
-@postBP.route('/avisos/deletar')
+@postBP.route('/avisos/deletar', methods=['GET', 'POST'])
 def avisos_deletar():
-    return 'lógica para remover avisos aqui', 200
+    titulo = 'Avisos'
+    pergunta = 'Deseja realmente excluir a avisos [0002223]'
+    return render_template('/posts/deletar.html', titulo=titulo, pergunta=pergunta), 200

@@ -1,0 +1,52 @@
+{% extends 'base-admin.html' %}
+
+{% block title%}
+{{ titulo }}
+{% endblock title%}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{ operacao }} de {{ titulo }}</h4>
+                <form class="forms-sample">
+                    <div class="form-group">
+                        <label for="exampleInputName1">Título</label>
+                        <input type="text" class="form-control" placeholder="Primeiro Nome" />
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleTextarea1">Descrição</label>
+                        <textarea class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail3">Conteúdo</label>
+                        <textarea class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Imagem de Destaque</label>
+                        <input type="file" name="img[]" class="file-upload-default">
+                        <div class="input-group">
+                            <input type="text" class="form-control file-upload-info" placeholder="Upload Image">
+                            <span class="input-group-append">
+                                <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="">Categoria</label>
+                        <select class="form-control">
+                            <option>Catetoria 01</option>
+                            <option>Catetoria 02</option>
+                            <option>Catetoria 03</option>
+                            <option>Catetoria 04</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Salvar</button>
+                    <button class="btn btn-light">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content%}

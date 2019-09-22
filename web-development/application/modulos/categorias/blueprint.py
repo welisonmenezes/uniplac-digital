@@ -5,18 +5,19 @@ categoriaBP = Blueprint('categorias', __name__, url_prefix='/admin/categorias', 
 
 @categoriaBP.route('/')
 def index():
-    return 'listagem de categorias aqui', 200
+    return render_template('/categorias/index.html'), 200
 
 @categoriaBP.route('/cadastrar')
 def cadastrar():
-    return 'formulário de cadastro de categoria aqui', 200
-
+    titulo = 'Cadastro'
+    return render_template('/categorias/formulario.html' , titulo=titulo), 200
 
 @categoriaBP.route('/editar')
 def editar():
-    return 'formulário de edição de categoria aqui', 200
+    titulo = 'Edição'
+    return render_template('/categorias/formulario.html' , titulo=titulo), 200
 
-
-@categoriaBP.route('/deletar')
+@categoriaBP.route('/deletar', methods=['GET', 'POST'])
 def deletar():
-    return 'lógica para remover categoria aqui', 200
+    titulo = 'Deseja realmente excluir a categoria [00321]'
+    return render_template('/categorias/deletar.html', titulo=titulo), 200

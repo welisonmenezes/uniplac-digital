@@ -5,8 +5,8 @@ configuracaoBP = Blueprint('configuracoes', __name__, url_prefix='/admin/configu
 
 @configuracaoBP.route('/')
 def index():
-    return 'listagem das configuracoes aqui', 200
+    return render_template('/configuracoes/index.html'), 200
 
 @configuracaoBP.route('/editar')
 def editar():
-    return 'formulário de edição de configuracoes aqui', 200
+    return render_template('/configuracoes/formulario.html'), 200
