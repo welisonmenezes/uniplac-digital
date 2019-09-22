@@ -1,23 +1,29 @@
 import os
 from flask import current_app, Blueprint, render_template, request, url_for
 
-usuarioBP = Blueprint('usuarios', __name__, url_prefix='/usuarios', template_folder='templates', static_folder='static')
+
+usuarioBP = Blueprint('usuarios', __name__, url_prefix='/admin/usuarios', template_folder='templates', static_folder='static')
+
 
 @usuarioBP.route('/')
 def index():
-    return 'listagem de usuários aqui', 200
+    titulo = 'Lista de Usuários'
+    return render_template('usuarios/index.html', titulo=titulo), 200
 
 
 @usuarioBP.route('/cadastrar')
 def cadastrar():
-    return 'formulário de cadastro de usuário aqui', 200
+    titulo = 'Cadastrar usuário'
+    return render_template('usuarios/formulario.html', titulo=titulo), 200
 
 
 @usuarioBP.route('/editar')
 def editar():
-    return 'formulário de edição de usuário aqui', 200
+    titulo = 'Editar usuário'
+    return render_template('usuarios/formulario.html', titulo=titulo), 200
 
 
-@usuarioBP.route('/deletar')
+@usuarioBP.route('/deletar', methods=['GET', 'POST'])
 def deletar():
-    return 'lógica para remover usuário aqui', 200
+    titulo = 'Deseja realmente excluir o usuário [0002223]'
+    return render_template('usuarios/deletar.html', titulo=titulo), 200

@@ -1,0 +1,60 @@
+{% extends 'base-admin.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{ titulo }}</h4>
+                <form class="forms-sample">
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" class="form-control" placeholder="Nome">
+                    </div>
+                    <div class="form-group">
+                        <label>Sobrenome</label>
+                        <input type="text" class="form-control" placeholder="Sobrenome">
+                    </div>
+                    <div class="form-group">
+                        <label>Matrícula</label>
+                        <input type="text" class="form-control" placeholder="Matrícula">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefone</label>
+                        <input type="text" class="form-control" placeholder="Telefone">
+                    </div>
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" class="form-control" placeholder="Senha">
+                    </div>
+                    <div class="form-group">
+                        <label class="">Nível de Permissão</label>
+                        <select class="form-control">
+                            <option>Nível 01</option>
+                            <option>Nível 02</option>
+                            <option>Nível 03</option>
+                            <option>Nível 04</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Avatar</label>
+                        <input type="file" name="img[]" class="file-upload-default">
+                        <div class="input-group">
+                            <input type="text" class="form-control file-upload-info" placeholder="Upload Image">
+                            <span class="input-group-append">
+                                <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                            </span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Enviar</button>
+                    <button class="btn btn-light">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
