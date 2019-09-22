@@ -16,10 +16,10 @@
             <div class="collapse" id="ui-news">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="news.html">Ver todos</a>
+                        <a class="nav-link" href="{{ url_for('posts.noticias_index') }}">Ver todos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="post-form.html">Adicionar Novo</a>
+                        <a class="nav-link" href="{{ url_for('posts.noticias_cadastrar') }}">Adicionar Novo</a>
                     </li>
                 </ul>
             </div>
@@ -33,10 +33,10 @@
             <div class="collapse" id="ui-ads">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="ads.html">Ver todos</a>
+                        <a class="nav-link" href="{{ url_for('posts.anuncios_index') }}">Ver todos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="post-form.html">Adicionar Novo</a>
+                        <a class="nav-link" href="{{ url_for('posts.anuncios_cadastrar') }}">Adicionar Novo</a>
                     </li>
                 </ul>
             </div>
@@ -51,10 +51,10 @@
             <div class="collapse" id="ui-novices">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="novices.html">Ver todos</a>
+                        <a class="nav-link" href="{{ url_for('posts.avisos_index') }}">Ver todos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="post-form.html">Adicionar Novo</a>
+                        <a class="nav-link" href="{{ url_for('posts.avisos_cadastrar') }}">Adicionar Novo</a>
                     </li>
                 </ul>
             </div>
@@ -86,10 +86,10 @@
             <div class="collapse" id="ui-category">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="categories.html">Ver todas</a>
+                        <a class="nav-link" href="{{ url_for('categorias.index') }}">Ver todas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="category-form.html">Adicionar Novo</a>
+                        <a class="nav-link" href="{{ url_for('categorias.cadastrar') }}">Adicionar Novo</a>
                     </li>
                 </ul>
             </div>
@@ -104,10 +104,10 @@
             <div class="collapse" id="ui-config">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="configurations.html">Ver Detalhes</a>
+                        <a class="nav-link" href="{{ url_for('configuracoes.index') }}">Ver Detalhes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="config-form.html">Editar</a>
+                        <a class="nav-link" href="{{ url_for('configuracoes.editar') }}">Editar</a>
                     </li>
                 </ul>
             </div>
