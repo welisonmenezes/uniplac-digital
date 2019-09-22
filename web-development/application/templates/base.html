@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %} - Uniplac Digital</title>
+
+    {% block pagestyles %}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./source/css/bootstrap.css" />
+    <link rel="stylesheet" href="./source/css/themify-icons.css" />
+    <link rel="stylesheet" href="./source/vendors/nice-select/css/nice-select.css" />
+    <!-- Slick CSS-->
+    <link rel="stylesheet" type="text/css" href="./source/css/slick-theme.css" />
+    <link rel="stylesheet" type="text/css" href="./source/css/slick.css" />
+    <link rel="stylesheet" type="text/css" href="./source/css/slideshow.css" />
+    <!-- main css -->
+    <link rel="stylesheet" href="./source/css/style.css" />
+    <link rel="stylesheet" href="./source/css/responsive.css" />
+    <!--Custom css-->
+    <link rel="stylesheet" href="./source/css/custom.css" />
+    {% endblock %}
+
+    {% endblock %}
+</head>
+
+<body>
+    {% block content %}
+    {% endblock %}
+
+    {% block footer %}
+    {% endblock %}
+
+    {% block scripts %}
+    <script src="./source/js/jquery-3.2.1.min.js"></script>
+    <script src="./source/js/popper.js"></script>
+    <script src="./source/js/bootstrap.min.js"></script>
+    <script src="./source/js/stellar.js"></script>
+    <script src="./source/vendors/nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="./source/js/theme.js"></script>
+    <script type="text/javascript" src="./source/js/slick.min.js"></script>
+    <script type="text/javascript" src="./source/js/script.js"></script>
+    {% endblock %}
+
+</body>
+
+</html>
