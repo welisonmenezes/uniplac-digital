@@ -1,7 +1,7 @@
 import os
 from flask import current_app, Blueprint, render_template, request, url_for
 
-siteBP = Blueprint('site', __name__, url_prefix='/site', template_folder='templates', static_folder='static')
+siteBP = Blueprint('site', __name__, url_prefix='/', template_folder='templates', static_folder='static')
 
 @siteBP.route('/')
 def index():
