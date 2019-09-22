@@ -7,44 +7,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %} - Uniplac Digital</title>
-
     {% block pagestyles %}
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="./source/css/bootstrap.css" />
-    <link rel="stylesheet" href="./source/css/themify-icons.css" />
-    <link rel="stylesheet" href="./source/vendors/nice-select/css/nice-select.css" />
-    <!-- Slick CSS-->
-    <link rel="stylesheet" type="text/css" href="./source/css/slick-theme.css" />
-    <link rel="stylesheet" type="text/css" href="./source/css/slick.css" />
-    <link rel="stylesheet" type="text/css" href="./source/css/slideshow.css" />
-    <!-- main css -->
-    <link rel="stylesheet" href="./source/css/style.css" />
-    <link rel="stylesheet" href="./source/css/responsive.css" />
-    <!--Custom css-->
-    <link rel="stylesheet" href="./source/css/custom.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/bootstrap.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/themify-icons.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/vendors/nice-select/css/nice-select.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='public/css/slick-theme.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='public/css/slick.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='public/css/slideshow.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/responsive.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/custom.css') }}" />
     {% endblock %}
-
     {% endblock %}
 </head>
 
 <body>
+    {% include "includes/public/header.html" ignore missing %}
     {% block content %}
-    {% endblock %}
-
-    {% block footer %}
-    {% endblock %}
-
+    conteúdo aqui
+    {% endblock content %}
+    {% include "includes/public/footer.html" ignore missing %}
     {% block scripts %}
-    <script src="./source/js/jquery-3.2.1.min.js"></script>
-    <script src="./source/js/popper.js"></script>
-    <script src="./source/js/bootstrap.min.js"></script>
-    <script src="./source/js/stellar.js"></script>
-    <script src="./source/vendors/nice-select/js/jquery.nice-select.min.js"></script>
-    <script src="./source/js/theme.js"></script>
-    <script type="text/javascript" src="./source/js/slick.min.js"></script>
-    <script type="text/javascript" src="./source/js/script.js"></script>
+    <script src="{{ url_for('static', filename='public/js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='public/js/popper.js') }}"></script>
+    <script src="{{ url_for('static', filename='public/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='public/js/stellar.js') }}"></script>
+    <script src="{{ url_for('static', filename='public/vendors/nice-select/js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='public/js/theme.js') }}?"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='public/js/slick.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='public/js/script.js') }}"></script>
     {% endblock %}
-
 </body>
 
 </html>

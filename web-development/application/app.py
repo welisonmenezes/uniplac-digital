@@ -12,10 +12,13 @@ app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
-# routes all nonexistent route to / (UI)
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def index(path):
+
+@app.route('/')
+def index():
+    return render_template('base.html'), 200
+
+@app.route('/admin')
+def admin():
     return render_template('base-admin.html'), 200
 
 if __name__ == "__main__":
