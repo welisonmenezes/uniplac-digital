@@ -25,5 +25,9 @@ def admin():
 def login():
     return render_template('base-login.html'), 200
 
+
+from modulos import *
+app.register_blueprint(usuarioBP)
+
 if __name__ == "__main__":
     app.run()
