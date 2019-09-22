@@ -27,6 +27,7 @@ def login():
 
 
 from modulos import *
+from database import *
 app.register_blueprint(usuarioBP)
 
 if __name__ == "__main__":

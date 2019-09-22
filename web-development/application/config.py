@@ -4,10 +4,7 @@ DEBUG = True
 TEMPLATES_AUTO_RELOAD = True
 
 # Configurações de banco de dados
-MYSQL_HOST = 'localhost'
-MYSQL_USER = 'root'
-MYSQL_PASSWORD = ''
-MYSQL_DB = ''
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:@localhost/uniplacdigital'
 
 # Configurações de segurança
 SECRET_KEY = '#$#gdFDKF#993FDVKkfdkj#$$2@@@@dfdlafFGÇPLO^dfe__fd'
