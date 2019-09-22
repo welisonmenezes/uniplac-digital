@@ -29,6 +29,9 @@ def login():
 from modulos import *
 from database import *
 app.register_blueprint(usuarioBP)
+app.register_blueprint(categoriaBP)
+app.register_blueprint(configuracaoBP)
+app.register_blueprint(postBP)
 
 if __name__ == "__main__":
     app.run()

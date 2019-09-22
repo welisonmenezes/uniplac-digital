@@ -1,0 +1,1 @@
+from modulos.posts.blueprint import postBP
