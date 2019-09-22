@@ -28,6 +28,10 @@ def login():
 
 from modulos import *
 app.register_blueprint(usuarioBP)
+app.register_blueprint(loginBP)
+app.register_blueprint(siteBP)
+app.register_blueprint(dashboardBP)
+
 
 if __name__ == "__main__":
     app.run()
