@@ -16,7 +16,7 @@ bcrypt = Bcrypt(app)
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def index(path):
-    return 'É o Sandroooo', 200
+    return render_template('base-admin.html'), 200
 
 if __name__ == "__main__":
     app.run()
