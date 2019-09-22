@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %} - Uniplac Digital</title>
+
+    {% block pagestyles %}
+    <link rel="stylesheet" href="./source/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="./source/vendors/base/vendor.bundle.base.css">
+    <link rel="stylesheet" href="./source/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="./source/css/style.css">
+    <link rel="stylesheet" href="./source/css/custom.css">
+    <link rel="shortcut icon" href="./source/images/favicon.png" />
+    {% endblock %}
+
+    {% endblock %}
+</head>
+
+<body>
+    {% block content %}
+    {% endblock %}
+
+    {% block footer %}
+    {% endblock %}
+    
+    {% block scripts %}
+    <script src="./source/vendors/base/vendor.bundle.base.js"></script>
+    <script src="./source/vendors/chart.js/Chart.min.js"></script>
+    <script src="./source/js/off-canvas.js"></script>
+    <script src="./source/js/hoverable-collapse.js"></script>
+    <script src="./source/js/template.js"></script>
+    <script src="./source/js/dashboard.js"></script>
+    <script src="./source/js/jquery.dataTables.js"></script>
+    <script src="./source/js/dataTables.bootstrap4.js"></script>
+    {% endblock %}
+
+</body>
+
+</html>
