@@ -1,0 +1,17 @@
+{% macro render_file_field(field) %}
+<div class="form-group">
+    {{ field.label }}
+    {{ field(class="file-upload-default") }}
+    <div class="input-group">
+        <input type="text" class="form-control file-upload-info" placeholder="Upload Image">
+        <span class="input-group-append">
+            <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+        </span>
+    </div>
+    {% if field.errors %}
+    {% for error in field.errors %}
+    <span class="invalid-feedback">{{ error }}</span>
+    {% endfor %}
+    {% endif %}
+</div>
+{% endmacro %}
