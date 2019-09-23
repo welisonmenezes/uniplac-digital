@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 03-Set-2019 às 21:59
+-- Generation Time: 23-Set-2019 às 02:33
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.2
 
@@ -19,10 +19,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `testes`
+-- Database: `uniplacdigital`
 --
-CREATE DATABASE IF NOT EXISTS `testes` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-USE `testes`;
+CREATE DATABASE IF NOT EXISTS `uniplacdigital` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `uniplacdigital`;
 
 -- --------------------------------------------------------
 
@@ -32,11 +32,11 @@ USE `testes`;
 
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
-  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(45) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -46,12 +46,12 @@ CREATE TABLE `category` (
 
 CREATE TABLE `configuration` (
   `id` int(11) NOT NULL,
-  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `phone` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `phone` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,7 @@ CREATE TABLE `configuration` (
 CREATE TABLE `configurationimage` (
   `image_id` int(11) DEFAULT NULL,
   `configuration_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,7 @@ CREATE TABLE `image` (
   `image` longtext CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -85,19 +85,19 @@ CREATE TABLE `image` (
 
 CREATE TABLE `post` (
   `id` int(11) NOT NULL,
-  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `content` text COLLATE utf8_unicode_ci NOT NULL,
-  `genre` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `status` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `genre` varchar(15) NOT NULL,
+  `status` varchar(15) NOT NULL,
   `entry_date` date NOT NULL,
   `departure_date` date NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL,
-  `image_id` int(11) NOT NULL,
+  `image_id` int(11) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `category_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -107,17 +107,17 @@ CREATE TABLE `post` (
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `first_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `last_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `registry` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `role` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `phone` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `first_name` varchar(100) NOT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `registry` varchar(10) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `role` varchar(45) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(15) DEFAULT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL,
   `image_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
@@ -127,7 +127,8 @@ CREATE TABLE `user` (
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `configuration`
@@ -162,6 +163,8 @@ ALTER TABLE `post`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `registry` (`registry`),
+  ADD UNIQUE KEY `email` (`email`),
   ADD KEY `image_id` (`image_id`);
 
 --
