@@ -3,6 +3,7 @@ from flask import current_app, Blueprint, render_template, request, url_for, fla
 from app import bcrypt
 from modulos.usuarios.formularios import UsuarioForm
 from database.Model import db, User
+from modulos.usuarios.validations import validateUserData
 
 usuarioBP = Blueprint('usuarios', __name__, url_prefix='/admin/usuarios', template_folder='templates', static_folder='static')
 
@@ -19,30 +20,32 @@ def cadastrar():
     form = UsuarioForm(request.form)
     if form.validate_on_submit():
         try:
-            user = User(
-                form.first_name.data,
-                form.last_name.data,
-                form.registry.data,
-                bcrypt.generate_password_hash(form.password.data),
-                form.role.data,
-                form.email.data,
-                form.phone.data,
-                None
-            )
-            if form.image_id.data != '':
-                user.image_id = form.image_id.data
-            db.session.add(user)
-            db.session.commit()
-            flash('Usuário cadastrado com sucesso', 'success')
-            return redirect(url_for('usuarios.cadastrar'))
+            if validateUserData(form):
+                user = User(
+                    form.first_name.data,
+                    form.last_name.data,
+                    form.registry.data,
+                    bcrypt.generate_password_hash(form.password.data),
+                    form.role.data,
+                    form.email.data,
+                    form.phone.data,
+                    None
+                )
+                if form.image_id.data != '':
+                    user.image_id = form.image_id.data
+                db.session.add(user)
+                db.session.commit()
+                flash('Usuário cadastrado com sucesso', 'success')
+                return redirect(url_for('usuarios.cadastrar'))
         except:
             db.session.rollback()
-            flash('Erro ao tentar cadastrar o usuário', 'error')
+            flash('Erro ao tentar cadastrar o usuário', 'danger')
     return render_template('usuarios/formulario.html', titulo=titulo, form=form, mode='cadastrar'), 200
 
 
-@usuarioBP.route('/editar', methods=['GET', 'POST'])
-def editar():
+@usuarioBP.route('/editar/<int:id>', methods=['GET', 'POST'])
+def editar(id):
+    print(id)
     titulo = 'Editar usuário'
     if request.form:
         form = UsuarioForm(request.form)
@@ -64,3 +67,4 @@ def editar():
 def deletar():
     titulo = 'Deseja realmente excluir o usuário [0002223]'
     return render_template('usuarios/deletar.html', titulo=titulo), 200
+
