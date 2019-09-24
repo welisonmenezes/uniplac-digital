@@ -1,5 +1,5 @@
 import os
-from flask import current_app, Blueprint, render_template, request, url_for
+from flask import current_app, Blueprint, render_template, request, url_for, flash, redirect
 from app import bcrypt
 from modulos.usuarios.formularios import UsuarioForm
 from database.Model import db, User
@@ -33,8 +33,11 @@ def cadastrar():
                 user.image_id = form.image_id.data
             db.session.add(user)
             db.session.commit()
+            flash('Usuário cadastrado com sucesso', 'success')
+            return redirect(url_for('usuarios.cadastrar'))
         except:
             db.session.rollback()
+            flash('Erro ao tentar cadastrar o usuário', 'error')
     return render_template('usuarios/formulario.html', titulo=titulo, form=form, mode='cadastrar'), 200
 
 
