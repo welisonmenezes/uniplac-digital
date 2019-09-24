@@ -3,14 +3,10 @@ from database.Model import User
 
 def validateUserToCreate(form):
     try:
-        userWithRegistry = User.query.filter((User.registry == form.registry.data)).first()
-        if userWithRegistry:
-            flash('A matrícula informada já foi cadastrada', 'danger')
+        if hasUserWithRegistry(form.registry.data):
             return False
-        
-        userWithEmail = User.query.filter((User.email == form.email.data)).first()
-        if userWithEmail:
-            flash('O email informado já foi cadastrado', 'danger')
+
+        if hasUserWithEmail(form.email.data):
             return False
 
         return True
@@ -21,19 +17,34 @@ def validateUserToCreate(form):
 
 def validateUserToUpdate(form, user):
     try:
+        # se a matrícula for diferente, chama validação
         if (user.registry != form.registry.data):
-            userWithRegistry = User.query.filter((User.registry == form.registry.data)).first()
-            if userWithRegistry:
-                flash('A matrícula informada já foi cadastrada', 'danger')
+            if hasUserWithRegistry(form.registry.data):
                 return False
         
+        # se a email for diferente, chama validação
         if (user.email != form.email.data):
-            userWithEmail = User.query.filter((User.email == form.email.data)).first()
-            if userWithEmail:
-                flash('O email informado já foi cadastrado', 'danger')
+            if hasUserWithEmail(form.email.data):
                 return False
 
         return True
     except:
         flash('Erro ao tentar validar o usuário', 'danger')
+        return False
+
+
+# verifica se existe usuário com uma dada matrícula    
+def hasUserWithRegistry(registry):
+    userWithRegistry = User.query.filter((User.registry == registry)).first()
+    if userWithRegistry:
+        flash('A matrícula informada já foi cadastrada', 'danger')
+        return True
+    return False
+
+
+# verifica se existe usuário com um dado email
+def hasUserWithEmail(email):
+    userWithEmail = User.query.filter((User.email == email)).first()
+    if userWithEmail:
+        flash('O email informado já foi cadastrado', 'danger')
         return False

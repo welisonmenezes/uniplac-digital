@@ -1,5 +1,6 @@
 import os
 from flask import current_app, Blueprint, render_template, request, url_for, flash, redirect
+from sqlalchemy import or_, desc
 from app import bcrypt
 from modulos.usuarios.formularios import UsuarioForm
 from database.Model import db, User
@@ -11,7 +12,10 @@ usuarioBP = Blueprint('usuarios', __name__, url_prefix='/admin/usuarios', templa
 @usuarioBP.route('/')
 def index():
     titulo = 'Lista de Usuários'
-    return render_template('usuarios/index.html', titulo=titulo), 200
+    page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
+    paginate = User.query.filter().order_by(desc(User.id)).paginate(page=page, per_page=1, error_out=False)
+    users = paginate.items
+    return render_template('usuarios/index.html', titulo=titulo, users=users, paginate=paginate, currentPage=page), 200
 
 
 @usuarioBP.route('/cadastrar', methods=['GET', 'POST'])
@@ -21,6 +25,7 @@ def cadastrar():
     if form.validate_on_submit():
         try:
             if validateUserToCreate(form):
+                # cria o usuario com os dados do formulário
                 user = User(
                     form.first_name.data,
                     form.last_name.data,
@@ -33,11 +38,16 @@ def cadastrar():
                 )
                 if form.image_id.data != '':
                     user.image_id = form.image_id.data
+
+                # adiciona e commita o usuário na base de dadso
                 db.session.add(user)
                 db.session.commit()
+
+                # flash message e redireciona pra mesma tela para limpar o objeto request
                 flash('Usuário cadastrado com sucesso', 'success')
                 return redirect(url_for('usuarios.cadastrar'))
         except:
+            # remove qualquer vestígio do usuário da sessin e flash message 
             db.session.rollback()
             flash('Erro ao tentar cadastrar o usuário', 'danger')
     return render_template('usuarios/formulario.html', titulo=titulo, form=form, mode='cadastrar'), 200
@@ -45,21 +55,34 @@ def cadastrar():
 
 @usuarioBP.route('/editar/<int:id>', methods=['GET', 'POST'])
 def editar(id):
+
+    # pega o usuário pelo id
     user = User.query.filter((User.id==id)).first()
+
+    # se não existe o usuário, bye
     if not user:
         flash('O usuário não existe', 'info')
         return redirect(url_for('usuarios.index'))
+
     titulo = 'Editar usuário'
+
     if request.form:
+        # formulário preenchido pelo objeto request, caso exista
         form = UsuarioForm(request.form)
     else:
+        # formulário vazio
         form = UsuarioForm()
+
+        # preenche formulário com usuário recuperado pelo id
         fillForm(form, user)
+
     # remove validação da senha
     form.password.validators = []
     if form.validate_on_submit():
         try:
             if validateUserToUpdate(form, user):
+
+                # atualiza o usuário recuperado pelo id com os dados do formulário
                 user.first_name = form.first_name.data
                 user.last_name = form.last_name.data
                 user.registry = form.registry.data
@@ -70,10 +93,15 @@ def editar(id):
                     user.image_id = form.image_id.data
                 if (form.password.data != ''):
                     user.password = bcrypt.generate_password_hash(form.password.data)
+
+                # commita os dados na base de dados
                 db.session.commit()
+
+                # flash message e redireciona pra mesma tela para limpar o objeto request
                 flash('Usuário editado com sucesso', 'success')
                 return redirect(url_for('usuarios.editar', id=id))
         except:
+            # remove qualquer vestígio do usuário da sessin e flash message
             db.session.rollback()
             flash('Erro ao tentar editar o usuário', 'danger')
     return render_template('usuarios/formulario.html', titulo=titulo, form=form, mode='editar'), 200

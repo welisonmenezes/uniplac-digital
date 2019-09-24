@@ -24,7 +24,7 @@
                     {{ render_hidden_field(form.image_id) }}
                     {{ render_file_field(form.image) }}
                     <button type="submit" class="btn btn-primary mr-2">Salvar</button>
-                    <button class="btn btn-light">Cancelar</button>
+                    <button type="button" class="btn btn-light" onClick="history.go(-1); return false;">Cancelar</button>
                 </form>
             </div>
         </div>
