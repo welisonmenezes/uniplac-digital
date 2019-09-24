@@ -1,6 +1,8 @@
 import os
 from flask import current_app, Blueprint, render_template, request, url_for
+from app import bcrypt
 from modulos.usuarios.formularios import UsuarioForm
+from database.Model import db, User
 
 usuarioBP = Blueprint('usuarios', __name__, url_prefix='/admin/usuarios', template_folder='templates', static_folder='static')
 
@@ -16,7 +18,23 @@ def cadastrar():
     titulo = 'Cadastrar usuário'
     form = UsuarioForm(request.form)
     if form.validate_on_submit():
-        print('valido')
+        try:
+            user = User(
+                form.first_name.data,
+                form.last_name.data,
+                form.registry.data,
+                bcrypt.generate_password_hash(form.password.data),
+                form.role.data,
+                form.email.data,
+                form.phone.data,
+                None
+            )
+            if form.image_id.data != '':
+                user.image_id = form.image_id.data
+            db.session.add(user)
+            db.session.commit()
+        except:
+            db.session.rollback()
     return render_template('usuarios/formulario.html', titulo=titulo, form=form, mode='cadastrar'), 200
 
 
