@@ -3,7 +3,7 @@ from flask import current_app, Blueprint, render_template, request, url_for, fla
 from sqlalchemy import or_, desc
 from app import bcrypt
 from modulos.usuarios.formularios import UsuarioForm
-from database.Model import db, User
+from database.Model import db, User, Post
 from modulos.usuarios.validations import validateUserToCreate, validateUserToUpdate
 
 usuarioBP = Blueprint('usuarios', __name__, url_prefix='/admin/usuarios', template_folder='templates', static_folder='static')
@@ -12,10 +12,24 @@ usuarioBP = Blueprint('usuarios', __name__, url_prefix='/admin/usuarios', templa
 @usuarioBP.route('/')
 def index():
     titulo = 'Lista de Usuários'
+
+    # pega os argumentos da string, se existir, senão, seta valores padrão
     page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
-    paginate = User.query.filter().order_by(desc(User.id)).paginate(page=page, per_page=1, error_out=False)
+    name = '' if (request.args.get('name') == None) else request.args.get('name')
+    role = '' if (request.args.get('role') == None) else request.args.get('role')
+
+    # implementa o filtro se necessário
+    filter = ()
+    if role:
+        filter = filter + (User.role == role,)
+    if name:
+        filter = filter + (or_(User.first_name.like('%'+name+'%'), User.last_name.like('%'+name+'%')),)
+
+    # consulda o panco de ados retornando o paginate e os dados
+    paginate = User.query.filter(*filter).order_by(desc(User.id)).paginate(page=page, per_page=10, error_out=False)
     users = paginate.items
-    return render_template('usuarios/index.html', titulo=titulo, users=users, paginate=paginate, currentPage=page), 200
+
+    return render_template('usuarios/index.html', titulo=titulo, users=users, paginate=paginate, currentPage=page, name=name, role=role), 200
 
 
 @usuarioBP.route('/cadastrar', methods=['GET', 'POST'])
@@ -107,10 +121,34 @@ def editar(id):
     return render_template('usuarios/formulario.html', titulo=titulo, form=form, mode='editar'), 200
 
 
-@usuarioBP.route('/deletar', methods=['GET', 'POST'])
-def deletar():
-    titulo = 'Deseja realmente excluir o usuário [0002223]'
-    return render_template('usuarios/deletar.html', titulo=titulo), 200
+@usuarioBP.route('/deletar/<int:id>', methods=['GET', 'POST'])
+def deletar(id):
+
+    # pega o usuário pelo id
+    user = User.query.filter((User.id==id)).first()
+
+    # se não existe o usuário, bye
+    if not user:
+        flash('O usuário não existe', 'info')
+        return redirect(url_for('usuarios.index'))
+
+    if request.method == 'POST':
+        userId = request.values.get('userId')
+        if userId:
+            post = Post.query.filter_by(user_id=userId).first()
+            if not post:
+                try:
+                    #db.session.delete(user)
+                    #db.session.commit()
+                    flash('Usuário deletado com sucesso', 'success')
+                    return redirect(url_for('usuarios.index'))
+                except:
+                    db.session.rollback()
+                    flash('Erro ao tentar editar o usuário', 'danger')
+            else:
+                flash('O usuário não pôde ser deletado pois existem posts relacionados a ele na base de dados', 'warning')
+    titulo = 'Deseja realmente excluir o usuário ' + user.first_name + ' ' + user.last_name
+    return render_template('usuarios/deletar.html', titulo=titulo, userId=id), 200
 
 
 # popula os campos do formuário

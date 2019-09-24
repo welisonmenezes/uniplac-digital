@@ -1,7 +1,7 @@
 {% extends 'base-admin.html' %}
 
 {% block title %}
-{{titulo}}
+    {{titulo}}
 {% endblock %}
 
 {% block content %}
@@ -10,30 +10,29 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">{{ titulo }}</h4>
-                <form class="formm-search">
+                <form class="formm-search" action="{{ url_for('usuarios.index') }}" method="GET" novalidate>
                     <div class="row">
                         <div class="col-md-1">
-                            <p class="btn">
-                                Filtro:
-                            </p>
+                            <p class="btn">Filtro:</p>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input type="text" class="form-control form-control-sm" placeholder="Nome">
+                                <input name="name" type="text" class="form-control form-control-sm" placeholder="Nome" value="{{name}}">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <select class="form-control form-control-sm">
+                                <select class="form-control form-control-sm" name="role">
                                     <option value="">Permissão</option>
-                                    <option value="1">Administrador</option>
-                                    <option value="2">Editor</option>
-                                    <option value="3">Publicador</option>
+                                    <option {{ 'selected' if role == 'admin' else '' }} value="admin">Administrador</option>
+                                    <option {{ 'selected' if role == 'editor' else '' }} value="editor">Editor</option>
+                                    <option {{ 'selected' if role == 'author' else '' }} value="author">Autor</option>
+                                    <option {{ 'selected' if role == 'user' else '' }} value="user">Usuário</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-primary btn-sm btn-block">Filtrar</button>
+                            <button type="submit" class="btn btn-primary btn-sm btn-block">Filtrar</button>
                         </div>
                     </div>
                 </form>
@@ -50,28 +49,27 @@
                         </thead>
                         <tbody>
                             {% for user in users %}
-                                <tr>
-                                    <td class="py-1">
-                                        <img src="{{ url_for('static', filename='admin/images/faces/face1.jpg') }}"
-                                            alt="image" />
-                                    </td>
-                                    <td>{{ user.id }}</td>
-                                    <td>{{ user.first_name }} {{ user.last_name }}</td>
-                                    <td>
-                                        <label class="badge badge-warning">
-                                            <i class="mdi mdi-account"></i>
-                                            {{ user.role }}
-                                        </label>
-                                    </td>
-                                    <td>
-                                        <a href="{{ url_for('usuarios.editar', id=user.id) }}">
-                                            <i class="mdi mdi-border-color edit"></i>
-                                        </a>
-                                        <a href="{{ url_for('usuarios.deletar') }}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td class="py-1">
+                                    <img src="{{ url_for('static', filename='admin/images/faces/face1.jpg') }}" alt="Avatar Usuário {{ user.id }}" />
+                                </td>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                <td>
+                                    <label class="badge badge-warning">
+                                        <i class="mdi mdi-account"></i>
+                                        {{ user.role }}
+                                    </label>
+                                </td>
+                                <td>
+                                    <a href="{{ url_for('usuarios.editar', id=user.id) }}" title="Editar Usuário {{user.id}}">
+                                        <i class="mdi mdi-border-color edit"></i>
+                                    </a>
+                                    <a href="{{ url_for('usuarios.deletar', id=user.id) }}" title="Deletar Usuário  {{user.id}}">
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
+                                </td>
+                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>
@@ -82,7 +80,7 @@
                                     {% if page == None %}
                                         <button type="button" class="btn">...</button>
                                     {% else %}
-                                        <a href="{{ url_for('usuarios.index', page=page) }}" class="btn btn-primary {{ 'active' if currentPage == page else '' }}">{{ page }}</a>
+                                        <a href="{{ url_for('usuarios.index', page=page, name=name, role=role) }}" class="btn btn-primary {{ 'active' if currentPage == page else '' }}" title="Página {{page}}">{{ page }}</a>
                                     {% endif %}
                                 {% endfor %}
                             {% endif %}
