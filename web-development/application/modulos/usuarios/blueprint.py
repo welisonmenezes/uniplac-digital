@@ -138,8 +138,8 @@ def deletar(id):
             post = Post.query.filter_by(user_id=userId).first()
             if not post:
                 try:
-                    #db.session.delete(user)
-                    #db.session.commit()
+                    db.session.delete(user)
+                    db.session.commit()
                     flash('Usuário deletado com sucesso', 'success')
                     return redirect(url_for('usuarios.index'))
                 except:
