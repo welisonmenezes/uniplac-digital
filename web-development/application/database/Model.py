@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
+from marshmallow import Schema, fields
 import datetime
-from app import db
+from app import db, ma
 
 now = datetime.datetime.now()
 
@@ -15,6 +16,12 @@ class Image(db.Model):
 
     def __repr__(self):
         return '<Image %r>' % self.id
+
+
+class ImageSchema(ma.Schema):
+    id = fields.Integer()
+    created_at = fields.DateTime()
+    updated_at = fields.DateTime()
 
 
 
