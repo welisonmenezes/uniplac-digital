@@ -35,8 +35,11 @@ ConfigurationImage = db.Table('ConfigurationImage',
 class Configuration(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(45), nullable=False)
+    description = db.Column(db.String(160), nullable=False)
     phone = db.Column(db.String(45), nullable=False)
     email = db.Column(db.String(45), nullable=False)
+    address = db.Column(db.String(255))
+    schedules = db.Column(db.String(255))
     created_at = db.Column(db.Date, default=now, nullable=False)
     updated_at = db.Column(db.Date, default=now, onupdate=now, nullable=False)
     images = db.relationship('Image', secondary=ConfigurationImage)
