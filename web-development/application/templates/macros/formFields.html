@@ -1,13 +1,13 @@
-{% macro render_field(field) %}
+{% macro render_field(field, cssClass='None') %}
 <div class="form-group">
     {{ field.label }}
     {% if field.errors %}
-        {{ field(class="form-control is-invalid") }}
+        {{ field(class="form-control is-invalid "+cssClass) }}
     {% for error in field.errors %}
         <span class="invalid-feedback">{{ error }}</span>
     {% endfor %}
     {% else %}
-        {{ field(class="form-control", default="{{ value }}") }}
+        {{ field(class="form-control "+cssClass, default="{{ value }}") }}
     {% endif %}
 </div>
 {% endmacro %}
