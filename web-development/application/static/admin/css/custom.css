@@ -80,3 +80,8 @@ select.form-control,
     top: -21px;
     right: -12px;
 }
+
+
+select.form-control, .dataTables_wrapper select{
+    color: #495057;
+}
