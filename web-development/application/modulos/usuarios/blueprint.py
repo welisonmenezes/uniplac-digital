@@ -135,6 +135,7 @@ def deletar(id):
     if request.method == 'POST':
         userId = request.values.get('userId')
         if userId:
+            # verifica se usuário possui posts
             post = Post.query.filter_by(user_id=userId).first()
             if not post:
                 try:
