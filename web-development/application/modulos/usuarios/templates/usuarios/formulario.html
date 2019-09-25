@@ -16,9 +16,9 @@
                     {{ form.csrf_token }}
                     {{ render_field(form.first_name) }}
                     {{ render_field(form.last_name) }}
-                    {{ render_field(form.registry) }}
+                    {{ render_field(form.registry, 'mask-number', '60') }}
                     {{ render_field(form.email) }}
-                    {{ render_field(form.phone) }}
+                    {{ render_field(form.phone, 'mask-phone') }}
                     {{ render_field(form.password) }}
                     {{ render_field(form.role) }}
                     {{ render_hidden_field(form.image_id) }}

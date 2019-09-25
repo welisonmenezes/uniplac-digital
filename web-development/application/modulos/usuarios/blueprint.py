@@ -1,5 +1,6 @@
 import os
 from flask import current_app, Blueprint, render_template, request, url_for, flash, redirect
+from wtforms.validators import Length
 from sqlalchemy import or_, desc
 from app import bcrypt
 from modulos.usuarios.formularios import UsuarioForm
@@ -92,6 +93,8 @@ def editar(id):
 
     # remove validação da senha
     form.password.validators = []
+    if form.password.data != '':
+        form.password.validators = [Length(min=6, message=("O campo seha deve conter no mínimo 6 dígitos"))]
     if form.validate_on_submit():
         try:
             if validateUserToUpdate(form, user):
