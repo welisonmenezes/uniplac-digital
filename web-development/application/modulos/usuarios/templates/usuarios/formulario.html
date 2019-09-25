@@ -23,16 +23,18 @@
                     {{ render_field(form.role) }}
                     {{ render_hidden_field(form.image_id) }}
                     {{ render_file_field(form.image) }}
-                    {% if mode == 'editar' %}
-                        {% if user.image_id %}
-                            <div class="form-group">
-                                <figure class="previewImage">
-                                    <i class="mdi mdi-close-circle"></i>
-                                    <img src="http://127.0.0.1:5000/api/media/{{ user.image_id }}" alt="User Avatar" />
-                                </figure>
-                            </div>
+                    <div id="imageContainer">
+                        {% if mode == 'editar' %}
+                            {% if user.image_id %}
+                                <div class="form-group">
+                                    <figure class="previewImage">
+                                        <i class="mdi mdi-close-circle"></i>
+                                        <img src="http://127.0.0.1:5000/api/media/{{ user.image_id }}" alt="User Avatar" />
+                                    </figure>
+                                </div>
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
+                    </div>
                     <button type="submit" class="btn btn-primary mr-2">Salvar</button>
                     <button type="button" class="btn btn-light" onClick="history.go(-1); return false;">Cancelar</button>
                 </form>

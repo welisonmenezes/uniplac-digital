@@ -24,12 +24,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // botão de upload
-    $('.file-upload-browse').on('click', function(){
+    $('body').on('click', '.file-upload-browse', function(){
         $('.file-upload-default').click();
+        addImageHTML();
     });
 
     // dispara envio de imagem
-    $('.file-upload-default').on('change', function(evt) {
+    $('body').on('change', '.file-upload-default', function(evt) {
         enviaImagem(evt);
     })
 
@@ -78,5 +79,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('tamanho inválido!');
             }
         }
+    }
+
+
+    addImageHTML = function() {
+        var container = $('#imageContainer');
+        container.html('');
+        var group = $('<div/>', {
+            'class': 'form-group',
+        }).appendTo(container);
+        var figure = $('<figure/>', {
+            'class': 'previewImage',
+        }).appendTo(group);
+        var icon = $('<i/>', {
+            'class': 'mdi mdi-close-circle'
+        }).appendTo(figure);
+        var img = $('<img/>', {
+            'src': 'http://127.0.0.1:5000/api/media/2',
+            'alt': 'User Avatar'
+        }).appendTo(figure);
     }
 });
