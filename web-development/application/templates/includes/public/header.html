@@ -27,7 +27,7 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light w-100">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <a class="navbar-brand logo_h" href="index.html">
+                <a class="navbar-brand logo_h" href="{{ url_for('site.index') }}">
                     <img src="{{ url_for('static', filename='public/img/logo.png') }}" alt="logo" />
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -43,21 +43,21 @@
                         <div class="col-lg-10 pr-0">
                             <ul class="nav navbar-nav center_nav pull-right justify-content-center">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="index.html">Home</a>
+                                    <a class="nav-link" href="{{ url_for('site.index') }}">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="news.html">Notícias</a>
+                                    <a class="nav-link" href="{{ url_for('site.noticias') }}">Notícias</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="ad.html">Anúncios</a>
+                                    <a class="nav-link" href="{{ url_for('site.anuncios') }}">Anúncios</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="novice.html">Avisos</a>
+                                    <a class="nav-link" href="{{ url_for('site.avisos') }}">Avisos</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="col-lg-2 pr-0 text-right">
-                            <a href="admin/login.html" target="_blank" class="icons">
+                            <a href="{{ url_for('login.inicio') }}" target="_blank" class="icons">
                                 <i class="ti-user fa-lg"></i> Login
                             </a>
                         </div>

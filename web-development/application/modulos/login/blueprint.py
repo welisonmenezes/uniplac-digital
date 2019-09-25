@@ -5,7 +5,7 @@ loginBP = Blueprint('login', __name__, url_prefix='/login', template_folder='tem
 
 @loginBP.route('/')
 def inicio():
-    return 'Tela de login', 200
+    return render_template('login.html') , 200
 
 
 @loginBP.route('/logout')
