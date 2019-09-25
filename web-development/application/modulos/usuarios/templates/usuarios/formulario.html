@@ -29,7 +29,7 @@
                                 <div class="form-group">
                                     <figure class="previewImage">
                                         <i class="mdi mdi-close-circle"></i>
-                                        <img src="http://127.0.0.1:5000/api/media/{{ user.image_id }}" alt="User Avatar" />
+                                        <img src="{{request.url_root}}api/media/{{ user.image_id }}" alt="User Avatar" />
                                     </figure>
                                 </div>
                             {% endif %}

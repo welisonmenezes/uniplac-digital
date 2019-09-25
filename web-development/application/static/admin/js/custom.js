@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
         VMasker(num).maskNumber();
     }
 
-
     // botão de upload
     $('body').on('click', '.file-upload-browse', function(){
         $('.file-upload-default').click();
@@ -47,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (accepts.indexOf('.' + extension) > -1) {
                     var reader = new FileReader();
                     reader.onloadend = () => {
-                        fetch(`http://127.0.0.1:5000/api/image`, {
+                        fetch(GLOBALS.BASE_URL+'api/image', {
                             method: 'POST',
                             headers: {
                                 'Accept': 'application/json',
@@ -95,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'class': 'mdi mdi-close-circle'
         }).appendTo(figure);
         var img = $('<img/>', {
-            'src': 'http://127.0.0.1:5000/api/media/2',
+            'src': GLOBALS.BASE_URL+'api/media/2',
             'alt': 'User Avatar'
         }).appendTo(figure);
     }
