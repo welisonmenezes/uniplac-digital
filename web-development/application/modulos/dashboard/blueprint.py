@@ -5,4 +5,6 @@ dashboardBP = Blueprint('dashboard', __name__, url_prefix='/admin/dashboard', te
 
 @dashboardBP.route('/')
 def dash():
-    return 'Tela inicial', 200
+    titulo = 'Dashboard'
+    return render_template('dashboard/index.html',titulo=titulo), 200
+

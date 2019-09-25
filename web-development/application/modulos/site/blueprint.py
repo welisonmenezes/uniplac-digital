@@ -5,27 +5,49 @@ siteBP = Blueprint('site', __name__, url_prefix='/', template_folder='templates'
 
 @siteBP.route('/')
 def index():
-    return 'Tela principal', 200
+    return render_template('site/site.html'), 200
 
 
 @siteBP.route('/noticias')
 def noticias():
-    return 'Visualização de noticias', 200
+    titulo = 'Notícias'
+    return render_template('site/posts.html', titulo=titulo), 200
+
+
+@siteBP.route('/noticias/detalhes')
+def noticias_detalhes():
+    titulo = 'Notícias' 
+    return render_template('/site/detalhes.html', titulo=titulo), 200
 
 
 @siteBP.route('/anuncios')
 def anuncios():
-    return 'Visualização de anuncios', 200
+    titulo = 'Anuncios'
+    return render_template('site/posts.html', titulo=titulo), 200
+
+
+@siteBP.route('/anuncios/detalhes')
+def anuncios_detalhes():
+    titulo = 'Anuncios'
+    return render_template('/site/detalhes.html', titulo=titulo), 200
 
 
 @siteBP.route('/avisos')
 def avisos():
-    return 'Visualização de avisos', 200
+    titulo = 'Avisos'
+    return render_template('site/posts.html', titulo=titulo), 200
+
+
+@siteBP.route('/avisos/detalhes')
+def avisos_detalhes():
+    titulo = 'Avisos'
+    return render_template('/site/detalhes.html', titulo=titulo), 200
+
 
  
 @siteBP.route('/contato')
 def contato():
-    return 'Dados da universidade', 200
+    return render_template('site/contato.html'), 200
 
 
 @siteBP.route('/login')

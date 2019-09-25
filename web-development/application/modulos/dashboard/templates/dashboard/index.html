@@ -1,0 +1,108 @@
+{% extends 'base-admin.html' %}
+{% block content %}
+
+<!-- main-panel -->
+
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-12 grid-margin">
+                <div class="d-flex justify-content-between flex-wrap">
+                    <div class="d-flex align-items-end flex-wrap">
+                        <div class="mr-md-3 mr-xl-5">
+                            <h2>Bem Vindo de Volta Biel</h2>
+                            <p class="mb-md-0">Confira as Atualizações abaixo </p>
+                        </div>
+                        <div class="d-flex">
+                            <p class="text-primary mb-0 hover-cursor">
+                                <a href="../index.html" target="_blank">
+                                    <i class="mdi mdi-home text-muted hover-cursor"></i>
+                                    Ver Site
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Cadastrar Notícias</h4>
+                        <div class="media">
+                            <div class="media-body">
+                                <a href="{{ url_for('posts.noticias_cadastrar') }}">
+                                    <button type="button" class="btn btn-primary btn-icon-text">Cadastrar
+                                        Noticias</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Cadastrar Avisos</h4>
+                        <div class="media">
+                            <div class="media-body">
+                                <a href="{{ url_for('posts.avisos_cadastrar') }}">
+                                    <button type="button" class="btn btn-primary btn-icon-text">Cadastrar
+                                        Avisos</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Cadastrar Anuncios</h4>
+                        <div class="media">
+                            <div class="media-body">
+                                <a href="{{ url_for('posts.anuncios_cadastrar') }}">
+                                    <button type="button" class="btn btn-primary btn-icon-text">Cadastrar
+                                        Anuncios</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title">Sobre 2º Semestre de 2019</p>
+                    <p class="mb-4">Grafico apresenta a quantidade de alunos que ingressaram, que
+                        reingressaram e desistiram no 2º semestre de 2019</p>
+                    <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div>
+                    <canvas id="cash-deposits-chart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-title">Total de Gastos na Universidade</p>
+                    <h1>R$19.000.33</h1>
+                    <h4>Total de gastos da universidade no 2º semestre de 2019 </h4>
+                    <p class="text-muted">t </p>
+                    <div id="total-sales-chart-legend"></div>
+                </div>
+                <canvas id="total-sales-chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- content-wrapper ends -->
+    <!-- partial:partials/_footer.html -->
+
+    <!-- partial -->
+
+
+{% endblock content%}
