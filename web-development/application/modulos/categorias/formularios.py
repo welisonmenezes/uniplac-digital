@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SelectField, FileField, HiddenField
+from wtforms import StringField, TextAreaField
 from wtforms.validators import DataRequired
 
 class CategoriaForm(FlaskForm):
@@ -13,7 +13,7 @@ class CategoriaForm(FlaskForm):
         }
     )
 
-    description = StringField(
+    description = TextAreaField(
         'Descrição',
         render_kw = {
             'placeholder':'Descrição'

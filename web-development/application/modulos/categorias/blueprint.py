@@ -16,10 +16,13 @@ def cadastrar():
         print("valido")
     return render_template('/categorias/formulario.html' , titulo=titulo, form=form), 200
 
-@categoriaBP.route('/editar')
+@categoriaBP.route('/editar', methods=['GET', 'POST'])
 def editar():
+    form = CategoriaForm(request.form)
     titulo = 'Edição'
-    return render_template('/categorias/formulario.html' , titulo=titulo), 200
+    if form.validate_on_submit():
+        print("valido")
+    return render_template('/categorias/formulario.html' , titulo=titulo, form=form), 200
 
 @categoriaBP.route('/deletar', methods=['GET', 'POST'])
 def deletar():

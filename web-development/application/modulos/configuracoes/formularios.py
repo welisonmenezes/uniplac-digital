@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SelectField, FileField, HiddenField
+from wtforms import StringField, TextAreaField, FileField, HiddenField
 from wtforms.validators import DataRequired
 
 class ConfiguracaoForm(FlaskForm):
@@ -13,7 +13,7 @@ class ConfiguracaoForm(FlaskForm):
         }
     )
 
-    description = StringField(
+    description = TextAreaField(
         'Descrição do Site',
         validators = [
             DataRequired(message="Campo obrigatório")
