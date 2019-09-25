@@ -14,16 +14,35 @@ def noticias():
     return render_template('site/posts.html', titulo=titulo), 200
 
 
+@siteBP.route('/noticias/detalhes')
+def noticias_detalhes():
+    titulo = 'Notícias'
+    return render_template('/site/detalhes.html', titulo=titulo), 200
+
+
 @siteBP.route('/anuncios')
 def anuncios():
     titulo = 'Anuncios'
     return render_template('site/posts.html', titulo=titulo), 200
 
 
+@siteBP.route('/anuncios/detalhes')
+def anuncios_detalhes():
+    titulo = 'Anuncios'
+    return render_template('/site/detalhes.html', titulo=titulo), 200
+
+
 @siteBP.route('/avisos')
 def avisos():
     titulo = 'Avisos'
     return render_template('site/posts.html', titulo=titulo), 200
+
+
+@siteBP.route('/avisos/detalhes')
+def avisos_detalhes():
+    titulo = 'Avisos'
+    return render_template('/site/detalhes.html', titulo=titulo), 200
+
 
  
 @siteBP.route('/contato')

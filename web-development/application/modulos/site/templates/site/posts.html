@@ -84,7 +84,15 @@
                                 that
                                 he earth it
                                 first without heaven in place seed it second morning saying.</p>
-                            <a href="{{ url_for('site.noticias') }}" class="blog_btn">
+                                {# Diferenciando pelo tipo de post #}
+                                    {% if(titulo == 'Notícias'): %}
+                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                    {% elif(titulo == 'Anuncios'): %}
+                                    <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+                                            {% elif(titulo == 'Avisos'): %}
+                                    <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                            {% endif %}
+
                                 Ver Mais
                                 <span class="ml-2 ti-arrow-right"></span>
                             </a>
@@ -103,7 +111,14 @@
                                 that
                                 he earth it
                                 first without heaven in place seed it second morning saying.</p>
-                            <a href="{{ url_for('site.noticias') }}" class="blog_btn">
+                                {# Diferenciando pelo tipo de post #}
+                                {% if(titulo == 'Notícias'): %}
+                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                {% elif(titulo == 'Anuncios'): %}
+                                <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+                                        {% elif(titulo == 'Avisos'): %}
+                                <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                        {% endif %}
                                 Ver Mais
                                 <span class="ml-2 ti-arrow-right"></span>
                             </a>
@@ -123,7 +138,14 @@
                                 that
                                 he earth it
                                 first without heaven in place seed it second morning saying.</p>
-                            <a href="{{ url_for('site.noticias') }}" class="blog_btn">
+                                {# Diferenciando pelo tipo de post #}
+                                {% if(titulo == 'Notícias'): %}
+                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                {% elif(titulo == 'Anuncios'): %}
+                                <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+                                        {% elif(titulo == 'Avisos'): %}
+                                <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                        {% endif %}">
                                 Ver Mais
                                 <span class="ml-2 ti-arrow-right"></span>
                             </a>
@@ -143,7 +165,14 @@
                                 that
                                 he earth it
                                 first without heaven in place seed it second morning saying.</p>
-                            <a href="{{ url_for('site.noticias') }}" class="blog_btn">
+                                {# Diferenciando pelo tipo de post #}
+                                {% if(titulo == 'Notícias'): %}
+                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                {% elif(titulo == 'Anuncios'): %}
+                                <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+                                        {% elif(titulo == 'Avisos'): %}
+                                <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                        {% endif %}
                                 Ver Mais
                                 <span class="ml-2 ti-arrow-right"></span>
                             </a>
@@ -159,7 +188,14 @@
                                 that
                                 he earth it
                                 first without heaven in place seed it second morning saying.</p>
-                            <a href="{{ url_for('site.noticias') }}" class="blog_btn">
+                                {# Diferenciando pelo tipo de post #}
+                                {% if(titulo == 'Notícias'): %}
+                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                {% elif(titulo == 'Anuncios'): %}
+                                <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+                                        {% elif(titulo == 'Avisos'): %}
+                                <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                        {% endif %}
                                 Ver Mais
                                 <span class="ml-2 ti-arrow-right"></span>
                             </a>
@@ -179,7 +215,14 @@
                                 that
                                 he earth it
                                 first without heaven in place seed it second morning saying.</p>
-                            <a href="{{ url_for('site.noticias') }}" class="blog_btn">
+                                {# Diferenciando pelo tipo de post #}
+                                {% if(titulo == 'Notícias'): %}
+                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                {% elif(titulo == 'Anuncios'): %}
+                                <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+                                        {% elif(titulo == 'Avisos'): %}
+                                <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                        {% endif %}
                                 Ver Mais
                                 <span class="ml-2 ti-arrow-right"></span>
                             </a>
@@ -221,7 +264,14 @@
                             <img src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-2.jpg') }}" alt="post">
                             <div class="media-body">
                                 <h3>From life was you fish...</h3>
-                                <a href="{{ url_for('site.noticias') }}" class="blog_btn">
+                                {# Diferenciando pelo tipo de post #}
+                                    {% if(titulo == 'Notícias'): %}
+                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                    {% elif(titulo == 'Anuncios'): %}
+                                    <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+                                            {% elif(titulo == 'Avisos'): %}
+                                    <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                            {% endif %}
                                     Ver Mais
                                     <span class="ml-2 ti-arrow-right"></span>
                                 </a>
@@ -230,7 +280,14 @@
                         <div class="media post_item no-image">
                             <div class="media-body">
                                 <h3>Astronomy Or Astrology</h3>
-                                <a href="{{ url_for('site.noticias') }}" class="blog_btn">
+                                {# Diferenciando pelo tipo de post #}
+                                    {% if(titulo == 'Notícias'): %}
+                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                    {% elif(titulo == 'Anuncios'): %}
+                                    <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+                                            {% elif(titulo == 'Avisos'): %}
+                                    <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                            {% endif %}
                                     Ver Mais
                                     <span class="ml-2 ti-arrow-right"></span>
                                 </a>
@@ -240,7 +297,14 @@
                             <img src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-5.jpg') }}" alt="post">
                             <div class="media-body">
                                 <h3>From life was you fish...</h3>
-                                <a href="{{ url_for('site.noticias') }}" class="blog_btn">
+                                {# Diferenciando pelo tipo de post #}
+                                    {% if(titulo == 'Notícias'): %}
+                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                    {% elif(titulo == 'Anuncios'): %}
+                                    <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+                                            {% elif(titulo == 'Avisos'): %}
+                                    <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                            {% endif %}
                                     Ver Mais
                                     <span class="ml-2 ti-arrow-right"></span>
                                 </a>
@@ -250,7 +314,14 @@
                             <img src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-1.jpg') }}" alt="post">
                             <div class="media-body">
                                 <h3>From life was you fish...</h3>
-                                <a href="{{ url_for('site.noticias') }}" class="blog_btn">
+                                {# Diferenciando pelo tipo de post #}
+                                    {% if(titulo == 'Notícias'): %}
+                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                    {% elif(titulo == 'Anuncios'): %}
+                                    <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+                                            {% elif(titulo == 'Avisos'): %}
+                                    <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                            {% endif %}
                                     Ver Mais
                                     <span class="ml-2 ti-arrow-right"></span>
                                 </a>
@@ -259,7 +330,14 @@
                         <div class="media post_item  no-image">
                             <div class="media-body">
                                 <h3>From life was you fish...</h3>
-                                <a href="{{ url_for('site.noticias') }}" class="blog_btn">
+                                {# Diferenciando pelo tipo de post #}
+                                    {% if(titulo == 'Notícias'): %}
+                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                    {% elif(titulo == 'Anuncios'): %}
+                                    <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+                                            {% elif(titulo == 'Avisos'): %}
+                                    <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                            {% endif %}
                                     Ver Mais
                                     <span class="ml-2 ti-arrow-right"></span>
                                 </a>
@@ -269,7 +347,14 @@
                             <img src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-4.jpg') }}" alt="post">
                             <div class="media-body">
                                 <h3>From life was you fish...</h3>
-                                <a href="{{ url_for('site.noticias') }}" class="blog_btn">
+                                {# Diferenciando pelo tipo de post #}
+                                    {% if(titulo == 'Notícias'): %}
+                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                    {% elif(titulo == 'Anuncios'): %}
+                                    <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+                                            {% elif(titulo == 'Avisos'): %}
+                                    <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                            {% endif %}
                                     Ver Mais
                                     <span class="ml-2 ti-arrow-right"></span>
                                 </a>
