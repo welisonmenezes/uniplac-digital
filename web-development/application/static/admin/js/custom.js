@@ -21,4 +21,62 @@ document.addEventListener('DOMContentLoaded', function() {
     if (num) {
         VMasker(num).maskNumber();
     }
+
+
+    // botão de upload
+    $('.file-upload-browse').on('click', function(){
+        $('.file-upload-default').click();
+    });
+
+    // dispara envio de imagem
+    $('.file-upload-default').on('change', function(evt) {
+        enviaImagem(evt);
+    })
+
+    // metodo de envio de imagem
+    enviaImagem = function(evt){
+        var element = evt.target;
+        var file = element.files[0];
+        if (file && file.name) {
+            var filename = file.name;
+            console.log(filename);
+            var extension = filename.slice((filename.lastIndexOf('.') - 1 >>> 0) + 2).toLowerCase();
+            var accepts = element.getAttribute('accept').split(',');
+            if (file.size <= 5017969) {
+                if (accepts.indexOf('.' + extension) > -1) {
+                    var reader = new FileReader();
+                    reader.onloadend = () => {
+                        fetch(`http://127.0.0.1:5000/api/image`, {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                                //'Authorization': sessionStorage.getItem('Token')
+                            },
+                            body: JSON.stringify({ image: reader.result })
+                        })
+                            .then(data => data.json())
+                            .then(data => {
+                                console.log(data);
+                                if (data && data.id) {
+                                    console.log('sucesso!');
+                                } else {
+                                    console.log('erro!');
+                                }
+                            }, error => {
+                                console.log('handleUploadImage: ', error);
+                                element.value = null;
+                            });
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    element.value = null;
+                    console.log('extensão inválida!');
+                }
+            } else {
+                element.value = null;
+                console.log('tamanho inválido!');
+            }
+        }
+    }
 });

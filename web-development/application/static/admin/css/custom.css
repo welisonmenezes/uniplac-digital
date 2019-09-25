@@ -85,3 +85,28 @@ select.form-control,
 select.form-control, .dataTables_wrapper select{
     color: #495057;
 }
+
+.previewImage {
+    background-color: #e9ecef;
+    padding: 6px;
+    border: 1px solid #ced4da;
+    border-radius: 2px;
+    margin-top: 10px;
+    position: relative;
+}
+
+.previewImage img {
+    max-width: 100px;
+    max-height: 100px;
+    display: block;
+    margin: 0 auto;
+}
+
+.previewImage .mdi {
+    position: absolute;
+    font-size: 24px;
+    cursor: pointer;
+    color: red;
+    top: -12px;
+    right: -12px;
+}

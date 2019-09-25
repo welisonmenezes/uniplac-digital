@@ -21,9 +21,9 @@
 {% macro render_file_field(field) %}
 <div class="form-group">
     {{ field.label }}
-    {{ field(class="file-upload-default") }}
+    {{ field(class="file-upload-default", accept=".jpg,.jpeg,.png,.gif") }}
     <div class="input-group">
-        <input type="text" class="form-control file-upload-info" placeholder="Upload Image">
+        <input type="text" class="form-control file-upload-info" readonly placeholder="Upload Image">
         <span class="input-group-append">
             <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
         </span>
