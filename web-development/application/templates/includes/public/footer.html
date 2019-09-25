@@ -6,16 +6,16 @@
                 <h4>Menu Principal</h4>
                 <ul>
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="{{ url_for('site.index') }}">Home</a>
                     </li>
                     <li>
-                        <a href="news.html">Notícias</a>
+                        <a href="{{ url_for('site.noticias') }}">Notícias</a>
                     </li>
                     <li>
-                        <a href="ad.html">Anúnicios</a>
+                        <a href="{{ url_for('site.anuncios') }}">Anúnicios</a>
                     </li>
                     <li>
-                        <a href="novice.html">Avisos</a>
+                        <a href="{{ url_for('site.avisos') }}">Avisos</a>
                     </li>
                 </ul>
             </div>
@@ -23,7 +23,7 @@
                 <h4>Outros Links</h4>
                 <ul>
                     <li>
-                        <a href="contact.html">Contato</a>
+                        <a href="{{ url_for('site.contato') }}">Contato</a>
                     </li>
                     <li>
                         <a href="https://moodle.uniplac.net/" target="_blank">Moodle Uniplac</a>
@@ -40,10 +40,10 @@
             <div class="col-lg-3 col-md-6 single-footer-widget">
                 <h4>Principais Categorias</h4>
                 <ul>
-                    <li><a href="news.html">Esportes</a></li>
-                    <li><a href="news.html">Engenharia</a></li>
-                    <li><a href="news.html">Sistema de Informação</a></li>
-                    <li><a href="news.html">Eventos</a></li>
+                    <li><a href="{{ url_for('site.index') }}"">Esportes</a></li>
+                    <li><a href="{{ url_for('site.index') }}"">Engenharia</a></li>
+                    <li><a href="{{ url_for('site.index') }}">Sistema de Informação</a></li>
+                    <li><a href="{{ url_for('site.index') }}"">Eventos</a></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6 single-footer-widget">

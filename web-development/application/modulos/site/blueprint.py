@@ -16,7 +16,7 @@ def noticias():
 
 @siteBP.route('/noticias/detalhes')
 def noticias_detalhes():
-    titulo = 'Notícias'
+    titulo = 'Notícias' 
     return render_template('/site/detalhes.html', titulo=titulo), 200
 
 
@@ -47,7 +47,7 @@ def avisos_detalhes():
  
 @siteBP.route('/contato')
 def contato():
-    return 'Dados da universidade', 200
+    return render_template('site/contato.html'), 200
 
 
 @siteBP.route('/login')
