@@ -1,5 +1,7 @@
 {% extends 'base-admin.html' %}
 
+{% from "macros/formFields.html" import render_field %}
+
 {% block title%}
 Categorias
 {% endblock title%}
@@ -10,15 +12,10 @@ Categorias
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">{{ titulo }} de Categoria</h4>
-                <form class="forms-sample">
-                    <div class="form-group">
-                        <label for="exampleInputUsername1">Nome</label>
-                        <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Nome">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Descrição</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Descrição">
-                    </div>
+                <form class="forms-sample" method="POST" novalidate>
+                    {{ form.csrf_token }}
+                    {{ render_field(form.name) }}
+                    {{ render_field(form.description) }}
                     <button type="submit" class="btn btn-primary mr-2">Enviar</button>
                     <button class="btn btn-light">Cancelar</button>
                 </form>
