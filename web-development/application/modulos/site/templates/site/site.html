@@ -4,7 +4,7 @@
 
 <section>
     <div class="wrapper">
-         <div class="slideshow">                       
+        <div class="slideshow">
             <div>
                 <div style="background-image: url({{ url_for('static', filename='public/img/banner-1.jpg') }})"></div>
             </div>
@@ -73,20 +73,25 @@
                         <div class="card blog__slide text-center">
                             <div class="blog__slide__img">
                                 <img class="card-img rounded-0"
-                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-2.jpg') }}" alt="">
+                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-2.jpg') }}"
+                                    alt="">
+                                    <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+                                        
+
+
                             </div>
                             <div class="blog__slide__content">
                                 <h3>
-                                        {# Diferenciando pelo tipo de post #}
-                                        {% if(titulo == 'Notícias'): %}
-                                        <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                    {# Diferenciando pelo tipo de post #}
+                                    {% if(titulo == 'Notícias'): %}
+                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
                                         {% elif(titulo == 'Anuncios'): %}
                                         <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-                                                {% elif(titulo == 'Avisos'): %}
-                                        <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                            {% elif(titulo == 'Avisos'): %}
+                                            <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
                                                 {% endif %}
-                                        New york fashion week's continued the evolution
-                                    </a>
+                                                New york fashion week's continued the evolution
+                                            </a>
                                 </h3>
                             </div>
                         </div>
@@ -95,20 +100,23 @@
                         <div class="card blog__slide text-center">
                             <div class="blog__slide__img">
                                 <img class="card-img rounded-0"
-                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-1.jpg') }}" alt="">
+                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-1.jpg') }}"
+                                    alt="">
+                                    <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+
                             </div>
                             <div class="blog__slide__content">
                                 <h3>
-                                        {# Diferenciando pelo tipo de post #}
-                                        {% if(titulo == 'Notícias'): %}
-                                        <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                    {# Diferenciando pelo tipo de post #}
+                                    {% if(titulo == 'Notícias'): %}
+                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
                                         {% elif(titulo == 'Anuncios'): %}
                                         <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-                                                {% elif(titulo == 'Avisos'): %}
-                                        <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                            {% elif(titulo == 'Avisos'): %}
+                                            <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
                                                 {% endif %}
-                                        New york fashion week's continued the evolution
-                                    </a>
+                                                New york fashion week's continued the evolution
+                                            </a>
                                 </h3>
                             </div>
                         </div>
@@ -117,20 +125,23 @@
                         <div class="card blog__slide text-center">
                             <div class="blog__slide__img">
                                 <img class="card-img rounded-0"
-                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-3.jpg') }}" alt="">
+                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-3.jpg') }}"
+                                    alt="">
+                                    <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+
                             </div>
                             <div class="blog__slide__content">
                                 <h3>
-                                        {# Diferenciando pelo tipo de post #}
-                                        {% if(titulo == 'Notícias'): %}
-                                        <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                    {# Diferenciando pelo tipo de post #}
+                                    {% if(titulo == 'Notícias'): %}
+                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
                                         {% elif(titulo == 'Anuncios'): %}
                                         <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-                                                {% elif(titulo == 'Avisos'): %}
-                                        <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                            {% elif(titulo == 'Avisos'): %}
+                                            <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
                                                 {% endif %}
-                                        New york fashion week's continued the evolution
-                                    </a>
+                                                New york fashion week's continued the evolution
+                                            </a>
                                 </h3>
                             </div>
                         </div>
@@ -139,20 +150,23 @@
                         <div class="card blog__slide text-center">
                             <div class="blog__slide__img">
                                 <img class="card-img rounded-0"
-                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-5.jpg') }}" alt="">
+                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-5.jpg') }}"
+                                    alt="">
+                                    <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+
                             </div>
                             <div class="blog__slide__content">
                                 <h3>
-                                        {# Diferenciando pelo tipo de post #}
-                                        {% if(titulo == 'Notícias'): %}
-                                        <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                    {# Diferenciando pelo tipo de post #}
+                                    {% if(titulo == 'Notícias'): %}
+                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
                                         {% elif(titulo == 'Anuncios'): %}
                                         <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-                                                {% elif(titulo == 'Avisos'): %}
-                                        <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                            {% elif(titulo == 'Avisos'): %}
+                                            <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
                                                 {% endif %}
-                                        New york fashion week's continued the evolution
-                                    </a>
+                                                New york fashion week's continued the evolution
+                                            </a>
                                 </h3>
                             </div>
                         </div>
@@ -177,36 +191,9 @@
                     <div class="col-md-12">
                         <div class="single-blog">
                             <div class="thumb">
-                                <img class="img-fluid" src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-5.jpg') }}" alt="">
-                            </div>
-                            <div class="short_details">
-                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                    <h3>Ford clever bed stops your sleeping partner hogging the whole</h3>
-                                </a>
-                                <div class="text-wrap">
-                                    <p>
-                                        Let one fifth i bring fly to divided face for bearing the divide unto
-                                        seed
-                                        winged
-                                        divided light
-                                        Forth.
-                                    </p>
-                                </div>
-                               
-                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                
-                                    Ver Mais
-                                    <span class="ml-2 ti-arrow-right"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="single-blog">
-                            <div class="thumb">
-                                <img class="img-fluid" src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-4.jpg') }}" alt="">
+                                <img class="img-fluid"
+                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-5.jpg') }}"
+                                    alt="">
                             </div>
                             <div class="short_details">
                                 <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
@@ -221,7 +208,9 @@
                                         Forth.
                                     </p>
                                 </div>
+
                                 <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+
                                     Ver Mais
                                     <span class="ml-2 ti-arrow-right"></span>
                                 </a>
@@ -233,10 +222,12 @@
                     <div class="col-md-12">
                         <div class="single-blog">
                             <div class="thumb">
-                                <img class="img-fluid" src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-3.jpg') }}" alt="">
+                                <img class="img-fluid"
+                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-4.jpg') }}"
+                                    alt="">
                             </div>
                             <div class="short_details">
-                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
                                     <h3>Ford clever bed stops your sleeping partner hogging the whole</h3>
                                 </a>
                                 <div class="text-wrap">
@@ -260,10 +251,12 @@
                     <div class="col-md-12">
                         <div class="single-blog">
                             <div class="thumb">
-                                <img class="img-fluid" src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-2.jpg') }}" alt="">
+                                <img class="img-fluid"
+                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-3.jpg') }}"
+                                    alt="">
                             </div>
                             <div class="short_details">
-                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
                                     <h3>Ford clever bed stops your sleeping partner hogging the whole</h3>
                                 </a>
                                 <div class="text-wrap">
@@ -287,10 +280,12 @@
                     <div class="col-md-12">
                         <div class="single-blog">
                             <div class="thumb">
-                                <img class="img-fluid" src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-1.jpg') }}" alt="">
+                                <img class="img-fluid"
+                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-2.jpg') }}"
+                                    alt="">
                             </div>
                             <div class="short_details">
-                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
                                     <h3>Ford clever bed stops your sleeping partner hogging the whole</h3>
                                 </a>
                                 <div class="text-wrap">
@@ -314,10 +309,41 @@
                     <div class="col-md-12">
                         <div class="single-blog">
                             <div class="thumb">
-                                <img class="img-fluid" src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-3.jpg') }}" alt="">
+                                <img class="img-fluid"
+                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-1.jpg') }}"
+                                    alt="">
                             </div>
                             <div class="short_details">
-                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                    <h3>Ford clever bed stops your sleeping partner hogging the whole</h3>
+                                </a>
+                                <div class="text-wrap">
+                                    <p>
+                                        Let one fifth i bring fly to divided face for bearing the divide unto
+                                        seed
+                                        winged
+                                        divided light
+                                        Forth.
+                                    </p>
+                                </div>
+                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                    Ver Mais
+                                    <span class="ml-2 ti-arrow-right"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="single-blog">
+                            <div class="thumb">
+                                <img class="img-fluid"
+                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-3.jpg') }}"
+                                    alt="">
+                            </div>
+                            <div class="short_details">
+                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
                                     <h3>Ford clever bed stops your sleeping partner hogging the whole</h3>
                                 </a>
                                 <div class="text-wrap">
@@ -351,7 +377,8 @@
                     <aside class="single_sidebar_widget popular_post_widget">
                         <h3 class="widget_title">Avisos Recentes</h3>
                         <div class="media post_item">
-                            <img src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-2.jpg') }}" alt="post">
+                            <img src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-2.jpg') }}"
+                                alt="post">
                             <div class="media-body">
                                 <h3>From life was you fish...</h3>
                                 <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
@@ -370,7 +397,8 @@
                             </div>
                         </div>
                         <div class="media post_item">
-                            <img src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-5.jpg') }}" alt="post">
+                            <img src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-5.jpg') }}"
+                                alt="post">
                             <div class="media-body">
                                 <h3>From life was you fish...</h3>
                                 <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
@@ -380,7 +408,8 @@
                             </div>
                         </div>
                         <div class="media post_item">
-                            <img src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-1.jpg') }}" alt="post">
+                            <img src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-1.jpg') }}"
+                                alt="post">
                             <div class="media-body">
                                 <h3>From life was you fish...</h3>
                                 <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
@@ -399,7 +428,8 @@
                             </div>
                         </div>
                         <div class="media post_item">
-                            <img src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-4.jpg') }}" alt="post">
+                            <img src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-4.jpg') }}"
+                                alt="post">
                             <div class="media-body">
                                 <h3>From life was you fish...</h3>
                                 <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
@@ -453,4 +483,3 @@
 
 
 {% endblock %}
-
