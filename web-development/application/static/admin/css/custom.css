@@ -125,7 +125,8 @@ select.form-control, .dataTables_wrapper select{
 
 #videoByURL-1,
 #videoUpload-1,
-#fr-video-by-url-layer-1{
+#fr-video-by-url-layer-1,
+#imageReplace-1{
     display: none;
 }
 #fr-video-embed-layer-1{
@@ -134,4 +135,17 @@ select.form-control, .dataTables_wrapper select{
 
 .fr-box.fr-basic .fr-element{
     max-height: 75vh;
+}
+
+.rich-text-editor-container{
+    position: relative;
+}
+.rich-text-editor-container #contentImageSender{
+    height: 0;
+    width: 0;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: -50000000px;
+    left: -50000000px;
 }

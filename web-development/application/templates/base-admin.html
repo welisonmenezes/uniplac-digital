@@ -72,6 +72,24 @@
 
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalMessages" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalMessageText"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     {% block scripts %}
     <script>
@@ -117,7 +135,6 @@
     <script>
         var contentArea = document.getElementById('content');
         if (contentArea) {
-            //FroalaEditor.DefineIcon('insertVideo', {NAME: 'plus', SVG_KEY: 'insertImage'});
             FroalaEditor.DefineIcon('insert', {NAME: 'plus', SVG_KEY: 'insertImage'});
             FroalaEditor.RegisterCommand('insert', {
                 title: 'Insert HTML',
@@ -125,10 +142,10 @@
                 undo: true,
                 refreshAfterCallback: true,
                 callback: function () {
-                    this.image.insert('http://127.0.0.1:5000/api/media/8', true, {'name': 'image_name', 'id': 'image_1'});
+                    $('#contentImageSender').click();
                 }
             });
-            new FroalaEditor('#content', {
+            var Editor = new FroalaEditor('#content', {
                 toolbarButtons: [
                     ['bold', 'italic', 'underline', 'textColor'],
                     ['alignLeft', 'alignCenter', 'alignRight', 'alignJustify'],
@@ -138,6 +155,59 @@
                 quickInsertTags: []
             });
         }
+
+        $('body').on('change', '#contentImageSender', function(evt) {
+            sendImagem(evt);
+        });
+
+        // metodo de envio de imagem
+        sendImagem = function(evt){
+            var element = evt.target;
+            var file = element.files[0];
+            if (file && file.name) {
+                var filename = file.name;
+                var extension = filename.slice((filename.lastIndexOf('.') - 1 >>> 0) + 2).toLowerCase();
+                var accepts = element.getAttribute('accept').split(',');
+                if (file.size <= 5017969) {
+                    if (accepts.indexOf('.' + extension) > -1) {
+                        var reader = new FileReader();
+                        reader.onloadend = () => {
+                            fetch(GLOBALS.BASE_URL+'api/image', {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ image: reader.result })
+                            })
+                                .then(data => data.json())
+                                .then(data => {
+                                    if (data && data.id) {
+                                        Editor.image.insert(GLOBALS.BASE_URL+'api/media/'+data.id, true);
+                                    } else {
+                                        showFeedbackMessage(data.message);
+                                    }
+                                }, error => {
+                                    showFeedbackMessage(error);
+                                    element.value = null;
+                                });
+                        }
+                        reader.readAsDataURL(file);
+                    } else {
+                        element.value = null;
+                        showFeedbackMessage('Tipo de arquivo inválido. Apenas imagens é permitido');
+                    }
+                } else {
+                    element.value = null;
+                    showFeedbackMessage('A imagem não pode ser maior que 5mb');
+                }
+            }
+        };
+
+        showFeedbackMessage = function(text) {
+            $('#modalMessageText').html(text);
+            $('#modalMessages').modal('show');
+        };
     </script>
     <!-- end rich editor froala -->
 
