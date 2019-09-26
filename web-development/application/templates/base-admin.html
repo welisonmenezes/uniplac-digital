@@ -52,6 +52,11 @@
 
 
     {% block scripts %}
+    <script>
+        var GLOBALS = {
+            'BASE_URL': '{{request.url_root}}'
+        };
+    </script>
     <script src="{{ url_for('static', filename='admin/vendors/base/vendor.bundle.base.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/vendors/chart.js/Chart.min.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/off-canvas.js') }}"></script>

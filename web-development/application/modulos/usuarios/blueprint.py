@@ -106,6 +106,7 @@ def editar(id):
                 user.role = form.role.data
                 user.email = form.email.data
                 user.phone = form.phone.data
+                user.image_id = None
                 if (form.image_id.data != ''):
                     user.image_id = form.image_id.data
                 if (form.password.data != ''):
@@ -121,7 +122,7 @@ def editar(id):
             # remove qualquer vestígio do usuário da sessin e flash message
             db.session.rollback()
             flash('Erro ao tentar editar o usuário', 'danger')
-    return render_template('usuarios/formulario.html', titulo=titulo, form=form, mode='editar'), 200
+    return render_template('usuarios/formulario.html', titulo=titulo, form=form, mode='editar', user=user), 200
 
 
 @usuarioBP.route('/deletar/<int:id>', methods=['GET', 'POST'])

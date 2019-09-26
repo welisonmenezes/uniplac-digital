@@ -1,4 +1,4 @@
-{% macro render_field(field, cssClass='None', maxLength='') %}
+{% macro render_field(field, cssClass='', maxLength='') %}
 <div class="form-group">
     {{ field.label }}
     {% if field.errors %}
@@ -15,15 +15,20 @@
 
 {% macro render_hidden_field(field) %}
     {{ field() }}
+    {% if field.errors %}
+    {% for error in field.errors %}
+    <span class="invalid-feedback">{{ error }}</span>
+    {% endfor %}
+    {% endif %}
 {% endmacro %}
 
 
-{% macro render_file_field(field) %}
+{% macro render_file_field(field, cssClass='') %}
 <div class="form-group">
     {{ field.label }}
-    {{ field(class="file-upload-default") }}
+    {{ field(class="file-upload-default"+cssClass, accept=".jpg,.jpeg,.png,.gif,.pdf") }}
     <div class="input-group">
-        <input type="text" class="form-control file-upload-info" placeholder="Upload Image">
+        <input type="text" class="form-control file-upload-info" readonly placeholder="Upload Image">
         <span class="input-group-append">
             <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
         </span>
