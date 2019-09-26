@@ -21,19 +21,32 @@
                     {{ render_field(form.phone, 'mask-phone') }}
                     {{ render_field(form.password) }}
                     {{ render_field(form.role) }}
-                    {{ render_hidden_field(form.image_id) }}
-                    {{ render_file_field(form.image) }}
-                    <div id="imageContainer">
-                        {% if mode == 'editar' %}
-                            {% if user.image_id %}
+                    <div>
+                        {{ render_file_field(form.image, '') }}
+                        <div class="image-container">
+                            {% if form.image_id.data %}
                                 <div class="form-group">
                                     <figure class="previewImage">
-                                        <i class="mdi mdi-close-circle"></i>
-                                        <img src="{{request.url_root}}api/media/{{ user.image_id }}" alt="User Avatar" />
+                                        <i class="mdi mdi-close-circle closePreviewImage"></i>
+                                        <img src="{{request.url_root}}api/media/{{ form.image_id.data }}" alt="User Avatar" />
                                     </figure>
                                 </div>
+                            {% else %}
+                                {% if mode == 'editar' %}
+                                    {% if user.image_id and form.image_id.data != '' %}
+                                        <div class="form-group">
+                                            <figure class="previewImage">
+                                                <i class="mdi mdi-close-circle closePreviewImage"></i>
+                                                <img src="{{request.url_root}}api/media/{{ user.image_id }}" alt="User Avatar" />
+                                            </figure>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
+                        </div>
+                        <div class="hidden-group">
+                            {{ render_hidden_field(form.image_id) }}
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Salvar</button>
                     <button type="button" class="btn btn-light" onClick="history.go(-1); return false;">Cancelar</button>

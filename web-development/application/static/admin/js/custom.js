@@ -30,7 +30,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // dispara envio de imagem
     $('body').on('change', '.file-upload-default', function(evt) {
         enviaImagem(evt);
-    })
+    });
+
+    // close o preview de imagem
+    $('body').on('click', '.closePreviewImage', function(){
+        var t = $(this);
+        var parent = t.parent().parent().parent().parent();
+        var container = parent.find('.image-container');
+        var imageInput = parent.find('input[type=hidden]');
+        container.html('');
+        imageInput.val('');
+    });
 
     // metodo de envio de imagem
     enviaImagem = function(evt){
@@ -38,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
         var file = element.files[0];
         if (file && file.name) {
             var filename = file.name;
-            console.log(filename);
             var extension = filename.slice((filename.lastIndexOf('.') - 1 >>> 0) + 2).toLowerCase();
             var accepts = element.getAttribute('accept').split(',');
             if (file.size <= 5017969) {
@@ -49,43 +58,43 @@ document.addEventListener('DOMContentLoaded', function() {
                             method: 'POST',
                             headers: {
                                 'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                                //'Authorization': sessionStorage.getItem('Token')
+                                'Content-Type': 'application/json'
                             },
                             body: JSON.stringify({ image: reader.result })
                         })
                             .then(data => data.json())
                             .then(data => {
-                                console.log(data);
                                 if (data && data.id) {
-                                    console.log('sucesso!');
-                                    addImageHTML(data.id);
+                                    addImageHTML(element, data.id);
                                 } else {
-                                    addImageHTML(null, data.message);
+                                    addImageHTML(element, null, data.message);
                                 }
                             }, error => {
-                                addImageHTML(null, error);
+                                addImageHTML(element, null, error);
                                 element.value = null;
                             });
                     }
                     reader.readAsDataURL(file);
                 } else {
                     element.value = null;
-                    addImageHTML(null, 'Extensão inválida');
-                    addImageHTML(data.id);
+                    addImageHTML(element, null, 'Extensão inválida');
                 }
             } else {
                 element.value = null;
-                addImageHTML(null, 'Tamanho inválido');
+                addImageHTML(element, null, 'Tamanho inválido');
             }
         }
     }
 
-
-    addImageHTML = function(imageId, message, messageType) {
-        var container = $('#imageContainer');
+    // adiciona o html de feedback (se sucesso, um preview, se erro, uma mensagem)
+    addImageHTML = function(element, imageId, message) {
+        var el = $(element);
+        var parent = el.parent().parent();
+        var container = parent.find('.image-container');
+        var imageInput = parent.find('input[type=hidden]');
         container.html('');
         if (imageId) {
+            imageInput.val(imageId);
             var group = $('<div/>', {
                 'class': 'form-group',
             }).appendTo(container);
@@ -93,15 +102,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 'class': 'previewImage',
             }).appendTo(group);
             var icon = $('<i/>', {
-                'class': 'mdi mdi-close-circle'
+                'class': 'mdi mdi-close-circle closePreviewImage'
             }).appendTo(figure);
             var img = $('<img/>', {
                 'src': GLOBALS.BASE_URL+'api/media/' + imageId,
                 'alt': 'User Avatar'
             }).appendTo(figure);
         } else {
-            var feedback = $('<div/>', {
-                'class': 'msg-error',
+            var feedback = $('<span/>', {
+                'class': 'invalid-feedback',
                 'text': message
             }).appendTo(container);
         }

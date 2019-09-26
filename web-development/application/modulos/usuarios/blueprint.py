@@ -106,6 +106,7 @@ def editar(id):
                 user.role = form.role.data
                 user.email = form.email.data
                 user.phone = form.phone.data
+                user.image_id = None
                 if (form.image_id.data != ''):
                     user.image_id = form.image_id.data
                 if (form.password.data != ''):
