@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-lg-6 grid-margin stretch-card">
+    <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">{{ operacao }} de {{ titulo }}</h4>
@@ -16,7 +16,10 @@
                     {{ form.csrf_token }}
                     {{ render_field(form.title) }}
                     {{ render_field(form.description) }}
-                    {{ render_field(form.content) }}
+                    <div class="rich-text-editor-container">
+                        {{ render_field(form.content) }}
+                        <input type="file" name="imagesContent" id="contentImageSender" accept=".jpg,.jpeg,.png,.gif" />
+                    </div>
                     {{ render_hidden_field(form.image_id) }}
                     {{ render_file_field(form.image) }}
                     {{ render_field(form.genre) }}
