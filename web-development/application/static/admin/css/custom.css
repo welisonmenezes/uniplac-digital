@@ -131,3 +131,7 @@ select.form-control, .dataTables_wrapper select{
 #fr-video-embed-layer-1{
     display: block;
 }
+
+.fr-box.fr-basic .fr-element{
+    max-height: 75vh;
+}
