@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // botão de upload
     $('body').on('click', '.file-upload-browse', function(){
         $('.file-upload-default').click();
-        addImageHTML();
     });
 
     // dispara envio de imagem
@@ -60,42 +59,51 @@ document.addEventListener('DOMContentLoaded', function() {
                                 console.log(data);
                                 if (data && data.id) {
                                     console.log('sucesso!');
+                                    addImageHTML(data.id);
                                 } else {
-                                    console.log('erro!');
+                                    addImageHTML(null, data.message);
                                 }
                             }, error => {
-                                console.log('handleUploadImage: ', error);
+                                addImageHTML(null, error);
                                 element.value = null;
                             });
                     }
                     reader.readAsDataURL(file);
                 } else {
                     element.value = null;
-                    console.log('extensão inválida!');
+                    addImageHTML(null, 'Extensão inválida');
+                    addImageHTML(data.id);
                 }
             } else {
                 element.value = null;
-                console.log('tamanho inválido!');
+                addImageHTML(null, 'Tamanho inválido');
             }
         }
     }
 
 
-    addImageHTML = function() {
+    addImageHTML = function(imageId, message, messageType) {
         var container = $('#imageContainer');
         container.html('');
-        var group = $('<div/>', {
-            'class': 'form-group',
-        }).appendTo(container);
-        var figure = $('<figure/>', {
-            'class': 'previewImage',
-        }).appendTo(group);
-        var icon = $('<i/>', {
-            'class': 'mdi mdi-close-circle'
-        }).appendTo(figure);
-        var img = $('<img/>', {
-            'src': GLOBALS.BASE_URL+'api/media/2',
-            'alt': 'User Avatar'
-        }).appendTo(figure);
+        if (imageId) {
+            var group = $('<div/>', {
+                'class': 'form-group',
+            }).appendTo(container);
+            var figure = $('<figure/>', {
+                'class': 'previewImage',
+            }).appendTo(group);
+            var icon = $('<i/>', {
+                'class': 'mdi mdi-close-circle'
+            }).appendTo(figure);
+            var img = $('<img/>', {
+                'src': GLOBALS.BASE_URL+'api/media/' + imageId,
+                'alt': 'User Avatar'
+            }).appendTo(figure);
+        } else {
+            var feedback = $('<div/>', {
+                'class': 'msg-error',
+                'text': message
+            }).appendTo(container);
+        }
     }
 });
