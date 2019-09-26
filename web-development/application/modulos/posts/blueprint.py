@@ -14,6 +14,7 @@ def noticias_cadastrar():
     form = PostForm(request.form)
     titulo = 'Notícias'
     operacao = 'Cadastro'
+    #print(form.content.data)
     if form.validate_on_submit():
         print('valido')
     return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form), 200

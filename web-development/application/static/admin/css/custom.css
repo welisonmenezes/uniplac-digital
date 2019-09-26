@@ -116,3 +116,18 @@ select.form-control, .dataTables_wrapper select{
     top: -12px;
     right: -12px;
 }
+
+.fr-box.fr-basic,
+.fr-toolbar.fr-top,
+.second-toolbar{
+    border-radius: 0 !important;
+}
+
+#videoByURL-1,
+#videoUpload-1,
+#fr-video-by-url-layer-1{
+    display: none;
+}
+#fr-video-embed-layer-1{
+    display: block;
+}
