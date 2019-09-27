@@ -18,6 +18,7 @@ import utils.middleware
 from modulos import *
 from database import *
 
+app.register_blueprint(errorBP)
 app.register_blueprint(usuarioBP)
 app.register_blueprint(categoriaBP)
 app.register_blueprint(configuracaoBP)
