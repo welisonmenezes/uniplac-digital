@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, Length
 
 
 class LoginForm(FlaskForm):
-    login = StringField(
+    registry = StringField(
         'Login',
         validators = [DataRequired(message="Campo obrigatório")
         ],
