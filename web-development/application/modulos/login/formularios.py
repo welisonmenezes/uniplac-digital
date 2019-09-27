@@ -3,7 +3,7 @@ from wtforms import StringField, PasswordField, SelectField
 from wtforms.validators import DataRequired, Length
 
 
-class UsuarioForm(FlaskForm):
+class LoginForm(FlaskForm):
     login = StringField(
         'Login',
         validators = [DataRequired(message="Campo obrigatório")
@@ -13,11 +13,11 @@ class UsuarioForm(FlaskForm):
         }
     )
 
-password = PasswordField(
+    password = PasswordField(
         'Senha',
         validators = [
-            DataRequired(message="Campo obrigatório"),
-            Length(min=6, message=("O campo seha deve conter no mínimo 6 dígitos")),
+            DataRequired(message="Campo obrigatório")
+            
         ],
         render_kw = {
             'placeholder':'Senha'
