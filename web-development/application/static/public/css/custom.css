@@ -321,3 +321,9 @@
         margin-bottom: 40px;
     }
 }
+textarea.form-control{
+    min-height: 185px;
+}
+.form-contact label{
+    display: none;
+}
