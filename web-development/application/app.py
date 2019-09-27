@@ -14,22 +14,10 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 bcrypt = Bcrypt(app)
 
-
-# @app.route('/')
-# def index():
-#     return render_template('base.html'), 200
-
-# @app.route('/admin')
-# def admin():
-#     return render_template('base-admin.html'), 200
-
-# @app.route('/login')
-# def login():
-#     return render_template('base-login.html'), 200
-
-
+import utils.middleware
 from modulos import *
 from database import *
+
 app.register_blueprint(usuarioBP)
 app.register_blueprint(categoriaBP)
 app.register_blueprint(configuracaoBP)

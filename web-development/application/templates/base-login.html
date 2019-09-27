@@ -23,6 +23,8 @@
 
 <body>
 
+    {% from "macros/messageFlash.html" import render_message %}
+    {{ render_message() }}
     {% block content %}
     <div class="container-scroller">
         <div class="container-fluid page-body-wrapper full-page-wrapper">
