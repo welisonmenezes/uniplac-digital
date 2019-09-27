@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SelectField, FileField, HiddenField
-from wtforms.validators import DataRequired, Length, Email, Regexp
+from wtforms.validators import DataRequired, Length, Regexp, Email
 
 class UsuarioForm(FlaskForm):
     first_name = StringField(
