@@ -1,5 +1,7 @@
 import os
 from flask import current_app, Blueprint, render_template, request, url_for
+from modulos.site.formularios import ContactForm
+
 
 siteBP = Blueprint('site', __name__, url_prefix='/', template_folder='templates', static_folder='static')
 
@@ -45,9 +47,13 @@ def avisos_detalhes():
 
 
  
-@siteBP.route('/contato')
+@siteBP.route('/contato', methods=['GET','POST'])
 def contato():
-    return render_template('site/contato.html'), 200
+    form = ContactForm(request.form)
+    if form.validate_on_submit():
+        print('valido')
+        
+    return render_template('site/contato.html', form=form), 200
 
 
 @siteBP.route('/login')
