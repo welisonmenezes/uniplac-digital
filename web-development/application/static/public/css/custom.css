@@ -327,3 +327,10 @@ textarea.form-control{
 .form-contact label{
     display: none;
 }
+
+.Contact iframe{
+    border: none;
+    height: 50vh;
+    width: 100%;
+    display: block;
+}

@@ -2,7 +2,6 @@
 
 {% from "macros/formFields.html" import render_field, render_file_field, render_hidden_field %}
 
-
 {% block content %}
 
 <section class="banner_area">
@@ -13,87 +12,48 @@
                     <h2>Contato</h2>
                 </div>
                 <div class="page_link">
-                    <a href="index.html">Home</a>
+                    <a href="{{ url_for('site.index') }}">Home</a>
                     <strong>Contato</strong>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!--================End Home Banner Area =================-->
 
-<!-- ================ contact section start ================= -->
-<section class="section_gap">
+<section class="section_gap" id="formulario">
     <div class="container">
-        <div class="d-none d-sm-block mb-5 pb-4">
-            <div id="map" style="height: 480px;"></div>
-            <script>
-                function initMap() {
-                    var uluru = {
-                        lat: -27.823168,
-                        lng: -50.3168494
-                    };
-                    var map = new google.maps.Map(document.getElementById('map'), {
-                        zoom: 15,
-                        center: uluru
-                    });
-                    var marker = new google.maps.Marker({
-                        position: uluru,
-                        map: map,
-                        title: 'Uluru (Ayers Rock)'
-                    });
-                    marker.addListener('click', function () {
-                        infowindow.open(map, marker);
-                    });
-                }
-            </script>
-            <script
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpfS1oRGreGSBU5HHjMmQ3o5NLw7VdJ6I&callback=initMap">
-            </script>
-
+        <div class="d-none d-sm-block mb-5 pb-4 Contact">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3528.5648186669146!2d-50.319038084163644!3d-27.823163238490324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94e01f22d33c54e3%3A0x1f0c82e2171ebf3b!2sUniversidade%20do%20Planalto%20Catarinense!5e0!3m2!1spt-BR!2sbr!4v1568562534328!5m2!1spt-BR!2sbr"></iframe>
         </div>
-
-
         <div class="row">
             <div class="col-12">
                 <h2 class="contact-title">Envie uma mensagem</h2>
             </div>
             <div class="col-lg-8 mb-4 mb-lg-0">
-                <form class="form-contact contact_form" action="#formulario" id="formulario" method="post"
+                {% from "macros/messageFlash.html" import render_message %}
+                {{ render_message() }}
+                <form class="form-contact contact_form" action="#formulario" method="post"
                     id="contactForm" novalidate="novalidate">
                     {{ form.csrf_token }}
-
                     <div class="row">
                         <div class="col-12">
-
                             {{ render_field(form.assunto) }}
-
                         </div>
                         <div class="col-sm-6">
-
                             {{ render_field(form.name) }}
-
                         </div>
                         <div class="col-sm-6">
-
                             {{ render_field(form.email) }}
-
                         </div>
-
                         <div class="col-12">
-
                             {{ render_field(form.text) }}
-
                         </div>
                     </div>
                     <div class="form-group mt-lg-3">
                         <button type="submit" class="main_btn">Enviar mensagem</button>
                     </div>
                 </form>
-
-
             </div>
-
             <div class="col-lg-4">
                 <div class="media contact-info">
                     <span class="contact-info__icon"><i class="ti-home"></i></span>

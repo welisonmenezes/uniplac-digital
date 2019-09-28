@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_bcrypt import Bcrypt
+from flask_mail import Mail
 
 # create a Flask app
 app = Flask(__name__, template_folder='templates', static_folder='static')
@@ -13,6 +14,7 @@ app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 bcrypt = Bcrypt(app)
+mail = Mail(app)
 
 import utils.middleware
 from modulos import *
