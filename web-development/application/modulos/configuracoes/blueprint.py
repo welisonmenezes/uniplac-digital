@@ -13,11 +13,15 @@ configuracaoBP = Blueprint('configuracoes', __name__, url_prefix='/admin/configu
 
 @configuracaoBP.route('/cadastrar', methods=['GET','POST'])
 def cadastrar():
+    
     titulo = 'Cadastrar Configuracao'
     form = ConfiguracaoForm(request.form)
+    
+    
     if form.validate_on_submit():
+        configuration = Configuration.query.first()  
         try:
-            if (form):
+                
                 # cria a configuracao com os dados do formulário
                 configuration = Configuration(
                     form.name.data,
@@ -41,11 +45,39 @@ def cadastrar():
         except:
             # remove qualquer vestígio do usuário da sessin e flash message 
             db.session.rollback()
-            flash('Erro ao tentar cadastrar o usuário', 'danger')
+            flash('Erro ao tentar cadastrar a Configuração', 'danger')
+        else:
+            try:
+                if (form, configuration):
+
+                # atualiza o usuário recuperado pelo id com os dados do formulário
+                    configuration.name = form.name.data
+                    configuration.description = form.description.data
+                    user.phone = form.phone.data
+                    user.email = form.email.data
+                    user.address = form.address.data
+                    user.schedules = form.schedules.data
+                    user.image_id = None
+                    if (form.image_id.data != ''):
+                        user.image_id = form.image_id.data
+                
+
+                # commita os dados na base de dados
+                    db.session.commit()
+
+                # flash message e redireciona pra mesma tela para limpar o objeto request
+                    flash('Configuração editada com sucesso', 'success')
+                    return redirect(url_for('configuracoes.editar'))
+            except:
+                # remove qualquer vestígio da configuração da sessin e flash message
+                db.session.rollback()
+                flash('Erro ao tentar editar o configuração', 'danger')
+            
+            
     return render_template('configuracoes/formulario.html', titulo=titulo, form=form, mode='cadastrar'), 200
 
 
-@configuracaoBP.route('/editar', methods=['GET','POST'])
+'''@configuracaoBP.route('/editar', methods=['GET','POST'])
 def editar():
 
     
@@ -90,3 +122,4 @@ def editar():
             db.session.rollback()
             flash('Erro ao tentar editar o configuração', 'danger')
     return render_template('configuracoes/formulario.html', titulo=titulo, form=form, mode='editar', configuration=configuration), 200
+'''
