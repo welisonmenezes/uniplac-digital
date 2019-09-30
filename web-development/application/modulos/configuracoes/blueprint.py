@@ -20,23 +20,20 @@ def cadastrar():
     
 
     if configuration:
-        form.name.data = form.name
-        form.description.data = form.description
-        form.phone.data = form.phone
-        form.email.data = form.email
-        form.address.data = form.address
-        form.schedules.data = form.schedules
-        form.image_id.data = None
-        if (configuration.image_id != ''):
-            form.image_id.data = configuration.image_id
+        form.name.data = configuration.name
+        form.description.data = configuration.description
+        form.phone.data = configuration.phone
+        form.email.data = configuration.email
+        form.address.data = configuration.address
+        form.schedules.data = configuration.schedules
+        
+        
 
     if form.validate_on_submit():
         if configuration:        
 
-            try:
-                
-                   
-
+            try:           
+                form = ConfiguracaoForm(request.form)   
                 # atualiza as configurações recuperado  com os dados do formulário
                 configuration.name = form.name.data
                 configuration.description = form.description.data
@@ -44,10 +41,7 @@ def cadastrar():
                 configuration.email = form.email.data
                 configuration.address = form.address.data
                 configuration.schedules = form.schedules.data
-                configuration.image_id = None
-                if (form.image_id.data != ''):
-                    configuration.image_id = form.image_id.data
-                
+                         
 
             # commita os dados na base de dados
                 db.session.commit()
@@ -63,8 +57,8 @@ def cadastrar():
 
         else:  
             
-            try:
-                    
+            
+            try:        
                 # cria a configuracao com os dados do formulário
                 configuration = Configuration(
                     form.name.data,
@@ -72,11 +66,10 @@ def cadastrar():
                     form.phone.data,
                     form.email.data,
                     form.address.data,
-                    form.schedules.data,
-                    None
+                    form.schedules.data
+                    
                 )
-                if form.image_id.data != '':
-                    configuration.image_id = form.image_id.data
+                
 
                 # adiciona e commita a configuracao na base de dadso
                 db.session.add(configuration)
