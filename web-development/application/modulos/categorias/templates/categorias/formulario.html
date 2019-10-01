@@ -17,7 +17,7 @@ Categorias
                     {{ render_field(form.name) }}
                     {{ render_field(form.description) }}
                     <button type="submit" class="btn btn-primary mr-2">Enviar</button>
-                    <button class="btn btn-light">Cancelar</button>
+                    <button type="button" class="btn btn-light" onClick="history.go(-1); return false;">Cancelar</button>
                 </form>
             </div>
         </div>
