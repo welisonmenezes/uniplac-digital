@@ -1,5 +1,5 @@
 import os
-from flask import current_app, Blueprint, render_template, request, url_for, flash, redirect
+from flask import current_app, Blueprint, render_template, request, url_for, flash, redirect, session
 from wtforms.validators import Length
 from sqlalchemy import or_, desc
 from app import bcrypt
@@ -112,6 +112,8 @@ def editar(id):
                 if (form.password.data != ''):
                     user.password = bcrypt.generate_password_hash(form.password.data)
 
+                updateLoggedUserSession(user)
+
                 # commita os dados na base de dados
                 db.session.commit()
 
@@ -145,14 +147,27 @@ def deletar(id):
                 try:
                     db.session.delete(user)
                     db.session.commit()
-                    flash('Usuário deletado com sucesso', 'success')
-                    return redirect(url_for('usuarios.index'))
+
+                    if (user.id == session.get('user_id', 0)):
+                        session.pop('user_id')
+                        session.pop('user_avatar')
+                        session.pop('user_name')
+                        session.pop('user_role')
+                        session.clear()
+                        flash('Sua conta foi deletada com sucesso', 'success')
+                        return redirect( url_for('login.inicio') )
+                    else:
+                        flash('Usuário deletado com sucesso', 'success')
+                        return redirect(url_for('usuarios.index'))
                 except:
                     db.session.rollback()
-                    flash('Erro ao tentar editar o usuário', 'danger')
+                    flash('Erro ao tentar deletar o usuário', 'danger')
             else:
                 flash('O usuário não pôde ser deletado pois existem posts relacionados a ele na base de dados', 'warning')
+
     titulo = 'Deseja realmente excluir o usuário ' + user.first_name + ' ' + user.last_name
+    if (user.id == session.get('user_id', 0)):
+        titulo = 'Deseja realmente excluir a sua conta?'
     return render_template('usuarios/deletar.html', titulo=titulo, userId=id), 200
 
 
@@ -167,3 +182,10 @@ def fillForm(form, user):
     form.image_id.data = None
     if (user.image_id != ''):
         form.image_id.data = user.image_id
+
+
+def updateLoggedUserSession(user):
+    if (user.id == session.get('user_id', 0)):
+        session['user_avatar'] = user.image_id
+        session['user_name'] = user.first_name
+        session['user_role'] = user.role

@@ -15,7 +15,7 @@
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                    <img src="{{request.url_root}}api/media/{{ session.get('user_id', 0) }}" alt="profile" />
+                    <img src="{{request.url_root}}api/media/{{ session.get('user_avatar', 0) }}" alt="profile" />
                     <span class="nav-profile-name">{{ session.get('user_name', None) }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">

@@ -18,6 +18,7 @@ def inicio():
                 session.clear()
                 session.permanent = True
                 session['user_id'] = user.id
+                session['user_avatar'] = user.image_id
                 session['user_name'] = user.first_name
                 session['user_role'] = user.role
                 return redirect( url_for('dashboard.dash') )
@@ -31,6 +32,7 @@ def inicio():
 @loginBP.route('/logout')
 def logout():
     session.pop('user_id')
+    session.pop('user_avatar')
     session.pop('user_name')
     session.pop('user_role')
     session.clear()
