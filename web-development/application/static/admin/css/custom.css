@@ -87,7 +87,8 @@ select.form-control, .dataTables_wrapper select{
 }
 
 .image-container .invalid-feedback,
-.hidden-group .invalid-feedback{
+.hidden-group .invalid-feedback,
+.errorContainer .invalid-feedback{
     display: block;
     position: relative;
     top: -20px;

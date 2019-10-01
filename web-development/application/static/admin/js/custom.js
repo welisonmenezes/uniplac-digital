@@ -42,9 +42,22 @@ document.addEventListener('DOMContentLoaded', function() {
         imageInput.val('');
     });
 
+    // close o previw de imagem quando multi
+    $('body').on('click', '.closePreviewImageMulti', function(){
+        var t = $(this);
+        var imgId = t.attr('data-image-id');
+        var parent = t.parent().parent().parent().parent();
+        var li = t.parent().parent();
+        var container = parent.find('.ul-fig-banner');
+        var imageInput = parent.find('input[type=hidden]');
+        li.remove();
+        removeValueFromImagesField(imageInput, imgId);
+    });
+
     // metodo de envio de imagem
     enviaImagem = function(evt){
         var element = evt.target;
+        var el = $(element);
         var file = element.files[0];
         if (file && file.name) {
             var filename = file.name;
@@ -65,23 +78,39 @@ document.addEventListener('DOMContentLoaded', function() {
                             .then(data => data.json())
                             .then(data => {
                                 if (data && data.id) {
-                                    addImageHTML(element, data.id);
+                                    if (el.hasClass('multiple')) {
+                                        addMultipleImageHTML(element, data.id);
+                                    } else {
+                                        addImageHTML(element, data.id);
+                                    }
                                 } else {
                                     addImageHTML(element, null, data.message);
                                 }
                             }, error => {
-                                addImageHTML(element, null, error);
+                                if (el.hasClass('multiple')) {
+                                    addMultipleImageHTML(element, null, error);
+                                } else {
+                                    addImageHTML(element, null, error);
+                                }
                                 element.value = null;
                             });
                     }
                     reader.readAsDataURL(file);
                 } else {
                     element.value = null;
-                    addImageHTML(element, null, 'Extensão inválida');
+                    if (el.hasClass('multiple')) {
+                        addMultipleImageHTML(element, null, 'Extensão inválida');
+                    } else {
+                        addImageHTML(element, null, 'Extensão inválida');
+                    }
                 }
             } else {
                 element.value = null;
-                addImageHTML(element, null, 'Tamanho inválido');
+                if (el.hasClass('multiple')) {
+                    addMultipleImageHTML(element, null, 'Tamanho inválido');
+                } else {
+                    addImageHTML(element, null, 'Tamanho inválido');
+                }
             }
         }
     }
@@ -114,5 +143,59 @@ document.addEventListener('DOMContentLoaded', function() {
                 'text': message
             }).appendTo(container);
         }
+    }
+
+    addMultipleImageHTML = function(element, imageId, message) {
+        var el = $(element);
+        var parent = el.parent().parent().parent();
+        var container = parent.find('.ul-fig-banner');
+        var errorContainer = parent.find('.errorContainer');
+        var imageInput = parent.find('input[type=hidden]');
+        errorContainer.html('');
+        if (imageId) {
+            addNewValueToImagesField(imageInput, imageId);
+            var li = $('<li/>').appendTo(container);
+            var fig = $('<figure/>', {
+                'class': 'fig-banner',
+            }).appendTo(li);
+            var icon = $('<i/>', {
+                'class': 'mdi mdi-close-circle closePreviewImageMulti',
+                'data-image-id': imageId
+            }).appendTo(fig);
+            var img = $('<img/>', {
+                'src': GLOBALS.BASE_URL+'api/media/' + imageId,
+                'alt': 'User Avatar'
+            }).appendTo(fig);
+        } else {
+            var feedback = $('<span/>', {
+                'class': 'invalid-feedback',
+                'text': message
+            }).appendTo(errorContainer);
+        }
+    }
+
+    addNewValueToImagesField = function(imgInput, value) {
+        var str = imgInput.val();
+        str = str.replace('[', '').replace(']', '').replace(' ', '');
+        var strArr = str.split(',').filter(function (el) {
+            return el != '';
+        });
+        strArr.push(value);
+        var newVal = '[' + strArr.join(',') + ']';
+        imgInput.val(newVal);
+    }
+
+    removeValueFromImagesField = function(imageInput, imgId) {
+        var str = imageInput.val();
+        str = str.replace('[', '').replace(']', '').replace(' ', '');
+        var strArr = str.split(',').filter(function (el) {
+            return el != '';
+        });
+        strArr = strArr.filter(function (el) {
+            console.log(el, imgId)
+            return el != imgId;
+        });
+        var newVal = '[' + strArr.join(',') + ']';
+        imageInput.val(newVal);
     }
 });
