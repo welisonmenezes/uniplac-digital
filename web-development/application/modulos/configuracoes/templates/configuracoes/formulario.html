@@ -21,6 +21,7 @@ Configurações
                     {{ render_field(form.email) }}
                     {{ render_field(form.address) }}
                     {{ render_field(form.schedules) }}
+                    render_hidden_field(form.old_images)
                     <button type="submit" class="btn btn-primary mr-2">Enviar</button>
                     <button class="btn btn-light">Cancelar</button>
                 </form>
@@ -33,39 +34,21 @@ Configurações
             <div class="card-body">
                 <h4 class="card-title">Imagens do banner</h4>
                 <form class="forms-sample">
-                    {{ render_file_field(form.image) }}
+                    {{ render_hidden_field(form.new_images) }}
+                    {{ render_file_field(form.image, 'multiple') }}
+                    <div class="errorContainer"></div>
                 </form>
                 <ul class="ul-fig-banner">
-                    <li>
-                        <figure class="fig-banner">
-                            <i class="mdi mdi-close-circle"></i>
-                            <img src="{{ url_for('static', filename='public/img/banner-1.jpg') }}" />
-                        </figure>
-                    </li>
-                    <li>
-                        <figure class="fig-banner">
-                            <i class="mdi mdi-close-circle"></i>
-                            <img src="{{ url_for('static', filename='public/img/banner-1.jpg') }}" />
-                        </figure>
-                    </li>
-                    <li>
-                        <figure class="fig-banner">
-                            <i class="mdi mdi-close-circle"></i>
-                            <img src="{{ url_for('static', filename='public/img/banner-1.jpg') }}" />
-                        </figure>
-                    </li>
-                    <li>
-                        <figure class="fig-banner">
-                            <i class="mdi mdi-close-circle"></i>
-                            <img src="{{ url_for('static', filename='public/img/banner-1.jpg') }}" />
-                        </figure>
-                    </li>
-                    <li>
-                        <figure class="fig-banner">
-                            <i class="mdi mdi-close-circle"></i>
-                            <img src="{{ url_for('static', filename='public/img/banner-1.jpg') }}" />
-                        </figure>
-                    </li>
+                    {% if images != None %}
+                        {% for image in images %}
+                            <li>
+                                <figure class="fig-banner">
+                                    <i class="mdi mdi-close-circle closePreviewImageMulti" data-image-id="{{ image.id }}"></i>
+                                    <img src="{{request.url_root}}api/media/{{ image.id}}" alt="Banner" />
+                                </figure>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
                 </ul>
             </div>
         </div>

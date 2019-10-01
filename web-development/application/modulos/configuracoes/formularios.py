@@ -60,4 +60,5 @@ class ConfiguracaoForm(FlaskForm):
         validators = []
     )
 
-    image_id = HiddenField('')
+    old_images = HiddenField('')
+    new_images = HiddenField('')

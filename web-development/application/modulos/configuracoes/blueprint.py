@@ -17,7 +17,7 @@ def cadastrar():
     titulo = 'Cadastrar Configuracao'
     form = ConfiguracaoForm(request.form)
     configuration = Configuration.query.first()
-    
+    images = None
 
     if configuration:
         form.name.data = configuration.name
@@ -26,7 +26,17 @@ def cadastrar():
         form.email.data = configuration.email
         form.address.data = configuration.address
         form.schedules.data = configuration.schedules
+        #form.old_images 
+        images = configuration.images
+        str_image = '['
+        for image in configuration.images:
+            str_image = str_image + str(image.id) + ','
+           
+        str_image = str_image + ']'
+        str_image = str_image.replace(',]', ']')
         
+        form.old_images.data = str_image
+        form.new_images.data = str_image
         
 
     if form.validate_on_submit():
@@ -67,7 +77,6 @@ def cadastrar():
                     form.email.data,
                     form.address.data,
                     form.schedules.data
-                    
                 )
                 
 
@@ -83,9 +92,6 @@ def cadastrar():
                 db.session.rollback()
                 flash('Erro ao tentar cadastrar a Configuração', 'danger')
         
-            
-            
-            
-    return render_template('configuracoes/formulario.html', titulo=titulo, form=form, mode='cadastrar'), 200
+    return render_template('configuracoes/formulario.html', titulo=titulo, form=form, mode='cadastrar', images=images), 200
 
 
