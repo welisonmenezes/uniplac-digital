@@ -145,6 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // adiciona html de feedback (se sucesso, um preview, se error, a mensagem)
     addMultipleImageHTML = function(element, imageId, message) {
         var el = $(element);
         var parent = el.parent().parent().parent();
@@ -174,6 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // adiciona um dado valor no 'array' de value
     addNewValueToImagesField = function(imgInput, value) {
         var str = imgInput.val();
         str = str.replace('[', '').replace(']', '').replace(' ', '');
@@ -185,6 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
         imgInput.val(newVal);
     }
 
+    // remove um dado valor do 'array' de value
     removeValueFromImagesField = function(imageInput, imgId) {
         var str = imageInput.val();
         str = str.replace('[', '').replace(']', '').replace(' ', '');

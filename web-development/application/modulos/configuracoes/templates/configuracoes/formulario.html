@@ -7,7 +7,7 @@ Configurações
 {% endblock title%}
 
 {% block content %}
-<form novalidate method="POST">
+<form novalidate method="POST" class="form-configuration">
     <div class="row">
 
         <div class="col-md-6 grid-margin stretch-card">
@@ -23,8 +23,6 @@ Configurações
                         {{ render_field(form.address) }}
                         {{ render_field(form.schedules) }}
                         {{render_hidden_field(form.old_images)}}
-                        <button type="submit" class="btn btn-primary mr-2">Enviar</button>
-                        <button class="btn btn-light">Cancelar</button>
                     </div>
                 </div>
             </div>
@@ -41,21 +39,31 @@ Configurações
                     </div>
                     <ul class="ul-fig-banner">
                         {% if images != None %}
-                        {% for image in images %}
-                        <li>
-                            <figure class="fig-banner">
-                                <i class="mdi mdi-close-circle closePreviewImageMulti"
-                                    data-image-id="{{ image.id }}"></i>
-                                <img src="{{request.url_root}}api/media/{{ image.id}}" alt="Banner" />
-                            </figure>
-                        </li>
-                        {% endfor %}
+                            {% for image in images %}
+                                <li>
+                                    <figure class="fig-banner">
+                                        <i class="mdi mdi-close-circle closePreviewImageMulti"
+                                            data-image-id="{{ image.id }}"></i>
+                                        <img src="{{request.url_root}}api/media/{{ image.id}}" alt="Banner" />
+                                    </figure>
+                                </li>
+                            {% endfor %}
                         {% endif %}
                     </ul>
                 </div>
             </div>
         </div>
 
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <div class="card">
+                <div class="card-body">
+                    <button type="submit" class="btn btn-primary mr-2">Enviar</button>
+                    <button class="btn btn-light">Cancelar</button>
+                </div>
+            </div>
+        </div>
     </div>
 </form>
 {% endblock content%}
