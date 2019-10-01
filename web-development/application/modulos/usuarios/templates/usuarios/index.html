@@ -51,7 +51,11 @@
                             {% for user in users %}
                             <tr>
                                 <td class="py-1">
-                                    <img src="{{ url_for('static', filename='admin/images/faces/face1.jpg') }}" alt="Avatar Usuário {{ user.id }}" />
+                                    {% if user.image_id=='None': %}
+                                    <img src="{{request.url_root}}api/media/0" alt="User Avatar" />
+                                    {% else: %}
+                                    <img src="{{request.url_root}}api/media/{{ user.image_id }}" alt="User Avatar" />
+                                    {% endif %}
                                 </td>
                                 <td>{{ user.id }}</td>
                                 <td>{{ user.first_name }} {{ user.last_name }}</td>
