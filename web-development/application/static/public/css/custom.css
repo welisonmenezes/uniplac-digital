@@ -321,3 +321,16 @@
         margin-bottom: 40px;
     }
 }
+textarea.form-control{
+    min-height: 185px;
+}
+.form-contact label{
+    display: none;
+}
+
+.Contact iframe{
+    border: none;
+    height: 50vh;
+    width: 100%;
+    display: block;
+}

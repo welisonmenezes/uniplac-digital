@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Star Admin Premium Bootstrap Admin Dashboard Template</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='error/vendors/iconfonts/mdi/css/materialdesignicons.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='error/vendors/iconfonts/font-awesome/css/font-awesome.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='error/css/icheck/all.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='error/css/shared/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='error/css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='error/css/custom.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='error/images/favicon.png') }}" />
+</head>
+
+<body>
+    {% block content %} Content here {% endblock content %}
+
+    <script src="{{ url_for('static', filename='error/vendors/js/vendor.bundle.base.js') }}"></script>
+    <script src="{{ url_for('static', filename='error/vendors/js/vendor.bundle.addons.js') }}"></script>
+    <script src="{{ url_for('static', filename='error/js/shared/misc.js') }}"></script>
+    <script src="{{ url_for('static', filename='error/js/dashboard.js') }}"></script>
+</body>
+
+</html>

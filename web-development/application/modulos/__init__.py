@@ -6,3 +6,4 @@ from modulos.login import *
 from modulos.site import *
 from modulos.dashboard import *
 from modulos.api import *
+from modulos.error import *
