@@ -18,7 +18,7 @@ def index():
     # implementa o filtro se necessário
     filter = ()
     if name:
-        filter = filter + (Category.name == name,)
+        filter = filter + (Category.name.like('%'+name+'%'),)
 
     # consulta o banco de dados retornando o paginate e os dados
     paginate = Category.query.filter(*filter).order_by((Category.id)).paginate(page=page, per_page=10, error_out=False)
