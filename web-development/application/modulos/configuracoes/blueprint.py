@@ -1,15 +1,8 @@
-import os
 from flask import current_app, Blueprint, render_template, request, url_for, redirect, flash
 from modulos.configuracoes.formularios import ConfiguracaoForm
 from database.Model import db, Configuration, Image
-from sqlalchemy import or_, desc
-
 
 configuracaoBP = Blueprint('configuracoes', __name__, url_prefix='/admin/configuracoes', template_folder='templates', static_folder='static')
-
-
-
-
 
 @configuracaoBP.route('/cadastrar', methods=['GET','POST'])
 def cadastrar():
@@ -21,7 +14,6 @@ def cadastrar():
 
     if form.validate_on_submit():
         if configuration:        
-
             try:           
                 form = ConfiguracaoForm(request.form)   
                 # atualiza as configurações recuperado  com os dados do formulário
@@ -41,9 +33,6 @@ def cadastrar():
                 # pega as diferenças (para deletar e adicionar imagens)
                 delete_images = set(arr_old_img) - set(arr_new_img)
                 add_images = set(arr_new_img) - set(arr_old_img)
-
-                print(delete_images)
-                print(add_images)
 
                 # deleta a imagens para deletar
                 for image_id in delete_images:
@@ -83,11 +72,7 @@ def cadastrar():
                 # remove qualquer vestígio da configuração da sessin e flash message
                 db.session.rollback()
                 flash('Erro ao tentar editar o configuração', 'danger')
-
-
         else:  
-            
-            
             try:        
                 # cria a configuracao com os dados do formulário
                 configuration = Configuration(
@@ -99,9 +84,11 @@ def cadastrar():
                     form.schedules.data
                 )
 
+                # pega parametro os formata e convete-os em array
                 str_new_img = form.new_images.data.replace(']', '').replace('[', '')
                 arr_new_img = str_new_img.split(',')
 
+                # adiciona cada imagem
                 for image_id in arr_new_img:
                     if image_id == '':
                         continue
@@ -114,7 +101,6 @@ def cadastrar():
                         flash('A imagem ' +  str(image_id) + ' não existe na base de dados', 'danger')
                     else:
                         configuration.images.append(image)
-                
 
                 # adiciona e commita a configuracao na base de dadso
                 db.session.add(configuration)
@@ -124,7 +110,7 @@ def cadastrar():
                 flash('Configuração criada com sucesso', 'success')
                 return redirect(url_for('configuracoes.cadastrar'))
             except:
-            # remove qualquer vestígio de configuração da sessin e flash message 
+                # remove qualquer vestígio de configuração da sessin e flash message 
                 db.session.rollback()
                 flash('Erro ao tentar cadastrar a Configuração', 'danger')
     else:
@@ -135,18 +121,19 @@ def cadastrar():
             form.email.data = configuration.email
             form.address.data = configuration.address
             form.schedules.data = configuration.schedules
-            #form.old_images 
+
+            # pega imagens existentes
             images = configuration.images
+
+            # cria string formatada com os ids das imagens
             str_image = '['
             for image in configuration.images:
                 str_image = str_image + str(image.id) + ','
-            
             str_image = str_image + ']'
             str_image = str_image.replace(',]', ']')
             
+            # adiciona a string formatada em old_images e new_images input
             form.old_images.data = str_image
             form.new_images.data = str_image
         
     return render_template('configuracoes/formulario.html', titulo=titulo, form=form, mode='cadastrar', images=images), 200
-
-
