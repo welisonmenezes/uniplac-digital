@@ -7,52 +7,55 @@ Configurações
 {% endblock title%}
 
 {% block content %}
-<div class="row">
+<form novalidate method="POST">
+    <div class="row">
 
-    <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Configurações do Site</h4>
-                <form class="forms-sample" novalidate method="POST">
-                    {{ form.csrf_token }}
-                    {{ render_field(form.name) }}
-                    {{ render_field(form.description) }}
-                    {{ render_field(form.phone) }}
-                    {{ render_field(form.email) }}
-                    {{ render_field(form.address) }}
-                    {{ render_field(form.schedules) }}
-                    render_hidden_field(form.old_images)
-                    <button type="submit" class="btn btn-primary mr-2">Enviar</button>
-                    <button class="btn btn-light">Cancelar</button>
-                </form>
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Configurações do Site</h4>
+                    <div class="forms-sample">
+                        {{ form.csrf_token }}
+                        {{ render_field(form.name) }}
+                        {{ render_field(form.description) }}
+                        {{ render_field(form.phone) }}
+                        {{ render_field(form.email) }}
+                        {{ render_field(form.address) }}
+                        {{ render_field(form.schedules) }}
+                        {{render_hidden_field(form.old_images)}}
+                        <button type="submit" class="btn btn-primary mr-2">Enviar</button>
+                        <button class="btn btn-light">Cancelar</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Imagens do banner</h4>
-                <form class="forms-sample">
-                    {{ render_hidden_field(form.new_images) }}
-                    {{ render_file_field(form.image, 'multiple') }}
-                    <div class="errorContainer"></div>
-                </form>
-                <ul class="ul-fig-banner">
-                    {% if images != None %}
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Imagens do banner</h4>
+                    <div class="forms-sample">
+                        {{ render_hidden_field(form.new_images) }}
+                        {{ render_file_field(form.image, 'multiple') }}
+                        <div class="errorContainer"></div>
+                    </div>
+                    <ul class="ul-fig-banner">
+                        {% if images != None %}
                         {% for image in images %}
-                            <li>
-                                <figure class="fig-banner">
-                                    <i class="mdi mdi-close-circle closePreviewImageMulti" data-image-id="{{ image.id }}"></i>
-                                    <img src="{{request.url_root}}api/media/{{ image.id}}" alt="Banner" />
-                                </figure>
-                            </li>
+                        <li>
+                            <figure class="fig-banner">
+                                <i class="mdi mdi-close-circle closePreviewImageMulti"
+                                    data-image-id="{{ image.id }}"></i>
+                                <img src="{{request.url_root}}api/media/{{ image.id}}" alt="Banner" />
+                            </figure>
+                        </li>
                         {% endfor %}
-                    {% endif %}
-                </ul>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>
+</form>
 {% endblock content%}
