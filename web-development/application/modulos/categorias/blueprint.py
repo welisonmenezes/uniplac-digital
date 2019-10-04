@@ -1,6 +1,6 @@
-import os
-from flask import current_app, Blueprint, render_template, request, url_for, redirect, flash
-from sqlalchemy import or_, desc
+from flask import current_app, Blueprint, render_template, request, url_for, redirect, flash, session
+from sqlalchemy import desc
+from app import app
 from modulos.categorias.formularios import CategoriaForm
 from modulos.categorias.validations import validateCategoryToCreate, validateCategoryToUpdate
 from database.Model import db, Category, Post
@@ -21,7 +21,7 @@ def index():
         filter = filter + (Category.name.like('%'+name+'%'),)
 
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Category.query.filter(*filter).order_by((Category.id)).paginate(page=page, per_page=10, error_out=False)
+    paginate = Category.query.filter(*filter).order_by(desc(Category.id)).paginate(page=page, per_page=10, error_out=False)
     categories = paginate.items
 
     return render_template('/categorias/index.html', paginate=paginate, categories=categories, currentPage=page, name=name, titulo=titulo), 200
@@ -41,6 +41,8 @@ def cadastrar():
                 # adiciona e commita a categoria na base de dados
                 db.session.add(category)
                 db.session.commit()
+
+                app.logger.warning(' %s cadastrou a categoria %s', session.get('user_name', ''), category.id)
 
                 # flash message e redireciona pra mesma tela para limpar o objeto request
                 flash('Categoria cadastrada com sucesso', 'success')
@@ -83,6 +85,8 @@ def editar(id):
                  # commita os dados na base de dados
                 db.session.commit()
 
+                app.logger.warning(' %s editou a categoria %s', session.get('user_name', ''), category.id)
+
                  # flash message e redireciona pra mesma tela para limpar o objeto request
                 flash('Categoria editada com sucesso', 'success')
                 return redirect(url_for('categorias.editar', id=id))
@@ -110,6 +114,9 @@ def deletar(id):
             post = Post.query.filter_by(category_id=categoryId).first()
             if not post:
                 try:
+
+                    app.logger.warning(' %s deletou a categoria %s', session.get('user_name', ''), category.id)
+
                     db.session.delete(category)
                     db.session.commit()
                     flash('Categoria deletada com sucesso', 'success')
