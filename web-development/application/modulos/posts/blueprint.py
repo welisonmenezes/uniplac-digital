@@ -37,11 +37,13 @@ def noticias_deletar():
 
 @postBP.route('/anuncios')
 def anuncios_index():
+    #TODO se usuario comum listar apenas próprios anuncios
     titulo = 'Anúncios'
     return render_template('/posts/index.html', titulo=titulo), 200
 
 @postBP.route('/anuncios/cadastrar', methods=['GET','POST'])
 def anuncios_cadastrar():
+    #TODO se usuario comum cadastro entrar como pendente
     form = PostForm(request.form)
     titulo = 'Anúncios'
     operacao = 'Cadastro'
@@ -51,6 +53,7 @@ def anuncios_cadastrar():
 
 @postBP.route('/anuncios/editar', methods=['GET','POST'])
 def anuncios_editar():
+    #TODO se usuario comum permitir editar apenas o próprio anúncio e se ainda estiver pendente
     form = PostForm(request.form)
     titulo = 'Anúncios'
     operacao = 'Edição'    
@@ -60,6 +63,7 @@ def anuncios_editar():
 
 @postBP.route('/anuncios/deletar', methods=['GET', 'POST'])
 def anuncios_deletar():
+    #TODO se usuario comum permitir deletar apenas o próprio anúnico e se ainda estiver pendente
     titulo = 'Anúncios'
     pergunta = 'Deseja realmente excluir a anúncio [0002223]'
     return render_template('/posts/deletar.html', titulo=titulo, pergunta=pergunta), 200

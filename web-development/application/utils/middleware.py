@@ -9,10 +9,12 @@ def before_request_func():
     user = session.get('user_id', None)
     role = session.get('user_role', None)
 
+
     if bool(re.search(request.url_root+'admin*', request.url)):
         if not user:
             flash('Faça o seu login para poder acessar o painel administrativo', 'warning')
             return redirect(url_for('login.inicio'))
+
 
     if bool(re.search(request.url_root+'admin/usuarios*', request.url)):
         if bool(re.search(request.url_root+'admin/usuarios/editar/*', request.url)):
@@ -22,5 +24,29 @@ def before_request_func():
                 flash('Você não tem acesso à esse recurso', 'warning')
                 return redirect(url_for('dashboard.dash')) 
         elif not role or role != 'admin':
+            flash('Você não tem acesso à esse recurso', 'warning')
+            return redirect(url_for('dashboard.dash'))
+
+    
+    if bool(re.search(request.url_root+'admin/configuracoes*', request.url)):
+        if not role or role != 'admin':
+            flash('Você não tem acesso à esse recurso', 'warning')
+            return redirect(url_for('dashboard.dash'))
+
+    
+    if bool(re.search(request.url_root+'admin/categorias*', request.url)):
+        if not role or role != 'admin':
+            flash('Você não tem acesso à esse recurso', 'warning')
+            return redirect(url_for('dashboard.dash'))
+
+    
+    if bool(re.search(request.url_root+'admin/noticias*', request.url)):
+        if not role or (role != 'admin' and role != 'editor'):
+            flash('Você não tem acesso à esse recurso', 'warning')
+            return redirect(url_for('dashboard.dash'))
+
+
+    if bool(re.search(request.url_root+'admin/avisos*', request.url)):
+        if not role or (role != 'admin' and role != 'author'):
             flash('Você não tem acesso à esse recurso', 'warning')
             return redirect(url_for('dashboard.dash'))
