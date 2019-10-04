@@ -9,43 +9,57 @@ siteBP = Blueprint('site', __name__, url_prefix='/', template_folder='templates'
 
 @siteBP.route('/')
 def index():
-    return render_template('site/site.html'), 200
+    configuration = Configuration.query.first()
+    form = ContactForm(request.form)
+    return render_template('site/site.html', form=form, configuration=configuration), 200
 
 
 @siteBP.route('/noticias')
 def noticias():
+    configuration = Configuration.query.first()
+    form = ContactForm(request.form)
     titulo = 'Notícias'
-    return render_template('site/posts.html', titulo=titulo), 200
+    return render_template('site/posts.html', titulo=titulo, form=form, configuration=configuration), 200
 
 
 @siteBP.route('/noticias/detalhes')
 def noticias_detalhes():
+    configuration = Configuration.query.first()
+    form = ContactForm(request.form)
     titulo = 'Notícias' 
-    return render_template('/site/detalhes.html', titulo=titulo), 200
+    return render_template('/site/detalhes.html', titulo=titulo, form=form, configuration=configuration), 200
 
 
 @siteBP.route('/anuncios')
 def anuncios():
+    configuration = Configuration.query.first()
+    form = ContactForm(request.form)
     titulo = 'Anuncios'
-    return render_template('site/posts.html', titulo=titulo), 200
+    return render_template('site/posts.html', titulo=titulo, form=form, configuration=configuration), 200
 
 
 @siteBP.route('/anuncios/detalhes')
 def anuncios_detalhes():
+    configuration = Configuration.query.first()
+    form = ContactForm(request.form)
     titulo = 'Anuncios'
-    return render_template('/site/detalhes.html', titulo=titulo), 200
+    return render_template('/site/detalhes.html', titulo=titulo, form=form, configuration=configuration), 200
 
 
 @siteBP.route('/avisos')
 def avisos():
+    configuration = Configuration.query.first()
+    form = ContactForm(request.form)
     titulo = 'Avisos'
-    return render_template('site/posts.html', titulo=titulo), 200
+    return render_template('site/posts.html', titulo=titulo, form=form, configuration=configuration), 200
 
 
 @siteBP.route('/avisos/detalhes')
 def avisos_detalhes():
+    configuration = Configuration.query.first()
+    form = ContactForm(request.form)
     titulo = 'Avisos'
-    return render_template('/site/detalhes.html', titulo=titulo), 200
+    return render_template('/site/detalhes.html', titulo=titulo, form=form, configuration=configuration), 200
 
 
 @siteBP.route('/contato', methods=['GET','POST'])
