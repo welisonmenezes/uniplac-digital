@@ -1,8 +1,5 @@
 {% extends 'base-admin.html' %}
 {% block content %}
-
-<!-- main-panel -->
-
     <div class="content-wrapper">
         <div class="row">
             <div class="col-md-12 grid-margin">
@@ -25,6 +22,7 @@
             </div>
         </div>
         <div class="row">
+            {% if session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'editor'  %}
             <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
@@ -40,21 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Cadastrar Avisos</h4>
-                        <div class="media">
-                            <div class="media-body">
-                                <a href="{{ url_for('posts.avisos_cadastrar') }}">
-                                    <button type="button" class="btn btn-primary btn-icon-text">Cadastrar
-                                        Avisos</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endif %}
             <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
@@ -70,9 +54,25 @@
                     </div>
                 </div>
             </div>
-
+            {% if session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'author'  %}
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Cadastrar Avisos</h4>
+                        <div class="media">
+                            <div class="media-body">
+                                <a href="{{ url_for('posts.avisos_cadastrar') }}">
+                                    <button type="button" class="btn btn-primary btn-icon-text">Cadastrar
+                                        Avisos</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
-
+        {% if session.get('user_role', '') == 'admin'  %}
         <div class="row">
             <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
@@ -116,21 +116,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
+        {% endif %}
     </div>
-
-
-
-    
-
-
-    
-
-    <!-- content-wrapper ends -->
-    <!-- partial:partials/_footer.html -->
-
-    <!-- partial -->
-
-
 {% endblock content%}
