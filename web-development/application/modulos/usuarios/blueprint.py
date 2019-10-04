@@ -2,7 +2,7 @@ import os
 from flask import current_app, Blueprint, render_template, request, url_for, flash, redirect, session
 from wtforms.validators import Length
 from sqlalchemy import or_, desc
-from app import bcrypt
+from app import app, bcrypt
 from modulos.usuarios.formularios import UsuarioForm
 from database.Model import db, User, Post
 from modulos.usuarios.validations import validateUserToCreate, validateUserToUpdate
@@ -57,6 +57,8 @@ def cadastrar():
                 # adiciona e commita o usuário na base de dadso
                 db.session.add(user)
                 db.session.commit()
+
+                app.logger.warning(' %s cadastrou o usuário %s', session.get('user_name', ''), user.id)
 
                 # flash message e redireciona pra mesma tela para limpar o objeto request
                 flash('Usuário cadastrado com sucesso', 'success')
@@ -117,6 +119,8 @@ def editar(id):
                 # commita os dados na base de dados
                 db.session.commit()
 
+                app.logger.warning(' %s editou o usuário %s', session.get('user_name', ''), user.id)
+
                 # flash message e redireciona pra mesma tela para limpar o objeto request
                 flash('Usuário editado com sucesso', 'success')
                 return redirect(url_for('usuarios.editar', id=id))
@@ -145,6 +149,9 @@ def deletar(id):
             post = Post.query.filter_by(user_id=userId).first()
             if not post:
                 try:
+
+                    app.logger.warning(' %s deletou o usuário %s', session.get('user_name', ''), user.id)
+
                     db.session.delete(user)
                     db.session.commit()
 
