@@ -1,4 +1,5 @@
-from flask import  request
+from flask import  request, session
+from app import app
 from flask_restful import Resource
 from database.Model import db, Image, ImageSchema, User, Post, Configuration, ConfigurationImage
 from modulos.api.Validations.MustHaveId import mustHaveId
@@ -43,6 +44,9 @@ class ImageResource(Resource):
                     db.session.add(image)
                     db.session.commit()
                     last_id = image.id
+
+                    app.logger.warning(' %s salvou a imagem %s', session.get('user_name', ''), image.id)
+
                     return {
                         'message': 'Imagem salva com sucesso',
                         'id': last_id
@@ -67,6 +71,9 @@ class ImageResource(Resource):
                     try:
                         image.image = json_data['image']
                         db.session.commit()
+
+                        app.logger.warning(' %s editou a imagem %s', session.get('user_name', ''), image.id)
+
                         return {
                             'message': 'Imagem editada com sucesso',
                             'id': id
@@ -96,6 +103,9 @@ class ImageResource(Resource):
         image = Image.query.filter_by(id=id).first()
         if image:
             try:
+
+                app.logger.warning(' %s deletou a imagem %s', session.get('user_name', ''), image.id)
+
                 db.session.delete(image)
                 db.session.commit()
                 return {

@@ -1,6 +1,6 @@
 import os
 from flask import current_app, Blueprint, render_template, request, url_for, redirect, flash, session
-from app import bcrypt
+from app import app, bcrypt
 from sqlalchemy import and_, desc
 from database.Model import db, User
 from modulos.login.formularios import LoginForm
@@ -21,6 +21,7 @@ def inicio():
                 session['user_avatar'] = user.image_id
                 session['user_name'] = user.first_name
                 session['user_role'] = user.role
+                app.logger.warning(' %s se logou na aplicação', user.first_name)
                 return redirect( url_for('dashboard.dash') )
             else:
                 flash('Credenciais inválidas', 'danger')
@@ -31,6 +32,7 @@ def inicio():
 
 @loginBP.route('/logout')
 def logout():
+    app.logger.warning(' %s deslogou da aplicação', session.get('user_name', ''))
     session.pop('user_id')
     session.pop('user_avatar')
     session.pop('user_name')
