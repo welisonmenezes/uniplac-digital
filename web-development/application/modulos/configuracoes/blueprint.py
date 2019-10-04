@@ -1,4 +1,5 @@
-from flask import current_app, Blueprint, render_template, request, url_for, redirect, flash
+from flask import current_app, Blueprint, render_template, request, url_for, redirect, flash, session
+from app import app
 from modulos.configuracoes.formularios import ConfiguracaoForm
 from database.Model import db, Configuration, Image
 
@@ -65,6 +66,9 @@ def cadastrar():
                             
 
                 db.session.commit()
+
+                app.logger.warning(' %s editou a configuração %s', session.get('user_name', ''), configuration.id)
+
                 flash('Configuração editada com sucesso', 'success')
                 return redirect(url_for('configuracoes.cadastrar'))
 
@@ -108,6 +112,9 @@ def cadastrar():
 
                 # flash message e redireciona pra mesma tela para limpar o objeto request
                 flash('Configuração criada com sucesso', 'success')
+
+                app.logger.warning(' %s cadastrou a configuração %s', session.get('user_name', ''), configuration.id)
+
                 return redirect(url_for('configuracoes.cadastrar'))
             except:
                 # remove qualquer vestígio de configuração da sessin e flash message 
