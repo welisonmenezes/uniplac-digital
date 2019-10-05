@@ -9,6 +9,6 @@ api = Api(apiBP)
 
 # import e registra os recursos da api
 from modulos.api.Resources import *
-api.add_resource(MediaResource, '/media/<int:id>')
+api.add_resource(MediaResource, '/media/<id>')
 api.add_resource(ImageByIdResource,'/image/<int:id>')
 api.add_resource(ImageResource, '/image', '/image/<int:id>')

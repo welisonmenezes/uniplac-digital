@@ -1,8 +1,5 @@
 {% extends 'base-admin.html' %}
 {% block content %}
-
-<!-- main-panel -->
-
     <div class="content-wrapper">
         <div class="row">
             <div class="col-md-12 grid-margin">
@@ -25,6 +22,7 @@
             </div>
         </div>
         <div class="row">
+            {% if session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'editor'  %}
             <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
@@ -40,21 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Cadastrar Avisos</h4>
-                        <div class="media">
-                            <div class="media-body">
-                                <a href="{{ url_for('posts.avisos_cadastrar') }}">
-                                    <button type="button" class="btn btn-primary btn-icon-text">Cadastrar
-                                        Avisos</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endif %}
             <div class="col-md-4 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
@@ -70,39 +54,69 @@
                     </div>
                 </div>
             </div>
-
+            {% if session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'author'  %}
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Cadastrar Avisos</h4>
+                        <div class="media">
+                            <div class="media-body">
+                                <a href="{{ url_for('posts.avisos_cadastrar') }}">
+                                    <button type="button" class="btn btn-primary btn-icon-text">Cadastrar
+                                        Avisos</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-7 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-title">Sobre 2º Semestre de 2019</p>
-                    <p class="mb-4">Grafico apresenta a quantidade de alunos que ingressaram, que
-                        reingressaram e desistiram no 2º semestre de 2019</p>
-                    <div id="cash-deposits-chart-legend" class="d-flex justify-content-center pt-3"></div>
-                    <canvas id="cash-deposits-chart"></canvas>
+        {% if session.get('user_role', '') == 'admin'  %}
+        <div class="row">
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Adicionar Novo Usuário</h4>
+                        <div class="media">
+                            <div class="media-body">
+                                <a href="{{ url_for('usuarios.cadastrar') }}">
+                                    <button type="button" class="btn btn-info btn-icon-text">Adicionar Novo Usuário</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Adicionar Categoria</h4>
+                        <div class="media">
+                            <div class="media-body">
+                                <a href="{{ url_for('categorias.cadastrar') }}">
+                                    <button type="button" class="btn btn-info btn-icon-text">Adicionar Categoria</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Alterar Configurações do Site</h4>
+                        <div class="media">
+                            <div class="media-body">
+                                <a href="{{ url_for('configuracoes.cadastrar') }}">
+                                    <button type="button" class="btn btn-info btn-icon-text">Alterar Configurações do Site</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-5 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-title">Total de Gastos na Universidade</p>
-                    <h1>R$19.000.33</h1>
-                    <h4>Total de gastos da universidade no 2º semestre de 2019 </h4>
-                    <p class="text-muted">t </p>
-                    <div id="total-sales-chart-legend"></div>
-                </div>
-                <canvas id="total-sales-chart"></canvas>
-            </div>
-        </div>
+        {% endif %}
     </div>
-
-    <!-- content-wrapper ends -->
-    <!-- partial:partials/_footer.html -->
-
-    <!-- partial -->
-
-
 {% endblock content%}
