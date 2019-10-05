@@ -12,7 +12,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/base/vendor.bundle.base.css') }}">
     <link rel="stylesheet"
-        href="{{ url_for('static', filename='admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
+    href="{{ url_for('static', filename='admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
+    
+    <!--Date picker-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/datepicker.css') }}">
 
     <!-- rich editor froala -->
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/froala_editor.css') }}">
@@ -203,6 +206,10 @@
         };
     </script>
     <!-- end rich editor froala -->
+
+    <!--Date picker-->
+    <!-- <script src="{{ url_for('static', filename='admin/js/jquery.js')}}"></script> -->
+    <script src="{{ url_for('static', filename='admin/js/datepicker.js')}}"></script>
 
     <script src="{{ url_for('static', filename='admin/vendors/chart.js/Chart.min.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/off-canvas.js') }}"></script>

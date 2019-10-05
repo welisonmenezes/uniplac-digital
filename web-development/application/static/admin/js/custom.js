@@ -202,3 +202,37 @@ document.addEventListener('DOMContentLoaded', function() {
         imageInput.val(newVal);
     }
 });
+
+$('.wrap-date').each(function() {
+    var t = $(this);
+    var date = t.find('.date');
+    var btn = t.find('.show-datepicker');
+    date.datepicker({
+        'trigger':btn,
+        format: 'dd-mm-yyyy',
+        startDate: 'getDate'     
+    })
+    date.focus(function() {
+        btn.click();
+    });
+})
+//Meu Jeito
+// $('.date').datepicker({ 
+//     'trigger':$('.show-datepicker')
+//  });
+
+// $('.date').focus(function() {
+//     $('.show-datepicker').click();
+// });
+
+//jeito certo
+// $('.date').datepicker({ 
+//  });
+// $('.show-datepicker').on('click', function(evt){
+//     evt.stopPropagation();
+//     $('.date').datepicker('show');
+// })
+
+
+
+  

@@ -150,3 +150,7 @@ select.form-control, .dataTables_wrapper select{
     top: -50000000px;
     left: -50000000px;
 }
+
+.form-group .invalid-feedback{
+    display: block;
+}

@@ -12,7 +12,6 @@
 </div>
 {% endmacro %}
 
-
 {% macro render_hidden_field(field) %}
     {{ field() }}
     {% if field.errors %}
@@ -37,6 +36,34 @@
     {% for error in field.errors %}
     <span class="invalid-feedback">{{ error }}</span>
     {% endfor %}
+    {% endif %}
+</div>
+{% endmacro %}
+
+{% macro render_field_date(field, cssClass='') %}
+<div class="form-group">
+    {{ field.label }}
+    {% if field.errors %}
+    <div class="input-group">
+        {{ field(class="form-control is-invalid "+cssClass) }}
+        <span class="input-group-append">
+            <button type="button" class="btn btn-outline-secondary show-datepicker">
+                <i class="mdi mdi-calendar"></i>
+            </button>
+        </span>
+    </div>
+    {% for error in field.errors %}
+        <span class="invalid-feedback">{{ error }}</span>
+    {% endfor %}
+    {% else %}
+    <div class="input-group">
+        {{ field(class="form-control "+cssClass) }}
+        <span class="input-group-append">
+            <button type="button" class="btn btn-outline-secondary show-datepicker">
+                <i class="mdi mdi-calendar"></i>
+            </button>
+        </span>
+    </div>
     {% endif %}
 </div>
 {% endmacro %}

@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, PasswordField, SelectField, FileField, HiddenField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, InputRequired
 
 class PostForm(FlaskForm):
     title = StringField(
@@ -46,4 +46,24 @@ class PostForm(FlaskForm):
             DataRequired(message="Campo obrigatório")
         ],
          choices=[('', 'Selecione'), ('admin', 'Sistemas de Informação'), ('editor', 'Direito'), ('author', 'Administração'), ('user', 'Odontologia')]
+    )
+
+    entry_date = StringField(
+        'Data de Entrada',
+        validators = [
+            DataRequired(message="Campo obrigatório")
+        ],
+        render_kw = {
+            'placeholder':'Informe a data'
+        }
+    )
+
+    departure_date = StringField(
+        'Data de Saída',
+        validators = [
+            DataRequired(message="Campo obrigatório")
+        ],
+        render_kw = {
+            'placeholder':'Informe a data'
+        }
     )
