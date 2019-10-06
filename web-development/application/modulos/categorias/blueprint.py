@@ -4,11 +4,13 @@ from app import app
 from modulos.categorias.formularios import CategoriaForm
 from modulos.categorias.validations import validateCategoryToCreate, validateCategoryToUpdate
 from database.Model import db, Category, Post
+from database.Model import Configuration
 
 categoriaBP = Blueprint('categorias', __name__, url_prefix='/admin/categorias', template_folder='templates', static_folder='static')
 
 @categoriaBP.route('/')
 def index():
+    configuration = Configuration.query.first()
     titulo = 'Lista de Categorias'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
@@ -24,10 +26,11 @@ def index():
     paginate = Category.query.filter(*filter).order_by(desc(Category.id)).paginate(page=page, per_page=10, error_out=False)
     categories = paginate.items
 
-    return render_template('/categorias/index.html', paginate=paginate, categories=categories, currentPage=page, name=name, titulo=titulo), 200
+    return render_template('/categorias/index.html', paginate=paginate, categories=categories, currentPage=page, name=name, titulo=titulo, configuration=configuration), 200
 
 @categoriaBP.route('/cadastrar', methods=['GET','POST'])
 def cadastrar():
+    configuration = Configuration.query.first()
     form = CategoriaForm(request.form)
     titulo = 'Cadastro'
     if form.validate_on_submit():
@@ -51,10 +54,11 @@ def cadastrar():
             # remove qualquer vestígio do usuário da sessin e flash message 
             db.session.rollback()
             flash('Erro ao tentar cadastrar a categoria', 'danger')
-    return render_template('/categorias/formulario.html' , titulo=titulo, form=form), 200
+    return render_template('/categorias/formulario.html' , titulo=titulo, form=form, configuration=configuration), 200
 
 @categoriaBP.route('/editar/<int:id>', methods=['GET', 'POST'])
 def editar(id):
+    configuration = Configuration.query.first()
     # pega a categorias pelo id
     category = Category.query.filter((Category.id==id)).first()
     
@@ -94,10 +98,11 @@ def editar(id):
             # remove qualquer vestígio da categoria do session e flash message
             db.session.rollback()
             flash('Erro ao tentar editar a categoria', 'danger')
-    return render_template('/categorias/formulario.html' , titulo=titulo, form=form), 200
+    return render_template('/categorias/formulario.html' , titulo=titulo, form=form, configuration=configuration), 200
 
 @categoriaBP.route('/deletar/<int:id>', methods=['GET', 'POST'])
 def deletar(id):
+    configuration = Configuration.query.first()
 
     #pega a categoria pelo id
     category = Category.query.filter((Category.id==id)).first()
@@ -127,7 +132,7 @@ def deletar(id):
             else:
                 flash('A categoria não pode ser deletada pois existem posts relacionadas a ela na base de dados', 'warning')
     titulo = 'Deseja realmente excluir a categoria ' + category.name
-    return render_template('/categorias/deletar.html', titulo=titulo, categoryId=id), 200
+    return render_template('/categorias/deletar.html', titulo=titulo, categoryId=id, configuration=configuration), 200
 
     # popula os campos do formuário
 def fillForm(form, category):
