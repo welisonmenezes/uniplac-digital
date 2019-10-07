@@ -3,6 +3,7 @@ from flask import current_app, Blueprint, render_template, request, url_for
 from modulos.posts.formularios import PostForm
 from sqlalchemy import desc, or_
 from database.Model import Configuration, db, Post, Category
+import datetime
 
 postBP = Blueprint('posts', __name__, url_prefix='/admin', template_folder='templates', static_folder='static')
 
@@ -48,6 +49,10 @@ def noticias_editar():
     form = PostForm(request.form)
     titulo = 'Notícias'
     operacao = 'Edição'
+
+    # exemplo de entrada pra edição
+    #form.entry_date.data = datetime.datetime.strptime('2000-11-11', '%Y-%m-%d')
+    
     if form.validate_on_submit():
         print('valido')
     return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form, configuration=configuration), 200
