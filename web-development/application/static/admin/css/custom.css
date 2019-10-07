@@ -151,3 +151,6 @@ select.form-control, .dataTables_wrapper select{
     left: -50000000px;
 }
 
+.form-group .invalid-feedback{
+    display: block;
+}
