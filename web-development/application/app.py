@@ -10,15 +10,15 @@ from flask_mail import Mail
 # create a Flask app
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
-app.logger.removeHandler(default_handler)
-current_date = datetime.datetime.now()
-logging.basicConfig(
-    filename='logging/app-log-' + str(current_date.month) + '-' + str(current_date.year) + '.log',
-    format='%(asctime)s %(name)s %(levelname)s:%(message)s',
-    level=logging.INFO
-)
-log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
+# app.logger.removeHandler(default_handler)
+# current_date = datetime.datetime.now()
+# logging.basicConfig(
+#     filename='logging/app-log-' + str(current_date.month) + '-' + str(current_date.year) + '.log',
+#     format='%(asctime)s %(name)s %(levelname)s:%(message)s',
+#     level=logging.INFO
+# )
+# log = logging.getLogger('werkzeug')
+# log.setLevel(logging.ERROR)
 
 # apply app configurations
 app.config.from_pyfile('config.py')
