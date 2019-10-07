@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin Premium Bootstrap Admin Dashboard Template</title>
+    <meta content="{{ configuration.description }}" name="description">
+    {% block title %}<title>- {{ configuration.name }}</title>{% endblock %}
     <link rel="stylesheet" href="{{ url_for('static', filename='error/vendors/iconfonts/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='error/vendors/iconfonts/font-awesome/css/font-awesome.min.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='error/css/icheck/all.css') }}">

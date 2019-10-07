@@ -21617,6 +21617,15 @@ dl li {
   height: 2.25rem;
   border-radius: 50%;
 }
+.img-avatar{
+
+  background-size: cover; height: 32px;
+  width: 32px; background-position: center; 
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  float: left;
+}
 
 .navbar .navbar-menu-wrapper .navbar-nav .nav-item.dropdown .navbar-dropdown .dropdown-item .item-thumbnail .item-icon {
   width: 2.25rem;

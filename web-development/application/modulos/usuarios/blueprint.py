@@ -6,12 +6,14 @@ from app import app, bcrypt
 from modulos.usuarios.formularios import UsuarioForm
 from database.Model import db, User, Post
 from modulos.usuarios.validations import validateUserToCreate, validateUserToUpdate
+from database.Model import Configuration
 
 usuarioBP = Blueprint('usuarios', __name__, url_prefix='/admin/usuarios', template_folder='templates', static_folder='static')
 
 
 @usuarioBP.route('/')
 def index():
+    configuration = Configuration.query.first()
     titulo = 'Lista de Usuários'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
@@ -30,11 +32,12 @@ def index():
     paginate = User.query.filter(*filter).order_by(desc(User.id)).paginate(page=page, per_page=10, error_out=False)
     users = paginate.items
 
-    return render_template('usuarios/index.html', titulo=titulo, users=users, paginate=paginate, currentPage=page, name=name, role=role), 200
+    return render_template('usuarios/index.html', titulo=titulo, users=users, paginate=paginate, currentPage=page, name=name, role=role, configuration=configuration), 200
 
 
 @usuarioBP.route('/cadastrar', methods=['GET', 'POST'])
 def cadastrar():
+    configuration = Configuration.query.first()
     titulo = 'Cadastrar usuário'
     form = UsuarioForm(request.form)
     if form.validate_on_submit():
@@ -67,11 +70,12 @@ def cadastrar():
             # remove qualquer vestígio do usuário da sessin e flash message 
             db.session.rollback()
             flash('Erro ao tentar cadastrar o usuário', 'danger')
-    return render_template('usuarios/formulario.html', titulo=titulo, form=form, mode='cadastrar'), 200
+    return render_template('usuarios/formulario.html', titulo=titulo, form=form, mode='cadastrar', configuration=configuration), 200
 
 
 @usuarioBP.route('/editar/<int:id>', methods=['GET', 'POST'])
 def editar(id):
+    configuration = Configuration.query.first()
 
     # pega o usuário pelo id
     user = User.query.filter((User.id==id)).first()
@@ -128,11 +132,12 @@ def editar(id):
             # remove qualquer vestígio do usuário da sessin e flash message
             db.session.rollback()
             flash('Erro ao tentar editar o usuário', 'danger')
-    return render_template('usuarios/formulario.html', titulo=titulo, form=form, mode='editar', user=user), 200
+    return render_template('usuarios/formulario.html', titulo=titulo, form=form, mode='editar', user=user, configuration=configuration), 200
 
 
 @usuarioBP.route('/deletar/<int:id>', methods=['GET', 'POST'])
 def deletar(id):
+    configuration = Configuration.query.first()
 
     # pega o usuário pelo id
     user = User.query.filter((User.id==id)).first()
@@ -175,7 +180,7 @@ def deletar(id):
     titulo = 'Deseja realmente excluir o usuário ' + user.first_name + ' ' + user.last_name
     if (user.id == session.get('user_id', 0)):
         titulo = 'Deseja realmente excluir a sua conta?'
-    return render_template('usuarios/deletar.html', titulo=titulo, userId=id), 200
+    return render_template('usuarios/deletar.html', titulo=titulo, userId=id, configuration=configuration), 200
 
 
 # popula os campos do formuário
