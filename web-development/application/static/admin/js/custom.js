@@ -22,6 +22,14 @@ document.addEventListener('DOMContentLoaded', function() {
         VMasker(num).maskNumber();
     }
 
+    // mascara para campos de data
+    var inpDate = document.querySelectorAll('.mask-date');
+    if (inpDate) {
+        inpDate.forEach(function(el) {
+            VMasker(el).maskPattern('9999-99-99');
+        });
+    }
+
     // botão de upload
     $('body').on('click', '.file-upload-browse', function(){
         $('.file-upload-default').click();
