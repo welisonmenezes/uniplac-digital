@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var inpDate = document.querySelectorAll('.mask-date');
     if (inpDate) {
         inpDate.forEach(function(el) {
-            VMasker(el).maskPattern('9999-99-99');
+            VMasker(el).maskPattern('99-99-9999');
         });
     }
 
