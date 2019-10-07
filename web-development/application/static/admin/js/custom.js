@@ -65,37 +65,19 @@ document.addEventListener('DOMContentLoaded', function() {
             var accepts = element.getAttribute('accept').split(',');
             if (file.size <= 5017969) {
                 if (accepts.indexOf('.' + extension) > -1) {
-                    var reader = new FileReader();
-                    reader.onloadend = () => {
-                        fetch(GLOBALS.BASE_URL+'api/image', {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ image: reader.result })
-                        })
-                            .then(data => data.json())
-                            .then(data => {
-                                if (data && data.id) {
-                                    if (el.hasClass('multiple')) {
-                                        addMultipleImageHTML(element, data.id);
-                                    } else {
-                                        addImageHTML(element, data.id);
-                                    }
-                                } else {
-                                    addImageHTML(element, null, data.message);
-                                }
-                            }, error => {
-                                if (el.hasClass('multiple')) {
-                                    addMultipleImageHTML(element, null, error);
-                                } else {
-                                    addImageHTML(element, null, error);
-                                }
-                                element.value = null;
-                            });
+                    if (el.hasClass('multiple')) {
+                        img = new Image();
+                        img.onload = function () {
+                            if (this.width != 2000 || this.height != 500) {
+                                addMultipleImageHTML(element, null, 'A imagem do banner deve ter 2000 x 500 pixels');
+                            } else {
+                                sendFileToServer(element);
+                            }
+                        };
+                        img.src = window.URL.createObjectURL(file);
+                    } else {
+                        sendFileToServer(element);
                     }
-                    reader.readAsDataURL(file);
                 } else {
                     element.value = null;
                     if (el.hasClass('multiple')) {
@@ -113,6 +95,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         }
+    }
+
+    sendFileToServer = function(element) {
+        var reader = new FileReader();
+        var el = $(element);
+        var file = element.files[0];
+        reader.onloadend = () => {
+            fetch(GLOBALS.BASE_URL+'api/image', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ image: reader.result })
+            })
+                .then(data => data.json())
+                .then(data => {
+                    if (data && data.id) {
+                        if (el.hasClass('multiple')) {
+                            addMultipleImageHTML(element, data.id);
+                        } else {
+                            addImageHTML(element, data.id);
+                        }
+                    } else {
+                        addImageHTML(element, null, data.message);
+                    }
+                }, error => {
+                    if (el.hasClass('multiple')) {
+                        addMultipleImageHTML(element, null, error);
+                    } else {
+                        addImageHTML(element, null, error);
+                    }
+                    element.value = null;
+                });
+        }
+        reader.readAsDataURL(file);
     }
 
     // adiciona o html de feedback (se sucesso, um preview, se erro, uma mensagem)
