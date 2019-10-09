@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 09-Out-2019 às 16:07
+-- Generation Time: 10-Out-2019 às 00:16
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.2
 
@@ -59,8 +59,10 @@ CREATE TABLE `configuration` (
   `description` varchar(160) NOT NULL,
   `phone` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `schedules` varchar(255) DEFAULT NULL,
+  `address` varchar(255) NOT NULL,
+  `schedules` varchar(255) NOT NULL,
+  `map` text NOT NULL,
+  `city` varchar(100) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -69,8 +71,8 @@ CREATE TABLE `configuration` (
 -- Extraindo dados da tabela `configuration`
 --
 
-INSERT INTO `configuration` (`id`, `name`, `description`, `phone`, `email`, `address`, `schedules`, `created_at`, `updated_at`) VALUES
-(3, 'Uniplac2', 'test2', '3333-2222', 'test@email.com', 'test', 'test', '2019-10-01', '2019-10-04');
+INSERT INTO `configuration` (`id`, `name`, `description`, `phone`, `email`, `address`, `schedules`, `map`, `city`, `created_at`, `updated_at`) VALUES
+(3, 'Uniplac Digital', 'Portal Digital da Universidade do Planalto Catarinense', '(49) 3251 1022', 'uniplacdigital@gmail.com', 'Av. Castelo branco, 170 - Bairro Universitário - Cep 88 509-900', '(5ª e 6ª à noite e sábado manhã e tarde)', '<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3528.5648186669146!2d-50.319038084163644!3d-27.823163238490324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94e01f22d33c54e3%3A0x1f0c82e2171ebf3b!2sUniversidade%20do%20Planalto%20Catarinense!5e0!3m2!1spt-BR!2sbr!4v1568562534328!5m2!1spt-BR!2sbr\"></iframe>', 'Lages, Santa Catarina', '2019-10-01', '2019-10-09');
 
 -- --------------------------------------------------------
 
