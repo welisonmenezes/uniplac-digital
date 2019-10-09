@@ -154,3 +154,7 @@ select.form-control, .dataTables_wrapper select{
 .form-group .invalid-feedback{
     display: block;
 }
+
+.brand-logo{
+    display: block;
+}
