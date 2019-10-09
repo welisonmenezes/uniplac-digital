@@ -2,6 +2,8 @@ import os
 from flask import current_app, Blueprint, render_template, request, url_for, redirect, flash, session
 from app import app, bcrypt
 from sqlalchemy import and_, desc
+from flask_mail import Message
+from app import mail
 from database.Model import db, User
 from modulos.login.formularios import LoginForm, RecoverForm
 from database.Model import Configuration
@@ -39,6 +41,14 @@ def recuperar():
     if form.validate_on_submit():
         user = User.query.filter(User.registry == form.registry.data).first()
         if user:
+            msg = Message('Recuperação de senha do Usuário - ' + user.first_name, sender='cntato@uniplacdigital.com.br', recipients=['uniplacdigital@gmail.com'])
+            msg.html = "<h1>"+ user.first_name + " " + user.last_name +" - Requisição de nova senha</h1>"
+            msg.html += "<ul>"
+            msg.html += "<li><b>Nome: </b> "+ user.first_name + " " + user.last_name +"</li>"
+            msg.html += "<li><b>Email: </b> "+ user.email +"</li>"
+            msg.html += "<li><b>Matrícula: </b> "+ user.registry +"</li>"
+            msg.html += "</ul>"
+            mail.send(msg)
             return redirect( url_for('login.recuperada') )
         else:
             flash('Número de matrícula inválido.', 'danger')
