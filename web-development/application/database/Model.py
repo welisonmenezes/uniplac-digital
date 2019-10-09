@@ -18,6 +18,7 @@ class Image(db.Model):
         return '<Image %r>' % self.id
 
 
+
 class ImageSchema(ma.Schema):
     id = fields.Integer()
     created_at = fields.DateTime()
@@ -44,7 +45,6 @@ class Configuration(db.Model):
     updated_at = db.Column(db.Date, default=now, onupdate=now, nullable=False)
     images = db.relationship('Image', secondary=ConfigurationImage)
     
-
     def __init__(self, name, description, phone, email, address, schedules):
         self.name = name
         self.description = description
@@ -52,10 +52,6 @@ class Configuration(db.Model):
         self.email = email
         self.address = address
         self.schedules = schedules
-        
-      
-
-        
 
     def __repr__(self):
         return '<Configuration %r>' % self.id
