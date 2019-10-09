@@ -100,6 +100,7 @@ class Category(db.Model):
     description = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.Date, default=now, nullable=False)
     updated_at = db.Column(db.Date, default=now, onupdate=now, nullable=False)
+    is_highlighted = db.Column(db.Boolean, default=False, nullable=False)
 
     def __init__(self, name, description):
         self.name = name
