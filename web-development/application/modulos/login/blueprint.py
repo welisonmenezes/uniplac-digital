@@ -3,7 +3,7 @@ from flask import current_app, Blueprint, render_template, request, url_for, red
 from app import app, bcrypt
 from sqlalchemy import and_, desc
 from database.Model import db, User
-from modulos.login.formularios import LoginForm
+from modulos.login.formularios import LoginForm, RecoverForm
 from database.Model import Configuration
 
 
@@ -30,6 +30,19 @@ def inicio():
         else:
             flash('Credenciais inválidas', 'danger')
     return render_template('login.html', form=form, configuration=configuration) , 200
+
+
+@loginBP.route('/recuperar-senha', methods=['GET','POST'])
+def recuperar():
+    configuration = Configuration.query.first()
+    form= RecoverForm(request.form)
+    if form.validate_on_submit():
+        user = User.query.filter(User.registry == form.registry.data).first()
+        if user:
+            print('sucesso')
+        else:
+            flash('Número de matrícula inválido.', 'danger')
+    return render_template('recover.html', form=form, configuration=configuration) , 200
 
 
 @loginBP.route('/logout')

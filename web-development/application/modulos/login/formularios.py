@@ -23,3 +23,14 @@ class LoginForm(FlaskForm):
             'placeholder':'Senha'
         }
     )
+
+
+class RecoverForm(FlaskForm):
+    registry = StringField(
+        'Informe sua matrícula',
+        validators = [DataRequired(message="Campo obrigatório")
+        ],
+        render_kw = {
+            'placeholder':'Matrícula'
+        }
+    )
