@@ -39,10 +39,16 @@ def recuperar():
     if form.validate_on_submit():
         user = User.query.filter(User.registry == form.registry.data).first()
         if user:
-            print('sucesso')
+            return redirect( url_for('login.recuperada') )
         else:
             flash('Número de matrícula inválido.', 'danger')
     return render_template('recover.html', form=form, configuration=configuration) , 200
+
+
+@loginBP.route('/senha-recuperada', methods=['GET','POST'])
+def recuperada():
+    configuration = Configuration.query.first()
+    return render_template('recover-success.html', configuration=configuration) , 200
 
 
 @loginBP.route('/logout')
