@@ -41,4 +41,4 @@ def logout():
     session.pop('user_name')
     session.pop('user_role')
     session.clear()
-    return redirect( url_for('login.inicio', configuration=configuration) )
+    return redirect( url_for('login.inicio') )
