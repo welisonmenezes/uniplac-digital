@@ -11,7 +11,7 @@ categoriaBP = Blueprint('categorias', __name__, url_prefix='/admin/categorias', 
 @categoriaBP.route('/')
 def index():
     configuration = Configuration.query.first()
-    titulo = 'Lista de Categorias'
+    titulo = 'Categorias'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
     page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))

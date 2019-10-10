@@ -14,7 +14,7 @@ usuarioBP = Blueprint('usuarios', __name__, url_prefix='/admin/usuarios', templa
 @usuarioBP.route('/')
 def index():
     configuration = Configuration.query.first()
-    titulo = 'Lista de Usuários'
+    titulo = 'Usuários'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
     page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
