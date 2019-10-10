@@ -31,8 +31,8 @@
                 <h4 class="card-title">{{ titulo }} de Categoria</h4>
                 <form class="forms-sample" method="POST" novalidate>
                     {{ form.csrf_token }}
-                    {{ render_field(form.name) }}
-                    {{ render_field(form.description) }}
+                    {{ render_field(form.name, 'required') }}
+                    {{ render_field(form.description, 'required') }}
                     {{ render_checkbox_field(form.destacado, '', 'Destacar Categoria?') }}
                     <br />
                     <button type="submit" class="btn btn-primary mr-2">Enviar</button>
@@ -43,3 +43,10 @@
     </div>
 </div>
 {% endblock content%}
+
+
+{% block footer_script %}
+<script>
+    var validator = new VanillaValidator({});
+  </script>
+{% endblock footer_script %}

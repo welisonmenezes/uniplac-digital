@@ -31,12 +31,12 @@
                 <h4 class="card-title">{{ titulo }}</h4>
                 <form class="forms-sample" novalidate method="POST">
                     {{ form.csrf_token }}
-                    {{ render_field(form.first_name) }}
-                    {{ render_field(form.last_name) }}
-                    {{ render_field(form.registry, 'mask-number', '6') }}
-                    {{ render_field(form.email) }}
-                    {{ render_field(form.phone, 'mask-phone') }}
-                    {{ render_field(form.password) }}
+                    {{ render_field(form.first_name, 'required') }}
+                    {{ render_field(form.last_name, 'required') }}
+                    {{ render_field(form.registry, 'mask-number required numeric', '6') }}
+                    {{ render_field(form.email, 'required email') }}
+                    {{ render_field(form.phone, 'mask-phone phone required numeric') }}
+                    {{ render_field(form.password, 'required') }}
                     {{ render_field(form.role) }}
                     <div>
                         {{ render_file_field(form.image, '') }}
@@ -73,3 +73,9 @@
     </div>
 </div>
 {% endblock content %}
+
+{% block footer_script %}
+<script>
+    var validator = new VanillaValidator({});
+  </script>
+{% endblock footer_script %}
