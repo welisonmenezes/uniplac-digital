@@ -17,6 +17,13 @@
                                     Contato
                                 </a>
                             </li>
+                            {% if session.get('user_role', '') != '' %}
+                                <li>
+                                    <a href="{{ url_for('dashboard.dash') }}">
+                                        Painel Administrativo
+                                    </a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
@@ -26,7 +33,6 @@
     <div class="main_menu">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light w-100">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <a class="navbar-brand logo_h" href="{{ url_for('site.index') }}">
                     <img src="{{ url_for('static', filename='public/img/logo.png') }}" alt="logo" />
                 </a>
@@ -37,7 +43,6 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse offset w-100" id="navbarSupportedContent">
                     <div class="row w-100 mr-0 justify-content-center">
                         <div class="col-lg-10 pr-0">
@@ -54,6 +59,14 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ url_for('site.avisos') }}">Avisos</a>
                                 </li>
+                                <li class="nav-item show-992">
+                                    <a class="nav-link" href="{{ url_for('site.contato') }}">Contato</a>
+                                </li>
+                                {% if session.get('user_role', '') != '' %}
+                                    <li class="nav-item show-992">
+                                        <a class="nav-link" href="{{ url_for('dashboard.dash') }}">Painel Administrativo</a>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </div>
                         <div class="col-lg-2 pr-0 text-right">
