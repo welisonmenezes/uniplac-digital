@@ -4,7 +4,6 @@
 
 {% block content %}
 
-<!--================Home Banner Area =================-->
 <section class="banner_area">
     <div class="banner_inner d-flex align-items-center">
         <div class="container">
@@ -20,49 +19,9 @@
         </div>
     </div>
 </section>
-<!--================End Home Banner Area =================-->
 
-<form class="search-form">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h4>O que você deseja encontrar?</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Pesquisar...">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <select class="form-control">
-                        <option selected>Tipo</option>
-                        <option>Notícias</option>
-                        <option>Anúncios</option>
-                        <option>Avisos</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <select class="form-control">
-                        <option selected>Categoria</option>
-                        <option>Sistemas de Informação</option>
-                        <option>Engenharia</option>
-                        <option>Esportes</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary btn-block">Filtrar</button>
-            </div>
-        </div>
-    </div>
-</form>
+{% include 'includes/public/form-filter.html' %}
 
-<!--================Blog Area =================-->
 <section class="blog_area section_gap">
     <div class="container">
         <div class="row">
