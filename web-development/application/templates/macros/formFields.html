@@ -2,23 +2,23 @@
 <div class="form-group">
     {{ field.label }}
     {% if field.errors %}
-        {{ field(class="form-control is-invalid "+cssClass, maxLength=""+maxLength) }}
+    {{ field(class="form-control is-invalid "+cssClass, maxLength=""+maxLength) }}
     {% for error in field.errors %}
-        <span class="invalid-feedback">{{ error }}</span>
+    <span class="invalid-feedback">{{ error }}</span>
     {% endfor %}
     {% else %}
-        {{ field(class="form-control "+cssClass, maxLength=""+maxLength) }}
+    {{ field(class="form-control "+cssClass, maxLength=""+maxLength) }}
     {% endif %}
 </div>
 {% endmacro %}
 
 {% macro render_hidden_field(field) %}
-    {{ field() }}
-    {% if field.errors %}
-    {% for error in field.errors %}
-    <span class="invalid-feedback">{{ error }}</span>
-    {% endfor %}
-    {% endif %}
+{{ field() }}
+{% if field.errors %}
+{% for error in field.errors %}
+<span class="invalid-feedback">{{ error }}</span>
+{% endfor %}
+{% endif %}
 {% endmacro %}
 
 
@@ -53,7 +53,7 @@
         </span>
     </div>
     {% for error in field.errors %}
-        <span class="invalid-feedback">{{ error }}</span>
+    <span class="invalid-feedback">{{ error }}</span>
     {% endfor %}
     {% else %}
     <div class="input-group">
@@ -64,6 +64,22 @@
             </button>
         </span>
     </div>
+    {% endif %}
+</div>
+{% endmacro %}
+
+
+{% macro render_checkbox_field(field, cssClass='', label='') %}
+<div class="form-check form-check-flat form-check-primary">
+    <label class="form-check-label">
+        {{ field(class="form-check-input "+cssClass) }}
+        {{label}}
+        <i class="input-helper"></i>
+    </label>
+    {% if field.errors %}
+        {% for error in field.errors %}
+            <span class="invalid-feedback">{{ error }}</span>
+        {% endfor %}
     {% endif %}
 </div>
 {% endmacro %}

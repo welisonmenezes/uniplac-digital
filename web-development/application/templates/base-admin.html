@@ -2,14 +2,20 @@
 <html lang="pt-br">
 
 <head>
-    {% block head %}
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta content="{{ configuration.description }}" name="description">
-    {% block title %}<title>- {{ configuration.name }}</title>{% endblock %}>
+    <title>{% block title %}{% endblock title %} - {{ configuration.name }} - Admin</title>
 
-    {% block pagestyles %}
+    <style type="text/css">
+		body{
+			-moz-opacity: 0.00;
+			-khtml-opacity: 0.00;
+			opacity: 0.00;
+		}
+	</style>
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/base/vendor.bundle.base.css') }}">
     <link rel="stylesheet"
@@ -41,10 +47,8 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/custom.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='admin/images/favicon.png') }}" />
-    {% endblock %}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='admin/images/favicon.png') }}">
 
-    {% endblock %}
 </head>
 
 <body>
@@ -221,6 +225,14 @@
     <script src="{{ url_for('static', filename='admin/js/dataTables.bootstrap4.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/vanilla-masker.min.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/custom.js') }}"></script>
+    <script>
+        $(window).on('load', function(){
+            setTimeout(function(){
+                $("body").fadeTo(300, 1);
+                $(window).resize();
+            }, 1);
+        });
+    </script>
     {% endblock %}
 
 </body>

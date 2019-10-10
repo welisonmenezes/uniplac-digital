@@ -2,6 +2,8 @@
 
 {% from "macros/formFields.html" import render_field, render_file_field, render_hidden_field %}
 
+{% block title %}Contato{% endblock %}
+
 {% block content %}
 
 <section class="banner_area">
@@ -23,7 +25,7 @@
 <section class="section_gap" id="formulario">
     <div class="container">
         <div class="d-none d-sm-block mb-5 pb-4 Contact">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3528.5648186669146!2d-50.319038084163644!3d-27.823163238490324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94e01f22d33c54e3%3A0x1f0c82e2171ebf3b!2sUniversidade%20do%20Planalto%20Catarinense!5e0!3m2!1spt-BR!2sbr!4v1568562534328!5m2!1spt-BR!2sbr"></iframe>
+            {{ configuration.map|safe }}
         </div>
         <div class="row">
             <div class="col-12">
@@ -58,7 +60,7 @@
                 <div class="media contact-info">
                     <span class="contact-info__icon"><i class="ti-home"></i></span>
                     <div class="media-body">
-                        <h3>Lages, Santa Catarina.</h3>
+                        <h3>{{ configuration.city }}</h3>
                         <p>{{ configuration.address }}</p>
                     </div>
                 </div>
@@ -66,7 +68,7 @@
                     <span class="contact-info__icon"><i class="ti-tablet"></i></span>
                     <div class="media-body">
                         <h3><a href="tel:(49) 3251 1022"></a>{{ configuration.phone }}</a></h3>
-                        <p>Segunda à Sexta das 8h às 22h</p>
+                        <p>{{ configuration.schedules }}</p>
                     </div>
                 </div>
                 <div class="media contact-info">
@@ -80,5 +82,7 @@
         </div>
     </div>
 </section>
+
+{% include 'includes/public/form-filter.html' %}
 
 {% endblock %}

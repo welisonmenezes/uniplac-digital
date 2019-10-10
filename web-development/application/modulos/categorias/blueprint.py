@@ -11,7 +11,7 @@ categoriaBP = Blueprint('categorias', __name__, url_prefix='/admin/categorias', 
 @categoriaBP.route('/')
 def index():
     configuration = Configuration.query.first()
-    titulo = 'Lista de Categorias'
+    titulo = 'Categorias'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
     page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
@@ -41,6 +41,7 @@ def cadastrar():
                     form.name.data,
                     form.description.data
                 )
+                category.is_highlighted = form.destacado.data
                 # adiciona e commita a categoria na base de dados
                 db.session.add(category)
                 db.session.commit()
@@ -85,6 +86,7 @@ def editar(id):
                 # atualiza a categoria recuperada pelo id com os dados do formulário
                 category.name = form.name.data
                 category.description = form.description.data
+                category.is_highlighted = form.destacado.data
 
                  # commita os dados na base de dados
                 db.session.commit()
@@ -138,3 +140,4 @@ def deletar(id):
 def fillForm(form, category):
     form.name.data = category.name
     form.description.data = category.description
+    form.destacado.data = category.is_highlighted

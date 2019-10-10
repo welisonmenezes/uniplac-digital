@@ -7,8 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta content="{{ configuration.description }}" name="description">
-    {% block title %}<title>- {{ configuration.name }}</title>{% endblock %}
+    <title>{% block title %}{% endblock title %} - {{ configuration.name }}</title>
     {% block pagestyles %}
+    <style type="text/css">
+		body{
+			-moz-opacity: 0.00;
+			-khtml-opacity: 0.00;
+			opacity: 0.00;
+		}
+	</style>
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/bootstrap.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/themify-icons.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='public/vendors/nice-select/css/nice-select.css') }}" />
@@ -18,6 +25,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/style.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/responsive.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/custom.css') }}" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='public/img/favicon.png') }}">
     {% endblock %}
     {% endblock %}
 </head>
@@ -37,6 +45,14 @@
     <script src="{{ url_for('static', filename='public/js/theme.js') }}?"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='public/js/slick.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='public/js/script.js') }}"></script>
+    <script>
+        $(window).on('load', function(){
+            setTimeout(function(){
+                $("body").fadeTo(300, 1);
+                $(window).resize();
+            }, 1);
+        });
+    </script>
     {% endblock %}
 </body>
 

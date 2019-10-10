@@ -18,6 +18,7 @@ class Image(db.Model):
         return '<Image %r>' % self.id
 
 
+
 class ImageSchema(ma.Schema):
     id = fields.Integer()
     created_at = fields.DateTime()
@@ -38,24 +39,23 @@ class Configuration(db.Model):
     description = db.Column(db.String(160), nullable=False)
     phone = db.Column(db.String(45), nullable=False)
     email = db.Column(db.String(45), nullable=False)
-    address = db.Column(db.String(255))
-    schedules = db.Column(db.String(255))
+    address = db.Column(db.String(255), nullable=False)
+    schedules = db.Column(db.String(255), nullable=False)
+    map = db.Column(db.String(510), nullable=False)
+    city = db.Column(db.String(100), nullable=False)
     created_at = db.Column(db.Date, default=now, nullable=False)
     updated_at = db.Column(db.Date, default=now, onupdate=now, nullable=False)
     images = db.relationship('Image', secondary=ConfigurationImage)
     
-
-    def __init__(self, name, description, phone, email, address, schedules):
+    def __init__(self, name, description, phone, email, address, schedules, map, city):
         self.name = name
         self.description = description
         self.phone = phone
         self.email = email
         self.address = address
         self.schedules = schedules
-        
-      
-
-        
+        self.map = map
+        self.city = city
 
     def __repr__(self):
         return '<Configuration %r>' % self.id
@@ -100,6 +100,7 @@ class Category(db.Model):
     description = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.Date, default=now, nullable=False)
     updated_at = db.Column(db.Date, default=now, onupdate=now, nullable=False)
+    is_highlighted = db.Column(db.Boolean, default=False, nullable=False)
 
     def __init__(self, name, description):
         self.name = name

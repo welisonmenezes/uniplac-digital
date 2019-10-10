@@ -55,6 +55,22 @@ class ConfiguracaoForm(FlaskForm):
         }
     )
 
+    map = StringField(
+        'Embed do Mapa',
+        validators = [DataRequired(message="Campo obrigatório")],
+        render_kw = {
+            'placeholder':'Mapa'
+        }
+    )
+
+    city = StringField(
+        'Cidade/Estado',
+        validators = [DataRequired(message="Campo obrigatório")],
+        render_kw = {
+            'placeholder':'Cidade/Estado'
+        }
+    )
+
     image = FileField(
         'Adicionar Imagem',
         validators = []

@@ -154,3 +154,30 @@ select.form-control, .dataTables_wrapper select{
 .form-group .invalid-feedback{
     display: block;
 }
+
+.brand-logo{
+    display: block;
+}
+
+.ul-breadcrumb a, .ul-breadcrumb{
+    font-size: 14px;
+    font-weight: 300;
+    color: #797979;
+    font-family: "Roboto",sans-serif;
+    margin-right: 18px;
+    position: relative;
+}
+.ul-breadcrumb b{
+    font-weight: bold;
+}
+.ul-breadcrumb li{
+    display: inline-block;
+}
+.ul-breadcrumb a::before{
+    content: "/";
+    font-size: 14px;
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+}

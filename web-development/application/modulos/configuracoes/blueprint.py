@@ -23,6 +23,8 @@ def cadastrar():
                 configuration.email = form.email.data
                 configuration.address = form.address.data
                 configuration.schedules = form.schedules.data
+                configuration.map = form.map.data
+                configuration.city = form.city.data
                 
                 # pega parametros e os formata para convertê-los em array
                 str_old_img = form.old_images.data.replace(']', '').replace('[', '')
@@ -81,7 +83,9 @@ def cadastrar():
                     form.phone.data,
                     form.email.data,
                     form.address.data,
-                    form.schedules.data
+                    form.schedules.data,
+                    form.map.data,
+                    form.city.data
                 )
 
                 # pega parametro os formata e convete-os em array
@@ -121,6 +125,8 @@ def cadastrar():
             form.email.data = configuration.email
             form.address.data = configuration.address
             form.schedules.data = configuration.schedules
+            form.map.data = configuration.map
+            form.city.data = configuration.city
 
             # pega imagens existentes
             images = configuration.images
