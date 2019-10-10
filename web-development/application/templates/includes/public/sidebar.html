@@ -63,27 +63,18 @@
             <a href="{{ url_for('site.avisos') }}" class="btn btn-info btn-sm btn-block">Ver todos</a>
         </div>
     </aside>
-    <aside class="single_sidebar_widget post_category_widget">
-        <h4 class="widget_title">Categoria</h4>
-        <ul class="list cat-list">
-            <li>
-                <a href="{{ url_for('site.noticias') }}" class="d-flex">
-                    <p>Notícias</p>
-                    <p>(43)</p>
-                </a>
-            </li>
-            <li>
-                <a href="{{ url_for('site.anuncios') }}" class="d-flex">
-                    <p>Anúncios</p>
-                    <p>(27)</p>
-                </a>
-            </li>
-            <li>
-                <a href="{{ url_for('site.avisos') }}" class="d-flex">
-                    <p>Avisos</p>
-                    <p>(111)</p>
-                </a>
-            </li>
-        </ul>
-    </aside>
+    {% if categories %}
+        <aside class="single_sidebar_widget post_category_widget">
+            <h4 class="widget_title">Categorias Principais</h4>
+            <ul class="list cat-list">
+                {% for category in categories_highlighted %}
+                    <li>
+                        <a href="{{ url_for('site.filtro', c=category.id) }}" class="d-flex">
+                            <p>{{ category.name }}</p>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </aside>
+    {% endif %}
 </div>

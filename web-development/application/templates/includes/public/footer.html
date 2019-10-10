@@ -39,7 +39,7 @@
             </div>
             {% if categories_highlighted %}
                 <div class="col-lg-3 col-md-6 single-footer-widget">
-                    <h4>Principais Categorias</h4>
+                    <h4>Categorias Principais</h4>
                     <ul>
                         {% for category in categories_highlighted %}
                             <li><a href="{{ url_for('site.filtro', c=category.id) }}">{{ category.name }}</a></li>
