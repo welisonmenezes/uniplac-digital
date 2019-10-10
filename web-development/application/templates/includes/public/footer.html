@@ -37,15 +37,16 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-lg-3 col-md-6 single-footer-widget">
-                <h4>Principais Categorias</h4>
-                <ul>
-                    <li><a href="{{ url_for('site.index') }}">Esportes</a></li>
-                    <li><a href="{{ url_for('site.index') }}">Engenharia</a></li>
-                    <li><a href="{{ url_for('site.index') }}">Sistema de Informação</a></li>
-                    <li><a href="{{ url_for('site.index') }}">Eventos</a></li>
-                </ul>
-            </div>
+            {% if categories_highlighted %}
+                <div class="col-lg-3 col-md-6 single-footer-widget">
+                    <h4>Categorias Principais</h4>
+                    <ul>
+                        {% for category in categories_highlighted %}
+                            <li><a href="{{ url_for('site.filtro', c=category.id) }}">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
             <div class="col-lg-3 col-md-6 single-footer-widget">
                 <h4>Sobre nós</h4>
                 <p>{{ configuration.description }}</p>

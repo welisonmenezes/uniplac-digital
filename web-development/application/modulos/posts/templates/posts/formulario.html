@@ -3,10 +3,39 @@
 {% from "macros/formFields.html" import render_field, render_file_field, render_hidden_field, render_field_date %}
 
 {% block title%}
-{{ titulo }}
+{{ operacao }} de {{ titulo }}
 {% endblock title%}
 
 {% block content %}
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="ul-breadcrumb">
+            <li>
+                <a href="{{ url_for('dashboard.dash') }}" title="Dashboard">Dashboard</a>
+            </li>
+            {% if titulo == 'Notícias' %}
+                <li>
+                    <a href="{{ url_for('posts.noticias_index') }}" title="Notícias">Notícias</a>
+                </li>
+            {% endif %}
+            {% if titulo == 'Anúncios' %}
+                <li>
+                    <a href="{{ url_for('posts.anuncios_index') }}" title="Anúncios">Anúncios</a>
+                </li>
+            {% endif %}
+            {% if titulo == 'Avisos' %}
+                <li>
+                    <a href="{{ url_for('posts.avisos_index') }}" title="Avisos">Avisos</a>
+                </li>
+            {% endif %}
+            <li>
+                <b>{{ operacao }} de {{ titulo }}</b>
+            </li>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
