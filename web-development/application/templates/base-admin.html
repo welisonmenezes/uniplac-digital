@@ -42,6 +42,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/custom.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='admin/images/favicon.png') }}" />
+    
     {% endblock %}
 
     {% endblock %}
@@ -129,6 +130,7 @@
     <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/third_party/spell_checker.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/special_characters.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/word_paste.min.js') }}"></script>
+    
     <script>
         var contentArea = document.getElementById('content');
         if (contentArea) {
@@ -221,6 +223,7 @@
     <script src="{{ url_for('static', filename='admin/js/dataTables.bootstrap4.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/vanilla-masker.min.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/custom.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/dist/vanilla-validator.concat.min.js') }}"></script>
     {% endblock %}
 
 </body>

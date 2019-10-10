@@ -2,9 +2,7 @@
 
 {% from "macros/formFields.html" import render_field, render_file_field, render_hidden_field %}
 
-{% block title%}
-Configurações
-{% endblock title%}
+
 
 {% block content %}
 <form novalidate method="POST" class="form-configuration">
@@ -16,10 +14,10 @@ Configurações
                     <h4 class="card-title">Configurações do Site</h4>
                     <div class="forms-sample">
                         {{ form.csrf_token }}
-                        {{ render_field(form.name) }}
+                        {{ render_field(form.name, 'required') }}
                         {{ render_field(form.description) }}
                         {{ render_field(form.phone) }}
-                        {{ render_field(form.email) }}
+                        {{ render_field(form.email, 'email') }}
                         {{ render_field(form.address) }}
                         {{ render_field(form.schedules) }}
                         {{render_hidden_field(form.old_images)}}
@@ -68,3 +66,10 @@ Configurações
     </div>
 </form>
 {% endblock content%}
+
+
+{% block footer_script %}
+<script>
+    var validator = new VanillaValidator({});
+  </script>
+{% endblock footer_script %}
