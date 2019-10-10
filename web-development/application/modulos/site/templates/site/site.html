@@ -14,9 +14,8 @@
         </div>
     </div>
 </section>
-<!--================End Home Banner Area =================-->
 
-<form class="search-form">
+<form class="search-form" action="{{ url_for('site.filtro') }}">
     <div class="container">
         <div class="row">
             <div class="col">
@@ -26,31 +25,33 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Pesquisar...">
+                    <input name="s" type="text" class="form-control" placeholder="Pesquisar...">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    <select class="form-control">
-                        <option selected>Tipo</option>
-                        <option>Notícias</option>
-                        <option>Anúncios</option>
-                        <option>Avisos</option>
+                    <select class="form-control" name="t">
+                        <option value="" selected>Tipo</option>
+                        <option value="news">Notícias</option>
+                        <option value="ads">Anúncios</option>
+                        <option value="novice">Avisos</option>
                     </select>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <select class="form-control">
-                        <option selected>Categoria</option>
-                        <option>Sistemas de Informação</option>
-                        <option>Engenharia</option>
-                        <option>Esportes</option>
-                    </select>
+            {% if categories %}
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <select class="form-control" name="c">
+                            <option value="" selected>Categoria</option>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
             <div class="col-md-2">
-                <button type="button" class="btn btn-primary btn-block">Filtrar</button>
+                <button type="submit" class="btn btn-primary btn-block">Filtrar</button>
             </div>
         </div>
     </div>
