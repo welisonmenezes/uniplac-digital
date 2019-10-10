@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="{{ configuration.description }}" name="description">
-    {% block title %}<title>- {{ configuration.name }}</title>{% endblock %}
+    <title>{% block title %}{% endblock %} - {{ configuration.name }}</title>
     <style type="text/css">
 		body{
 			-moz-opacity: 0.00;

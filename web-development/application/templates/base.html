@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta content="{{ configuration.description }}" name="description">
-    {% block title %}<title>- {{ configuration.name }}</title>{% endblock %}
+    <title>{% block title %}{% endblock title %} - {{ configuration.name }}</title>
     {% block pagestyles %}
     <style type="text/css">
 		body{
@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/style.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/responsive.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/custom.css') }}" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='public/img/favicon.png') }}">
     {% endblock %}
     {% endblock %}
 </head>

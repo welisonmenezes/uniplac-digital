@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta content="{{ configuration.description }}" name="description">
-    {% block title %}<title>- {{ configuration.name }}</title>{% endblock %}
+    <title>{% block title %}{% endblock title %} - {{ configuration.name }}</title>
 
     {% block pagestyles %}
     <style type="text/css">
