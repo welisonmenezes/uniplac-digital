@@ -2,14 +2,13 @@
 <html lang="pt-br">
 
 <head>
-    {% block head %}
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta content="{{ configuration.description }}" name="description">
-    {% block title %}<title>- {{ configuration.name }}</title>{% endblock %}>
+    <title>{% block title %}{{ configuration.name }}{% endblock title %}</title>
 
-    {% block pagestyles %}
     <style type="text/css">
 		body{
 			-moz-opacity: 0.00;
@@ -48,10 +47,8 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/custom.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='admin/images/favicon.png') }}" />
-    {% endblock %}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='admin/images/favicon.png') }}">
 
-    {% endblock %}
 </head>
 
 <body>

@@ -1,10 +1,26 @@
 {% extends 'base-admin.html' %}
 
-{% block title%}
+{% block title %}
 {{ titulo }}
-{% endblock title%}
+{% endblock title %}
 
 {% block content %}
+
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="ul-breadcrumb">
+            <li>
+                <a href="" title="Dashboard">Dashboard</a>
+            </li>
+            <li>
+                <b>{{ titulo }}</b>
+            </li>
+        </div>
+    </div>
+</div>
+
+
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
@@ -68,15 +84,15 @@
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.noticias_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Anúncios'): %}
                                     <a href="{{ url_for('posts.anuncios_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.anuncios_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Avisos'): %}
                                     <a href="{{ url_for('posts.avisos_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
@@ -104,15 +120,15 @@
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.noticias_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Anúncios'): %}
                                     <a href="{{ url_for('posts.anuncios_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.anuncios_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Avisos'): %}
                                     <a href="{{ url_for('posts.avisos_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
@@ -140,15 +156,15 @@
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.noticias_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Anúncios'): %}
                                     <a href="{{ url_for('posts.anuncios_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.anuncios_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Avisos'): %}
                                     <a href="{{ url_for('posts.avisos_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
@@ -176,15 +192,15 @@
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.noticias_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Anúncios'): %}
                                     <a href="{{ url_for('posts.anuncios_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.anuncios_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Avisos'): %}
                                     <a href="{{ url_for('posts.avisos_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
@@ -212,15 +228,15 @@
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.noticias_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Anúncios'): %}
                                     <a href="{{ url_for('posts.anuncios_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.anuncios_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Avisos'): %}
                                     <a href="{{ url_for('posts.avisos_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
@@ -248,15 +264,15 @@
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.noticias_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Anúncios'): %}
                                     <a href="{{ url_for('posts.anuncios_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.anuncios_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Avisos'): %}
                                     <a href="{{ url_for('posts.avisos_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
@@ -284,15 +300,15 @@
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.noticias_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Anúncios'): %}
                                     <a href="{{ url_for('posts.anuncios_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.anuncios_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Avisos'): %}
                                     <a href="{{ url_for('posts.avisos_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
@@ -320,15 +336,15 @@
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.noticias_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Anúncios'): %}
                                     <a href="{{ url_for('posts.anuncios_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.anuncios_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Avisos'): %}
                                     <a href="{{ url_for('posts.avisos_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
@@ -356,15 +372,15 @@
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.noticias_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Anúncios'): %}
                                     <a href="{{ url_for('posts.anuncios_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.anuncios_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Avisos'): %}
                                     <a href="{{ url_for('posts.avisos_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
@@ -392,15 +408,15 @@
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.noticias_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Anúncios'): %}
                                     <a href="{{ url_for('posts.anuncios_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
                                     <a href="{{ url_for('posts.anuncios_deletar')}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
                                     {% elif(titulo == 'Avisos'): %}
                                     <a href="{{ url_for('posts.avisos_editar') }}">
                                         <i class="mdi mdi-border-color edit"></i>
