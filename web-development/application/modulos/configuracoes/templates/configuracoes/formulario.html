@@ -7,6 +7,20 @@ Configurações
 {% endblock title%}
 
 {% block content %}
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="ul-breadcrumb">
+            <li>
+                <a href="{{ url_for('dashboard.dash') }}" title="Dashboard">Dashboard</a>
+            </li>
+            <li>
+                <b>Configurações</b>
+            </li>
+        </div>
+    </div>
+</div>
+
 <form novalidate method="POST" class="form-configuration">
     <div class="row">
 
