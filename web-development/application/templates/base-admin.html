@@ -10,6 +10,13 @@
     {% block title %}<title>- {{ configuration.name }}</title>{% endblock %}>
 
     {% block pagestyles %}
+    <style type="text/css">
+		body{
+			-moz-opacity: 0.00;
+			-khtml-opacity: 0.00;
+			opacity: 0.00;
+		}
+	</style>
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/base/vendor.bundle.base.css') }}">
     <link rel="stylesheet"
@@ -223,7 +230,18 @@
     <script src="{{ url_for('static', filename='admin/js/dataTables.bootstrap4.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/vanilla-masker.min.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/custom.js') }}"></script>
+<<<<<<< HEAD
     <script src="{{ url_for('static', filename='admin/dist/vanilla-validator.concat.min.js') }}"></script> 
+=======
+    <script>
+        $(window).on('load', function(){
+            setTimeout(function(){
+                $("body").fadeTo(300, 1);
+                $(window).resize();
+            }, 1);
+        });
+    </script>
+>>>>>>> master
     {% endblock %}
     {% block footer_script %}
     {% endblock footer_script %}

@@ -10,6 +10,13 @@
     {% block title %}<title>- {{ configuration.name }}</title>{% endblock %}
 
     {% block pagestyles %}
+    <style type="text/css">
+		body{
+			-moz-opacity: 0.00;
+			-khtml-opacity: 0.00;
+			opacity: 0.00;
+		}
+	</style>
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/base/vendor.bundle.base.css') }}">
     <link rel="stylesheet"
@@ -30,9 +37,9 @@
                 <div class="row w-100 mx-0">
                     <div class="col-lg-4 mx-auto">
                         <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-                            <div class="brand-logo">
+                            <a href="{{ url_for('site.index') }}" class="brand-logo" title="{{ configuration.name }}">
                                 <img src="{{ url_for('static', filename='admin/images/logo.jpg') }}" alt="logo">
-                            </div>
+                            </a>
                             {% from "macros/messageFlash.html" import render_message %}
                             {{ render_message() }}
                             {% block content %}
@@ -60,6 +67,14 @@
     <script src="{{ url_for('static', filename='admin/js/dashboard.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/jquery.dataTables.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/dataTables.bootstrap4.js') }}"></script>
+    <script>
+        $(window).on('load', function(){
+            setTimeout(function(){
+                $("body").fadeTo(300, 1);
+                $(window).resize();
+            }, 1);
+        });
+    </script>
     {% endblock %}
 
 </body>

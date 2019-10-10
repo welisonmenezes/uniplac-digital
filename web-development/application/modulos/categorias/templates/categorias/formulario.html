@@ -1,6 +1,6 @@
 {% extends 'base-admin.html' %}
 
-{% from "macros/formFields.html" import render_field %}
+{% from "macros/formFields.html" import render_field, render_checkbox_field %}
 
 {% block title%}
 Categorias
@@ -16,6 +16,8 @@ Categorias
                     {{ form.csrf_token }}
                     {{ render_field(form.name) }}
                     {{ render_field(form.description) }}
+                    {{ render_checkbox_field(form.destacado, '', 'Destacar Categoria?') }}
+                    <br />
                     <button type="submit" class="btn btn-primary mr-2">Enviar</button>
                     <button type="button" class="btn btn-light" onClick="history.go(-1); return false;">Cancelar</button>
                 </form>

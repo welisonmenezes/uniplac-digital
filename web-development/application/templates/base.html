@@ -9,6 +9,13 @@
     <meta content="{{ configuration.description }}" name="description">
     {% block title %}<title>- {{ configuration.name }}</title>{% endblock %}
     {% block pagestyles %}
+    <style type="text/css">
+		body{
+			-moz-opacity: 0.00;
+			-khtml-opacity: 0.00;
+			opacity: 0.00;
+		}
+	</style>
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/bootstrap.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/themify-icons.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='public/vendors/nice-select/css/nice-select.css') }}" />
@@ -37,7 +44,18 @@
     <script src="{{ url_for('static', filename='public/js/theme.js') }}?"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='public/js/slick.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='public/js/script.js') }}"></script>
+<<<<<<< HEAD
     
+=======
+    <script>
+        $(window).on('load', function(){
+            setTimeout(function(){
+                $("body").fadeTo(300, 1);
+                $(window).resize();
+            }, 1);
+        });
+    </script>
+>>>>>>> master
     {% endblock %}
 </body>
 

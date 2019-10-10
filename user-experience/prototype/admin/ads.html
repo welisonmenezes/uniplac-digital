@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title></title>
+    <link rel="stylesheet" href="./source/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="./source/vendors/base/vendor.bundle.base.css">
+    <link rel="stylesheet" href="./source/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="./source/css/style.css">
+    <link rel="stylesheet" href="./source/css/custom.css">
+    <link rel="shortcut icon" href="./source/images/favicon.png" />
+</head>
+
+<body>
+    <div class="container-scroller">
+
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="navbar-brand-wrapper d-flex justify-content-center">
+                <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
+                    <a class="navbar-brand brand-logo" href="index.html"><img src="./source/images/logo.jpg"
+                            alt="logo" /></a>
+                    <a class="navbar-brand brand-logo-mini" href="index.html"><img src="./source/images/logo-mini.jpg"
+                            alt="logo" /></a>
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button"
+                        data-toggle="minimize">
+                        <span class="mdi mdi-sort-variant"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+                            <img src="./source/images/faces/face5.jpg" alt="profile" />
+                            <span class="nav-profile-name">Biel Steve</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
+                            aria-labelledby="profileDropdown">
+                            <a class="dropdown-item">
+                                <i class="mdi mdi-tooltip-edit text-primary"></i>
+                                Registro de Atividades
+                            </a>
+                            <a class="dropdown-item">
+                                <i class="mdi mdi-monitor-multiple text-primary"></i>
+                                Preferências do Feed de Notícias
+                            </a>
+                            <a class="dropdown-item">
+                                <i class="mdi mdi-settings text-primary"></i>
+                                Configurações
+                            </a>
+                            <a class="dropdown-item">
+                                <i class="mdi mdi-logout text-primary"></i>
+                                sair
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                    data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- partial -->
+
+        <div class="container-fluid page-body-wrapper">
+
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="mdi mdi-home menu-icon"></i>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-news" aria-expanded="false"
+                            aria-controls="ui-news">
+                            <i class="mdi mdi-newspaper menu-icon"></i>
+                            <span class="menu-title">Notícias</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-news">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="news.html">Ver todos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="post-form.html">Adicionar Novo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-ads" aria-expanded="false"
+                            aria-controls="ui-ads">
+                            <i class="mdi mdi-bullhorn menu-icon"></i>
+                            <span class="menu-title">Anúncios</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-ads">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="ads.html">Ver todos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="post-form.html">Adicionar Novo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-novices" aria-expanded="false"
+                            aria-controls="ui-novices">
+                            <i class="mdi mdi-sim-alert menu-icon"></i>
+                            <span class="menu-title">Avisos</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-novices">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="novices.html">Ver todos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="post-form.html">Adicionar Novo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-user" aria-expanded="false"
+                            aria-controls="ui-user">
+                            <i class="mdi mdi-account menu-icon"></i>
+                            <span class="menu-title">Usuários</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-user">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="users.html">Ver todos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="user-form.html">Adicionar Novo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-category" aria-expanded="false"
+                            aria-controls="ui-category">
+                            <i class="mdi mdi-tag menu-icon"></i>
+                            <span class="menu-title">Categorias</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-category">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="categories.html">Ver todas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="category-form.html">Adicionar Novo</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-config" aria-expanded="false"
+                            aria-controls="ui-config">
+                            <i class="mdi mdi-settings menu-icon"></i>
+                            <span class="menu-title">Configurações</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="ui-config">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="configurations.html">Ver Detalhes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="config-form.html">Editar</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <!-- partial -->
+
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row">
+
+
+
+                        <!--Lista de Anuncios-->
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Anuncios</h4>
+                                    
+                                    <form class="formm-search">
+										<div class="row">
+											<div class="col-md-1">
+												<p class="btn">
+													Filtro:
+												</p>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<input type="text" class="form-control form-control-sm" placeholder="Palavra chave">
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<select class="form-control form-control-sm">
+														<option value="">Tipo</option>
+														<option value="1">Notícias</option>
+														<option value="2">Anúncios</option>
+														<option value="3">Avisos</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<select class="form-control form-control-sm">
+														<option value="">Categoria</option>
+														<option value="1">Sistemas de Informação</option>
+														<option value="2">Engenharia</option>
+														<option value="3">Esportes</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-2">
+												<button type="button" class="btn btn-primary btn-sm btn-block">Filtrar</button>
+											</div>
+										</div>
+									</form>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Anuncio</th>
+                                                    <th>Data</th>
+                                                    <th>Status</th>
+                                                    <th>Ver/Editar/Deletar</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>12345</td>
+                                                    <td>ABC Bolinhas</td>
+                                                    <td>May 15, 2015</td>
+                                                    <td>
+                                                        <label class="badge badge-warning">Aguardando</label>
+                                                    </td>
+                                                    <td>
+                                                        <a href="../single-blog.html" target="_blank">
+                                                            <i class="mdi mdi-television-guide view"></i>
+                                                        </a>
+                                                        <a href="post-form.html">
+                                                            <i class="mdi mdi-border-color edit"></i>
+                                                        </a>
+                                                        <i class="mdi mdi-delete-forever delete"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>12345</td>
+                                                    <td>ABC Bolinhas</td>
+                                                    <td>May 15, 2015</td>
+                                                    <td>
+                                                        <label class="badge badge-success">Aprovado</label>
+                                                    </td>
+                                                    <td>
+                                                        <a href="../single-blog.html" target="_blank">
+                                                            <i class="mdi mdi-television-guide view"></i>
+                                                        </a>
+                                                        <a href="post-form.html">
+                                                            <i class="mdi mdi-border-color edit"></i>
+                                                        </a>
+                                                        <i class="mdi mdi-delete-forever delete"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>12345</td>
+                                                    <td>ABC Bolinhas</td>
+                                                    <td>May 15, 2015</td>
+                                                    <td>
+                                                        <label class="badge badge-warning">Aguardando</label>
+                                                    </td>
+                                                    <td>
+                                                        <a href="../single-blog.html" target="_blank">
+                                                            <i class="mdi mdi-television-guide view"></i>
+                                                        </a>
+                                                        <a href="post-form.html">
+                                                            <i class="mdi mdi-border-color edit"></i>
+                                                        </a>
+                                                        <i class="mdi mdi-delete-forever delete"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>12345</td>
+                                                    <td>ABC Bolinhas</td>
+                                                    <td>May 15, 2015</td>
+                                                    <td>
+                                                        <label class="badge badge-success">Aprovado</label>
+                                                    </td>
+                                                    <td>
+                                                        <a href="../single-blog.html" target="_blank">
+                                                            <i class="mdi mdi-television-guide view"></i>
+                                                        </a>
+                                                        <a href="post-form.html">
+                                                            <i class="mdi mdi-border-color edit"></i>
+                                                        </a>
+                                                        <i class="mdi mdi-delete-forever delete"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>12345</td>
+                                                    <td>ABC Bolinhas</td>
+                                                    <td>May 15, 2015</td>
+                                                    <td>
+                                                        <label class="badge badge-danger">Rejeitado</label>
+                                                    </td>
+                                                    <td>
+                                                        <a href="../single-blog.html" target="_blank">
+                                                            <i class="mdi mdi-television-guide view"></i>
+                                                        </a>
+                                                        <a href="post-form.html">
+                                                            <i class="mdi mdi-border-color edit"></i>
+                                                        </a>
+                                                        <i class="mdi mdi-delete-forever delete"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>12345</td>
+                                                    <td>ABC Bolinhas</td>
+                                                    <td>May 15, 2015</td>
+                                                    <td>
+                                                        <label class="badge badge-danger">Rejeitado</label>
+                                                    </td>
+                                                    <td>
+                                                        <a href="../single-blog.html" target="_blank">
+                                                            <i class="mdi mdi-television-guide view"></i>
+                                                        </a>
+                                                        <a href="post-form.html">
+                                                            <i class="mdi mdi-border-color edit"></i>
+                                                        </a>
+                                                        <i class="mdi mdi-delete-forever delete"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>12345</td>
+                                                    <td>ABC Bolinhas</td>
+                                                    <td>May 15, 2015</td>
+                                                    <td>
+                                                        <label class="badge badge-success">Aprovado</label>
+                                                    </td>
+                                                    <td>
+                                                        <a href="../single-blog.html" target="_blank">
+                                                            <i class="mdi mdi-television-guide view"></i>
+                                                        </a>
+                                                        <a href="post-form.html">
+                                                            <i class="mdi mdi-border-color edit"></i>
+                                                        </a>
+                                                        <i class="mdi mdi-delete-forever delete"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>12345</td>
+                                                    <td>ABC Bolinhas</td>
+                                                    <td>May 15, 2015</td>
+                                                    <td>
+                                                        <label class="badge badge-success">Aprovado</label>
+                                                    </td>
+                                                    <td>
+                                                        <a href="../single-blog.html" target="_blank">
+                                                            <i class="mdi mdi-television-guide view"></i>
+                                                        </a>
+                                                        <a href="post-form.html">
+                                                            <i class="mdi mdi-border-color edit"></i>
+                                                        </a>
+                                                        <i class="mdi mdi-delete-forever delete"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>12345</td>
+                                                    <td>ABC Bolinhas</td>
+                                                    <td>May 15, 2015</td>
+                                                    <td>
+                                                        <label class="badge badge-success">Aprovado</label>
+                                                    </td>
+                                                    <td>
+                                                        <a href="../single-blog.html" target="_blank">
+                                                            <i class="mdi mdi-television-guide view"></i>
+                                                        </a>
+                                                        <a href="post-form.html">
+                                                            <i class="mdi mdi-border-color edit"></i>
+                                                        </a>
+                                                        <i class="mdi mdi-delete-forever delete"></i>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>12345</td>
+                                                    <td>ABC Bolinhas</td>
+                                                    <td>May 15, 2015</td>
+                                                    <td>
+                                                        <label class="badge badge-warning">Aguardando</label>
+                                                    </td>
+                                                    <td>
+                                                        <a href="../single-blog.html" target="_blank">
+                                                            <i class="mdi mdi-television-guide view"></i>
+                                                        </a>
+                                                        <a href="post-form.html">
+                                                            <i class="mdi mdi-border-color edit"></i>
+                                                        </a>
+                                                        <i class="mdi mdi-delete-forever delete"></i>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+
+                                        </table>
+                                        <div class="table-pagination">
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <button type="button" class="btn btn-primary">1</button>
+                                                <button type="button" class="btn btn-primary">2</button>
+                                                <button type="button" class="btn btn-primary">3</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <!-- content-wrapper ends -->
+
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+
+    <script src="./source/vendors/base/vendor.bundle.base.js"></script>
+    <script src="./source/vendors/chart.js/Chart.min.js"></script>
+    <script src="./source/js/off-canvas.js"></script>
+    <script src="./source/js/hoverable-collapse.js"></script>
+    <script src="./source/js/template.js"></script>
+    <script src="./source/js/dashboard.js"></script>
+    <script src="./source/js/jquery.dataTables.js"></script>
+    <script src="./source/js/dataTables.bootstrap4.js"></script>
+</body>
+
+</html>
