@@ -108,16 +108,22 @@
                     </table>
                     <div class="table-pagination">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-primary">1</button>
-                            <button type="button" class="btn btn-primary">2</button>
-                            <button type="button" class="btn btn-primary">3</button>
+                            {% if paginate.next_num != None or paginate.prev_num != None %}
+                            {% for page in paginate.iter_pages(left_edge=2, left_current=2, right_current=3, right_edge=2) %}
+                            {% if page == None %}
+                            <button type="button" class="btn">...</button>
+                            {% else %}
+                            <a href="{{ url_for('posts.noticias_index', page=page, name=name, role=role) }}"
+                                class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
+                                title="Página {{page}}">{{ page }}</a>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
-
 </div>
 {% endblock content%}

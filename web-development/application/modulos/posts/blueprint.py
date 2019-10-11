@@ -1,5 +1,5 @@
 import os
-from flask import current_app, Blueprint, render_template, request, url_for
+from flask import current_app, Blueprint, render_template, request, url_for, flash, session
 from modulos.posts.formularios import PostForm
 from sqlalchemy import desc, or_
 from database.Model import Configuration, db, Post, Category
@@ -38,9 +38,41 @@ def noticias_cadastrar():
     form = PostForm(request.form)
     titulo = 'Notícias'
     operacao = 'Cadastro'
-    #print(form.content.data)
     if form.validate_on_submit():
-        print('valido')
+        try:
+            # cria a categoria com os dados do formulário
+
+            form.user_id = session.get('user_id', '')
+
+            post = Post(
+                form.title.data,
+                form.description.data,
+                form.content.data,
+                'news',
+                form.status.data,
+                form.entry_date.data,
+                form.departure_date.data,
+                None,
+                form.user_id,
+                form.category_id.data
+            )
+            
+            if form.image_id.data != '':
+                post.image_id = form.image_id.data
+
+            # adiciona e commita a categoria na base de dados
+            db.session.add(post)
+            db.session.commit()
+
+            app.logger.warning(' %s cadastrou a noticia %s', session.get('user_name', ''), post.title)
+
+            # flash message e redireciona pra mesma tela para limpar o objeto request
+            flash('Notícia cadastrada com sucesso', 'success')
+            return redirect(url_for('posts.noticias_cadastrar'))
+        except:
+            # remove qualquer vestígio do usuário da sessin e flash message 
+            db.session.rollback()
+            flash('Erro ao tentar cadastrar a notícia', 'danger')
     return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form, configuration=configuration), 200
 
 @postBP.route('/noticias/editar', methods=['GET','POST'])

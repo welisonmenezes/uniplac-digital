@@ -49,9 +49,10 @@
                         {{ render_field(form.content) }}
                         <input type="file" name="imagesContent" id="contentImageSender" accept=".jpg,.jpeg,.png,.gif" />
                     </div>
-                    {{ render_hidden_field(form.image_id) }}
                     {{ render_file_field(form.image) }}
-                    {{ render_field(form.genre) }}
+                    {{ render_hidden_field(form.image_id) }}
+                    {{ render_field(form.category_id) }}
+                    {{ render_field(form.status) }}
                     <div class="row">
                         <div class="col-md-6 wrap-date">
                             {{ render_field_date(form.entry_date, 'date') }}
@@ -62,7 +63,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-2">Salvar</button>
-                    <button class="btn btn-light">Cancelar</button>
+                    <button type="button" class="btn btn-light" onClick="history.go(-1); return false;">Cancelar</button>
                 </form>
             </div>
         </div>
