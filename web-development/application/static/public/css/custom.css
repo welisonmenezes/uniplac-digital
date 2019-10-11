@@ -52,8 +52,15 @@
     color: #333;
 }
 
+.header_area .navbar .icons{
+    line-height: normal;
+    margin-top: 30px;
+}
 .header_area .navbar .icons:hover {
     color: #26507e;
+}
+.navbar_fixed.header_area .navbar .icons{
+    margin-top: 24px;
 }
 
 .header_area .navbar .nav .nav-item:hover .nav-link,
