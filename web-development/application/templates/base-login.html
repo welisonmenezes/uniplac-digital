@@ -17,10 +17,7 @@
 			opacity: 0.00;
 		}
 	</style>
-    <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/base/vendor.bundle.base.css') }}">
-    <link rel="stylesheet"
-        href="{{ url_for('static', filename='admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/custom.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='admin/images/favicon.png') }}" />
@@ -54,19 +51,11 @@
         <!-- page-body-wrapper ends -->
     </div>
     
-
     {% block footer %}
     {% endblock %}
 
     {% block scripts %}
     <script src="{{ url_for('static', filename='admin/vendors/base/vendor.bundle.base.js') }}"></script>
-    <script src="{{ url_for('static', filename='admin/vendors/chart.js/Chart.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='admin/js/off-canvas.js') }}"></script>
-    <script src="{{ url_for('static', filename='admin/js/hoverable-collapse.js') }}"></script>
-    <script src="{{ url_for('static', filename='admin/js/template.js') }}"></script>
-    <script src="{{ url_for('static', filename='admin/js/dashboard.js') }}"></script>
-    <script src="{{ url_for('static', filename='admin/js/jquery.dataTables.js') }}"></script>
-    <script src="{{ url_for('static', filename='admin/js/dataTables.bootstrap4.js') }}"></script>
     <script>
         $(window).on('load', function(){
             setTimeout(function(){
