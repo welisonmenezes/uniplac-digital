@@ -13,9 +13,6 @@
 			opacity: 0.00;
 		}
 	</style>
-    <link rel="stylesheet" href="{{ url_for('static', filename='error/vendors/iconfonts/mdi/css/materialdesignicons.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='error/vendors/iconfonts/font-awesome/css/font-awesome.min.css') }}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='error/css/icheck/all.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='error/css/shared/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='error/css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='error/css/custom.css') }}">
@@ -26,9 +23,6 @@
     {% block content %} Content here {% endblock content %}
 
     <script src="{{ url_for('static', filename='error/vendors/js/vendor.bundle.base.js') }}"></script>
-    <script src="{{ url_for('static', filename='error/vendors/js/vendor.bundle.addons.js') }}"></script>
-    <script src="{{ url_for('static', filename='error/js/shared/misc.js') }}"></script>
-    <script src="{{ url_for('static', filename='error/js/dashboard.js') }}"></script>
     <script>
         $(window).on('load', function(){
             setTimeout(function(){
