@@ -15,19 +15,19 @@
                 <a href="{{ url_for('dashboard.dash') }}" title="Dashboard">Dashboard</a>
             </li>
             {% if titulo == 'Notícias' %}
-                <li>
-                    <a href="{{ url_for('posts.noticias_index') }}" title="Notícias">Notícias</a>
-                </li>
+            <li>
+                <a href="{{ url_for('posts.noticias_index') }}" title="Notícias">Notícias</a>
+            </li>
             {% endif %}
             {% if titulo == 'Anúncios' %}
-                <li>
-                    <a href="{{ url_for('posts.anuncios_index') }}" title="Anúncios">Anúncios</a>
-                </li>
+            <li>
+                <a href="{{ url_for('posts.anuncios_index') }}" title="Anúncios">Anúncios</a>
+            </li>
             {% endif %}
             {% if titulo == 'Avisos' %}
-                <li>
-                    <a href="{{ url_for('posts.avisos_index') }}" title="Avisos">Avisos</a>
-                </li>
+            <li>
+                <a href="{{ url_for('posts.avisos_index') }}" title="Avisos">Avisos</a>
+            </li>
             {% endif %}
             <li>
                 <b>{{ operacao }} de {{ titulo }}</b>
@@ -49,8 +49,23 @@
                         {{ render_field(form.content) }}
                         <input type="file" name="imagesContent" id="contentImageSender" accept=".jpg,.jpeg,.png,.gif" />
                     </div>
-                    {{ render_file_field(form.image) }}
-                    {{ render_hidden_field(form.image_id) }}
+                    <div>
+                        {{ render_file_field(form.image, '') }}
+                        <div class="image-container">
+                            {% if form.image_id.data %}
+                            <div class="form-group">
+                                <figure class="previewImage">
+                                    <i class="mdi mdi-close-circle closePreviewImage"></i>
+                                    <img src="{{request.url_root}}api/media/{{ form.image_id.data }}"
+                                        alt="User Avatar" />
+                                </figure>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="hidden-group">
+                            {{ render_hidden_field(form.image_id) }}
+                        </div>
+                    </div>
                     {{ render_field(form.category_id) }}
                     {{ render_field(form.status) }}
                     <div class="row">
@@ -63,7 +78,8 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-2">Salvar</button>
-                    <button type="button" class="btn btn-light" onClick="history.go(-1); return false;">Cancelar</button>
+                    <button type="button" class="btn btn-light"
+                        onClick="history.go(-1); return false;">Cancelar</button>
                 </form>
             </div>
         </div>
@@ -95,8 +111,10 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/file.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/quick_insert.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/help.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/third_party/spell_checker.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/special_characters.css') }}">
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='admin/vendors/froala/css/third_party/spell_checker.css') }}">
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/special_characters.css') }}">
 {% endblock especifcstyles %}
 
 
@@ -105,42 +123,77 @@
 <script src="{{ url_for('static', filename='admin/js/datepicker.js')}}"></script>
 
 <!-- rich editor froala -->
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/froala_editor.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/align.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/char_counter.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/code_beautifier.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/code_view.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/colors.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/draggable.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/emoticons.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/entities.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/file.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/font_size.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/font_family.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/fullscreen.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/image.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/image_manager.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/line_breaker.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/inline_style.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/link.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/lists.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/paragraph_format.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/paragraph_style.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/quick_insert.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/quote.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/table.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/save.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/url.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/video.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/help.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/print.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/third_party/spell_checker.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/special_characters.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/word_paste.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/froala_editor.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/align.min.js') }}">
+</script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/char_counter.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/code_beautifier.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/code_view.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/colors.min.js') }}">
+</script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/draggable.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/emoticons.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/entities.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/file.min.js') }}">
+</script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/font_size.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/font_family.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/fullscreen.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/image.min.js') }}">
+</script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/image_manager.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/line_breaker.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/inline_style.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/link.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/lists.min.js') }}">
+</script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/paragraph_format.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/paragraph_style.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/quick_insert.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/quote.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/table.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/save.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/url.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/video.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/help.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/print.min.js') }}">
+</script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/third_party/spell_checker.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/special_characters.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/word_paste.min.js') }}"></script>
 <script>
     var contentArea = document.getElementById('content');
     if (contentArea) {
-        FroalaEditor.DefineIcon('insert', {NAME: 'plus', SVG_KEY: 'insertImage'});
+        FroalaEditor.DefineIcon('insert', {
+            NAME: 'plus',
+            SVG_KEY: 'insertImage'
+        });
         FroalaEditor.RegisterCommand('insert', {
             title: 'Insert HTML',
             focus: true,
@@ -161,12 +214,12 @@
         });
     }
 
-    $('body').on('change', '#contentImageSender', function(evt) {
+    $('body').on('change', '#contentImageSender', function (evt) {
         sendImagem(evt);
     });
 
     // metodo de envio de imagem
-    sendImagem = function(evt){
+    sendImagem = function (evt) {
         var element = evt.target;
         var file = element.files[0];
         if (file && file.name) {
@@ -177,18 +230,20 @@
                 if (accepts.indexOf('.' + extension) > -1) {
                     var reader = new FileReader();
                     reader.onloadend = () => {
-                        fetch(GLOBALS.BASE_URL+'api/image', {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ image: reader.result })
-                        })
+                        fetch(GLOBALS.BASE_URL + 'api/image', {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    image: reader.result
+                                })
+                            })
                             .then(data => data.json())
                             .then(data => {
                                 if (data && data.id) {
-                                    Editor.image.insert(GLOBALS.BASE_URL+'api/media/'+data.id, true);
+                                    Editor.image.insert(GLOBALS.BASE_URL + 'api/media/' + data.id, true);
                                 } else {
                                     showFeedbackMessage(data.message);
                                 }
@@ -209,7 +264,7 @@
         }
     };
 
-    showFeedbackMessage = function(text) {
+    showFeedbackMessage = function (text) {
         $('#modalMessageText').html(text);
         $('#modalMessages').modal('show');
     };

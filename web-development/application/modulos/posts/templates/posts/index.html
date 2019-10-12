@@ -79,10 +79,11 @@
                                     </a>
                                     {# Diferenciando pelo tipo de post #}
                                     {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('posts.noticias_editar') }}">
+                                    <a href="{{ url_for('posts.noticias_editar', id=post.id) }}"
+                                        title="Editar Notícia {{post.id}}">
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
-                                    <a href="{{ url_for('posts.noticias_deletar')}}">
+                                    <a href="{{ url_for('posts.noticias_deletar', id=post.id)}}">
                                         <i class="mdi mdi-delete-forever delete"></i>
                                     </a>
                                     {% elif(titulo == 'Anúncios'): %}

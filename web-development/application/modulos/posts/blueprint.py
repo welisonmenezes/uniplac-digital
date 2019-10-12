@@ -1,6 +1,8 @@
 import os
-from flask import current_app, Blueprint, render_template, request, url_for, flash, session
+from flask import current_app, Blueprint, render_template, request, url_for, flash, session, redirect
 from modulos.posts.formularios import PostForm
+from app import app
+from modulos.posts.validations import validatePostNewsToCreate
 from sqlalchemy import desc, or_
 from database.Model import Configuration, db, Post, Category
 import datetime
@@ -18,7 +20,7 @@ def noticias_index():
     category = '' if (request.args.get('category') == None) else request.args.get('category')
 
     # implementa o filtro se necessário
-    filter = ()
+    filter = (Post.genre == 'news', )
     if category:
         filter = filter + (Post.category_id == category,)
     if name:
@@ -40,10 +42,9 @@ def noticias_cadastrar():
     operacao = 'Cadastro'
     if form.validate_on_submit():
         try:
-            # cria a categoria com os dados do formulário
-
             form.user_id = session.get('user_id', '')
 
+            # cria o post com os dados do formulário
             post = Post(
                 form.title.data,
                 form.description.data,
@@ -75,26 +76,92 @@ def noticias_cadastrar():
             flash('Erro ao tentar cadastrar a notícia', 'danger')
     return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form, configuration=configuration), 200
 
-@postBP.route('/noticias/editar', methods=['GET','POST'])
-def noticias_editar():
+@postBP.route('/noticias/editar/<int:id>', methods=['GET','POST'])
+def noticias_editar(id):
     configuration = Configuration.query.first()
-    form = PostForm(request.form)
-    titulo = 'Notícias'
+
+    # pega o post pelo id e com o genero noticia
+    post = Post.query.filter((Post.id==id) and (Post.genre=='news')).first()
+
+    if not post:
+        flash('O post não existe', 'info')
+        return redirect(url_for('posts.noticias_index'))
+
+    titulo = 'Editar notícia'
+    
+    if request.form:
+        # formulário preenchido pelo objeto request, caso exista
+        form = PostForm(request.form)
+    else:
+        # formulário vazio
+        form = PostForm()
+
+        # preenche formulário com post recuperado pelo id
+        fillForm(form, post, 'news')
+
     operacao = 'Edição'
 
     # exemplo de entrada pra edição
     #form.entry_date.data = datetime.datetime.strptime('2000-11-11', '%Y-%m-%d')
     
     if form.validate_on_submit():
-        print('valido')
-    return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form, configuration=configuration), 200
+        try:
+            post.title = form.title.data
+            post.description = form.description.data
+            post.content = form.content.data
+            post.genre = 'news'
+            post.status = form.status.data
+            post.entry_date = form.entry_date.data
+            post.departure_date = form.departure_date.data
+            post.image_id = None
+            if (form.image_id.data != ''):
+                post.image_id = form.image_id.data
+            post.user_id = session.get('user_id', '')
+            post.category_id = form.category_id.data
 
-@postBP.route('/noticias/deletar', methods=['GET', 'POST'])
-def noticias_deletar():
+            # commita os dados na base de dados
+            db.session.commit()
+
+            app.logger.warning(' %s editou a noticia %s', session.get('user_name', ''), post.id)
+
+            # flash message e redireciona pra mesma tela para limpar o objeto request
+            flash('Notícia editada com sucesso', 'success')
+            return redirect(url_for('posts.noticias_editar', id=id))
+        except:
+            # remove qualquer vestígio do usuário da sessin e flash message
+            db.session.rollback()
+            flash('Erro ao tentar editar a notícia', 'danger')
+
+    return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form, post=post, configuration=configuration), 200
+
+@postBP.route('/noticias/deletar/<int:id>', methods=['GET', 'POST'])
+def noticias_deletar(id):
     configuration = Configuration.query.first()
+
+    # pega o post pelo id
+    post = Post.query.filter((Post.id==id)).first()
+
+    # se não existe a noticia, bye
+    if not post:
+        flash('A notícia não existe', 'info')
+        return redirect(url_for('posts.noticias_index'))
+
+    if request.method == 'POST':
+        postId = request.values.get('postId')
+        if postId:
+            try:
+                app.logger.warning(' %s deletou a notícia %s', session.get('user_name', ''), post.id)
+                db.session.delete(post)
+                db.session.commit()
+                flash('Notícia deletada com sucesso', 'success')
+                return redirect(url_for('posts.noticias_index'))
+            except:
+                db.session.rollback()
+                flash('Erro ao tentar deletar a notícia', 'danger')
+            
     titulo = 'Notícias'
-    pergunta = 'Deseja realmente excluir a notícia [0002223]'
-    return render_template('/posts/deletar.html', titulo=titulo, pergunta=pergunta, configuration=configuration), 200
+    pergunta = 'Deseja realmente excluir a notícia ' + post.title
+    return render_template('/posts/deletar.html', titulo=titulo, pergunta=pergunta, postId=id, configuration=configuration), 200
 
 
 @postBP.route('/anuncios')
@@ -167,3 +234,18 @@ def avisos_deletar():
     titulo = 'Avisos'
     pergunta = 'Deseja realmente excluir a avisos [0002223]'
     return render_template('/posts/deletar.html', titulo=titulo, pergunta=pergunta, configuration=configuration), 200
+
+# popula os campos do formuário
+def fillForm(form, post, genre):
+    form.title.data = post.title 
+    form.description.data = post.description 
+    form.content.data = post.content 
+    form.genre = genre
+    form.status.data = post.status
+    form.entry_date.data = post.entry_date
+    form.departure_date.data = post.departure_date
+    form.image_id.data = None
+    if (post.image_id != ''):
+        form.image_id.data = post.image_id 
+    form.user_id = session.get('user_id', '')
+    form.category_id.data = post.category_id 
