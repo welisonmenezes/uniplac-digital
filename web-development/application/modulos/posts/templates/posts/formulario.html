@@ -3,7 +3,7 @@
 {% from "macros/formFields.html" import render_field, render_file_field, render_hidden_field, render_field_date %}
 
 {% block title%}
-{{ operacao }} de {{ titulo }}
+{{ titulo }}
 {% endblock title%}
 
 {% block content %}
@@ -30,7 +30,7 @@
             </li>
             {% endif %}
             <li>
-                <b>{{ operacao }} de {{ titulo }}</b>
+                <b>{{ titulo }}</b>
             </li>
         </div>
     </div>
@@ -40,7 +40,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">{{ operacao }} de {{ titulo }}</h4>
+                <h4 class="card-title">{{ titulo }}</h4>
                 <form class="forms-sample" method="POST" novalidate>
                     {{ form.csrf_token }}
                     {{ render_field(form.title) }}

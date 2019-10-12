@@ -83,21 +83,26 @@
                                         title="Editar Notícia {{post.id}}">
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
-                                    <a href="{{ url_for('posts.noticias_deletar', id=post.id)}}">
+                                    <a href="{{ url_for('posts.noticias_deletar', id=post.id) }}"
+                                        title="Deletar Notícia {{post.id}}">
                                         <i class="mdi mdi-delete-forever delete"></i>
                                     </a>
                                     {% elif(titulo == 'Anúncios'): %}
-                                    <a href="{{ url_for('posts.anuncios_editar') }}">
+                                    <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
+                                        title="Editar Anúncio {{post.id}}">
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
-                                    <a href="{{ url_for('posts.anuncios_deletar')}}">
+                                    <a href="{{ url_for('posts.anuncios_deletar', id=post.id) }}"
+                                        title="Deletar Anúncio {{post.id}}">
                                         <i class="mdi mdi-delete-forever delete"></i>
                                     </a>
                                     {% elif(titulo == 'Avisos'): %}
-                                    <a href="{{ url_for('posts.avisos_editar') }}">
+                                    <a href="{{ url_for('posts.avisos_editar', id=post.id) }}"
+                                        title="Editar Aviso {{post.id}}">
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
-                                    <a href="{{ url_for('posts.avisos_deletar')}}">
+                                    <a href="{{ url_for('posts.avisos_deletar', id=post.id)}}"
+                                        title="Deletar Aviso {{post.id}}">
                                         <i class="mdi mdi-delete-forever delete"></i>
                                     </a>
                                     {% endif %}
