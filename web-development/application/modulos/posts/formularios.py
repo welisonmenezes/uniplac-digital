@@ -3,7 +3,16 @@ from wtforms import StringField, TextAreaField, PasswordField, SelectField, File
 from wtforms.validators import DataRequired, InputRequired, ValidationError
 import re
 from datetime import date
+from database.Model import Category 
 import datetime
+
+
+categories = Category.query.filter()
+
+choice = []
+
+for category in categories:
+    choice.append((str(category.id), category.name))
 
 class PostForm(FlaskForm):
     title = StringField(
@@ -43,12 +52,20 @@ class PostForm(FlaskForm):
 
     image_id = HiddenField('')
 
-    genre = SelectField(
+    category_id = SelectField(
         'Categoria',
         validators = [
             DataRequired(message="Campo obrigatório")
         ],
-         choices=[('', 'Selecione'), ('admin', 'Sistemas de Informação'), ('editor', 'Direito'), ('author', 'Administração'), ('user', 'Odontologia')]
+         choices=choice
+    )
+
+    status = SelectField(
+        'Status',
+        validators = [
+            DataRequired(message="Campo obrigatório")
+        ],
+         choices=[('pending', 'Pendente'), ('approved', 'Aprovado'), ('denied', 'Negado')]
     )
 
     entry_date = DateField(
