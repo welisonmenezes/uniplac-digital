@@ -44,9 +44,12 @@
 </div>
 {% endblock content%}
 
-
 {% block footer_script %}
 <script>
-    var validator = new VanillaValidator({});
+    var validator = new VanillaValidator({
+        messages: {
+            required: 'Campo obrigatório'        
+        }
+    });
   </script>
 {% endblock footer_script %}
