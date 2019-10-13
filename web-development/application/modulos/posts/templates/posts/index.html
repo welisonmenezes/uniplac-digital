@@ -32,7 +32,7 @@
                                 Filtro:
                             </p>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-sm" placeholder="Palavra chave" name="name">
                             </div>
@@ -44,6 +44,16 @@
                                     {% for category in categories %}
                                     <option value="{{ category.id }}">{{ category.name }}</option>
                                     {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <select class="form-control form-control-sm" name="status">
+                                    <option value="">Status</option>
+                                    <option value="approved">Aprovado</option>
+                                    <option value="pending">Pendente</option>
+                                    <option value="denied">Negado</option>
                                 </select>
                             </div>
                         </div>
@@ -132,9 +142,19 @@
                             {% if page == None %}
                             <button type="button" class="btn">...</button>
                             {% else %}
-                            <a href="{{ url_for('posts.noticias_index', page=page, name=name, role=role) }}"
-                                class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
-                                title="Página {{page}}">{{ page }}</a>
+                                {% if(titulo == 'Notícias'): %}
+                                    <a href="{{ url_for('posts.noticias_index', page=page, name=name, category=category, status=status) }}"
+                                    class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
+                                    title="Página {{page}}">{{ page }}</a>
+                                {% elif(titulo == 'Anúncios'): %}
+                                    <a href="{{ url_for('posts.anuncios_index', page=page, name=name, category=category, status=status) }}"
+                                    class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
+                                    title="Página {{page}}">{{ page }}</a>
+                                {% elif(titulo == 'Avisos'): %}
+                                    <a href="{{ url_for('posts.avisos_index', page=page, name=name, category=category, status=status) }}"
+                                    class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
+                                    title="Página {{page}}">{{ page }}</a>
+                                {% endif %}
                             {% endif %}
                             {% endfor %}
                             {% endif %}
