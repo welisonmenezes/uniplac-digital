@@ -165,7 +165,7 @@ def noticias_deletar(id):
 
 @postBP.route('/anuncios')
 def anuncios_index():
-    #TODO se usuario comum listar apenas próprios anuncios
+
     configuration = Configuration.query.first()
 
     titulo = 'Anúncios'
@@ -182,6 +182,9 @@ def anuncios_index():
     if name:
         filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
 
+    if session.get('user_role', '') == 'user':
+        filter = filter + (Post.user_id == session.get('user_id', ''), )
+
     # consulta o banco de dados retornando o paginate e os dados
     paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
     posts = paginate.items
@@ -192,12 +195,14 @@ def anuncios_index():
 
 @postBP.route('/anuncios/cadastrar', methods=['GET','POST'])
 def anuncios_cadastrar():
-    #TODO se usuario comum cadastro entrar como pendente
     configuration = Configuration.query.first()
     form = PostForm(request.form)
     titulo = 'Cadastrar Anúncios'
     operacao = 'Cadastro'
     
+    if session.get('user_role', '') == 'user':
+        form.status.validators = []
+        
     if form.validate_on_submit():
         try:
             form.user_id = session.get('user_id', '')
@@ -208,13 +213,18 @@ def anuncios_cadastrar():
                 form.description.data,
                 form.content.data,
                 'ad',
-                form.status.data,
+                '',
                 form.entry_date.data,
                 form.departure_date.data,
                 None,
                 form.user_id,
                 form.category_id.data
             )
+            
+            if session.get('user_role', '') == 'user':
+                post.status = 'pending'
+            else:
+                post.status = form.status.data
             
             if form.image_id.data != '':
                 post.image_id = form.image_id.data
@@ -232,11 +242,13 @@ def anuncios_cadastrar():
             # remove qualquer vestígio do usuário da sessin e flash message 
             db.session.rollback()
             flash('Erro ao tentar cadastrar o anúncio', 'danger')
+    else:
+        flash('Por favor, verfique se todos os campos foram preenchidos corretamente', 'danger')
     return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form, configuration=configuration), 200
 
 @postBP.route('/anuncios/editar/<int:id>', methods=['GET','POST'])
 def anuncios_editar(id):
-    #TODO se usuario comum permitir editar apenas o próprio anúncio e se ainda estiver pendente
+    
     configuration = Configuration.query.first()
 
     # pega o post pelo id e com o genero anuncio
@@ -245,6 +257,19 @@ def anuncios_editar(id):
     if not post:
         flash('O anúncio não existe', 'info')
         return redirect(url_for('posts.anuncios_index'))
+
+    # se for user nivel 4
+    if session.get('user_role', '') == 'user':
+        # se não for seu anuncio
+        if post.user_id != session.get('user_id', ''):
+            flash('Você não tem permissão para editar este anúncio', 'info')
+            return redirect(url_for('posts.anuncios_index'))
+        
+        # se anúncio não for pendente 
+        if post.status != 'pending':
+            flash('Este anúncio não pode ser mais editado', 'info')
+            return redirect(url_for('posts.anuncios_index'))
+
 
     titulo = 'Editar anúncio'
 
@@ -258,13 +283,20 @@ def anuncios_editar(id):
         # preenche formulário com post recuperado pelo id
         fillForm(form, post, 'ad')
 
+    # se usuário nível 4, remove validator
+    if session.get('user_role', '') == 'user':
+        form.status.validators = []
+
     if form.validate_on_submit():
         try:
             post.title = form.title.data
             post.description = form.description.data
             post.content = form.content.data
             post.genre = 'ad'
-            post.status = form.status.data
+            if session.get('user_role', '') == 'user':
+                post.status = 'pending'
+            else:
+                post.status = form.status.data
             post.entry_date = form.entry_date.data
             post.departure_date = form.departure_date.data
             post.image_id = None
@@ -295,6 +327,18 @@ def anuncios_deletar(id):
 
     # pega o post pelo id e pelo genero anuncio
     post = Post.query.filter(and_(Post.id==id, Post.genre=='ad')).first()
+
+    # se for user nivel 4
+    if session.get('user_role', '') == 'user':
+        # se não for seu anuncio
+        if post.user_id != session.get('user_id', ''):
+            flash('Você não tem permissão para deletar este anúncio', 'info')
+            return redirect(url_for('posts.anuncios_index'))
+        
+        # se anúncio não for pendente 
+        if post.status != 'pending':
+            flash('Este anúncio não pode ser mais deletado', 'info')
+            return redirect(url_for('posts.anuncios_index'))
 
     # se não existe a noticia, bye
     if not post:
