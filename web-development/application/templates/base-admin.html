@@ -19,6 +19,7 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/base/vendor.bundle.base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/cropper.min.css') }}">
 
     {% block especifcstyles %}{% endblock especifcstyles %}
 
@@ -76,6 +77,7 @@
     </script>
 
     <script src="{{ url_for('static', filename='admin/vendors/base/vendor.bundle.base.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/cropper.min.js') }}"></script>
 
     {% block especifcscripts %}{% endblock especifcscripts %}
 
@@ -85,6 +87,7 @@
     <script src="{{ url_for('static', filename='admin/js/template.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/vanilla-masker.min.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/custom.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/image-upload.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/dist/vanilla-validator.concat.js') }}"></script>
     <script>
         $(window).on('load', function () {
