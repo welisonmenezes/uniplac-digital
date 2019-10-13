@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var result = document.querySelector('.cropp-result'),
         img_result = document.querySelector('.cropp-img-result'),
-        options = document.querySelector('.cropp-options'),
         save = document.querySelector('.cropp-save'),
         cropp = document.querySelector('.cropp-cropp'),
         cropped = document.querySelector('.cropp-cropped'),
@@ -38,16 +37,41 @@ document.addEventListener('DOMContentLoaded', function () {
                                 result.innerHTML = '';
                                 result.appendChild(img);
                                 cropp.classList.remove('cropp-hide');
-                                cropper = new Cropper(img, {
-                                    autoCropArea: 0,
-                                    strict: false,
-                                    guides: false,
-                                    highlight: false,
-                                    dragCrop: false,
-                                    cropBoxMovable: true,
-                                    cropBoxResizable: true,
-                                    aspectRatio: 16 / 8
-                                });
+                                
+                                if (current_el.hasClass('img-post')) {
+                                    cropper = new Cropper(img, {
+                                        autoCropArea: 0,
+                                        strict: false,
+                                        guides: false,
+                                        highlight: false,
+                                        dragCrop: false,
+                                        cropBoxMovable: true,
+                                        cropBoxResizable: true,
+                                        aspectRatio: 16 / 8
+                                    });
+                                } else if (current_el.hasClass('multiple')) {
+                                    cropper = new Cropper(img, {
+                                        autoCropArea: 0,
+                                        strict: false,
+                                        guides: false,
+                                        highlight: false,
+                                        dragCrop: false,
+                                        cropBoxMovable: true,
+                                        cropBoxResizable: true,
+                                        aspectRatio: 16 / 4
+                                    });
+                                } else {
+                                    cropper = new Cropper(img, {
+                                        autoCropArea: 0,
+                                        strict: false,
+                                        guides: false,
+                                        highlight: false,
+                                        dragCrop: false,
+                                        cropBoxMovable: true,
+                                        cropBoxResizable: true,
+                                        aspectRatio: 16 / 16
+                                    });
+                                }
                             }
                         };
                         reader.readAsDataURL(e.target.files[0]);
@@ -74,28 +98,43 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // cropp on click
-    cropp.addEventListener('click', (e) => {
-        e.preventDefault();
-        imgSrc = cropper.getCroppedCanvas({
-            height: 375,
-            width: 750
-        }).toDataURL();
-        cropped.classList.remove('cropp-hide');
-        img_result.classList.remove('cropp-hide');
-        save.classList.remove('cropp-hide');
-        cropped.src = imgSrc;
-    });
+    if (cropp) {
+        cropp.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            if (current_el.hasClass('img-post')) {
+                imgSrc = cropper.getCroppedCanvas({
+                    width: 750
+                }).toDataURL();
+            } else if (current_el.hasClass('multiple')) {
+                imgSrc = cropper.getCroppedCanvas({
+                    width: 2000
+                }).toDataURL();
+            } else {
+                imgSrc = cropper.getCroppedCanvas({
+                    width: 300
+                }).toDataURL();
+            }
+
+            cropped.classList.remove('cropp-hide');
+            img_result.classList.remove('cropp-hide');
+            save.classList.remove('cropp-hide');
+            cropped.src = imgSrc;
+        });
+    }
 
     // save on click
-    save.addEventListener('click', (e) => {
-        //current_el = null;
-        cropped.classList.add('cropp-hide');
-        save.classList.add('cropp-hide');
-        img_result.classList.add('cropp-hide');
-        result.innerHTML = '';
-        cropp.classList.add('cropp-hide');
-        sendFileToServer();
-    });
+    if (save) {
+        save.addEventListener('click', (e) => {
+            //current_el = null;
+            cropped.classList.add('cropp-hide');
+            save.classList.add('cropp-hide');
+            img_result.classList.add('cropp-hide');
+            result.innerHTML = '';
+            cropp.classList.add('cropp-hide');
+            sendFileToServer();
+        });
+    }
 
     // close o preview de imagem
     $('body').on('click', '.closePreviewImage', function () {
@@ -135,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 if (data && data.id) {
                     if (el.hasClass('multiple')) {
-                        addMultipleImageHTML(element, data.id);
+                        addMultipleImageHTML(data.id);
                     } else {
                         addImageHTML(data.id);
                     }

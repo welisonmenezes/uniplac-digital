@@ -40,25 +40,44 @@
                     {{ render_field(form.role, 'required') }}
                     <div>
                         {{ render_file_field(form.image, '') }}
+
+                        <div>
+                            <div class="cropp-box-2">
+                                <div class="cropp-result"></div>
+                            </div>
+                            <div class="cropp-box-2 cropp-img-result cropp-hide">
+                                <img class="cropp-cropped" src="" alt="">
+                            </div>
+                            <div class="cropp-box">
+                                <button type="button" class="btn btn-secondary cropp-cropp cropp-hide">
+                                    Cortar Imagem
+                                </button>
+                                <button type="button" class="btn btn-success cropp-save cropp-hide">
+                                    Enviar Imagem
+                                </button>
+                            </div>
+                        </div>
+
                         <div class="image-container">
                             {% if form.image_id.data %}
-                                <div class="form-group">
-                                    <figure class="previewImage">
-                                        <i class="mdi mdi-close-circle closePreviewImage"></i>
-                                        <img src="{{request.url_root}}api/media/{{ form.image_id.data }}" alt="User Avatar" />
-                                    </figure>
-                                </div>
+                            <div class="form-group">
+                                <figure class="previewImage">
+                                    <i class="mdi mdi-close-circle closePreviewImage"></i>
+                                    <img src="{{request.url_root}}api/media/{{ form.image_id.data }}"
+                                        alt="User Avatar" />
+                                </figure>
+                            </div>
                             {% else %}
-                                {% if mode == 'editar' %}
-                                    {% if user.image_id and form.image_id.data != '' %}
-                                        <div class="form-group">
-                                            <figure class="previewImage">
-                                                <i class="mdi mdi-close-circle closePreviewImage"></i>
-                                                <img src="{{request.url_root}}api/media/{{ user.image_id }}" alt="User Avatar" />
-                                            </figure>
-                                        </div>
-                                    {% endif %}
-                                {% endif %}
+                            {% if mode == 'editar' %}
+                            {% if user.image_id and form.image_id.data != '' %}
+                            <div class="form-group">
+                                <figure class="previewImage">
+                                    <i class="mdi mdi-close-circle closePreviewImage"></i>
+                                    <img src="{{request.url_root}}api/media/{{ user.image_id }}" alt="User Avatar" />
+                                </figure>
+                            </div>
+                            {% endif %}
+                            {% endif %}
                             {% endif %}
                         </div>
                         <div class="hidden-group">
@@ -66,7 +85,8 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary mr-2">Salvar</button>
-                    <button type="button" class="btn btn-light" onClick="history.go(-1); return false;">Cancelar</button>
+                    <button type="button" class="btn btn-light"
+                        onClick="history.go(-1); return false;">Cancelar</button>
                 </form>
             </div>
         </div>
@@ -80,9 +100,9 @@
         messages: {
             required: 'Campo obrigatório',
             email: 'E-mail inválido',
-            phone: 'Número de telefone inválido', 
+            phone: 'Número de telefone inválido',
             numeric: 'Apenas números'
         }
     });
-  </script>
+</script>
 {% endblock footer_script %}

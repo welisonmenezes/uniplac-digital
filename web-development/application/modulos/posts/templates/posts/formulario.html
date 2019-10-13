@@ -51,6 +51,24 @@
                     </div>
                     <div>
                         {{ render_file_field(form.image, 'img-post') }}
+
+                        <div>
+                            <div class="cropp-box-2">
+                                <div class="cropp-result"></div>
+                            </div>
+                            <div class="cropp-box-2 cropp-img-result cropp-hide">
+                                <img class="cropp-cropped" src="" alt="">
+                            </div>
+                            <div class="cropp-box">
+                                <button type="button" class="btn btn-secondary cropp-cropp cropp-hide">
+                                    Cortar Imagem
+                                </button>
+                                <button type="button" class="btn btn-success cropp-save cropp-hide">
+                                    Enviar Imagem
+                                </button>
+                            </div>
+                        </div>
+
                         <div class="image-container">
                             {% if form.image_id.data %}
                             <div class="form-group">
@@ -62,27 +80,13 @@
                             </div>
                             {% endif %}
                         </div>
-
-                        <div>
-                            <div class="cropp-box-2">
-                                <div class="cropp-result"></div>
-                            </div>
-                            <div class="cropp-box-2 cropp-img-result cropp-hide">
-                                <img class="cropp-cropped" src="" alt="">
-                            </div>
-                            <div class="cropp-box">
-                                <button type="button" class="btn btn-secondary cropp-cropp cropp-hide">Cortar Imagem</button>
-                                <button type="button" class="btn btn-success cropp-save cropp-hide">Enviar Imagem</button>
-                            </div>
-                        </div>
-
                         <div class="hidden-group">
                             {{ render_hidden_field(form.image_id) }}
                         </div>
                     </div>
                     {{ render_field(form.category_id, 'required') }}
                     {% if session.get('user_role', '') != 'user'  %}
-                        {{ render_field(form.status, 'required') }}
+                    {{ render_field(form.status, 'required') }}
                     {% endif %}
                     <div class="row">
                         <div class="col-md-6 wrap-date">
@@ -109,7 +113,7 @@
 {% block especifcstyles %}
 <!--Date picker-->
 <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/fontawesome-free-5.11.2-web/css/all.min.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='admin/css/tempusdominus-bootstrap-4.css') }}"> 
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/css/tempusdominus-bootstrap-4.css') }}">
 
 
 <!-- rich editor froala -->
@@ -250,15 +254,15 @@
                     var reader = new FileReader();
                     reader.onloadend = () => {
                         fetch(GLOBALS.BASE_URL + 'api/image', {
-                                method: 'POST',
-                                headers: {
-                                    'Accept': 'application/json',
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    image: reader.result
-                                })
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                image: reader.result
                             })
+                        })
                             .then(data => data.json())
                             .then(data => {
                                 if (data && data.id) {
@@ -300,5 +304,5 @@
             date: 'xxdate'
         }
     });
-  </script>
+</script>
 {% endblock footer_script %}

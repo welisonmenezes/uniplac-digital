@@ -36,19 +36,37 @@
                     <div class="forms-sample">
                         {{ render_hidden_field(form.new_images) }}
                         {{ render_file_field(form.image, 'multiple') }}
+
+                        <div>
+                            <div class="cropp-box-2">
+                                <div class="cropp-result"></div>
+                            </div>
+                            <div class="cropp-box-2 cropp-img-result cropp-hide">
+                                <img class="cropp-cropped" src="" alt="">
+                            </div>
+                            <div class="cropp-box">
+                                <button type="button" class="btn btn-secondary cropp-cropp cropp-hide">
+                                    Cortar Imagem
+                                </button>
+                                <button type="button" class="btn btn-success cropp-save cropp-hide">
+                                    Enviar Imagem
+                                </button>
+                            </div>
+                        </div>
+
                         <div class="errorContainer"></div>
                     </div>
                     <ul class="ul-fig-banner">
                         {% if images != None %}
-                            {% for image in images %}
-                                <li>
-                                    <figure class="fig-banner">
-                                        <i class="mdi mdi-close-circle closePreviewImageMulti"
-                                            data-image-id="{{ image.id }}"></i>
-                                        <img src="{{request.url_root}}api/media/{{ image.id}}" alt="Banner" />
-                                    </figure>
-                                </li>
-                            {% endfor %}
+                        {% for image in images %}
+                        <li>
+                            <figure class="fig-banner">
+                                <i class="mdi mdi-close-circle closePreviewImageMulti"
+                                    data-image-id="{{ image.id }}"></i>
+                                <img src="{{request.url_root}}api/media/{{ image.id}}" alt="Banner" />
+                            </figure>
+                        </li>
+                        {% endfor %}
                         {% endif %}
                     </ul>
                 </div>
@@ -75,8 +93,8 @@
         messages: {
             required: 'Campo obrigatório',
             email: 'E-mail inválido',
-            phone: 'Número de telefone inválido'  
+            phone: 'Número de telefone inválido'
         }
     });
-  </script>
+</script>
 {% endblock footer_script %}
