@@ -50,7 +50,7 @@
                         <input type="file" name="imagesContent" id="contentImageSender" accept=".jpg,.jpeg,.png,.gif" />
                     </div>
                     <div>
-                        {{ render_file_field(form.image, '') }}
+                        {{ render_file_field(form.image, 'img-post') }}
                         <div class="image-container">
                             {% if form.image_id.data %}
                             <div class="form-group">

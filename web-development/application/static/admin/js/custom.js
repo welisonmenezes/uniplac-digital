@@ -83,6 +83,16 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
                         };
                         img.src = window.URL.createObjectURL(file);
+                    } else if(el.hasClass('img-post')) {
+                        img = new Image();
+                        img.onload = function () {
+                            if (this.width != 750 || this.height != 375) {
+                                addImageHTML(element, null, 'A imagem de destaque do post deve ter 750 x 375 pixels');
+                            } else {
+                                sendFileToServer(element);
+                            }
+                        };
+                        img.src = window.URL.createObjectURL(file);
                     } else {
                         sendFileToServer(element);
                     }
