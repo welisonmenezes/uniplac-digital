@@ -18,14 +18,15 @@ h2 {
     position: relative;
 }
 
-.slick-slide{
+.slick-slide {
     outline: none !important;
 }
-.slick-slide a{
+
+.slick-slide a {
     color: #3a414e;
 }
 
-.wrapper .slideshow .slick-slide > div{
+.wrapper .slideshow .slick-slide>div {
     height: 60vh;
     background-position: center;
     background-size: cover;
@@ -56,11 +57,26 @@ h2 {
     margin-bottom: 50px;
 }
 
-.carouse .carousel div .card{
+.carouse .carousel div .card {
     margin: 0 10px;
     border: none;
 }
-.carouse .carousel div .card h3{
+
+.carouse .carousel div .card h3 {
     margin-top: 20px;
     font-size: 18px;
+}
+
+.carouse .carousel div .card a .no-image {
+    width: 100%;
+    height: 179px;
+    background-color: gray;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carouse .carousel div .card a .no-image p {
+    font-size: 16px;
 }
