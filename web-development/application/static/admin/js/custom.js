@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var inpDate = document.querySelectorAll('.mask-date');
     if (inpDate) {
         inpDate.forEach(function(el) {
-            VMasker(el).maskPattern('99-99-9999');
+            VMasker(el).maskPattern('99-99-9999 99:99:99');
         });
     }
 
@@ -229,36 +229,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-$('.wrap-date').each(function() {
-    var t = $(this);
-    var date = t.find('.date');
-    var btn = t.find('.show-datepicker');
-    date.datepicker({
-        'trigger':btn,
-        format: 'dd-mm-yyyy',
-        startDate: 'getDate'     
-    })
-    date.focus(function() {
-        btn.click();
+
+$(function () {
+    $('input.date, .input-group.date').datetimepicker({
+        format: 'DD-MM-YYYY HH:mm:ss'
     });
-})
-//Meu Jeito
-// $('.date').datepicker({ 
-//     'trigger':$('.show-datepicker')
-//  });
-
-// $('.date').focus(function() {
-//     $('.show-datepicker').click();
-// });
-
-//jeito certo
-// $('.date').datepicker({ 
-//  });
-// $('.show-datepicker').on('click', function(evt){
-//     evt.stopPropagation();
-//     $('.date').datepicker('show');
-// })
-
-
+});
 
   

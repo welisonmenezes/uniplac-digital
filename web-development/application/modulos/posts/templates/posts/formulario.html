@@ -94,7 +94,9 @@
 
 {% block especifcstyles %}
 <!--Date picker-->
-<link rel="stylesheet" href="{{ url_for('static', filename='admin/css/datepicker.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/css/fontawesome-free-5.11.2-web/css/all.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/css/tempusdominus-bootstrap-4.css') }}"> 
+
 
 <!-- rich editor froala -->
 <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/froala_editor.css') }}">
@@ -122,7 +124,8 @@
 
 {% block especifcscripts %}
 <!--Date picker-->
-<script src="{{ url_for('static', filename='admin/js/datepicker.js')}}"></script>
+<script src="{{ url_for('static', filename='admin/js/moment.min.js')}}"></script>
+<script src="{{ url_for('static', filename='admin/js/tempusdominus-bootstrap-4.js')}}"></script>
 
 <!-- rich editor froala -->
 <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/froala_editor.min.js') }}">
