@@ -454,7 +454,6 @@ def avisos_editar(id):
     if request.form:
         # formulário preenchido pelo objeto request, caso exista
         form = PostForm(request.form)
-        #print(request.form)
     else:
         # formulário vazio
         form = PostForm()
@@ -524,7 +523,6 @@ def avisos_deletar(id):
 
 # popula os campos do formuário
 def fillForm(form, post, genre):
-    print(post.entry_date)
     form.title.data = post.title 
     form.description.data = post.description 
     form.content.data = post.content 
