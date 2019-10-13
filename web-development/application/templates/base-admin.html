@@ -74,72 +74,6 @@
             'BASE_URL': '{{request.url_root}}'
         };
     </script>
-<<<<<<< HEAD
-    <script src="{{ url_for('static', filename='admin/vendors/base/vendor.bundle.base.js') }}"></script>
-
-    <!-- rich editor froala -->
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/froala_editor.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/align.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/char_counter.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/code_beautifier.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/code_view.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/colors.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/draggable.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/emoticons.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/entities.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/file.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/font_size.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/font_family.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/fullscreen.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/image.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/image_manager.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/line_breaker.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/inline_style.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/link.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/lists.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/paragraph_format.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/paragraph_style.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/quick_insert.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/quote.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/table.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/save.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/url.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/video.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/help.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/print.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/third_party/spell_checker.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/special_characters.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/word_paste.min.js') }}"></script>
-    
-    <script>
-        var contentArea = document.getElementById('content');
-        if (contentArea) {
-            FroalaEditor.DefineIcon('insert', {NAME: 'plus', SVG_KEY: 'insertImage'});
-            FroalaEditor.RegisterCommand('insert', {
-                title: 'Insert HTML',
-                focus: true,
-                undo: true,
-                refreshAfterCallback: true,
-                callback: function () {
-                    $('#contentImageSender').click();
-                }
-            });
-            var Editor = new FroalaEditor('#content', {
-                toolbarButtons: [
-                    ['bold', 'italic', 'underline', 'textColor'],
-                    ['alignLeft', 'alignCenter', 'alignRight', 'alignJustify'],
-                    ['formatUL', 'formatOL', 'paragraphFormat', 'insertTable'],
-                    ['insertLink', 'insert', 'insertVideo', 'emoticons']
-                ],
-                quickInsertTags: []
-            });
-        }
-
-        $('body').on('change', '#contentImageSender', function(evt) {
-            sendImagem(evt);
-        });
-=======
->>>>>>> master
 
     <script src="{{ url_for('static', filename='admin/vendors/base/vendor.bundle.base.js') }}"></script>
 
@@ -150,11 +84,6 @@
     <script src="{{ url_for('static', filename='admin/js/template.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/vanilla-masker.min.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/custom.js') }}"></script>
-<<<<<<< HEAD
-    <script src="{{ url_for('static', filename='admin/dist/vanilla-validator.concat.min.js') }}"></script>
-=======
-
->>>>>>> master
     <script>
         $(window).on('load', function(){
             setTimeout(function(){
@@ -163,12 +92,6 @@
             }, 1);
         });
     </script>
-<<<<<<< HEAD
-    {% endblock %}
-    {% block footer_script %}
-    {% endblock footer_script %}
-=======
->>>>>>> master
 
 </body>
 
