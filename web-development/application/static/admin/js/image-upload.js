@@ -193,7 +193,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // adiciona o html de feedback (se sucesso, um preview, se erro, uma mensagem)
     addImageHTML = function (imageId, message) {
-        var el = current_el
+        var el = current_el;
+        el.val(null);
         var parent = el.parent().parent();
         var container = parent.find('.image-container');
         var imageInput = parent.find('input[type=hidden]');
@@ -224,6 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // adiciona html de feedback (se sucesso, um preview, se error, a mensagem)
     addMultipleImageHTML = function (imageId, message) {
         var el = current_el;
+        el.val(null);
         var parent = el.parent().parent().parent();
         var container = parent.find('.ul-fig-banner');
         var errorContainer = parent.find('.errorContainer');
