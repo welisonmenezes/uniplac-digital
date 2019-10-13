@@ -36,8 +36,7 @@
                     <div>
                         <div class="card blog__slide text-center">
                             <div class="blog__slide__img">
-                                <img class="card-img rounded-0"
-                                    src="{{request.url_root}}api/media/{{post.image_id}}"
+                                <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
                                     alt="">
                                 <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
 
@@ -72,18 +71,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="single-blog ">
-                            {% if post.image_id == 'None' %}
-                            <div class="thumb">
-                                <img class="img-fluid" src="" alt="">
-                            </div>
-                            {% else %}
+                            {% if post.image_id != None %}
                             <div class="thumb">
                                 <img class="img-fluid" src="{{request.url_root}}api/media/{{post.image_id}}" alt="">
                             </div>
                             {% endif %}
                             <div class="short_details">
                                 <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                    <h3>{{ post.title }}</h3>
+                                    <h3>{{ post.image_id }}</h3>
                                 </a>
                                 <div class="text-wrap">
                                     <p>

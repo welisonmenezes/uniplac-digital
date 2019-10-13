@@ -1,27 +1,8 @@
 <div class="blog_right_sidebar">
     <aside class="single_sidebar_widget popular_post_widget">
         <h3 class="widget_title">Avisos Recentes</h3>
-        <!-- <div class="media post_item">
-            <img src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-2.jpg') }}" alt="post">
-            <div class="media-body">
-                <h3>From life was you fish...</h3>
-                <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
-                    Ver Mais
-                    <span class="ml-2 ti-arrow-right"></span>
-                </a>
-            </div>
-        </div>
-        <div class="media post_item no-image">
-            <div class="media-body">
-                <h3>Astronomy Or Astrology</h3>
-                <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
-                    Ver Mais
-                    <span class="ml-2 ti-arrow-right"></span>
-                </a>
-            </div>
-        </div> -->
         {% for post in notices %}
-            {% if post.image_id == 'None' %}
+            {% if post.image_id == None %}
             <div class="media post_item no-image">
                 <div class="media-body">
                     <h3>{{ post.title }}</h3>
