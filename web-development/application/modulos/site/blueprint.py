@@ -1,10 +1,11 @@
 import os
 from flask import current_app, Blueprint, render_template, request, url_for, flash, redirect
+from datetime import datetime
 from flask_mail import Message
-from sqlalchemy import desc
+from sqlalchemy import desc, and_
 from app import mail
 from modulos.site.formularios import ContactForm
-from database.Model import Configuration, Category
+from database.Model import Configuration, Category, Post
 
 siteBP = Blueprint('site', __name__, url_prefix='/', template_folder='templates', static_folder='static')
 
@@ -14,7 +15,13 @@ def index():
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
     
-    return render_template('site/site.html', configuration=configuration, categories=categories, categories_highlighted=categories_highlighted), 200
+    current_datetime = datetime.now()
+
+    news = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='news', Post.status=='approved')).order_by(desc(Post.id)).limit(10)
+    ads = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='ad', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
+    notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
+
+    return render_template('site/site.html', news=news, ads=ads, notices=notices, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted), 200
 
 
 @siteBP.route('/noticias')
