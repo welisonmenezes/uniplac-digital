@@ -231,9 +231,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 $(function () {
-    $('input.date, .input-group.date').datetimepicker({
-        format: 'DD-MM-YYYY HH:mm:ss'
-    });
+    if ($('input.date, .input-group.date').length) {
+        $('input.date, .input-group.date').datetimepicker({
+            format: 'DD-MM-YYYY HH:mm:ss'
+        });
+    }
 });
 
   

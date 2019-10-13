@@ -6,7 +6,8 @@ var VVChecks = (function(){
      * @returns { Boolean } if is valid (true)
 	 */
 	VVChecks.prototype.isNotEmpty = function(value){
-		return !(value === '' || value.length < 1);
+		//console.log(value)
+		return !(value === undefined || value === '' || value.length < 1);
 	};
 
     /**
