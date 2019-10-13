@@ -32,108 +32,26 @@
                     </div>
                 </div>
                 <div class="carousel">
+                    {% for post in ads %}
                     <div>
                         <div class="card blog__slide text-center">
                             <div class="blog__slide__img">
                                 <img class="card-img rounded-0"
-                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-2.jpg') }}"
+                                    src="{{request.url_root}}api/media/{{post.image_id}}"
                                     alt="">
-                                    <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-                                        
-
+                                <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
 
                             </div>
                             <div class="blog__slide__content">
                                 <h3>
-                                    {# Diferenciando pelo tipo de post #}
-                                    {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                        {% elif(titulo == 'Anuncios'): %}
-                                        <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-                                            {% elif(titulo == 'Avisos'): %}
-                                            <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
-                                                {% endif %}
-                                                New york fashion week's continued the evolution
-                                            </a>
+                                    <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                                        {{ post.title }}
+                                    </a>
                                 </h3>
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <div class="card blog__slide text-center">
-                            <div class="blog__slide__img">
-                                <img class="card-img rounded-0"
-                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-1.jpg') }}"
-                                    alt="">
-                                    <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-
-                            </div>
-                            <div class="blog__slide__content">
-                                <h3>
-                                    {# Diferenciando pelo tipo de post #}
-                                    {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                        {% elif(titulo == 'Anuncios'): %}
-                                        <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-                                            {% elif(titulo == 'Avisos'): %}
-                                            <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
-                                                {% endif %}
-                                                New york fashion week's continued the evolution
-                                            </a>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="card blog__slide text-center">
-                            <div class="blog__slide__img">
-                                <img class="card-img rounded-0"
-                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-3.jpg') }}"
-                                    alt="">
-                                    <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-
-                            </div>
-                            <div class="blog__slide__content">
-                                <h3>
-                                    {# Diferenciando pelo tipo de post #}
-                                    {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                        {% elif(titulo == 'Anuncios'): %}
-                                        <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-                                            {% elif(titulo == 'Avisos'): %}
-                                            <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
-                                                {% endif %}
-                                                New york fashion week's continued the evolution
-                                            </a>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="card blog__slide text-center">
-                            <div class="blog__slide__img">
-                                <img class="card-img rounded-0"
-                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-5.jpg') }}"
-                                    alt="">
-                                    <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-
-                            </div>
-                            <div class="blog__slide__content">
-                                <h3>
-                                    {# Diferenciando pelo tipo de post #}
-                                    {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                        {% elif(titulo == 'Anuncios'): %}
-                                        <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-                                            {% elif(titulo == 'Avisos'): %}
-                                            <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
-                                                {% endif %}
-                                                New york fashion week's continued the evolution
-                                            </a>
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -150,56 +68,26 @@
                         <h2>Últimas Notícias</h2>
                     </div>
                 </div>
+                {% for post in news %}
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="single-blog">
+                        <div class="single-blog ">
+                            {% if post.image_id == 'None' %}
                             <div class="thumb">
-                                <img class="img-fluid"
-                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-5.jpg') }}"
-                                    alt="">
+                                <img class="img-fluid" src="" alt="">
                             </div>
+                            {% else %}
+                            <div class="thumb">
+                                <img class="img-fluid" src="{{request.url_root}}api/media/{{post.image_id}}" alt="">
+                            </div>
+                            {% endif %}
                             <div class="short_details">
                                 <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                    <h3>Ford clever bed stops your sleeping partner hogging the whole</h3>
+                                    <h3>{{ post.title }}</h3>
                                 </a>
                                 <div class="text-wrap">
                                     <p>
-                                        Let one fifth i bring fly to divided face for bearing the divide unto
-                                        seed
-                                        winged
-                                        divided light
-                                        Forth.
-                                    </p>
-                                </div>
-
-                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-
-                                    Ver Mais
-                                    <span class="ml-2 ti-arrow-right"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="single-blog">
-                            <div class="thumb">
-                                <img class="img-fluid"
-                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-4.jpg') }}"
-                                    alt="">
-                            </div>
-                            <div class="short_details">
-                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                    <h3>Ford clever bed stops your sleeping partner hogging the whole</h3>
-                                </a>
-                                <div class="text-wrap">
-                                    <p>
-                                        Let one fifth i bring fly to divided face for bearing the divide unto
-                                        seed
-                                        winged
-                                        divided light
-                                        Forth.
+                                        {{ post.description }}
                                     </p>
                                 </div>
                                 <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
@@ -210,123 +98,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="single-blog">
-                            <div class="thumb">
-                                <img class="img-fluid"
-                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-3.jpg') }}"
-                                    alt="">
-                            </div>
-                            <div class="short_details">
-                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                    <h3>Ford clever bed stops your sleeping partner hogging the whole</h3>
-                                </a>
-                                <div class="text-wrap">
-                                    <p>
-                                        Let one fifth i bring fly to divided face for bearing the divide unto
-                                        seed
-                                        winged
-                                        divided light
-                                        Forth.
-                                    </p>
-                                </div>
-                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                    Ver Mais
-                                    <span class="ml-2 ti-arrow-right"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="single-blog">
-                            <div class="thumb">
-                                <img class="img-fluid"
-                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-2.jpg') }}"
-                                    alt="">
-                            </div>
-                            <div class="short_details">
-                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                    <h3>Ford clever bed stops your sleeping partner hogging the whole</h3>
-                                </a>
-                                <div class="text-wrap">
-                                    <p>
-                                        Let one fifth i bring fly to divided face for bearing the divide unto
-                                        seed
-                                        winged
-                                        divided light
-                                        Forth.
-                                    </p>
-                                </div>
-                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                    Ver Mais
-                                    <span class="ml-2 ti-arrow-right"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="single-blog">
-                            <div class="thumb">
-                                <img class="img-fluid"
-                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-1.jpg') }}"
-                                    alt="">
-                            </div>
-                            <div class="short_details">
-                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                    <h3>Ford clever bed stops your sleeping partner hogging the whole</h3>
-                                </a>
-                                <div class="text-wrap">
-                                    <p>
-                                        Let one fifth i bring fly to divided face for bearing the divide unto
-                                        seed
-                                        winged
-                                        divided light
-                                        Forth.
-                                    </p>
-                                </div>
-                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                    Ver Mais
-                                    <span class="ml-2 ti-arrow-right"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="single-blog">
-                            <div class="thumb">
-                                <img class="img-fluid"
-                                    src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-3.jpg') }}"
-                                    alt="">
-                            </div>
-                            <div class="short_details">
-                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                    <h3>Ford clever bed stops your sleeping partner hogging the whole</h3>
-                                </a>
-                                <div class="text-wrap">
-                                    <p>
-                                        Let one fifth i bring fly to divided face for bearing the divide unto
-                                        seed
-                                        winged
-                                        divided light
-                                        Forth.
-                                    </p>
-                                </div>
-                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                    Ver Mais
-                                    <span class="ml-2 ti-arrow-right"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                {% endfor %}
                 <div class="row">
                     <div class="col-md-12">
                         <a href="{{ url_for('site.noticias') }}" class="btn btn-info btn-block">Ver Todas a Notícias</a>
