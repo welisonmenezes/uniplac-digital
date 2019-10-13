@@ -10,12 +10,12 @@
     <title>{% block title %}{% endblock title %} - {{ configuration.name }}</title>
     {% block pagestyles %}
     <style type="text/css">
-		body{
-			-moz-opacity: 0.00;
-			-khtml-opacity: 0.00;
-			opacity: 0.00;
-		}
-	</style>
+        body {
+            -moz-opacity: 0.00;
+            -khtml-opacity: 0.00;
+            opacity: 0.00;
+        }
+    </style>
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/bootstrap.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/themify-icons.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='public/vendors/nice-select/css/nice-select.css') }}" />
@@ -45,19 +45,18 @@
     <script src="{{ url_for('static', filename='public/js/theme.js') }}?"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='public/js/slick.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='public/js/script.js') }}"></script>
-<<<<<<< HEAD
-    
-=======
+    <script src="{{ url_for('static', filename='public/dist/vanilla-validator.concat.min.js') }}"></script>
     <script>
-        $(window).on('load', function(){
-            setTimeout(function(){
+        $(window).on('load', function () {
+            setTimeout(function () {
                 $("body").fadeTo(300, 1);
                 $(window).resize();
             }, 1);
         });
     </script>
->>>>>>> master
     {% endblock %}
+    {% block footer_script %}
+    {% endblock footer_script %}
 </body>
 
 </html>

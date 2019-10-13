@@ -16,7 +16,7 @@
                         {{ form.csrf_token }}
                         {{ render_field(form.name, 'required') }}
                         {{ render_field(form.description, 'required') }}
-                        {{ render_field(form.phone, 'mask-phone phone required numeric') }}
+                        {{ render_field(form.phone, 'mask-phone phone required') }}
                         {{ render_field(form.city, 'required') }}
                         {{ render_field(form.email, 'email required') }}
                         {{ render_field(form.address, 'required') }}
@@ -69,9 +69,14 @@
 </form>
 {% endblock content%}
 
-
 {% block footer_script %}
 <script>
-    var validator = new VanillaValidator({});
+    var validator = new VanillaValidator({
+        messages: {
+            required: 'Campo obrigatório',
+            emai: 'E-mail inválido',
+            phone: 'Número de telefone inválido'  
+        }
+    });
   </script>
 {% endblock footer_script %}
