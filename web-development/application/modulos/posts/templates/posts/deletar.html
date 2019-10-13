@@ -40,25 +40,22 @@
         <hr>
         {# Diferenciando pelo tipo de post #}
         {% if(titulo == 'Notícias'): %}
-        <form action="{{ url_for('posts.noticias_deletar') }}" method="POST">
+        <form action="{{ url_for('posts.noticias_deletar', id=postId) }}" method="POST">
             <button type="submit" class="btn btn-danger">Excluir</button>
-            <a href="{{ url_for('posts.noticias_index') }}">
-                <button type="button" class="btn btn-secondary">Cancelar</button>
-            </a>
+            <input type="hidden" name="postId" value="{{ postId }}">
+            <a href="{{ url_for('posts.noticias_index') }}" class="btn btn-secondary" title="Cancelar">Cancelar</a>
         </form>
         {% elif(titulo == 'Anúncios'): %}
-        <form action="{{ url_for('posts.anuncios_deletar') }}" method="POST">
+        <form action="{{ url_for('posts.anuncios_deletar', id=postId) }}" method="POST">
             <button type="submit" class="btn btn-danger">Excluir</button>
-            <a href="{{ url_for('posts.anuncios_index') }}">
-                <button type="button" class="btn btn-secondary">Cancelar</button>
-            </a>
+            <input type="hidden" name="postId" value="{{ postId }}">
+            <a href="{{ url_for('posts.anuncios_index') }}" class="btn btn-secondary" title="Cancelar">Cancelar</a>
         </form>
         {% elif(titulo == 'Avisos'): %}
-        <form action="{{ url_for('posts.avisos_deletar') }}" method="POST">
+        <form action="{{ url_for('posts.avisos_deletar', id=postId) }}" method="POST">
             <button type="submit" class="btn btn-danger">Excluir</button>
-            <a href="{{ url_for('posts.avisos_index') }}">
-                <button type="button" class="btn btn-secondary">Cancelar</button>
-            </a>
+            <input type="hidden" name="postId" value="{{ postId }}">
+            <a href="{{ url_for('posts.avisos_index') }}" class="btn btn-secondary" title="Cancelar">Cancelar</a>
         </form>
         {% endif %}
     </div>

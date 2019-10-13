@@ -3,7 +3,7 @@
 {% from "macros/formFields.html" import render_field, render_file_field, render_hidden_field, render_field_date %}
 
 {% block title%}
-{{ operacao }} de {{ titulo }}
+{{ titulo }}
 {% endblock title%}
 
 {% block content %}
@@ -15,22 +15,22 @@
                 <a href="{{ url_for('dashboard.dash') }}" title="Dashboard">Dashboard</a>
             </li>
             {% if titulo == 'Notícias' %}
-                <li>
-                    <a href="{{ url_for('posts.noticias_index') }}" title="Notícias">Notícias</a>
-                </li>
+            <li>
+                <a href="{{ url_for('posts.noticias_index') }}" title="Notícias">Notícias</a>
+            </li>
             {% endif %}
             {% if titulo == 'Anúncios' %}
-                <li>
-                    <a href="{{ url_for('posts.anuncios_index') }}" title="Anúncios">Anúncios</a>
-                </li>
+            <li>
+                <a href="{{ url_for('posts.anuncios_index') }}" title="Anúncios">Anúncios</a>
+            </li>
             {% endif %}
             {% if titulo == 'Avisos' %}
-                <li>
-                    <a href="{{ url_for('posts.avisos_index') }}" title="Avisos">Avisos</a>
-                </li>
+            <li>
+                <a href="{{ url_for('posts.avisos_index') }}" title="Avisos">Avisos</a>
+            </li>
             {% endif %}
             <li>
-                <b>{{ operacao }} de {{ titulo }}</b>
+                <b>{{ titulo }}</b>
             </li>
         </div>
     </div>
@@ -40,7 +40,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">{{ operacao }} de {{ titulo }}</h4>
+                <h4 class="card-title">{{ titulo }}</h4>
                 <form class="forms-sample" method="POST" novalidate>
                     {{ form.csrf_token }}
                     {{ render_field(form.title) }}
@@ -49,9 +49,25 @@
                         {{ render_field(form.content) }}
                         <input type="file" name="imagesContent" id="contentImageSender" accept=".jpg,.jpeg,.png,.gif" />
                     </div>
-                    {{ render_hidden_field(form.image_id) }}
-                    {{ render_file_field(form.image) }}
-                    {{ render_field(form.genre) }}
+                    <div>
+                        {{ render_file_field(form.image, '') }}
+                        <div class="image-container">
+                            {% if form.image_id.data %}
+                            <div class="form-group">
+                                <figure class="previewImage">
+                                    <i class="mdi mdi-close-circle closePreviewImage"></i>
+                                    <img src="{{request.url_root}}api/media/{{ form.image_id.data }}"
+                                        alt="User Avatar" />
+                                </figure>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="hidden-group">
+                            {{ render_hidden_field(form.image_id) }}
+                        </div>
+                    </div>
+                    {{ render_field(form.category_id) }}
+                    {{ render_field(form.status) }}
                     <div class="row">
                         <div class="col-md-6 wrap-date">
                             {{ render_field_date(form.entry_date, 'date') }}
@@ -62,10 +78,195 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-2">Salvar</button>
-                    <button class="btn btn-light">Cancelar</button>
+                    <button type="button" class="btn btn-light"
+                        onClick="history.go(-1); return false;">Cancelar</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 {% endblock content%}
+
+
+
+
+{% block especifcstyles %}
+<!--Date picker-->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/css/datepicker.css') }}">
+
+<!-- rich editor froala -->
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/froala_editor.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/froala_style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/code_view.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/draggable.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/colors.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/emoticons.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/image_manager.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/image.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/line_breaker.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/table.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/char_counter.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/video.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/fullscreen.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/file.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/quick_insert.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/help.css') }}">
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='admin/vendors/froala/css/third_party/spell_checker.css') }}">
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/special_characters.css') }}">
+{% endblock especifcstyles %}
+
+
+{% block especifcscripts %}
+<!--Date picker-->
+<script src="{{ url_for('static', filename='admin/js/datepicker.js')}}"></script>
+
+<!-- rich editor froala -->
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/froala_editor.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/align.min.js') }}">
+</script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/char_counter.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/code_beautifier.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/code_view.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/colors.min.js') }}">
+</script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/draggable.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/emoticons.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/entities.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/file.min.js') }}">
+</script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/font_size.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/font_family.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/fullscreen.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/image.min.js') }}">
+</script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/image_manager.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/line_breaker.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/inline_style.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/link.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/lists.min.js') }}">
+</script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/paragraph_format.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/paragraph_style.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/quick_insert.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/quote.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/table.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/save.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/url.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/video.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/help.min.js') }}">
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/print.min.js') }}">
+</script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/third_party/spell_checker.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/special_characters.min.js') }}"></script>
+<script type="text/javascript"
+    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/word_paste.min.js') }}"></script>
+<script>
+    var contentArea = document.getElementById('content');
+    if (contentArea) {
+        FroalaEditor.DefineIcon('insert', {
+            NAME: 'plus',
+            SVG_KEY: 'insertImage'
+        });
+        FroalaEditor.RegisterCommand('insert', {
+            title: 'Insert HTML',
+            focus: true,
+            undo: true,
+            refreshAfterCallback: true,
+            callback: function () {
+                $('#contentImageSender').click();
+            }
+        });
+        var Editor = new FroalaEditor('#content', {
+            toolbarButtons: [
+                ['bold', 'italic', 'underline', 'textColor'],
+                ['alignLeft', 'alignCenter', 'alignRight', 'alignJustify'],
+                ['formatUL', 'formatOL', 'paragraphFormat', 'insertTable'],
+                ['insertLink', 'insert', 'insertVideo', 'emoticons']
+            ],
+            quickInsertTags: []
+        });
+    }
+
+    $('body').on('change', '#contentImageSender', function (evt) {
+        sendImagem(evt);
+    });
+
+    // metodo de envio de imagem
+    sendImagem = function (evt) {
+        var element = evt.target;
+        var file = element.files[0];
+        if (file && file.name) {
+            var filename = file.name;
+            var extension = filename.slice((filename.lastIndexOf('.') - 1 >>> 0) + 2).toLowerCase();
+            var accepts = element.getAttribute('accept').split(',');
+            if (file.size <= 5017969) {
+                if (accepts.indexOf('.' + extension) > -1) {
+                    var reader = new FileReader();
+                    reader.onloadend = () => {
+                        fetch(GLOBALS.BASE_URL + 'api/image', {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    image: reader.result
+                                })
+                            })
+                            .then(data => data.json())
+                            .then(data => {
+                                if (data && data.id) {
+                                    Editor.image.insert(GLOBALS.BASE_URL + 'api/media/' + data.id, true);
+                                } else {
+                                    showFeedbackMessage(data.message);
+                                }
+                            }, error => {
+                                showFeedbackMessage(error);
+                                element.value = null;
+                            });
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    element.value = null;
+                    showFeedbackMessage('Tipo de arquivo inválido. Apenas imagens é permitido');
+                }
+            } else {
+                element.value = null;
+                showFeedbackMessage('A imagem não pode ser maior que 5mb');
+            }
+        }
+    };
+
+    showFeedbackMessage = function (text) {
+        $('#modalMessageText').html(text);
+        $('#modalMessages').modal('show');
+    };
+</script>
+{% endblock especifcscripts %}

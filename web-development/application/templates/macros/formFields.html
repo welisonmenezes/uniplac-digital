@@ -45,7 +45,7 @@
     {{ field.label }}
     {% if field.errors %}
     <div class="input-group">
-        {{ field(class="form-control is-invalid "+cssClass) }}
+        {{ field(class="form-control is-invalid mask-date "+cssClass) }}
         <span class="input-group-append">
             <button type="button" class="btn btn-outline-secondary show-datepicker">
                 <i class="mdi mdi-calendar"></i>
@@ -57,7 +57,7 @@
     {% endfor %}
     {% else %}
     <div class="input-group">
-        {{ field(class="form-control "+cssClass) }}
+        {{ field(class="form-control mask-date "+cssClass) }}
         <span class="input-group-append">
             <button type="button" class="btn btn-outline-secondary show-datepicker">
                 <i class="mdi mdi-calendar"></i>

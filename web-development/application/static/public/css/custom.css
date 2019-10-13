@@ -40,12 +40,27 @@
     padding: 70px 0px;
 }
 /*Cores*/
-.active {
+/* .active {
     color: #26507e;
+} */
+
+.nav-item a{
+    padding: 0 15px !important;
+}
+.nav-item.active a{
+    background: #f6f6f6;
+    color: #333;
 }
 
+.header_area .navbar .icons{
+    line-height: normal;
+    margin-top: 30px;
+}
 .header_area .navbar .icons:hover {
     color: #26507e;
+}
+.navbar_fixed.header_area .navbar .icons{
+    margin-top: 24px;
 }
 
 .header_area .navbar .nav .nav-item:hover .nav-link,
@@ -56,6 +71,10 @@
 .header_area .navbar .nav .nav-item.submenu ul .nav-item:hover .nav-link {
     background: #26507e;
     color: #fff;
+}
+
+.header_area .navbar .nav .nav-item{
+    margin-right: 25px;
 }
 
 .top_menu .right_side li:hover a {
