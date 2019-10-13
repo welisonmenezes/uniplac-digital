@@ -10607,6 +10607,14 @@ textarea.form-control {
   color: #dc3545;
 }
 
+.msg-error{
+
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
 .invalid-tooltip {
   position: absolute;
   top: 100%;
@@ -18202,6 +18210,7 @@ h5,
 p,
 span {
   text-shadow: none;
+  
 }
 
 [type=button]:focus,
