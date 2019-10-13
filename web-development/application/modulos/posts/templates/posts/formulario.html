@@ -67,7 +67,9 @@
                         </div>
                     </div>
                     {{ render_field(form.category_id) }}
-                    {{ render_field(form.status) }}
+                    {% if session.get('user_role', '') != 'user'  %}
+                        {{ render_field(form.status) }}
+                    {% endif %}
                     <div class="row">
                         <div class="col-md-6 wrap-date">
                             {{ render_field_date(form.entry_date, 'date') }}
