@@ -45,9 +45,9 @@
     {{ field.label }}
     {% if field.errors %}
     <div class="input-group">
-        {{ field(class="form-control is-invalid mask-date "+cssClass) }}
+        {{ field(class="form-control is-invalid mask-date "+cssClass, data_toggle="datetimepicker", data_target="#"+field.name) }}
         <span class="input-group-append">
-            <button type="button" class="btn btn-outline-secondary show-datepicker">
+            <button type="button" class="btn btn-outline-secondary" data-toggle="datetimepicker" data-target="#{{ field.name }}">
                 <i class="mdi mdi-calendar"></i>
             </button>
         </span>
@@ -56,10 +56,10 @@
     <span class="invalid-feedback">{{ error }}</span>
     {% endfor %}
     {% else %}
-    <div class="input-group">
-        {{ field(class="form-control mask-date "+cssClass) }}
+    <div class="input-group date">
+        {{ field(class="form-control mask-date "+cssClass, data_toggle="datetimepicker", data_target="#"+field.name) }}
         <span class="input-group-append">
-            <button type="button" class="btn btn-outline-secondary show-datepicker">
+            <button type="button" class="btn btn-outline-secondary" data-toggle="datetimepicker" data-target="#{{ field.name }}">
                 <i class="mdi mdi-calendar"></i>
             </button>
         </span>

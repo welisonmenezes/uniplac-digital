@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, PasswordField, SelectField, FileField, HiddenField, DateField
+from wtforms import StringField, TextAreaField, PasswordField, SelectField, FileField, HiddenField, DateField, DateTimeField
 from wtforms.validators import DataRequired, InputRequired, ValidationError
 import re
 from datetime import date
@@ -8,11 +8,13 @@ import datetime
 
 
 categories = Category.query.filter()
-
 choice = []
-
 for category in categories:
     choice.append((str(category.id), category.name))
+
+class NonValidatingSelectField(SelectField):
+    def pre_validate(self, form):
+        pass
 
 class PostForm(FlaskForm):
     title = StringField(
@@ -60,15 +62,15 @@ class PostForm(FlaskForm):
          choices=choice
     )
 
-    status = SelectField(
+    status = NonValidatingSelectField(
         'Status',
         validators = [
             DataRequired(message="Campo obrigatório")
         ],
-         choices=[('pending', 'Pendente'), ('approved', 'Aprovado'), ('denied', 'Negado')]
+        choices=[('approved', 'Aprovado'), ('pending', 'Pendente'), ('denied', 'Negado')]
     )
 
-    entry_date = DateField(
+    entry_date = DateTimeField(
         'Data de Entrada',
         validators = [
             InputRequired(message="Campo obrigatório")
@@ -76,10 +78,10 @@ class PostForm(FlaskForm):
         render_kw = {
             'placeholder':'Informe a data'
         },
-        format='%d-%m-%Y'
+        format='%d-%m-%Y %H:%M:%S'
     )
 
-    departure_date = DateField(
+    departure_date = DateTimeField(
         'Data de Saída',
         validators = [
             InputRequired(message="Campo obrigatório")
@@ -87,7 +89,7 @@ class PostForm(FlaskForm):
         render_kw = {
             'placeholder':'Informe a data'
         },
-        format='%d-%m-%Y'
+        format='%d-%m-%Y %H:%M:%S'
     )
 
     def validate_entry_date(self, field):
@@ -107,7 +109,8 @@ class PostForm(FlaskForm):
     def validateDate(self, data_date):
         try:
             str_date = str(data_date)
-            year,month,day = str_date.split('-')
+            real_date = str_date.split(' ')
+            year,month,day = real_date[0].split('-')
             month_validity = self.monthCheck(int(month)) 
             day_validity = self.dayCheck(int(month),int(day)) 
             year_validity = self.yearCheck(year)
@@ -126,10 +129,12 @@ class PostForm(FlaskForm):
             t_day,t_month,t_year = today.split('-')
             t_date = datetime.datetime(int(t_year), int(t_month), int(t_day))
             entry = str(entry_date)
-            e_year,e_month,e_day = entry.split('-')
+            real_entry = entry.split(' ')
+            e_year,e_month,e_day = real_entry[0].split('-')
             e_date = datetime.datetime(int(e_year), int(e_month), int(e_day)) 
             departure = str(departure_date)
-            d_year,d_month,d_day = departure.split('-')
+            real_departure = departure.split(' ')
+            d_year,d_month,d_day = real_departure[0].split('-')
             d_date = datetime.datetime(int(d_year), int(d_month), int(d_day))
             if e_date >= t_date:
                 if e_date < d_date:

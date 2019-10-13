@@ -17,6 +17,7 @@ def noticias_index():
     page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
+    status = '' if (request.args.get('status') == None) else request.args.get('status')
 
     # implementa o filtro se necessário
     filter = (Post.genre == 'news', )
@@ -24,6 +25,8 @@ def noticias_index():
         filter = filter + (Post.category_id == category,)
     if name:
         filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
+    if status:
+        filter = filter + (Post.status == status,)
 
     # consulta o banco de dados retornando o paginate e os dados
     paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
@@ -31,7 +34,7 @@ def noticias_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, titulo=titulo, configuration=configuration), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, titulo=titulo, configuration=configuration), 200
 
 @postBP.route('/noticias/cadastrar', methods=['GET','POST'])
 def noticias_cadastrar():
@@ -165,7 +168,7 @@ def noticias_deletar(id):
 
 @postBP.route('/anuncios')
 def anuncios_index():
-    #TODO se usuario comum listar apenas próprios anuncios
+
     configuration = Configuration.query.first()
 
     titulo = 'Anúncios'
@@ -174,6 +177,7 @@ def anuncios_index():
     page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
+    status = '' if (request.args.get('status') == None) else request.args.get('status')
 
     # implementa o filtro se necessário
     filter = (Post.genre == 'ad', )
@@ -181,6 +185,11 @@ def anuncios_index():
         filter = filter + (Post.category_id == category,)
     if name:
         filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
+    if status:
+        filter = filter + (Post.status == status,)
+
+    if session.get('user_role', '') == 'user':
+        filter = filter + (Post.user_id == session.get('user_id', ''), )
 
     # consulta o banco de dados retornando o paginate e os dados
     paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
@@ -188,16 +197,18 @@ def anuncios_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, titulo=titulo, configuration=configuration), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, titulo=titulo, configuration=configuration), 200
 
 @postBP.route('/anuncios/cadastrar', methods=['GET','POST'])
 def anuncios_cadastrar():
-    #TODO se usuario comum cadastro entrar como pendente
     configuration = Configuration.query.first()
     form = PostForm(request.form)
     titulo = 'Cadastrar Anúncios'
     operacao = 'Cadastro'
     
+    if session.get('user_role', '') == 'user':
+        form.status.validators = []
+        
     if form.validate_on_submit():
         try:
             form.user_id = session.get('user_id', '')
@@ -208,13 +219,18 @@ def anuncios_cadastrar():
                 form.description.data,
                 form.content.data,
                 'ad',
-                form.status.data,
+                '',
                 form.entry_date.data,
                 form.departure_date.data,
                 None,
                 form.user_id,
                 form.category_id.data
             )
+            
+            if session.get('user_role', '') == 'user':
+                post.status = 'pending'
+            else:
+                post.status = form.status.data
             
             if form.image_id.data != '':
                 post.image_id = form.image_id.data
@@ -236,7 +252,7 @@ def anuncios_cadastrar():
 
 @postBP.route('/anuncios/editar/<int:id>', methods=['GET','POST'])
 def anuncios_editar(id):
-    #TODO se usuario comum permitir editar apenas o próprio anúncio e se ainda estiver pendente
+    
     configuration = Configuration.query.first()
 
     # pega o post pelo id e com o genero anuncio
@@ -245,6 +261,19 @@ def anuncios_editar(id):
     if not post:
         flash('O anúncio não existe', 'info')
         return redirect(url_for('posts.anuncios_index'))
+
+    # se for user nivel 4
+    if session.get('user_role', '') == 'user':
+        # se não for seu anuncio
+        if post.user_id != session.get('user_id', ''):
+            flash('Você não tem permissão para editar este anúncio', 'info')
+            return redirect(url_for('posts.anuncios_index'))
+        
+        # se anúncio não for pendente 
+        if post.status != 'pending':
+            flash('Este anúncio não pode ser mais editado', 'info')
+            return redirect(url_for('posts.anuncios_index'))
+
 
     titulo = 'Editar anúncio'
 
@@ -258,13 +287,20 @@ def anuncios_editar(id):
         # preenche formulário com post recuperado pelo id
         fillForm(form, post, 'ad')
 
+    # se usuário nível 4, remove validator
+    if session.get('user_role', '') == 'user':
+        form.status.validators = []
+
     if form.validate_on_submit():
         try:
             post.title = form.title.data
             post.description = form.description.data
             post.content = form.content.data
             post.genre = 'ad'
-            post.status = form.status.data
+            if session.get('user_role', '') == 'user':
+                post.status = 'pending'
+            else:
+                post.status = form.status.data
             post.entry_date = form.entry_date.data
             post.departure_date = form.departure_date.data
             post.image_id = None
@@ -295,6 +331,18 @@ def anuncios_deletar(id):
 
     # pega o post pelo id e pelo genero anuncio
     post = Post.query.filter(and_(Post.id==id, Post.genre=='ad')).first()
+
+    # se for user nivel 4
+    if session.get('user_role', '') == 'user':
+        # se não for seu anuncio
+        if post.user_id != session.get('user_id', ''):
+            flash('Você não tem permissão para deletar este anúncio', 'info')
+            return redirect(url_for('posts.anuncios_index'))
+        
+        # se anúncio não for pendente 
+        if post.status != 'pending':
+            flash('Este anúncio não pode ser mais deletado', 'info')
+            return redirect(url_for('posts.anuncios_index'))
 
     # se não existe a noticia, bye
     if not post:
@@ -328,6 +376,7 @@ def avisos_index():
     page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
+    status = '' if (request.args.get('status') == None) else request.args.get('status')
 
     # implementa o filtro se necessário
     filter = (Post.genre == 'notice', )
@@ -335,6 +384,8 @@ def avisos_index():
         filter = filter + (Post.category_id == category,)
     if name:
         filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
+    if status:
+        filter = filter + (Post.status == status,)
 
     # consulta o banco de dados retornando o paginate e os dados
     paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
@@ -342,7 +393,7 @@ def avisos_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, titulo=titulo, configuration=configuration), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, titulo=titulo, configuration=configuration), 200
 
 @postBP.route('/avisos/cadastrar', methods=['GET','POST'])
 def avisos_cadastrar():

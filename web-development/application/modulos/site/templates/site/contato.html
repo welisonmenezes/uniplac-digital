@@ -39,16 +39,16 @@
                     {{ form.csrf_token }}
                     <div class="row">
                         <div class="col-12">
-                            {{ render_field(form.assunto) }}
+                            {{ render_field(form.assunto, 'required') }}
                         </div>
                         <div class="col-sm-6">
-                            {{ render_field(form.name) }}
+                            {{ render_field(form.name, 'required') }}
                         </div>
                         <div class="col-sm-6">
-                            {{ render_field(form.email) }}
+                            {{ render_field(form.email, 'required email') }}
                         </div>
                         <div class="col-12">
-                            {{ render_field(form.text) }}
+                            {{ render_field(form.text, 'required') }}
                         </div>
                     </div>
                     <div class="form-group mt-lg-3">
@@ -86,3 +86,14 @@
 {% include 'includes/public/form-filter.html' %}
 
 {% endblock %}
+{% block footer_script %}
+<script>
+    var validator = new VanillaValidator({
+        messages: {
+            required: 'Campo obrigatório',
+            email: 'E-mail inválido'
+            
+        }
+    });
+  </script>
+{% endblock footer_script %}

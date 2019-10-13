@@ -43,10 +43,10 @@
                 <h4 class="card-title">{{ titulo }}</h4>
                 <form class="forms-sample" method="POST" novalidate>
                     {{ form.csrf_token }}
-                    {{ render_field(form.title) }}
-                    {{ render_field(form.description) }}
+                    {{ render_field(form.title, 'required') }}
+                    {{ render_field(form.description, 'required') }}
                     <div class="rich-text-editor-container">
-                        {{ render_field(form.content) }}
+                        {{ render_field(form.content, 'required') }}
                         <input type="file" name="imagesContent" id="contentImageSender" accept=".jpg,.jpeg,.png,.gif" />
                     </div>
                     <div>
@@ -66,14 +66,16 @@
                             {{ render_hidden_field(form.image_id) }}
                         </div>
                     </div>
-                    {{ render_field(form.category_id) }}
-                    {{ render_field(form.status) }}
+                    {{ render_field(form.category_id, 'required') }}
+                    {% if session.get('user_role', '') != 'user'  %}
+                        {{ render_field(form.status, 'required') }}
+                    {% endif %}
                     <div class="row">
                         <div class="col-md-6 wrap-date">
-                            {{ render_field_date(form.entry_date, 'date') }}
+                            {{ render_field_date(form.entry_date, 'date required') }}
                         </div>
                         <div class="col-md-6 wrap-date">
-                            {{ render_field_date(form.departure_date, 'date') }}
+                            {{ render_field_date(form.departure_date, 'date required') }}
                         </div>
                     </div>
 
@@ -92,7 +94,9 @@
 
 {% block especifcstyles %}
 <!--Date picker-->
-<link rel="stylesheet" href="{{ url_for('static', filename='admin/css/datepicker.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/css/fontawesome-free-5.11.2-web/css/all.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/css/tempusdominus-bootstrap-4.css') }}"> 
+
 
 <!-- rich editor froala -->
 <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/froala/css/froala_editor.css') }}">
@@ -120,7 +124,8 @@
 
 {% block especifcscripts %}
 <!--Date picker-->
-<script src="{{ url_for('static', filename='admin/js/datepicker.js')}}"></script>
+<script src="{{ url_for('static', filename='admin/js/moment.min.js')}}"></script>
+<script src="{{ url_for('static', filename='admin/js/tempusdominus-bootstrap-4.js')}}"></script>
 
 <!-- rich editor froala -->
 <script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/froala_editor.min.js') }}">
@@ -270,3 +275,13 @@
     };
 </script>
 {% endblock especifcscripts %}
+{% block footer_script %}
+<script>
+    var validator = new VanillaValidator({
+        messages: {
+            required: 'Campo obrigatório',
+            date: 'Data inválida'
+        }
+    });
+  </script>
+{% endblock footer_script %}
