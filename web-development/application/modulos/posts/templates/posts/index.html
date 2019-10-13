@@ -32,7 +32,7 @@
                                 Filtro:
                             </p>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-sm" placeholder="Palavra chave" name="name">
                             </div>
@@ -44,6 +44,16 @@
                                     {% for category in categories %}
                                     <option value="{{ category.id }}">{{ category.name }}</option>
                                     {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <select class="form-control form-control-sm" name="status">
+                                    <option value="">Status</option>
+                                    <option value="approved">Aprovado</option>
+                                    <option value="pending">Pendente</option>
+                                    <option value="denied">Negado</option>
                                 </select>
                             </div>
                         </div>
@@ -71,7 +81,7 @@
                                 <td>{{ post.title }}</td>
                                 <td>{{ post.created_at}}</td>
                                 <td>
-                                    <label class="badge badge-warning">{{ post.status }}</label>
+                                    <label class="badge {{post.status}}">{{ post.status }}</label>
                                 </td>
                                 <td>
                                     <a href="../single-blog.html" target="_blank">
@@ -88,14 +98,27 @@
                                         <i class="mdi mdi-delete-forever delete"></i>
                                     </a>
                                     {% elif(titulo == 'Anúncios'): %}
-                                    <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
-                                        title="Editar Anúncio {{post.id}}">
-                                        <i class="mdi mdi-border-color edit"></i>
-                                    </a>
-                                    <a href="{{ url_for('posts.anuncios_deletar', id=post.id) }}"
-                                        title="Deletar Anúncio {{post.id}}">
-                                        <i class="mdi mdi-delete-forever delete"></i>
-                                    </a>
+                                        {% if session.get('user_role', '') != 'user'  %}
+                                            <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
+                                                title="Editar Aviso {{post.id}}">
+                                                <i class="mdi mdi-border-color edit"></i>
+                                            </a>
+                                            <a href="{{ url_for('posts.anuncios_deletar', id=post.id)}}"
+                                                title="Deletar Aviso {{post.id}}">
+                                                <i class="mdi mdi-delete-forever delete"></i>
+                                            </a>
+                                        {% else %}
+                                            {% if post.status == 'pending' %}
+                                                <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
+                                                    title="Editar Aviso {{post.id}}">
+                                                    <i class="mdi mdi-border-color edit"></i>
+                                                </a>
+                                                <a href="{{ url_for('posts.anuncios_deletar', id=post.id)}}"
+                                                    title="Deletar Aviso {{post.id}}">
+                                                    <i class="mdi mdi-delete-forever delete"></i>
+                                                </a>
+                                            {% endif %}
+                                        {% endif %}
                                     {% elif(titulo == 'Avisos'): %}
                                     <a href="{{ url_for('posts.avisos_editar', id=post.id) }}"
                                         title="Editar Aviso {{post.id}}">
@@ -119,9 +142,19 @@
                             {% if page == None %}
                             <button type="button" class="btn">...</button>
                             {% else %}
-                            <a href="{{ url_for('posts.noticias_index', page=page, name=name, role=role) }}"
-                                class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
-                                title="Página {{page}}">{{ page }}</a>
+                                {% if(titulo == 'Notícias'): %}
+                                    <a href="{{ url_for('posts.noticias_index', page=page, name=name, category=category, status=status) }}"
+                                    class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
+                                    title="Página {{page}}">{{ page }}</a>
+                                {% elif(titulo == 'Anúncios'): %}
+                                    <a href="{{ url_for('posts.anuncios_index', page=page, name=name, category=category, status=status) }}"
+                                    class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
+                                    title="Página {{page}}">{{ page }}</a>
+                                {% elif(titulo == 'Avisos'): %}
+                                    <a href="{{ url_for('posts.avisos_index', page=page, name=name, category=category, status=status) }}"
+                                    class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
+                                    title="Página {{page}}">{{ page }}</a>
+                                {% endif %}
                             {% endif %}
                             {% endfor %}
                             {% endif %}

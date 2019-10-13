@@ -8,11 +8,13 @@ import datetime
 
 
 categories = Category.query.filter()
-
 choice = []
-
 for category in categories:
     choice.append((str(category.id), category.name))
+
+class NonValidatingSelectField(SelectField):
+    def pre_validate(self, form):
+        pass
 
 class PostForm(FlaskForm):
     title = StringField(
@@ -60,12 +62,12 @@ class PostForm(FlaskForm):
          choices=choice
     )
 
-    status = SelectField(
+    status = NonValidatingSelectField(
         'Status',
         validators = [
             DataRequired(message="Campo obrigatório")
         ],
-         choices=[('pending', 'Pendente'), ('approved', 'Aprovado'), ('denied', 'Negado')]
+        choices=[('approved', 'Aprovado'), ('pending', 'Pendente'), ('denied', 'Negado')]
     )
 
     entry_date = DateField(
