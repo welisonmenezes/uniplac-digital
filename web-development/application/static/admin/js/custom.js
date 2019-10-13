@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var inpDate = document.querySelectorAll('.mask-date');
     if (inpDate) {
         inpDate.forEach(function(el) {
-            VMasker(el).maskPattern('99-99-9999');
+            VMasker(el).maskPattern('99-99-9999 99:99:99');
         });
     }
 
@@ -232,13 +232,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 $(function () {
     $('input.date, .input-group.date').datetimepicker({
-        format: 'DD-MM-YYYY HH:mm:ss',
-        minDate: moment()
+        format: 'DD-MM-YYYY HH:mm:ss'
     });
-
-    // $('.input-group.date').on('click', function() {
-    //     $(this).find('input.date').datetimepicker().show();
-    // });
 });
 
   
