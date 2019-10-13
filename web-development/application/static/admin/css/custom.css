@@ -181,3 +181,31 @@ select.form-control, .dataTables_wrapper select{
     top: 50%;
     transform: translateY(-50%);
 }
+
+
+
+
+.cropp-box {
+	padding: 0.5em;
+	width: 100%;
+	margin:0.5em;
+}
+
+.cropp-box-2 {
+	padding: 0.5em;
+	width: 100%;
+}
+
+.cropp-options label,
+.cropp-options input{
+	width:4em;
+	padding:0.5em 1em;
+}
+
+.cropp-hide {
+	display: none;
+}
+
+.cropp-box-2 img {
+	max-width: 100%;
+}
