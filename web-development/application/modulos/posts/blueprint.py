@@ -242,8 +242,6 @@ def anuncios_cadastrar():
             # remove qualquer vestígio do usuário da sessin e flash message 
             db.session.rollback()
             flash('Erro ao tentar cadastrar o anúncio', 'danger')
-    else:
-        flash('Por favor, verfique se todos os campos foram preenchidos corretamente', 'danger')
     return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form, configuration=configuration), 200
 
 @postBP.route('/anuncios/editar/<int:id>', methods=['GET','POST'])

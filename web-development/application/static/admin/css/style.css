@@ -13308,7 +13308,7 @@ a.badge-secondary:focus, a.badge-secondary.focus {
   box-shadow: 0 0 0 0.2rem rgba(104, 104, 104, 0.5);
 }
 
-.badge-success {
+.badge-success, .badge.approved {
   color: #fff;
   background-color: #71c016;
 }
@@ -13338,7 +13338,7 @@ a.badge-info:focus, a.badge-info.focus {
   box-shadow: 0 0 0 0.2rem rgba(120, 89, 223, 0.5);
 }
 
-.badge-warning {
+.badge-warning, .badge.pending {
   color: #212529;
   background-color: #ffc100;
 }
@@ -13353,7 +13353,7 @@ a.badge-warning:focus, a.badge-warning.focus {
   box-shadow: 0 0 0 0.2rem rgba(255, 193, 0, 0.5);
 }
 
-.badge-danger {
+.badge-danger, .badge.denied {
   color: #fff;
   background-color: #ff4747;
 }

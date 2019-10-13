@@ -67,7 +67,7 @@ class PostForm(FlaskForm):
         validators = [
             DataRequired(message="Campo obrigatório")
         ],
-        choices=[('', 'Selecione'), ('approved', 'Aprovado'), ('pending', 'Pendente'), ('denied', 'Negado')]
+        choices=[('approved', 'Aprovado'), ('pending', 'Pendente'), ('denied', 'Negado')]
     )
 
     entry_date = DateField(
