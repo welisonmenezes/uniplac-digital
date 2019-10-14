@@ -1,4 +1,4 @@
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, RecaptchaField
 from wtforms import StringField, PasswordField, SelectField
 from wtforms.validators import DataRequired, Length
 
@@ -23,6 +23,8 @@ class LoginForm(FlaskForm):
             'placeholder':'Senha'
         }
     )
+
+    recaptcha = RecaptchaField()
 
 
 class RecoverForm(FlaskForm):

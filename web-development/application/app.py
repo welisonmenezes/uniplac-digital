@@ -23,6 +23,12 @@ app = Flask(__name__, template_folder='templates', static_folder='static')
 # apply app configurations
 app.config.from_pyfile('config.py')
 
+# configurações do recaptcha
+app.config['RECAPTCHA_USE_SSL']= False
+app.config['RECAPTCHA_PUBLIC_KEY']= '6LccGOISAAAAAPVdDHhzpAXI64FnnX1vYL7Yea23'
+app.config['RECAPTCHA_PRIVATE_KEY']='6LccGOISAAAAAFhRBXgRg5-1x_U2S0m9sxQJjdOW'
+app.config['RECAPTCHA_OPTIONS'] = {'theme':'white'}
+
 # initialize app dependencies
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
