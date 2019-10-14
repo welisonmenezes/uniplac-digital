@@ -64,51 +64,42 @@
                 </form>
 
                 <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>{{ titulo }}</th>
-                                <th>Data</th>
-                                <th>Status</th>
-                                <th>Ver/Editar/Deletar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for post in posts %}
-                            <tr>
-                                <td>{{ post.id }}</td>
-                                <td>{{ post.title }}</td>
-                                <td>{{ post.created_at}}</td>
-                                <td>
-                                    <label class="badge {{post.status}}">{{ post.status }}</label>
-                                </td>
-                                <td>
-                                    <a href="../single-blog.html" target="_blank">
-                                        <i class="mdi mdi-television-guide view"></i>
-                                    </a>
-                                    {# Diferenciando pelo tipo de post #}
-                                    {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('posts.noticias_editar', id=post.id) }}"
-                                        title="Editar Notícia {{post.id}}">
-                                        <i class="mdi mdi-border-color edit"></i>
-                                    </a>
-                                    <a href="{{ url_for('posts.noticias_deletar', id=post.id) }}"
-                                        title="Deletar Notícia {{post.id}}">
-                                        <i class="mdi mdi-delete-forever delete"></i>
-                                    </a>
-                                    {% elif(titulo == 'Anúncios'): %}
-                                        {% if session.get('user_role', '') != 'user'  %}
-                                            <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
-                                                title="Editar Aviso {{post.id}}">
-                                                <i class="mdi mdi-border-color edit"></i>
-                                            </a>
-                                            <a href="{{ url_for('posts.anuncios_deletar', id=post.id)}}"
-                                                title="Deletar Aviso {{post.id}}">
-                                                <i class="mdi mdi-delete-forever delete"></i>
-                                            </a>
-                                        {% else %}
-                                            {% if post.status == 'pending' %}
+                    {% if posts|length > 0 %}
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>{{ titulo }}</th>
+                                    <th>Data</th>
+                                    <th>Status</th>
+                                    <th>Ver/Editar/Deletar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for post in posts %}
+                                <tr>
+                                    <td>{{ post.id }}</td>
+                                    <td>{{ post.title }}</td>
+                                    <td>{{ post.created_at}}</td>
+                                    <td>
+                                        <label class="badge {{post.status}}">{{ post.status }}</label>
+                                    </td>
+                                    <td>
+                                        <a href="../single-blog.html" target="_blank">
+                                            <i class="mdi mdi-television-guide view"></i>
+                                        </a>
+                                        {# Diferenciando pelo tipo de post #}
+                                        {% if(titulo == 'Notícias'): %}
+                                        <a href="{{ url_for('posts.noticias_editar', id=post.id) }}"
+                                            title="Editar Notícia {{post.id}}">
+                                            <i class="mdi mdi-border-color edit"></i>
+                                        </a>
+                                        <a href="{{ url_for('posts.noticias_deletar', id=post.id) }}"
+                                            title="Deletar Notícia {{post.id}}">
+                                            <i class="mdi mdi-delete-forever delete"></i>
+                                        </a>
+                                        {% elif(titulo == 'Anúncios'): %}
+                                            {% if session.get('user_role', '') != 'user'  %}
                                                 <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
                                                     title="Editar Aviso {{post.id}}">
                                                     <i class="mdi mdi-border-color edit"></i>
@@ -117,49 +108,61 @@
                                                     title="Deletar Aviso {{post.id}}">
                                                     <i class="mdi mdi-delete-forever delete"></i>
                                                 </a>
+                                            {% else %}
+                                                {% if post.status == 'pending' %}
+                                                    <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
+                                                        title="Editar Aviso {{post.id}}">
+                                                        <i class="mdi mdi-border-color edit"></i>
+                                                    </a>
+                                                    <a href="{{ url_for('posts.anuncios_deletar', id=post.id)}}"
+                                                        title="Deletar Aviso {{post.id}}">
+                                                        <i class="mdi mdi-delete-forever delete"></i>
+                                                    </a>
+                                                {% endif %}
                                             {% endif %}
+                                        {% elif(titulo == 'Avisos'): %}
+                                        <a href="{{ url_for('posts.avisos_editar', id=post.id) }}"
+                                            title="Editar Aviso {{post.id}}">
+                                            <i class="mdi mdi-border-color edit"></i>
+                                        </a>
+                                        <a href="{{ url_for('posts.avisos_deletar', id=post.id)}}"
+                                            title="Deletar Aviso {{post.id}}">
+                                            <i class="mdi mdi-delete-forever delete"></i>
+                                        </a>
                                         {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="table-pagination">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                {% if paginate.next_num != None or paginate.prev_num != None %}
+                                {% for page in paginate.iter_pages(left_edge=2, left_current=2, right_current=3, right_edge=2) %}
+                                {% if page == None %}
+                                <button type="button" class="btn">...</button>
+                                {% else %}
+                                    {% if(titulo == 'Notícias'): %}
+                                        <a href="{{ url_for('posts.noticias_index', page=page, name=name, category=category, status=status) }}"
+                                        class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
+                                        title="Página {{page}}">{{ page }}</a>
+                                    {% elif(titulo == 'Anúncios'): %}
+                                        <a href="{{ url_for('posts.anuncios_index', page=page, name=name, category=category, status=status) }}"
+                                        class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
+                                        title="Página {{page}}">{{ page }}</a>
                                     {% elif(titulo == 'Avisos'): %}
-                                    <a href="{{ url_for('posts.avisos_editar', id=post.id) }}"
-                                        title="Editar Aviso {{post.id}}">
-                                        <i class="mdi mdi-border-color edit"></i>
-                                    </a>
-                                    <a href="{{ url_for('posts.avisos_deletar', id=post.id)}}"
-                                        title="Deletar Aviso {{post.id}}">
-                                        <i class="mdi mdi-delete-forever delete"></i>
-                                    </a>
+                                        <a href="{{ url_for('posts.avisos_index', page=page, name=name, category=category, status=status) }}"
+                                        class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
+                                        title="Página {{page}}">{{ page }}</a>
                                     {% endif %}
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-
-                    </table>
-                    <div class="table-pagination">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            {% if paginate.next_num != None or paginate.prev_num != None %}
-                            {% for page in paginate.iter_pages(left_edge=2, left_current=2, right_current=3, right_edge=2) %}
-                            {% if page == None %}
-                            <button type="button" class="btn">...</button>
-                            {% else %}
-                                {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('posts.noticias_index', page=page, name=name, category=category, status=status) }}"
-                                    class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
-                                    title="Página {{page}}">{{ page }}</a>
-                                {% elif(titulo == 'Anúncios'): %}
-                                    <a href="{{ url_for('posts.anuncios_index', page=page, name=name, category=category, status=status) }}"
-                                    class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
-                                    title="Página {{page}}">{{ page }}</a>
-                                {% elif(titulo == 'Avisos'): %}
-                                    <a href="{{ url_for('posts.avisos_index', page=page, name=name, category=category, status=status) }}"
-                                    class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
-                                    title="Página {{page}}">{{ page }}</a>
                                 {% endif %}
-                            {% endif %}
-                            {% endfor %}
-                            {% endif %}
+                                {% endfor %}
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
+                    {% else %}
+                        <p class="no-content-found">Nenhum post encontrado.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>

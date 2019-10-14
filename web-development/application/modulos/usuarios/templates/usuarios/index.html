@@ -53,69 +53,73 @@
                     </div>
                 </form>
                 <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Nível de Usuário</th>
-                                <th>Editar/Deletar </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for user in users %}
-                            <tr>
-                                <td class="py-1">
-                                    {% if user.image_id=='None': %}
+                    {% if users|length > 0 %}
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Nível de Usuário</th>
+                                    <th>Editar/Deletar </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td class="py-1">
+                                        {% if user.image_id=='None': %}
 
-                                    <div class="img-avatar"
-                                        style="background-image: url({{request.url_root}}api/media/0)"
-                                        alt="User Avatar"></div>
-                                    {% else: %}
+                                        <div class="img-avatar"
+                                            style="background-image: url({{request.url_root}}api/media/0)"
+                                            alt="User Avatar"></div>
+                                        {% else: %}
 
-                                    <div class="img-avatar"
-                                        style="background-image: url({{request.url_root}}api/media/{{ user.image_id }})"
-                                        alt="User Avatar"></div>
-                                    {% endif %}
-                                </td>
-                                <td>{{ user.id }}</td>
-                                <td>{{ user.first_name }} {{ user.last_name }}</td>
-                                <td>
-                                    <label class="badge badge-warning">
-                                        <i class="mdi mdi-account"></i>
-                                        {{ user.role }}
-                                    </label>
-                                </td>
-                                <td>
-                                    <a href="{{ url_for('usuarios.editar', id=user.id) }}"
-                                        title="Editar Usuário {{user.id}}">
-                                        <i class="mdi mdi-border-color edit"></i>
-                                    </a>
-                                    <a href="{{ url_for('usuarios.deletar', id=user.id) }}"
-                                        title="Deletar Usuário  {{user.id}}">
-                                        <i class="mdi mdi-delete-forever delete"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    <div class="table-pagination">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            {% if paginate.next_num != None or paginate.prev_num != None %}
-                            {% for page in paginate.iter_pages(left_edge=2, left_current=2, right_current=3, right_edge=2) %}
-                            {% if page == None %}
-                            <button type="button" class="btn">...</button>
-                            {% else %}
-                            <a href="{{ url_for('usuarios.index', page=page, name=name, role=role) }}"
-                                class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
-                                title="Página {{page}}">{{ page }}</a>
-                            {% endif %}
-                            {% endfor %}
-                            {% endif %}
+                                        <div class="img-avatar"
+                                            style="background-image: url({{request.url_root}}api/media/{{ user.image_id }})"
+                                            alt="User Avatar"></div>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ user.id }}</td>
+                                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                    <td>
+                                        <label class="badge badge-warning">
+                                            <i class="mdi mdi-account"></i>
+                                            {{ user.role }}
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <a href="{{ url_for('usuarios.editar', id=user.id) }}"
+                                            title="Editar Usuário {{user.id}}">
+                                            <i class="mdi mdi-border-color edit"></i>
+                                        </a>
+                                        <a href="{{ url_for('usuarios.deletar', id=user.id) }}"
+                                            title="Deletar Usuário  {{user.id}}">
+                                            <i class="mdi mdi-delete-forever delete"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="table-pagination">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                {% if paginate.next_num != None or paginate.prev_num != None %}
+                                {% for page in paginate.iter_pages(left_edge=2, left_current=2, right_current=3, right_edge=2) %}
+                                {% if page == None %}
+                                <button type="button" class="btn">...</button>
+                                {% else %}
+                                <a href="{{ url_for('usuarios.index', page=page, name=name, role=role) }}"
+                                    class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
+                                    title="Página {{page}}">{{ page }}</a>
+                                {% endif %}
+                                {% endfor %}
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
+                    {% else %}
+                        <p class="no-content-found">Nenhum usuário encontrado.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
