@@ -71,7 +71,7 @@ class PostForm(FlaskForm):
     )
 
     entry_date = DateTimeField(
-        'Data de Entrada',
+        'Data/Hora de Entrada',
         validators = [
             InputRequired(message="Campo obrigatório")
         ],
@@ -82,7 +82,7 @@ class PostForm(FlaskForm):
     )
 
     departure_date = DateTimeField(
-        'Data de Saída',
+        'Data/Hora de Saída',
         validators = [
             InputRequired(message="Campo obrigatório")
         ],
