@@ -71,7 +71,7 @@ def noticias_cadastrar():
 
             # flash message e redireciona pra mesma tela para limpar o objeto request
             flash('Notícia cadastrada com sucesso', 'success')
-            return redirect(url_for('posts.noticias_cadastrar'))
+            return redirect(url_for('posts.noticias_index'))
         except:
             # remove qualquer vestígio do usuário da sessin e flash message 
             db.session.rollback()
@@ -94,20 +94,12 @@ def noticias_editar(id):
     if request.form:
         # formulário preenchido pelo objeto request, caso exista
         form = PostForm(request.form)
-
-        # print(post.entry_date)
-        # print(form.entry_date.data)
-        # if post.entry_date == form.entry_date.data:
-        #     print('igual')
-        #     form.entry_date.validators = []
-
     else:
         # formulário vazio
         form = PostForm()
 
         # preenche formulário com post recuperado pelo id
         fillForm(form, post, 'news')
-
 
     clearDateValidatons(post, form)
 
@@ -147,7 +139,6 @@ def noticias_deletar(id):
 
     # pega o post pelo id e pelo genero notica
     post = Post.query.filter(and_(Post.id==id, Post.genre=='news')).first()
-
 
     # se não existe a noticia, bye
     if not post:
@@ -249,7 +240,7 @@ def anuncios_cadastrar():
 
             # flash message e redireciona pra mesma tela para limpar o objeto request
             flash('Anúncio cadastrado com sucesso', 'success')
-            return redirect(url_for('posts.anuncios_cadastrar'))
+            return redirect(url_for('posts.anuncios_index'))
         except:
             # remove qualquer vestígio do usuário da sessin e flash message 
             db.session.rollback()
@@ -439,7 +430,7 @@ def avisos_cadastrar():
 
             # flash message e redireciona pra mesma tela para limpar o objeto request
             flash('Aviso cadastrado com sucesso', 'success')
-            return redirect(url_for('posts.avisos_cadastrar'))
+            return redirect(url_for('posts.avisos_index'))
         except:
             # remove qualquer vestígio do usuário da sessin e flash message 
             db.session.rollback()

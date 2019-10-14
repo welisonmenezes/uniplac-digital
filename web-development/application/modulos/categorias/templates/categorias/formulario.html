@@ -32,7 +32,7 @@
                 <form class="forms-sample" method="POST" novalidate>
                     {{ form.csrf_token }}
                     {{ render_field(form.name, 'required') }}
-                    {{ render_field(form.description, 'required') }}
+                    {{ render_field(form.description) }}
                     {{ render_checkbox_field(form.destacado, '', 'Destacar Categoria?') }}
                     <br />
                     <button type="submit" class="btn btn-primary mr-2">Enviar</button>

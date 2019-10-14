@@ -209,3 +209,9 @@ select.form-control, .dataTables_wrapper select{
 .cropp-box-2 img {
 	max-width: 100%;
 }
+
+
+.no-content-found{
+    padding: 50px 0;
+    font-size: 20px;
+}
