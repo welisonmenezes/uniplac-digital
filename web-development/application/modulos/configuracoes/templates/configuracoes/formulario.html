@@ -2,7 +2,9 @@
 
 {% from "macros/formFields.html" import render_field, render_file_field, render_hidden_field %}
 
-
+{% block title %}
+{{titulo}}
+{% endblock %}
 
 {% block content %}
 <form novalidate method="POST" class="form-configuration">
