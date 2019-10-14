@@ -65,7 +65,7 @@ def cadastrar():
 
                 # flash message e redireciona pra mesma tela para limpar o objeto request
                 flash('Usuário cadastrado com sucesso', 'success')
-                return redirect(url_for('usuarios.cadastrar'))
+                return redirect(url_for('usuarios.index'))
         except:
             # remove qualquer vestígio do usuário da sessin e flash message 
             db.session.rollback()
