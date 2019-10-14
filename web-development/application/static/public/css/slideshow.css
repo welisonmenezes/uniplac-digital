@@ -70,8 +70,8 @@ h2 {
 .carouse .carousel div .card a .no-image {
     width: 100%;
     height: 179px;
-    background-color: gray;
-    color: white;
+    background-color: #808080;
+    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;

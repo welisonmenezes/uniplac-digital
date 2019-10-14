@@ -3,7 +3,6 @@
 {% block title %}{{ titulo }}{% endblock %}
 
 {% block content %}
-
 <section class="banner_area">
     <div class="banner_inner d-flex align-items-center">
         <div class="container">
@@ -28,10 +27,11 @@
 
             <div class="col-lg-8">
                 <div class="blog_left_sidebar">
-                    <article class="blog_item">
+
+                    <!-- <article class="blog_item">
                         <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-1.jpg') }}"
-                                alt="">
+                            <img class="card-img rounded-0"
+                                src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-1.jpg') }}" alt="">
                         </div>
                         <div class="blog_details">
                             <a class="d-inline-block" href="{{ url_for('site.noticias') }}">
@@ -41,182 +41,163 @@
                                 that
                                 he earth it
                                 first without heaven in place seed it second morning saying.</p>
-                                {# Diferenciando pelo tipo de post #}
-                                    {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                    {% elif(titulo == 'Anuncios'): %}
-                                    <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-                                            {% elif(titulo == 'Avisos'): %}
+                            {# Diferenciando pelo tipo de post #}
+                            {% if(titulo == 'Notícias'): %}
+                            <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                                {% elif(titulo == 'Anuncios'): %}
+                                <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+                                    {% elif(titulo == 'Avisos'): %}
                                     <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
-                                            {% endif %}
-
-                                Ver Mais
-                                <span class="ml-2 ti-arrow-right"></span>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="blog_item">
-                        <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-2.jpg') }}" alt="">
-                        </div>
-                        <div class="blog_details">
-                            <a class="d-inline-block" href="{{ url_for('site.noticias') }}">
-                                <h2>Google inks pact for new 35-storey office</h2>
-                            </a>
-                            <p>That dominion stars lights dominion divide years for fourth have don't stars is
-                                that
-                                he earth it
-                                first without heaven in place seed it second morning saying.</p>
-                                {# Diferenciando pelo tipo de post #}
-                                {% if(titulo == 'Notícias'): %}
-                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                {% elif(titulo == 'Anuncios'): %}
-                                <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-                                        {% elif(titulo == 'Avisos'): %}
-                                <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
                                         {% endif %}
-                                Ver Mais
-                                <span class="ml-2 ti-arrow-right"></span>
-                            </a>
-                        </div>
-                    </article>
 
+                                        Ver Mais
+                                        <span class="ml-2 ti-arrow-right"></span>
+                                    </a>
+                        </div>
+                    </article> -->
+                    {% for post in posts %}
                     <article class="blog_item">
-                        <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-3.jpg') }}"
-                                alt="">
-                        </div>
-                        <div class="blog_details">
-                            <a class="d-inline-block" href="{{ url_for('site.noticias') }}">
-                                <h2>Google inks pact for new 35-storey office</h2>
-                            </a>
-                            <p>That dominion stars lights dominion divide years for fourth have don't stars is
-                                that
-                                he earth it
-                                first without heaven in place seed it second morning saying.</p>
-                                {# Diferenciando pelo tipo de post #}
-                                {% if(titulo == 'Notícias'): %}
+                        <a class="d-inline-block" href="{{ url_for('site.noticias_detalhes') }}">
+                            {% if post.image_id != None%}
+                            <div class="blog_item_img">
+                                <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
+                                    alt="">
+                            </div>
+                            {% endif %}
+                            <div class="blog_details">
+                                <h2>{{ post.title }}</h2>
+                        </a>
+                                <p>{{ post.description }}</p>
                                 <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                {% elif(titulo == 'Anuncios'): %}
-                                <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-                                        {% elif(titulo == 'Avisos'): %}
-                                <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
-                                        {% endif %}">
-                                Ver Mais
-                                <span class="ml-2 ti-arrow-right"></span>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="blog_item">
-                        <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-4.jpg') }}"
-                                alt="">
-                        </div>
-                        <div class="blog_details">
-                            <a class="d-inline-block" href="{{ url_for('site.noticias') }}">
-                                <h2>Google inks pact for new 35-storey office</h2>
-                            </a>
-                            <p>That dominion stars lights dominion divide years for fourth have don't stars is
-                                that
-                                he earth it
-                                first without heaven in place seed it second morning saying.</p>
-                                {# Diferenciando pelo tipo de post #}
-                                {% if(titulo == 'Notícias'): %}
-                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                {% elif(titulo == 'Anuncios'): %}
-                                <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-                                        {% elif(titulo == 'Avisos'): %}
-                                <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
-                                        {% endif %}
-                                Ver Mais
-                                <span class="ml-2 ti-arrow-right"></span>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="blog_item">
-                        <div class="blog_details">
-                            <a class="d-inline-block" href="{{ url_for('site.noticias') }}">
-                                <h2>Google inks pact for new 35-storey office</h2>
-                            </a>
-                            <p>That dominion stars lights dominion divide years for fourth have don't stars is
-                                that
-                                he earth it
-                                first without heaven in place seed it second morning saying.</p>
-                                {# Diferenciando pelo tipo de post #}
-                                {% if(titulo == 'Notícias'): %}
-                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                {% elif(titulo == 'Anuncios'): %}
-                                <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-                                        {% elif(titulo == 'Avisos'): %}
-                                <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
-                                        {% endif %}
-                                Ver Mais
-                                <span class="ml-2 ti-arrow-right"></span>
-                            </a>
-                        </div>
-                    </article>
-
-                    <article class="blog_item">
-                        <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="{{ url_for('static', filename='public/img/blog/main-blog/m-blog-5.jpg') }}"
-                                alt="">
-                        </div>
-                        <div class="blog_details">
-                            <a class="d-inline-block" href="{{ url_for('site.noticias') }}">
-                                <h2>Google inks pact for new 35-storey office</h2>
-                            </a>
-                            <p>That dominion stars lights dominion divide years for fourth have don't stars is
-                                that
-                                he earth it
-                                first without heaven in place seed it second morning saying.</p>
-                                {# Diferenciando pelo tipo de post #}
-                                {% if(titulo == 'Notícias'): %}
-                                <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
-                                {% elif(titulo == 'Anuncios'): %}
-                                <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
-                                        {% elif(titulo == 'Avisos'): %}
-                                <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
-                                        {% endif %}
-                                Ver Mais
-                                <span class="ml-2 ti-arrow-right"></span>
-                            </a>
-                        </div>
-                    </article>
-
-                    <nav class="blog-pagination justify-content-center d-flex">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a href="#" class="page-link" aria-label="Previous">
-                                    <span aria-hidden="true">
-                                        <span class="ti-arrow-left"></span>
-                                    </span>
+                                    Ver Mais
+                                    <span class="ml-2 ti-arrow-right"></span>
                                 </a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link">1</a>
-                            </li>
-                            <li class="page-item active">
-                                <a href="#" class="page-link">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a href="#" class="page-link" aria-label="Next">
-                                    <span aria-hidden="true">
-                                        <span class="ti-arrow-right"></span>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+                            </div>
+                    </article>
+                    {% endfor %}
 
-            <div class="col-lg-4">
-                {% include 'includes/public/sidebar.html' %}
+                <nav class="blog-pagination justify-content-center d-flex">
+                    <ul class="pagination">
+                        {% if paginate.next_num != None or paginate.prev_num != None %}
+                        {% if currentPage > 1 %}
+                        {% if(titulo == 'Notícias'): %}
+                        <li class="page-item">
+                            <a href="{{ url_for('site.noticias', page=paginate.prev_num, name=name, category=category, status=status) }}"
+                                class="page-link" aria-label="Previous">
+                                <span aria-hidden="true">
+                                    <span class="ti-arrow-left"></span>
+                                </span>
+                            </a>
+                        </li>
+                        {% elif(titulo == 'Anúncios'): %}
+                        <li class="page-item">
+                            <a href="{{ url_for('site.anuncios', page=paginate.prev_num, name=name, category=category, status=status) }}"
+                                class="page-link" aria-label="Next">
+                                <span aria-hidden="true">
+                                    <span class="ti-arrow-left"></span>
+                                </span>
+                            </a>
+                        </li>
+                        {% elif(titulo == 'Avisos'): %}
+                        <li class="page-item">
+                            <a href="{{ url_for('site.avisos', page=paginate.prev_num, name=name, category=category, status=status) }}"
+                                class="page-link" aria-label="Next">
+                                <span aria-hidden="true">
+                                    <span class="ti-arrow-left"></span>
+                                </span>
+                            </a>
+                        </li>
+                        {% elif(titulo == 'Filtro'): %}
+                        <li class="page-item">
+                            <a href="{{ url_for('site.filtro', page=paginate.prev_num, name=name, category=category, status=status) }}"
+                                class="page-link" aria-label="Next">
+                                <span aria-hidden="true">
+                                    <span class="ti-arrow-left"></span>
+                                </span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% endif%}
+                        {% for page in paginate.iter_pages(left_edge=2, left_current=2, right_current=3, right_edge=2) %}
+                        {% if page == None %}
+                        <li class="page-item">
+                            <a class="page-link">...</a>
+                        </li>
+                        {% else %}
+                        {% if(titulo == 'Notícias'): %}
+                        <li class="page-item {{ 'active' if currentPage == page else '' }}">
+                            <a href="{{ url_for('site.noticias', page=page, name=name, category=category, status=status) }}"
+                                class="page-link" title="Página {{page}}">{{ page }}</a>
+                        </li>
+                        {% elif(titulo == 'Anúncios'): %}
+                        <li class="page-item {{ 'active' if currentPage == page else '' }}">
+                            <a href="{{ url_for('site.anuncios', page=page, name=name, category=category, status=status) }}"
+                                class="page-link" title="Página {{page}}">{{ page }}</a>
+                        </li>
+                        {% elif(titulo == 'Avisos'): %}
+                        <li class="page-item {{ 'active' if currentPage == page else '' }}">
+                            <a href="{{ url_for('site.avisos', page=page, name=name, category=category, status=status) }}"
+                                class="page-link" title="Página {{page}}">{{ page }}</a>
+                        </li>
+                        {% elif(titulo == 'Filtro'): %}
+                        <li class="page-item {{ 'active' if currentPage == page else '' }}">
+                            <a href="{{ url_for('site.filtro', page=page, name=name, category=category, status=status) }}"
+                                class="page-link" title="Página {{page}}">{{ page }}</a>
+                        </li>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                        {% if paginate.next_num != None %}
+                        {% if currentPage < paginate.next_num %}
+                        {% if(titulo == 'Notícias'): %}
+                        <li class="page-item">
+                            <a href="{{ url_for('site.noticias', page=paginate.next_num, name=name, category=category, status=status) }}"
+                                class="page-link" aria-label="Next">
+                                <span aria-hidden="true">
+                                    <span class="ti-arrow-right"></span>
+                                </span>
+                            </a>
+                        </li>
+                        {% elif(titulo == 'Anúncios'): %}
+                        <li class="page-item">
+                            <a href="{{ url_for('site.anuncios', page=paginate.next_num, name=name, category=category, status=status) }}"
+                                class="page-link" aria-label="Next">
+                                <span aria-hidden="true">
+                                    <span class="ti-arrow-right"></span>
+                                </span>
+                            </a>
+                        </li>
+                        {% elif(titulo == 'Avisos'): %}
+                        <li class="page-item">
+                            <a href="{{ url_for('site.avisos', page=paginate.next_num, name=name, category=category, status=status) }}"
+                                class="page-link" aria-label="Next">
+                                <span aria-hidden="true">
+                                    <span class="ti-arrow-right"></span>
+                                </span>
+                            </a>
+                        </li>
+                        {% elif(titulo == 'Filtro'): %}
+                        <li class="page-item">
+                            <a href="{{ url_for('site.filtro', page=paginate.next_num, name=name, category=category, status=status) }}"
+                                class="page-link" aria-label="Next">
+                                <span aria-hidden="true">
+                                    <span class="ti-arrow-right"></span>
+                                </span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% endif %}
+                        {% endif %}
+                        {% endif %}
+                    </ul>
+                </nav>
             </div>
         </div>
+
+        <div class="col-lg-4">
+            {% include 'includes/public/sidebar.html' %}
+        </div>
+    </div>
     </div>
 </section>
 

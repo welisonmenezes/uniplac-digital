@@ -1,4 +1,5 @@
 <div class="blog_right_sidebar">
+    {% if titulo != 'Avisos'%}
     <aside class="single_sidebar_widget popular_post_widget">
         <h3 class="widget_title">Avisos Recentes</h3>
         {% for post in notices %}
@@ -34,13 +35,14 @@
             <a href="{{ url_for('site.avisos') }}" class="btn btn-info btn-sm btn-block">Ver todos</a>
         </div>
     </aside>
+    {% endif %}
     {% if categories %}
     <aside class="single_sidebar_widget post_category_widget">
         <h4 class="widget_title">Categorias Principais</h4>
         <ul class="list cat-list">
             {% for category in categories_highlighted %}
             <li>
-                <a href="{{ url_for('site.filtro', c=category.id) }}" class="d-flex">
+                <a href="{{ url_for('site.filtro', category=category.id) }}" class="d-flex">
                     <p>{{ category.name }}</p>
                 </a>
             </li>
