@@ -4,9 +4,8 @@ from wtforms.validators import Length
 from sqlalchemy import or_, desc
 from app import app, bcrypt
 from modulos.usuarios.formularios import UsuarioForm
-from database.Model import db, User, Post
+from database.Model import db, User, Post, Configuration
 from modulos.usuarios.validations import validateUserToCreate, validateUserToUpdate
-from database.Model import Configuration
 
 usuarioBP = Blueprint('usuarios', __name__, url_prefix='/admin/usuarios', template_folder='templates', static_folder='static')
 

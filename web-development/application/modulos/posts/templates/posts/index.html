@@ -72,6 +72,9 @@
                                     <th>{{ titulo }}</th>
                                     <th>Data</th>
                                     <th>Status</th>
+                                    {% if fromUser %}
+                                        <th>Tipo</th>
+                                    {% endif %}
                                     <th>Ver/Editar/Deletar</th>
                                 </tr>
                             </thead>
@@ -84,21 +87,30 @@
                                     <td>
                                         <label class="badge {{post.status}}">{{ post.status }}</label>
                                     </td>
+                                    {% if fromUser %}
+                                        <th>
+                                            <label class="badge badge-info">
+                                                {% if post.genre =='notice' %}Aviso{% endif %}
+                                                {% if post.genre =='ad' %}Anpuncio{% endif %}
+                                                {% if post.genre =='news' %}Notícia{% endif %}
+                                            </label>
+                                        </th>
+                                    {% endif %}
                                     <td>
                                         <a href="../single-blog.html" target="_blank">
                                             <i class="mdi mdi-television-guide view"></i>
                                         </a>
                                         {# Diferenciando pelo tipo de post #}
-                                        {% if(titulo == 'Notícias'): %}
-                                        <a href="{{ url_for('posts.noticias_editar', id=post.id) }}"
-                                            title="Editar Notícia {{post.id}}">
-                                            <i class="mdi mdi-border-color edit"></i>
-                                        </a>
-                                        <a href="{{ url_for('posts.noticias_deletar', id=post.id) }}"
-                                            title="Deletar Notícia {{post.id}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
-                                        {% elif(titulo == 'Anúncios'): %}
+                                        {% if post.genre == 'news': %}
+                                            <a href="{{ url_for('posts.noticias_editar', id=post.id) }}"
+                                                title="Editar Notícia {{post.id}}">
+                                                <i class="mdi mdi-border-color edit"></i>
+                                            </a>
+                                            <a href="{{ url_for('posts.noticias_deletar', id=post.id) }}"
+                                                title="Deletar Notícia {{post.id}}">
+                                                <i class="mdi mdi-delete-forever delete"></i>
+                                            </a>
+                                        {% elif post.genre == 'ad': %}
                                             {% if session.get('user_role', '') != 'user'  %}
                                                 <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
                                                     title="Editar Aviso {{post.id}}">
@@ -120,15 +132,15 @@
                                                     </a>
                                                 {% endif %}
                                             {% endif %}
-                                        {% elif(titulo == 'Avisos'): %}
-                                        <a href="{{ url_for('posts.avisos_editar', id=post.id) }}"
-                                            title="Editar Aviso {{post.id}}">
-                                            <i class="mdi mdi-border-color edit"></i>
-                                        </a>
-                                        <a href="{{ url_for('posts.avisos_deletar', id=post.id)}}"
-                                            title="Deletar Aviso {{post.id}}">
-                                            <i class="mdi mdi-delete-forever delete"></i>
-                                        </a>
+                                        {% elif post.genre == 'notice': %}
+                                            <a href="{{ url_for('posts.avisos_editar', id=post.id) }}"
+                                                title="Editar Aviso {{post.id}}">
+                                                <i class="mdi mdi-border-color edit"></i>
+                                            </a>
+                                            <a href="{{ url_for('posts.avisos_deletar', id=post.id)}}"
+                                                title="Deletar Aviso {{post.id}}">
+                                                <i class="mdi mdi-delete-forever delete"></i>
+                                            </a>
                                         {% endif %}
                                     </td>
                                 </tr>

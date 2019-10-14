@@ -26,6 +26,10 @@
                         <i class="mdi mdi-monitor-multiple text-primary"></i>
                         Ver Site
                     </a>
+                    <a class="dropdown-item" href="{{ url_for('posts.meus_posts') }}">
+                        <i class="mdi mdi-view-list text-primary"></i>
+                        Minhas Publicações
+                    </a>
                     <a class="dropdown-item" href="{{ url_for('usuarios.editar', id=session.get('user_id', 0)) }}" title="Editar Perfil">
                         <i class="mdi mdi-settings text-primary"></i>
                         Editar Perfil
