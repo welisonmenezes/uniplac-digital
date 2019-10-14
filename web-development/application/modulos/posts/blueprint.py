@@ -36,6 +36,7 @@ def noticias_index():
 
     return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, titulo=titulo, configuration=configuration), 200
 
+
 @postBP.route('/noticias/cadastrar', methods=['GET','POST'])
 def noticias_cadastrar():
     configuration = Configuration.query.first()
