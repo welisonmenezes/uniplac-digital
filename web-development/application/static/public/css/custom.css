@@ -363,3 +363,43 @@ textarea.form-control{
         display: block;
     }
 }
+
+
+.on-back-to-top {
+	cursor: pointer;
+	display: inline-block;
+	background-color:rgba(0, 0, 0, 0.5);
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	border-radius: 4px;
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	transition: background-color .3s, 
+	opacity .5s, visibility .5s;
+	opacity: 0;
+	visibility: hidden;
+	z-index: 1000;
+}
+.on-back-to-top::after {
+	content: "\f077";
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 22px;
+	line-height: 40px;
+	color: #fff;
+}
+.on-back-to-top:hover {
+	background: #01689b !important;
+	background: linear-gradient(45deg, #01689b 0%,#26507e 50%,#01689b 100%) !important;
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01689b', endColorstr='#01689b',GradientType=1 ) !important;
+}
+.on-back-to-top:active {
+  	background-color: #555;
+}
+.on-back-to-top.show {
+	opacity: 1;
+	visibility: visible;
+}
