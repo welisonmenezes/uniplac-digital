@@ -37,7 +37,9 @@
     {% endblock content %}
     {% include "includes/public/footer.html" ignore missing %}
     {% block scripts %}
-    <span id="on-back-to-top" class="on-back-to-top"></span>
+    <span id="on-back-to-top" class="on-back-to-top">
+        <img src="{{ url_for('static', filename='public/img/navigate-up-arrow.svg') }}" alt="Voltar para o topo">
+    </span>
     <script src="{{ url_for('static', filename='public/js/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='public/js/popper.js') }}"></script>
     <script src="{{ url_for('static', filename='public/js/bootstrap.min.js') }}"></script>
