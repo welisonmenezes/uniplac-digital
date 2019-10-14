@@ -523,6 +523,37 @@ def avisos_deletar(id):
     return render_template('/posts/deletar.html', titulo=titulo, pergunta=pergunta, postId=id, configuration=configuration), 200
 
 
+
+@postBP.route('/meus-posts')
+def meus_posts():
+    configuration = Configuration.query.first()
+    titulo = 'Meus Publicações'
+
+    # pega os argumentos da string, se existir, senão, seta valores padrão
+    page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
+    name = '' if (request.args.get('name') == None) else request.args.get('name')
+    category = '' if (request.args.get('category') == None) else request.args.get('category')
+    status = '' if (request.args.get('status') == None) else request.args.get('status')
+
+    # implementa o filtro se necessário
+    filter = (Post.user_id == session.get('user_id', ''), )
+    if category:
+        filter = filter + (Post.category_id == category,)
+    if name:
+        filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
+    if status:
+        filter = filter + (Post.status == status,)
+
+    # consulta o banco de dados retornando o paginate e os dados
+    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
+    posts = paginate.items
+
+    categories = Category.query.filter()
+
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, titulo=titulo, configuration=configuration, fromUser=True), 200
+
+
+
 # popula os campos do formuário
 def fillForm(form, post, genre):
     form.title.data = post.title 
