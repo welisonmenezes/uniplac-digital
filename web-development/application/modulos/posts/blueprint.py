@@ -94,6 +94,13 @@ def noticias_editar(id):
     if request.form:
         # formulário preenchido pelo objeto request, caso exista
         form = PostForm(request.form)
+
+        # print(post.entry_date)
+        # print(form.entry_date.data)
+        # if post.entry_date == form.entry_date.data:
+        #     print('igual')
+        #     form.entry_date.validators = []
+
     else:
         # formulário vazio
         form = PostForm()
@@ -102,9 +109,8 @@ def noticias_editar(id):
         fillForm(form, post, 'news')
 
 
-    # exemplo de entrada pra edição
-    #form.entry_date.data = datetime.datetime.strptime('2000-11-11', '%Y-%m-%d')
-    
+    clearDateValidatons(post, form)
+
     if form.validate_on_submit():
         try:
             post.title = form.title.data
@@ -291,6 +297,8 @@ def anuncios_editar(id):
     if session.get('user_role', '') == 'user':
         form.status.validators = []
 
+    clearDateValidatons(post, form)
+
     if form.validate_on_submit():
         try:
             post.title = form.title.data
@@ -461,6 +469,8 @@ def avisos_editar(id):
         # preenche formulário com post recuperado pelo id
         fillForm(form, post, 'notice')
 
+    clearDateValidatons(post, form)
+    
     if form.validate_on_submit():
         try:
             post.title = form.title.data
@@ -535,3 +545,20 @@ def fillForm(form, post, genre):
         form.image_id.data = post.image_id 
     form.user_id = session.get('user_id', '')
     form.category_id.data = post.category_id 
+
+
+
+def clearDateValidatons(post, form):
+    if post.entry_date == form.entry_date.data:
+        form.entry_date.validators = []
+        field = form.entry_date
+        def nullValidate(self, field):
+            return True
+        form.entry_date.validate = nullValidate
+
+    if post.departure_date == form.departure_date.data:
+        form.departure_date.validators = []
+        field = form.departure_date
+        def nullValidate(self, field):
+            return True
+        form.departure_date.validate = nullValidate

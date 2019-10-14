@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, PasswordField, SelectField, FileField, HiddenField, DateField, DateTimeField
 from wtforms.validators import DataRequired, InputRequired, ValidationError
 import re
-from datetime import date
+from datetime import date, timedelta
 from database.Model import Category 
 import datetime
 
@@ -95,14 +95,21 @@ class PostForm(FlaskForm):
     def validate_entry_date(self, field):
         if field == '':
             raise ValidationError('A data de entrada é obrigatório')
+        if not self.validateDate(field.data):
+            raise ValidationError('Data inválida')
+        if not self.compareDateWithNow(field):
+            raise ValidationError('A data/hora selecionada precisa ser maior que a data/hora atual')
+
 
     def validate_departure_date(self, field):
         if field == '':
             raise ValidationError('A data de saída é obrigatório')
         if not self.validateDate(field.data):
             raise ValidationError('Data inválida')
-        if not self.compareDates(self.entry_date.data, field.data):
-            raise ValidationError('A data de entrada deve ser maior que hoje e a data de saída deve ser maior que a data de entrada')
+        if not self.compareDateWithNow(field):
+            raise ValidationError('A data/hora selecionada deve ser maior que a data/hora atual')
+        if not self.compareDates(self.entry_date, field):
+            raise ValidationError('A data/hora de saída deve ser 60 minutos maior que a data/hora de entrada')
 
 
     # verifica se o campo é uma data válida
@@ -122,27 +129,46 @@ class PostForm(FlaskForm):
             return False
 
 
-    # vefifica se a data do index 0 é menor que a data do index 1 e é maior ou igual a data corrente
-    def compareDates(self, entry_date, departure_date):
+    # compara a data/hora com a data/hora atual
+    def compareDateWithNow(self, field):
         try:
-            today = date.today().strftime('%d-%m-%Y')
-            t_day,t_month,t_year = today.split('-')
-            t_date = datetime.datetime(int(t_year), int(t_month), int(t_day))
-            entry = str(entry_date)
-            real_entry = entry.split(' ')
-            e_year,e_month,e_day = real_entry[0].split('-')
-            e_date = datetime.datetime(int(e_year), int(e_month), int(e_day)) 
-            departure = str(departure_date)
-            real_departure = departure.split(' ')
-            d_year,d_month,d_day = real_departure[0].split('-')
-            d_date = datetime.datetime(int(d_year), int(d_month), int(d_day))
-            if e_date >= t_date:
-                if e_date < d_date:
-                    return True
-                else:
-                    return False
-            else:
+            now = datetime.datetime.now()
+            fieldDate = str(field.data)
+            date, time = fieldDate.split(' ')
+            year, month, day = date.split('-')
+            hour, minute, second = time.split(':')
+            second = second.split('.')[0]
+            finalDate = datetime.datetime(int(year), int(month), int(day), int(hour), int(minute), int(second))
+            if finalDate <= now:
                 return False
+            else:
+                return True
+        except:
+            return False
+
+    
+    # compara a data/hora com a data/hora entre dois dados campos
+    def compareDates(self, entryField, departureField):
+        try:
+            entryDate = str(entryField.data)
+            edate, etime = entryDate.split(' ')
+            eyear, emonth, eday = edate.split('-')
+            ehour, eminute, esecond = etime.split(':')
+            esecond = esecond.split('.')[0]
+            finalEntry = datetime.datetime(int(eyear), int(emonth), int(eday), int(ehour), int(eminute), int(esecond))
+
+            departureDate = str(departureField.data)
+            ddate, dtime = departureDate.split(' ')
+            dyear, dmonth, dday = ddate.split('-')
+            dhour, dminute, dsecond = dtime.split(':')
+            dsecond = dsecond.split('.')[0]
+            finalDeparture = datetime.datetime(int(dyear), int(dmonth), int(dday), int(dhour), int(dminute), int(dsecond))
+            finalDeparture = finalDeparture - timedelta(hours=1)
+
+            if finalDeparture <= finalEntry:
+                return False
+            else:
+                return True
         except:
             return False
 
