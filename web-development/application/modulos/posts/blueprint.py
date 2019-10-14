@@ -527,7 +527,7 @@ def avisos_deletar(id):
 @postBP.route('/meus-posts')
 def meus_posts():
     configuration = Configuration.query.first()
-    titulo = 'Meus Publicações'
+    titulo = 'Minhas Publicações'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
     page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
