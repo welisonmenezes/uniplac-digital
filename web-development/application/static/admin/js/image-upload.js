@@ -17,83 +17,92 @@ document.addEventListener('DOMContentLoaded', function () {
     // dispara envio de imagem
     $('body').on('change', '.file-upload-default', function (e) {
         current_el = $(e.target);
+
+        if ($('.errorContainer')) {
+            $('.errorContainer').html('');
+        }
+
         if (e.target.files.length) {
             var element = e.target;
-            var file = element.files[0];
-            if (file && file.name) {
-                var filename = file.name;
-                var extension = filename.slice((filename.lastIndexOf('.') - 1 >>> 0) + 2).toLowerCase();
-                var accepts = element.getAttribute('accept').split(',');
-                if (file.size <= 5017969) {
-                    if (accepts.indexOf('.' + extension) > -1) {
+            if (current_el.hasClass('multiple') && $('.fig-banner').length >= 10) {
+                element.value = null;
+                addMultipleImageHTML(null, 'A quantidade máxima de imagens para o banner é 10.');
+            } else {
+                var file = element.files[0];
+                if (file && file.name) {
+                    var filename = file.name;
+                    var extension = filename.slice((filename.lastIndexOf('.') - 1 >>> 0) + 2).toLowerCase();
+                    var accepts = element.getAttribute('accept').split(',');
+                    if (file.size <= 5017969) {
+                        if (accepts.indexOf('.' + extension) > -1) {
 
-                        // faz o cropp
-                        const reader = new FileReader();
-                        reader.onload = (e) => {
-                            if (e.target.result) {
-                                let img = document.createElement('img');
-                                img.id = 'image';
-                                img.src = e.target.result
-                                result.innerHTML = '';
-                                result.appendChild(img);
-                                cropp.classList.remove('cropp-hide');
-                                
-                                if (current_el.hasClass('img-post')) {
-                                    cropper = new Cropper(img, {
-                                        autoCropArea: 0,
-                                        strict: false,
-                                        guides: false,
-                                        highlight: false,
-                                        dragCrop: false,
-                                        cropBoxMovable: true,
-                                        cropBoxResizable: true,
-                                        aspectRatio: 16 / 8
-                                    });
-                                } else if (current_el.hasClass('multiple')) {
-                                    cropper = new Cropper(img, {
-                                        autoCropArea: 0,
-                                        strict: false,
-                                        guides: false,
-                                        highlight: false,
-                                        dragCrop: false,
-                                        cropBoxMovable: true,
-                                        cropBoxResizable: true,
-                                        aspectRatio: 16 / 4
-                                    });
-                                } else {
-                                    cropper = new Cropper(img, {
-                                        autoCropArea: 0,
-                                        strict: false,
-                                        guides: false,
-                                        highlight: false,
-                                        dragCrop: false,
-                                        cropBoxMovable: true,
-                                        cropBoxResizable: true,
-                                        aspectRatio: 16 / 16
-                                    });
+                            // faz o cropp
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                if (e.target.result) {
+                                    let img = document.createElement('img');
+                                    img.id = 'image';
+                                    img.src = e.target.result
+                                    result.innerHTML = '';
+                                    result.appendChild(img);
+                                    cropp.classList.remove('cropp-hide');
+
+                                    if (current_el.hasClass('img-post')) {
+                                        cropper = new Cropper(img, {
+                                            autoCropArea: 0,
+                                            strict: false,
+                                            guides: false,
+                                            highlight: false,
+                                            dragCrop: false,
+                                            cropBoxMovable: true,
+                                            cropBoxResizable: true,
+                                            aspectRatio: 16 / 8
+                                        });
+                                    } else if (current_el.hasClass('multiple')) {
+                                        cropper = new Cropper(img, {
+                                            autoCropArea: 0,
+                                            strict: false,
+                                            guides: false,
+                                            highlight: false,
+                                            dragCrop: false,
+                                            cropBoxMovable: true,
+                                            cropBoxResizable: true,
+                                            aspectRatio: 16 / 4
+                                        });
+                                    } else {
+                                        cropper = new Cropper(img, {
+                                            autoCropArea: 0,
+                                            strict: false,
+                                            guides: false,
+                                            highlight: false,
+                                            dragCrop: false,
+                                            cropBoxMovable: true,
+                                            cropBoxResizable: true,
+                                            aspectRatio: 16 / 16
+                                        });
+                                    }
                                 }
-                            }
-                        };
-                        reader.readAsDataURL(e.target.files[0]);
+                            };
+                            reader.readAsDataURL(e.target.files[0]);
 
+                        } else {
+                            element.value = null;
+                            if (current_el.hasClass('multiple')) {
+                                addMultipleImageHTML(null, 'Extensão inválida');
+                            } else {
+                                addImageHTML(null, 'Extensão inválida');
+                            }
+                        }
                     } else {
                         element.value = null;
                         if (current_el.hasClass('multiple')) {
-                            addMultipleImageHTML(null, 'Extensão inválida');
+                            addMultipleImageHTML(null, 'Tamanho inválido');
                         } else {
-                            addImageHTML(null, 'Extensão inválida');
+                            addImageHTML(null, 'Tamanho inválido');
                         }
-                    }
-                } else {
-                    element.value = null;
-                    if (current_el.hasClass('multiple')) {
-                        addMultipleImageHTML(null, 'Tamanho inválido');
-                    } else {
-                        addImageHTML(null, 'Tamanho inválido');
                     }
                 }
             }
-
         }
     });
 

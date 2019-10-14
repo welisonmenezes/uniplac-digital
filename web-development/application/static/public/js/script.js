@@ -53,7 +53,6 @@ $(".carousel").slick({
         var current = location.pathname;
 
         function addActiveClass(element) {
-            console.log(current)
             if (current.includes(element.attr('href'))) {
                 if (!element.parent().hasClass('first')) {
                     element.parent().addClass('active');
@@ -76,3 +75,39 @@ $(".carousel").slick({
 
     });
 })(jQuery);
+
+
+function _scrollToTop(scrollDuration) {
+    var scrollStep = -window.scrollY / (scrollDuration / 15),
+        scrollInterval = setInterval(function(){
+        if ( window.scrollY != 0 ) {
+            window.scrollBy( 0, scrollStep );
+        }
+        else clearInterval(scrollInterval); 
+    },15);
+}
+
+ function onBackToTop() {
+     var element = document.getElementById('on-back-to-top');
+     if (element) {
+         element.addEventListener('click', function(event) {
+             _scrollToTop(600);
+         });
+     }
+ }
+ onBackToTop();
+
+ function showHideBackToTopButton() {
+     var element = document.getElementById('on-back-to-top');
+     if (element) {
+         window.onscroll = function() {
+             var nVScroll = document.documentElement.scrollTop || document.body.scrollTop;
+             if (nVScroll > 300) {
+                 element.classList.add('show');
+             } else {
+                 element.classList.remove('show');
+             }
+         }
+     }
+ }
+ showHideBackToTopButton();
