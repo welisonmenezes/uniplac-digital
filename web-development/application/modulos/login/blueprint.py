@@ -64,10 +64,13 @@ def recuperada():
 @loginBP.route('/logout')
 def logout():
     configuration = Configuration.query.first()
-    app.logger.warning(' %s deslogou da aplicação', session.get('user_name', ''))
-    session.pop('user_id')
-    session.pop('user_avatar')
-    session.pop('user_name')
-    session.pop('user_role')
+    try:
+        app.logger.warning(' %s deslogou da aplicação', session.get('user_name', ''))
+        session.pop('user_id')
+        session.pop('user_avatar')
+        session.pop('user_name')
+        session.pop('user_role')
+    except:
+        app.logger.warning('Logout por inatividade realizado')
     session.clear()
     return redirect( url_for('login.inicio') )

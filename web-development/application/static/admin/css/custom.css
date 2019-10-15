@@ -29,6 +29,14 @@ table i{
 table a:hover{
     text-decoration: none;
 }
+table thead a{
+    color: #212529;
+    text-decoration: underline;
+}
+table thead a.active{
+    color: #4d83ff;
+    text-decoration: underline;
+}
 
 .table-pagination{
     margin-top: 40px;

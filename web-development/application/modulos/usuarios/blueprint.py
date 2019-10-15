@@ -1,7 +1,7 @@
 import os
 from flask import current_app, Blueprint, render_template, request, url_for, flash, redirect, session
 from wtforms.validators import Length
-from sqlalchemy import or_, desc
+from sqlalchemy import or_, desc, asc
 from app import app, bcrypt
 from modulos.usuarios.formularios import UsuarioForm
 from database.Model import db, User, Post, Configuration
@@ -16,9 +16,25 @@ def index():
     titulo = 'Usuários'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
-    page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
+    page = '1' if (request.args.get('page') == None) else request.args.get('page')
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     role = '' if (request.args.get('role') == None) else request.args.get('role')
+    order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
+    order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+
+    # previne erro ao receber string
+    try:
+        page = int(page)
+    except:
+        page = 1
+
+    # previne erro ao recebe string inválida
+    if not order_by in ['id', 'first_name']:
+        order_by = 'id'
+
+    # previne erro ao recebe string inválida
+    if not order in ['desc', 'asc']:
+        order = 'desc'
 
     # implementa o filtro se necessário
     filter = ()
@@ -27,11 +43,17 @@ def index():
     if name:
         filter = filter + (or_(User.first_name.like('%'+name+'%'), User.last_name.like('%'+name+'%')),)
 
+    # gera o order_by
+    if order == 'asc':
+        query_order = asc(order_by)
+    else:
+        query_order = desc(order_by)
+
     # consulda o panco de ados retornando o paginate e os dados
-    paginate = User.query.filter(*filter).order_by(desc(User.id)).paginate(page=page, per_page=10, error_out=False)
+    paginate = User.query.filter(*filter).order_by(query_order).paginate(page=page, per_page=10, error_out=False)
     users = paginate.items
 
-    return render_template('usuarios/index.html', titulo=titulo, users=users, paginate=paginate, currentPage=page, name=name, role=role, configuration=configuration), 200
+    return render_template('usuarios/index.html', titulo=titulo, users=users, paginate=paginate, currentPage=page, name=name, role=role, order_by=order_by, order=order, configuration=configuration), 200
 
 
 @usuarioBP.route('/cadastrar', methods=['GET', 'POST'])

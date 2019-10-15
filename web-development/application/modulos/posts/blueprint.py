@@ -2,7 +2,7 @@ import os
 from flask import current_app, Blueprint, render_template, request, url_for, flash, session, redirect
 from modulos.posts.formularios import PostForm
 from app import app
-from sqlalchemy import desc, or_, and_
+from sqlalchemy import desc, or_, and_, asc
 from database.Model import Configuration, db, Post, Category
 import datetime
 
@@ -14,10 +14,26 @@ def noticias_index():
     titulo = 'Notícias'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
-    page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
+    page = '1' if (request.args.get('page') == None) else request.args.get('page')
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
     status = '' if (request.args.get('status') == None) else request.args.get('status')
+    order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
+    order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+
+    # previne erro ao receber string
+    try:
+        page = int(page)
+    except:
+        page = 1
+
+    # previne erro ao recebe string inválida
+    if not order_by in ['id', 'title', 'created_at']:
+        order_by = 'id'
+
+    # previne erro ao recebe string inválida
+    if not order in ['desc', 'asc']:
+        order = 'desc'
 
     # implementa o filtro se necessário
     filter = (Post.genre == 'news', )
@@ -28,13 +44,19 @@ def noticias_index():
     if status:
         filter = filter + (Post.status == status,)
 
+    # gera o order_by
+    if order == 'asc':
+        query_order = asc(order_by)
+    else:
+        query_order = desc(order_by)
+
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
+    paginate = Post.query.filter(*filter).order_by(query_order).paginate(page=page, per_page=10, error_out=False)
     posts = paginate.items
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, titulo=titulo, configuration=configuration), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration), 200
 
 
 @postBP.route('/noticias/cadastrar', methods=['GET','POST'])
@@ -172,10 +194,26 @@ def anuncios_index():
     titulo = 'Anúncios'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
-    page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
+    page = '1' if (request.args.get('page') == None) else request.args.get('page')
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
     status = '' if (request.args.get('status') == None) else request.args.get('status')
+    order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
+    order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+
+    # previne erro ao receber string
+    try:
+        page = int(page)
+    except:
+        page = 1
+
+    # previne erro ao recebe string inválida
+    if not order_by in ['id', 'title', 'created_at']:
+        order_by = 'id'
+
+    # previne erro ao recebe string inválida
+    if not order in ['desc', 'asc']:
+        order = 'desc'
 
     # implementa o filtro se necessário
     filter = (Post.genre == 'ad', )
@@ -189,13 +227,19 @@ def anuncios_index():
     if session.get('user_role', '') == 'user':
         filter = filter + (Post.user_id == session.get('user_id', ''), )
 
+    # gera o order_by
+    if order == 'asc':
+        query_order = asc(order_by)
+    else:
+        query_order = desc(order_by)
+
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
+    paginate = Post.query.filter(*filter).order_by(query_order).paginate(page=page, per_page=10, error_out=False)
     posts = paginate.items
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, titulo=titulo, configuration=configuration), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration), 200
 
 @postBP.route('/anuncios/cadastrar', methods=['GET','POST'])
 def anuncios_cadastrar():
@@ -373,10 +417,26 @@ def avisos_index():
     titulo = 'Avisos'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
-    page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
+    page = '1' if (request.args.get('page') == None) else request.args.get('page')
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
     status = '' if (request.args.get('status') == None) else request.args.get('status')
+    order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
+    order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+
+    # previne erro ao receber string
+    try:
+        page = int(page)
+    except:
+        page = 1
+
+    # previne erro ao recebe string inválida
+    if not order_by in ['id', 'title', 'created_at']:
+        order_by = 'id'
+
+    # previne erro ao recebe string inválida
+    if not order in ['desc', 'asc']:
+        order = 'desc'
 
     # implementa o filtro se necessário
     filter = (Post.genre == 'notice', )
@@ -386,14 +446,20 @@ def avisos_index():
         filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
     if status:
         filter = filter + (Post.status == status,)
+    
+    # gera o order_by
+    if order == 'asc':
+        query_order = asc(order_by)
+    else:
+        query_order = desc(order_by)
 
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
+    paginate = Post.query.filter(*filter).order_by(query_order).paginate(page=page, per_page=10, error_out=False)
     posts = paginate.items
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, titulo=titulo, configuration=configuration), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration), 200
 
 @postBP.route('/avisos/cadastrar', methods=['GET','POST'])
 def avisos_cadastrar():
@@ -530,10 +596,26 @@ def meus_posts():
     titulo = 'Minhas Publicações'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
-    page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
+    page = '1' if (request.args.get('page') == None) else request.args.get('page')
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
     status = '' if (request.args.get('status') == None) else request.args.get('status')
+    order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
+    order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+
+    # previne erro ao receber string
+    try:
+        page = int(page)
+    except:
+        page = 1
+
+    # previne erro ao recebe string inválida
+    if not order_by in ['id', 'title', 'created_at']:
+        order_by = 'id'
+
+    # previne erro ao recebe string inválida
+    if not order in ['desc', 'asc']:
+        order = 'desc'
 
     # implementa o filtro se necessário
     filter = (Post.user_id == session.get('user_id', ''), )
@@ -544,13 +626,19 @@ def meus_posts():
     if status:
         filter = filter + (Post.status == status,)
 
+    # gera o order_by
+    if order == 'asc':
+        query_order = asc(order_by)
+    else:
+        query_order = desc(order_by)
+
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
+    paginate = Post.query.filter(*filter).order_by(query_order).paginate(page=page, per_page=10, error_out=False)
     posts = paginate.items
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, titulo=titulo, configuration=configuration, fromUser=True), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, fromUser=True), 200
 
 
 

@@ -1,5 +1,5 @@
 from flask import current_app, Blueprint, render_template, request, url_for, redirect, flash, session
-from sqlalchemy import desc
+from sqlalchemy import desc, asc
 from app import app
 from modulos.categorias.formularios import CategoriaForm
 from modulos.categorias.validations import validateCategoryToCreate, validateCategoryToUpdate
@@ -14,19 +14,41 @@ def index():
     titulo = 'Categorias'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
-    page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
+    page = '1' if (request.args.get('page') == None) else request.args.get('page')
     name = '' if (request.args.get('name') == None) else request.args.get('name')
+    order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
+    order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+
+    # previne erro ao receber string
+    try:
+        page = int(page)
+    except:
+        page = 1
+
+    # previne erro ao recebe string inválida
+    if not order_by in ['id', 'name', 'created_at']:
+        order_by = 'id'
+
+    # previne erro ao recebe string inválida
+    if not order in ['desc', 'asc']:
+        order = 'desc'
 
     # implementa o filtro se necessário
     filter = ()
     if name:
         filter = filter + (Category.name.like('%'+name+'%'),)
 
+    # gera o order_by
+    if order == 'asc':
+        query_order = asc(order_by)
+    else:
+        query_order = desc(order_by)
+
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Category.query.filter(*filter).order_by(desc(Category.id)).paginate(page=page, per_page=10, error_out=False)
+    paginate = Category.query.filter(*filter).order_by(query_order).paginate(page=page, per_page=10, error_out=False)
     categories = paginate.items
 
-    return render_template('/categorias/index.html', paginate=paginate, categories=categories, currentPage=page, name=name, titulo=titulo, configuration=configuration), 200
+    return render_template('/categorias/index.html', paginate=paginate, categories=categories, currentPage=page, name=name, order_by=order_by, order=order, titulo=titulo, configuration=configuration), 200
 
 @categoriaBP.route('/cadastrar', methods=['GET','POST'])
 def cadastrar():

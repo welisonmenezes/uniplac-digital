@@ -29,6 +29,8 @@ app.config['RECAPTCHA_PUBLIC_KEY']= '6LccGOISAAAAAPVdDHhzpAXI64FnnX1vYL7Yea23'
 app.config['RECAPTCHA_PRIVATE_KEY']='6LccGOISAAAAAFhRBXgRg5-1x_U2S0m9sxQJjdOW'
 app.config['RECAPTCHA_OPTIONS'] = {'theme':'white'}
 
+print(app.config)
+
 # initialize app dependencies
 db = SQLAlchemy(app)
 ma = Marshmallow(app)

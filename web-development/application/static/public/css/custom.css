@@ -401,7 +401,7 @@ textarea.form-control{
 	visibility: hidden;
 	z-index: 1000;
 }
-.on-back-to-top::after {
+/* .on-back-to-top::after {
 	content: "\f077";
 	font-family: FontAwesome;
 	font-weight: normal;
@@ -409,7 +409,7 @@ textarea.form-control{
 	font-size: 22px;
 	line-height: 40px;
 	color: #fff;
-}
+} */
 .on-back-to-top:hover {
 	background: #01689b !important;
 	background: linear-gradient(45deg, #01689b 0%,#26507e 50%,#01689b 100%) !important;
@@ -421,4 +421,11 @@ textarea.form-control{
 .on-back-to-top.show {
 	opacity: 1;
 	visibility: visible;
+}
+.on-back-to-top img{
+    display: block;
+    width: 26px;
+    position: absolute;
+    top: 7px;
+    left: 7px;
 }
