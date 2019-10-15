@@ -27,6 +27,14 @@ def noticias_index():
     except:
         page = 1
 
+    # previne erro ao recebe string inválida
+    if not order_by in ['id', 'title', 'created_at']:
+        order_by = 'id'
+
+    # previne erro ao recebe string inválida
+    if not order in ['desc', 'asc']:
+        order = 'desc'
+
     # implementa o filtro se necessário
     filter = (Post.genre == 'news', )
     if category:
@@ -198,6 +206,14 @@ def anuncios_index():
         page = int(page)
     except:
         page = 1
+
+    # previne erro ao recebe string inválida
+    if not order_by in ['id', 'title', 'created_at']:
+        order_by = 'id'
+
+    # previne erro ao recebe string inválida
+    if not order in ['desc', 'asc']:
+        order = 'desc'
 
     # implementa o filtro se necessário
     filter = (Post.genre == 'ad', )
@@ -414,6 +430,14 @@ def avisos_index():
     except:
         page = 1
 
+    # previne erro ao recebe string inválida
+    if not order_by in ['id', 'title', 'created_at']:
+        order_by = 'id'
+
+    # previne erro ao recebe string inválida
+    if not order in ['desc', 'asc']:
+        order = 'desc'
+
     # implementa o filtro se necessário
     filter = (Post.genre == 'notice', )
     if category:
@@ -584,6 +608,14 @@ def meus_posts():
         page = int(page)
     except:
         page = 1
+
+    # previne erro ao recebe string inválida
+    if not order_by in ['id', 'title', 'created_at']:
+        order_by = 'id'
+
+    # previne erro ao recebe string inválida
+    if not order in ['desc', 'asc']:
+        order = 'desc'
 
     # implementa o filtro se necessário
     filter = (Post.user_id == session.get('user_id', ''), )

@@ -25,6 +25,14 @@ def index():
     except:
         page = 1
 
+    # previne erro ao recebe string inválida
+    if not order_by in ['id', 'name', 'created_at']:
+        order_by = 'id'
+
+    # previne erro ao recebe string inválida
+    if not order in ['desc', 'asc']:
+        order = 'desc'
+
     # implementa o filtro se necessário
     filter = ()
     if name:
