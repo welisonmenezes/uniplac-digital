@@ -16,6 +16,7 @@ def index():
     # pega os argumentos da string, se existir, senão, seta valores padrão
     page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
     name = '' if (request.args.get('name') == None) else request.args.get('name')
+    order = 'id' if (request.args.get('order') == None) else request.args.get('order')
 
     # implementa o filtro se necessário
     filter = ()
@@ -23,10 +24,10 @@ def index():
         filter = filter + (Category.name.like('%'+name+'%'),)
 
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Category.query.filter(*filter).order_by(desc(Category.id)).paginate(page=page, per_page=10, error_out=False)
+    paginate = Category.query.filter(*filter).order_by(desc(order)).paginate(page=page, per_page=10, error_out=False)
     categories = paginate.items
 
-    return render_template('/categorias/index.html', paginate=paginate, categories=categories, currentPage=page, name=name, titulo=titulo, configuration=configuration), 200
+    return render_template('/categorias/index.html', paginate=paginate, categories=categories, currentPage=page, name=name, order=order, titulo=titulo, configuration=configuration), 200
 
 @categoriaBP.route('/cadastrar', methods=['GET','POST'])
 def cadastrar():

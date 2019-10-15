@@ -49,9 +49,21 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Nome</th>
-                                    <th>Data</th>
+                                    <th>
+                                        <a href="{{ url_for('categorias.index', page=currentPage, name=name, order='id') }}"
+                                        class="{{ 'active' if order=='id' else '' }}"
+                                        title="Ordenar por ID">ID</a>
+                                    </th>
+                                    <th>
+                                        <a href="{{ url_for('categorias.index', page=currentPage, name=name, order='name') }}"
+                                        class="{{ 'active' if order=='name' else '' }}"
+                                        title="Ordenar por ID">Nome</a>
+                                    </th>
+                                    <th>
+                                            <a href="{{ url_for('categorias.index', page=currentPage, name=name, order='created_at') }}"
+                                            class="{{ 'active' if order=='created_at' else '' }}"
+                                            title="Ordenar por ID">Data</a>
+                                    </th>
                                     <th>Editar/Deletar</th>
                                 </tr>
                             </thead>
