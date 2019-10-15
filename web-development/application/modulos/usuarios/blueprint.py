@@ -35,7 +35,7 @@ def index():
         query_order = desc(order_by)
 
     # consulda o panco de ados retornando o paginate e os dados
-    paginate = User.query.filter(*filter).order_by(query_order).paginate(page=page, per_page=1, error_out=False)
+    paginate = User.query.filter(*filter).order_by(query_order).paginate(page=page, per_page=10, error_out=False)
     users = paginate.items
 
     return render_template('usuarios/index.html', titulo=titulo, users=users, paginate=paginate, currentPage=page, name=name, role=role, order_by=order_by, order=order, configuration=configuration), 200
