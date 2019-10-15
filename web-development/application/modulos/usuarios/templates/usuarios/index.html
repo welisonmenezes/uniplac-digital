@@ -48,18 +48,33 @@
                             </div>
                         </div>
                         <div class="col-md-2">
+                            <input type="hidden" name="order" value="{{ order }}" />
+                            <input type="hidden" name="order_by" value="{{ order_by }}" />
                             <button type="submit" class="btn btn-primary btn-sm btn-block">Filtrar</button>
                         </div>
                     </div>
                 </form>
                 <div class="table-responsive">
                     {% if users|length > 0 %}
+                    {% if order == 'asc' %}
+                    {% set _order = 'desc' %}
+                    {% else %}
+                    {% set _order = 'asc' %}
+                    {% endif %}
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>User</th>
-                                <th>ID</th>
-                                <th>Nome</th>
+                                <th>Avatar</th>
+                                <th>
+                                    <a href="{{ url_for('usuarios.index', page=currentPage, name=name, role=role, order_by='id', order=_order) }}"
+                                        class="{{ 'active' if order_by=='id' else '' }}"
+                                        title="Ordenar por ID">ID</a>
+                                </th>
+                                <th>
+                                    <a href="{{ url_for('usuarios.index', page=currentPage, name=name, role=role, order_by='first_name', order=_order) }}"
+                                        class="{{ 'active' if order_by=='first_name' else '' }}"
+                                        title="Ordenar por Nome">Nome</a>
+                                </th>
                                 <th>Nível de Usuário</th>
                                 <th>Editar/Deletar </th>
                             </tr>
@@ -74,7 +89,8 @@
                                         style="background-image: url({{request.url_root}}api/media/0)"
                                         alt="User Avatar"></div>
                                     {% else: %}
-                                    <a href="{{request.url_root}}api/media/{{ user.image_id }}" data-lightbox="{{ user.id }}" data-title="{{ user.name }}">
+                                    <a href="{{request.url_root}}api/media/{{ user.image_id }}"
+                                        data-lightbox="{{ user.id }}" data-title="{{ user.name }}">
                                         <div class="img-avatar"
                                             style="background-image: url({{request.url_root}}api/media/{{ user.image_id }})"
                                             alt="User Avatar"></div>
@@ -110,7 +126,7 @@
                             {% if page == None %}
                             <button type="button" class="btn">...</button>
                             {% else %}
-                            <a href="{{ url_for('usuarios.index', page=page, name=name, role=role) }}"
+                            <a href="{{ url_for('usuarios.index', page=page, name=name, role=role, order_by=order_by, order=order) }}"
                                 class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
                                 title="Página {{page}}">{{ page }}</a>
                             {% endif %}
