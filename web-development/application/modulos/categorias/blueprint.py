@@ -14,16 +14,23 @@ def index():
     titulo = 'Categorias'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
-    page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
+    page = '1' if (request.args.get('page') == None) else request.args.get('page')
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+
+    # previne erro ao receber string
+    try:
+        page = int(page)
+    except:
+        page = 1
 
     # implementa o filtro se necessário
     filter = ()
     if name:
         filter = filter + (Category.name.like('%'+name+'%'),)
 
+    # gera o order_by
     if order == 'asc':
         query_order = asc(order_by)
     else:

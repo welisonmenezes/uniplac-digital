@@ -16,11 +16,17 @@ def index():
     titulo = 'Usuários'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
-    page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
+    page = '1' if (request.args.get('page') == None) else request.args.get('page')
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     role = '' if (request.args.get('role') == None) else request.args.get('role')
     order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+
+    # previne erro ao receber string
+    try:
+        page = int(page)
+    except:
+        page = 1
 
     # implementa o filtro se necessário
     filter = ()
@@ -29,6 +35,7 @@ def index():
     if name:
         filter = filter + (or_(User.first_name.like('%'+name+'%'), User.last_name.like('%'+name+'%')),)
 
+    # gera o order_by
     if order == 'asc':
         query_order = asc(order_by)
     else:

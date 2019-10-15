@@ -14,12 +14,18 @@ def noticias_index():
     titulo = 'Notícias'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
-    page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
+    page = '1' if (request.args.get('page') == None) else request.args.get('page')
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
     status = '' if (request.args.get('status') == None) else request.args.get('status')
     order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+
+    # previne erro ao receber string
+    try:
+        page = int(page)
+    except:
+        page = 1
 
     # implementa o filtro se necessário
     filter = (Post.genre == 'news', )
@@ -30,6 +36,7 @@ def noticias_index():
     if status:
         filter = filter + (Post.status == status,)
 
+    # gera o order_by
     if order == 'asc':
         query_order = asc(order_by)
     else:
@@ -179,12 +186,18 @@ def anuncios_index():
     titulo = 'Anúncios'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
-    page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
+    page = '1' if (request.args.get('page') == None) else request.args.get('page')
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
     status = '' if (request.args.get('status') == None) else request.args.get('status')
     order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+
+    # previne erro ao receber string
+    try:
+        page = int(page)
+    except:
+        page = 1
 
     # implementa o filtro se necessário
     filter = (Post.genre == 'ad', )
@@ -198,6 +211,7 @@ def anuncios_index():
     if session.get('user_role', '') == 'user':
         filter = filter + (Post.user_id == session.get('user_id', ''), )
 
+    # gera o order_by
     if order == 'asc':
         query_order = asc(order_by)
     else:
@@ -387,12 +401,18 @@ def avisos_index():
     titulo = 'Avisos'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
-    page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
+    page = '1' if (request.args.get('page') == None) else request.args.get('page')
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
     status = '' if (request.args.get('status') == None) else request.args.get('status')
     order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+
+    # previne erro ao receber string
+    try:
+        page = int(page)
+    except:
+        page = 1
 
     # implementa o filtro se necessário
     filter = (Post.genre == 'notice', )
@@ -403,6 +423,7 @@ def avisos_index():
     if status:
         filter = filter + (Post.status == status,)
     
+    # gera o order_by
     if order == 'asc':
         query_order = asc(order_by)
     else:
@@ -551,12 +572,18 @@ def meus_posts():
     titulo = 'Minhas Publicações'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
-    page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
+    page = '1' if (request.args.get('page') == None) else request.args.get('page')
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
     status = '' if (request.args.get('status') == None) else request.args.get('status')
     order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+
+    # previne erro ao receber string
+    try:
+        page = int(page)
+    except:
+        page = 1
 
     # implementa o filtro se necessário
     filter = (Post.user_id == session.get('user_id', ''), )
@@ -567,6 +594,7 @@ def meus_posts():
     if status:
         filter = filter + (Post.status == status,)
 
+    # gera o order_by
     if order == 'asc':
         query_order = asc(order_by)
     else:
