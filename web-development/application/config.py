@@ -10,7 +10,7 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:@localhost/uniplacdigital'
 
 # Configurações de segurança
 SECRET_KEY = '#$#gdFDKF#993FDVKkfdkj#$$2@@@@dfdlafFGÇPLO^dfe__fd'
-PERMANENT_SESSION_LIFETIME = timedelta(minutes=30)
+PERMANENT_SESSION_LIFETIME = timedelta(minutes=60)
 USE_PERMANENT_SESSION = True
 
 # Configurações de email
