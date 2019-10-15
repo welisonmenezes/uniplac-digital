@@ -35,7 +35,7 @@
                     {% for post in ads %}
                     <div>
                         <div class="card blog__slide text-center">
-                            <a href="{{ url_for('site.anuncios_detalhes') }}" class="blog_btn">
+                            <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" class="blog_btn">
                                 {% if post.image_id == None %}
                                 <div class="no-image">
                                     <div>
@@ -80,7 +80,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="single-blog">
-                            <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                            <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" class="blog_btn">
                                 {% if post.image_id != None %}
                                 <div class="thumb">
                                     <img class="img-fluid" src="{{request.url_root}}api/media/{{post.image_id}}" alt="">
@@ -94,7 +94,7 @@
                                     {{ post.description }}
                                 </p>
                             </div>
-                            <a href="{{ url_for('site.noticias_detalhes') }}" class="blog_btn">
+                            <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" class="blog_btn">
                                 Ver Mais
                                 <span class="ml-2 ti-arrow-right"></span>
                             </a>

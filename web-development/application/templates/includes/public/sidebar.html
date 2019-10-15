@@ -5,11 +5,11 @@
         {% for post in notices %}
         {% if post.image_id == None %}
         <div class="media post_item no-image">
-            <a href="{{ url_for('site.avisos_detalhes') }}">
+            <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}">
 
                 <div class="media-body">
                     <h3>{{ post.title }}</h3>
-                    <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                    <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" class="blog_btn">
                         Ver Mais
                         <span class="ml-2 ti-arrow-right"></span>
                     </a>
@@ -18,11 +18,11 @@
         </div>
         {% else %}
         <div class="media post_item">
-            <a href="{{ url_for('site.avisos_detalhes') }}">
+            <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}">
                 <img src="{{request.url_root}}api/media/{{post.image_id}}" alt="post">
                 <div class="media-body">
                     <h3>{{ post.title }}</h3>
-                    <a href="{{ url_for('site.avisos_detalhes') }}" class="blog_btn">
+                    <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" class="blog_btn">
                         Ver Mais
                         <span class="ml-2 ti-arrow-right"></span>
                     </a>
