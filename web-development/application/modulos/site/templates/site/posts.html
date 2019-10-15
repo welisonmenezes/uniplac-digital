@@ -26,8 +26,8 @@
         <div class="row">
 
             <div class="col-lg-8">
+                
                 <div class="blog_left_sidebar">
-
                     {% for post in posts %}
                     <article class="blog_item">
                         {% if titulo == 'Notícias' %}
@@ -79,7 +79,7 @@
                             <span class="ml-2 ti-arrow-right"></span>
                         </a>
                         {% elif titulo == 'Filtro' %}
-                        
+                        {% if post.genre == 'news' %}
                         <a class="d-inline-block" href="{{ url_for('site.noticias_detalhes', id=post.id) }}">
                             {% if post.image_id != None %}
                             <div class="blog_item_img">
@@ -95,11 +95,43 @@
                             Ver Mais
                             <span class="ml-2 ti-arrow-right"></span>
                         </a>
-
+                        {% elif post.genre == 'ad' %}
+                        <a class="d-inline-block" href="{{ url_for('site.anuncios_detalhes', id=post.id) }}">
+                            {% if post.image_id != None %}
+                            <div class="blog_item_img">
+                                <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
+                                    alt="">
+                            </div>
+                            {% endif %}
+                            <div class="blog_details">
+                                <h2>{{ post.title }}</h2>
+                        </a>
+                        <p>{{ post.description }}</p>
+                        <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" class="blog_btn">
+                            Ver Mais
+                            <span class="ml-2 ti-arrow-right"></span>
+                        </a>
+                        {% elif post.genre == 'notice' %}
+                        <a class="d-inline-block" href="{{ url_for('site.avisos_detalhes', id=post.id) }}">
+                            {% if post.image_id != None %}
+                            <div class="blog_item_img">
+                                <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
+                                    alt="">
+                            </div>
+                            {% endif %}
+                            <div class="blog_details">
+                                <h2>{{ post.title }}</h2>
+                        </a>
+                        <p>{{ post.description }}</p>
+                        <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" class="blog_btn">
+                            Ver Mais
+                            <span class="ml-2 ti-arrow-right"></span>
+                        </a>
                         {% endif %}
+                        {% endif %}
+                    </article>
+                    {% endfor %}
                 </div>
-                </article>
-                {% endfor %}
 
                 <!--Paginação-->
                 <nav class="blog-pagination justify-content-center d-flex">
@@ -259,12 +291,11 @@
                     </ul>
                 </nav>
             </div>
+            
+            <div class="col-lg-4">
+                {% include 'includes/public/sidebar.html' %}
+            </div>
         </div>
-
-        <div class="col-lg-4">
-            {% include 'includes/public/sidebar.html' %}
-        </div>
-    </div>
     </div>
 </section>
 

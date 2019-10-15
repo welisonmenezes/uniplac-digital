@@ -8,7 +8,6 @@ from modulos.site.formularios import ContactForm
 from database.Model import Configuration, Category, Post, ConfigurationImage, User
 
 siteBP = Blueprint('site', __name__, url_prefix='/', template_folder='templates', static_folder='static')
-current_datetime = datetime.now()
 
 @siteBP.route('/')
 def index():
@@ -16,6 +15,8 @@ def index():
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
     
+    current_datetime = datetime.now()
+
     news = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='news', Post.status=='approved')).order_by(desc(Post.id)).limit(10)
     ads = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='ad', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
     notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
@@ -30,6 +31,8 @@ def noticias():
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
     
+    current_datetime = datetime.now()
+
     notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
@@ -61,6 +64,8 @@ def noticias_detalhes(id):
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
     
+    current_datetime = datetime.now()
+
     post = Post.query.filter(and_(Post.id==id, Post.genre=='news')).first()
     user = User.query.filter(User.id==post.user_id).first()
     category = Category.query.filter(Category.id==post.category_id).first()
@@ -76,6 +81,8 @@ def anuncios():
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
     
+    current_datetime = datetime.now()
+
     notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
@@ -107,6 +114,8 @@ def anuncios_detalhes(id):
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
     
+    current_datetime = datetime.now()
+    
     post = Post.query.filter(and_(Post.id==id, Post.genre=='ad')).first()
     user = User.query.filter(User.id==post.user_id).first()
     category = Category.query.filter(Category.id==post.category_id).first()
@@ -122,6 +131,8 @@ def avisos():
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
     
+    current_datetime = datetime.now()
+
     # pega os argumentos da string, se existir, senão, seta valores padrão
     page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
     name = '' if (request.args.get('name') == None) else request.args.get('name')
@@ -151,6 +162,8 @@ def avisos_detalhes(id):
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
    
+    current_datetime = datetime.now()
+
     post = Post.query.filter(and_(Post.id==id, Post.genre=='notice')).first()
     user = User.query.filter(User.id==post.user_id).first()
     category = Category.query.filter(Category.id==post.category_id).first()
@@ -166,6 +179,8 @@ def filtro():
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
     
+    current_datetime = datetime.now()
+
     notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
