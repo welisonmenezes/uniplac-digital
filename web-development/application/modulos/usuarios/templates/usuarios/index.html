@@ -57,12 +57,16 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>User</th>
+                                <th>Avatar</th>
                                 <th>
-                                    <a href="{{ url_for('usuarios.index', page=currentPage, name=name, role=role, order='id') }}">ID</a>
+                                    <a href="{{ url_for('usuarios.index', page=currentPage, name=name, role=role, order='id') }}"
+                                        class="{{ 'active' if order=='id' else '' }}"
+                                        title="Ordenar por ID">ID</a>
                                 </th>
                                 <th>
-                                    <a href="{{ url_for('usuarios.index', page=currentPage, name=name, role=role, order='first_name') }}">Nome</a>
+                                    <a href="{{ url_for('usuarios.index', page=currentPage, name=name, role=role, order='first_name') }}"
+                                        class="{{ 'active' if order=='first_name' else '' }}"
+                                        title="Ordenar por Nome">Nome</a>
                                 </th>
                                 <th>Nível de Usuário</th>
                                 <th>Editar/Deletar </th>
@@ -78,7 +82,8 @@
                                         style="background-image: url({{request.url_root}}api/media/0)"
                                         alt="User Avatar"></div>
                                     {% else: %}
-                                    <a href="{{request.url_root}}api/media/{{ user.image_id }}" data-lightbox="{{ user.id }}" data-title="{{ user.name }}">
+                                    <a href="{{request.url_root}}api/media/{{ user.image_id }}"
+                                        data-lightbox="{{ user.id }}" data-title="{{ user.name }}">
                                         <div class="img-avatar"
                                             style="background-image: url({{request.url_root}}api/media/{{ user.image_id }})"
                                             alt="User Avatar"></div>
