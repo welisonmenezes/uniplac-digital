@@ -1,7 +1,7 @@
 import os
 from flask import current_app, Blueprint, render_template, request, url_for, flash, redirect, session
 from wtforms.validators import Length
-from sqlalchemy import or_, desc
+from sqlalchemy import or_, desc, asc
 from app import app, bcrypt
 from modulos.usuarios.formularios import UsuarioForm
 from database.Model import db, User, Post, Configuration
@@ -19,7 +19,8 @@ def index():
     page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     role = '' if (request.args.get('role') == None) else request.args.get('role')
-    order = 'id' if (request.args.get('order') == None) else request.args.get('order')
+    order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
+    order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
 
     # implementa o filtro se necessário
     filter = ()
@@ -28,12 +29,16 @@ def index():
     if name:
         filter = filter + (or_(User.first_name.like('%'+name+'%'), User.last_name.like('%'+name+'%')),)
 
+    if order == 'asc':
+        query_order = asc(order_by)
+    else:
+        query_order = desc(order_by)
 
     # consulda o panco de ados retornando o paginate e os dados
-    paginate = User.query.filter(*filter).order_by(desc(order)).paginate(page=page, per_page=10, error_out=False)
+    paginate = User.query.filter(*filter).order_by(query_order).paginate(page=page, per_page=1, error_out=False)
     users = paginate.items
 
-    return render_template('usuarios/index.html', titulo=titulo, users=users, paginate=paginate, currentPage=page, name=name, role=role, order=order, configuration=configuration), 200
+    return render_template('usuarios/index.html', titulo=titulo, users=users, paginate=paginate, currentPage=page, name=name, role=role, order_by=order_by, order=order, configuration=configuration), 200
 
 
 @usuarioBP.route('/cadastrar', methods=['GET', 'POST'])
