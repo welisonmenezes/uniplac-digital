@@ -59,6 +59,8 @@
                             </div>
                         </div>
                         <div class="col-md-2">
+                            <input type="hidden" name="order" value="{{ order }}" />
+                            <input type="hidden" name="order_by" value="{{ order_by }}" />
                             <button type="submit" class="btn btn-primary btn-sm btn-block">Filtrar</button>
                         </div>
                     </div>
@@ -66,59 +68,64 @@
 
                 <div class="table-responsive">
                     {% if posts|length > 0 %}
+                    {% if order == 'asc' %}
+                    {% set _order = 'desc' %}
+                    {% else %}
+                    {% set _order = 'asc' %}
+                    {% endif %}
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>
                                     {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, order='id') }}"
-                                        class="{{ 'active' if order=='id' else '' }}" title="Ordenar por ID">ID</a>
+                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, order_by='id', order=_order) }}"
+                                        class="{{ 'active' if order_by=='id' else '' }}" title="Ordenar por ID">ID</a>
                                     {% elif(titulo == 'Anúncios') %}
-                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, order='id') }}"
-                                        class="{{ 'active' if order=='id' else '' }}" title="Ordenar por ID">ID</a>
+                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, order_by='id', order=_order) }}"
+                                        class="{{ 'active' if order_by=='id' else '' }}" title="Ordenar por ID">ID</a>
                                     {% elif(titulo == 'Avisos') %}
-                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, order='id') }}"
-                                        class="{{ 'active' if order=='id' else '' }}" title="Ordenar por ID">ID</a>
+                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, order_by='id', order=_order) }}"
+                                        class="{{ 'active' if order_by=='id' else '' }}" title="Ordenar por ID">ID</a>
                                     {% elif(titulo == 'Minhas Publicações'): %}
-                                    <a href="{{ url_for('posts.meus_posts', page=currentPage, name=name, category=category, status=status, order='id') }}"
-                                        class="{{ 'active' if order=='id' else '' }}" title="Ordenar por ID">ID</a>
+                                    <a href="{{ url_for('posts.meus_posts', page=currentPage, name=name, category=category, status=status, order_by='id', order=_order) }}"
+                                        class="{{ 'active' if order_by=='id' else '' }}" title="Ordenar por ID">ID</a>
                                     {% endif %}
                                 </th>
                                 <th>
                                     {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, order='title') }}"
-                                        class="{{ 'active' if order=='title' else '' }}"
+                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, order_by='title', order=_order) }}"
+                                        class="{{ 'active' if order_by=='title' else '' }}"
                                         title="Ordenar por Título">Título</a>
                                     {% elif(titulo == 'Anúncios') %}
-                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, order='title') }}"
-                                        class="{{ 'active' if order=='title' else '' }}"
+                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, order_by='title', order=_order) }}"
+                                        class="{{ 'active' if order_by=='title' else '' }}"
                                         title="Ordenar por Título">Título</a>
                                     {% elif(titulo == 'Avisos') %}
-                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, order='title') }}"
-                                        class="{{ 'active' if order=='title' else '' }}"
+                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, order_by='title', order=_order) }}"
+                                        class="{{ 'active' if order_by=='title' else '' }}"
                                         title="Ordenar por Título">Título</a>
                                     {% elif(titulo == 'Minhas Publicações'): %}
-                                    <a href="{{ url_for('posts.meus_posts', page=currentPage, name=name, category=category, status=status, order='title') }}"
-                                        class="{{ 'active' if order=='title' else '' }}"
+                                    <a href="{{ url_for('posts.meus_posts', page=currentPage, name=name, category=category, status=status, order_by='title', order=_order) }}"
+                                        class="{{ 'active' if order_by=='title' else '' }}"
                                         title="Ordenar por Título">Título</a>
                                     {% endif %}
                                 </th>
                                 <th>
                                     {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, order='created_at') }}"
-                                        class="{{ 'active' if order=='created_at' else '' }}"
+                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, order_by='created_at', order=_order) }}"
+                                        class="{{ 'active' if order_by=='created_at' else '' }}"
                                         title="Ordenar por Data">Data</a>
                                     {% elif(titulo == 'Anúncios') %}
-                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, order='created_at') }}"
-                                        class="{{ 'active' if order=='created_at' else '' }}"
+                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, order_by='created_at', order=_order) }}"
+                                        class="{{ 'active' if order_by=='created_at' else '' }}"
                                         title="Ordenar por Data">Data</a>
                                     {% elif(titulo == 'Avisos') %}
-                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, order='created_at') }}"
-                                        class="{{ 'active' if order=='created_at' else '' }}"
+                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, order_by='created_at', order=_order) }}"
+                                        class="{{ 'active' if order_by=='created_at' else '' }}"
                                         title="Ordenar por Data">Data</a>
                                     {% elif(titulo == 'Minhas Publicações'): %}
-                                    <a href="{{ url_for('posts.meus_posts', page=currentPage, name=name, category=category, status=status, order='created_at') }}"
-                                        class="{{ 'active' if order=='created_at' else '' }}"
+                                    <a href="{{ url_for('posts.meus_posts', page=currentPage, name=name, category=category, status=status, order_by='created_at', order=_order) }}"
+                                        class="{{ 'active' if order_by=='created_at' else '' }}"
                                         title="Ordenar por Data">Data</a>
                                     {% endif %}
                                 </th>
@@ -206,19 +213,19 @@
                             <button type="button" class="btn">...</button>
                             {% else %}
                             {% if(titulo == 'Notícias'): %}
-                            <a href="{{ url_for('posts.noticias_index', page=page, name=name, category=category, status=status, order=order) }}"
+                            <a href="{{ url_for('posts.noticias_index', page=page, name=name, category=category, status=status, order_by=order_by, order=order) }}"
                                 class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
                                 title="Página {{page}}">{{ page }}</a>
                             {% elif(titulo == 'Anúncios'): %}
-                            <a href="{{ url_for('posts.anuncios_index', page=page, name=name, category=category, status=status, order=order) }}"
+                            <a href="{{ url_for('posts.anuncios_index', page=page, name=name, category=category, status=status, order_by=order_by, order=order) }}"
                                 class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
                                 title="Página {{page}}">{{ page }}</a>
                             {% elif(titulo == 'Avisos'): %}
-                            <a href="{{ url_for('posts.avisos_index', page=page, name=name, category=category, status=status, order=order) }}"
+                            <a href="{{ url_for('posts.avisos_index', page=page, name=name, category=category, status=status, order_by=order_by, order=order) }}"
                                 class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
                                 title="Página {{page}}">{{ page }}</a>
                             {% elif(titulo == 'Minhas Publicações'): %}
-                            <a href="{{ url_for('posts.meus_posts', page=page, name=name, category=category, status=status, order=order) }}"
+                            <a href="{{ url_for('posts.meus_posts', page=page, name=name, category=category, status=status, order_by=order_by, order=order) }}"
                                 class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
                                 title="Página {{page}}">{{ page }}</a>
                             {% endif %}

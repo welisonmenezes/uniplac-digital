@@ -2,7 +2,7 @@ import os
 from flask import current_app, Blueprint, render_template, request, url_for, flash, session, redirect
 from modulos.posts.formularios import PostForm
 from app import app
-from sqlalchemy import desc, or_, and_
+from sqlalchemy import desc, or_, and_, asc
 from database.Model import Configuration, db, Post, Category
 import datetime
 
@@ -18,7 +18,8 @@ def noticias_index():
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
     status = '' if (request.args.get('status') == None) else request.args.get('status')
-    order = 'id' if (request.args.get('order') == None) else request.args.get('order')
+    order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
+    order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
 
     # implementa o filtro se necessário
     filter = (Post.genre == 'news', )
@@ -29,13 +30,18 @@ def noticias_index():
     if status:
         filter = filter + (Post.status == status,)
 
+    if order == 'asc':
+        query_order = asc(order_by)
+    else:
+        query_order = desc(order_by)
+
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(desc(order)).paginate(page=page, per_page=10, error_out=False)
+    paginate = Post.query.filter(*filter).order_by(query_order).paginate(page=page, per_page=10, error_out=False)
     posts = paginate.items
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order=order, titulo=titulo, configuration=configuration), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration), 200
 
 
 @postBP.route('/noticias/cadastrar', methods=['GET','POST'])
