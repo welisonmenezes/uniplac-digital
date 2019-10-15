@@ -18,6 +18,7 @@ def noticias_index():
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
     status = '' if (request.args.get('status') == None) else request.args.get('status')
+    order = 'id' if (request.args.get('order') == None) else request.args.get('order')
 
     # implementa o filtro se necessário
     filter = (Post.genre == 'news', )
@@ -29,12 +30,12 @@ def noticias_index():
         filter = filter + (Post.status == status,)
 
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
+    paginate = Post.query.filter(*filter).order_by(desc(order)).paginate(page=page, per_page=10, error_out=False)
     posts = paginate.items
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, titulo=titulo, configuration=configuration), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order=order, titulo=titulo, configuration=configuration), 200
 
 
 @postBP.route('/noticias/cadastrar', methods=['GET','POST'])
@@ -176,6 +177,7 @@ def anuncios_index():
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
     status = '' if (request.args.get('status') == None) else request.args.get('status')
+    order = 'id' if (request.args.get('order') == None) else request.args.get('order')
 
     # implementa o filtro se necessário
     filter = (Post.genre == 'ad', )
@@ -190,12 +192,12 @@ def anuncios_index():
         filter = filter + (Post.user_id == session.get('user_id', ''), )
 
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
+    paginate = Post.query.filter(*filter).order_by(desc(order)).paginate(page=page, per_page=10, error_out=False)
     posts = paginate.items
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, titulo=titulo, configuration=configuration), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order=order, titulo=titulo, configuration=configuration), 200
 
 @postBP.route('/anuncios/cadastrar', methods=['GET','POST'])
 def anuncios_cadastrar():
@@ -377,6 +379,7 @@ def avisos_index():
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
     status = '' if (request.args.get('status') == None) else request.args.get('status')
+    order = 'id' if (request.args.get('order') == None) else request.args.get('order')
 
     # implementa o filtro se necessário
     filter = (Post.genre == 'notice', )
@@ -388,12 +391,12 @@ def avisos_index():
         filter = filter + (Post.status == status,)
 
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
+    paginate = Post.query.filter(*filter).order_by(desc(order)).paginate(page=page, per_page=10, error_out=False)
     posts = paginate.items
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, titulo=titulo, configuration=configuration), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order=order, titulo=titulo, configuration=configuration), 200
 
 @postBP.route('/avisos/cadastrar', methods=['GET','POST'])
 def avisos_cadastrar():
@@ -534,6 +537,7 @@ def meus_posts():
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
     status = '' if (request.args.get('status') == None) else request.args.get('status')
+    order = 'id' if (request.args.get('order') == None) else request.args.get('order')
 
     # implementa o filtro se necessário
     filter = (Post.user_id == session.get('user_id', ''), )
@@ -545,12 +549,12 @@ def meus_posts():
         filter = filter + (Post.status == status,)
 
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
+    paginate = Post.query.filter(*filter).order_by(desc(order)).paginate(page=page, per_page=10, error_out=False)
     posts = paginate.items
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, titulo=titulo, configuration=configuration, fromUser=True), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order=order, titulo=titulo, configuration=configuration, fromUser=True), 200
 
 
 
