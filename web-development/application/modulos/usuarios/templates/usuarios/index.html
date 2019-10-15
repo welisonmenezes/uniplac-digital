@@ -58,8 +58,12 @@
                         <thead>
                             <tr>
                                 <th>User</th>
-                                <th>ID</th>
-                                <th>Nome</th>
+                                <th>
+                                    <a href="{{ url_for('usuarios.index', page=currentPage, name=name, role=role, order='id') }}">ID</a>
+                                </th>
+                                <th>
+                                    <a href="{{ url_for('usuarios.index', page=currentPage, name=name, role=role, order='first_name') }}">Nome</a>
+                                </th>
                                 <th>Nível de Usuário</th>
                                 <th>Editar/Deletar </th>
                             </tr>
@@ -110,7 +114,7 @@
                             {% if page == None %}
                             <button type="button" class="btn">...</button>
                             {% else %}
-                            <a href="{{ url_for('usuarios.index', page=page, name=name, role=role) }}"
+                            <a href="{{ url_for('usuarios.index', page=page, name=name, role=role, order=order) }}"
                                 class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
                                 title="Página {{page}}">{{ page }}</a>
                             {% endif %}

@@ -19,6 +19,7 @@ def index():
     page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     role = '' if (request.args.get('role') == None) else request.args.get('role')
+    order = 'id' if (request.args.get('order') == None) else request.args.get('order')
 
     # implementa o filtro se necessário
     filter = ()
@@ -27,11 +28,12 @@ def index():
     if name:
         filter = filter + (or_(User.first_name.like('%'+name+'%'), User.last_name.like('%'+name+'%')),)
 
+
     # consulda o panco de ados retornando o paginate e os dados
-    paginate = User.query.filter(*filter).order_by(desc(User.id)).paginate(page=page, per_page=10, error_out=False)
+    paginate = User.query.filter(*filter).order_by(desc(order)).paginate(page=page, per_page=10, error_out=False)
     users = paginate.items
 
-    return render_template('usuarios/index.html', titulo=titulo, users=users, paginate=paginate, currentPage=page, name=name, role=role, configuration=configuration), 200
+    return render_template('usuarios/index.html', titulo=titulo, users=users, paginate=paginate, currentPage=page, name=name, role=role, order=order, configuration=configuration), 200
 
 
 @usuarioBP.route('/cadastrar', methods=['GET', 'POST'])
