@@ -8,16 +8,16 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <input name="name" type="text" class="form-control" placeholder="Pesquisar...">
+                    <input value="{{ name }}" name="name" type="text" class="form-control" placeholder="Pesquisar...">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
                     <select class="form-control" name="genre">
                         <option value="" selected>Tipo</option>
-                        <option value="news">Notícias</option>
-                        <option value="ad">Anúncios</option>
-                        <option value="notice">Avisos</option>
+                        <option {{ 'selected' if genre == 'news' else '' }} value="news">Notícias</option>
+                        <option {{ 'selected' if genre == 'ad' else '' }} value="ad">Anúncios</option>
+                        <option {{ 'selected' if genre == 'notice' else '' }} value="notice">Avisos</option>
                     </select>
                 </div>
             </div>
@@ -26,8 +26,8 @@
                 <div class="form-group">
                     <select class="form-control" name="category">
                         <option value="" selected>Categoria</option>
-                        {% for category in categories %}
-                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% for cat in categories %}
+                        <option {{ 'selected' if category == cat.id|string else '' }} value="{{ cat.id }}">{{ cat.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
