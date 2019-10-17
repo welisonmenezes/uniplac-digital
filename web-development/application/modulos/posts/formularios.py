@@ -196,3 +196,12 @@ class PostForm(FlaskForm):
             return True
         else:
             return False
+
+    #formata a data para padrão PT_BR
+    def format_datetime(value, format="%d-%m-%Y %H:%M:%S"):
+    
+        if value is None:
+            return ""
+        return value.strftime(format)
+    
+    
