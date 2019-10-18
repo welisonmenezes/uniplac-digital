@@ -28,6 +28,7 @@
             <div class="col-lg-8">
                 
                 <div class="blog_left_sidebar">
+                    {% if posts %}
                     {% for post in posts %}
                     <article class="blog_item">
                         {% if titulo == 'Notícias' %}
@@ -131,6 +132,9 @@
                         {% endif %}
                     </article>
                     {% endfor %}
+                    {% else %}
+                    <p class="no-content-found">Nenhum post encontrado.</p>
+                    {% endif %}
                 </div>
 
                 <!--Paginação-->

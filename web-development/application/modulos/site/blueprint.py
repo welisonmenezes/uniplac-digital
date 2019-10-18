@@ -67,6 +67,10 @@ def noticias_detalhes(id):
     current_datetime = datetime.now()
 
     post = Post.query.filter(and_(Post.id==id, Post.genre=='news')).first()
+
+    if not post:
+        return redirect(url_for('error.pageNotFound'))
+
     user = User.query.filter(User.id==post.user_id).first()
     category = Category.query.filter(Category.id==post.category_id).first()
     notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
@@ -117,6 +121,10 @@ def anuncios_detalhes(id):
     current_datetime = datetime.now()
     
     post = Post.query.filter(and_(Post.id==id, Post.genre=='ad')).first()
+
+    if not post:
+        return redirect(url_for('error.pageNotFound'))
+        
     user = User.query.filter(User.id==post.user_id).first()
     category = Category.query.filter(Category.id==post.category_id).first()
     notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
@@ -165,6 +173,10 @@ def avisos_detalhes(id):
     current_datetime = datetime.now()
 
     post = Post.query.filter(and_(Post.id==id, Post.genre=='notice')).first()
+
+    if not post:
+        return redirect(url_for('error.pageNotFound'))
+
     user = User.query.filter(User.id==post.user_id).first()
     category = Category.query.filter(Category.id==post.category_id).first()
     notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)

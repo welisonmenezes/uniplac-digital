@@ -7,12 +7,15 @@
 <section>
     <div class="wrapper">
         <div class="slideshow">
+            {% for image in configuration.images %}
             <div>
-                <div style="background-image:  url(http://127.0.0.1:5000/api/media/41)"></div>
+
+                <div style="background-image:  url({{request.url_root}}api/media/{{image.id}})"></div>
+
             </div>
-            <div>
-                <div style="background-image: url(http://127.0.0.1:5000/api/media/42)"></div>
-            </div>
+            {% endfor %}
+
+
         </div>
     </div>
 </section>
