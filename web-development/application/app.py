@@ -51,5 +51,12 @@ app.register_blueprint(siteBP)
 app.register_blueprint(dashboardBP)
 app.register_blueprint(apiBP)
 
+    #formata a data para padrão PT_BR
+def format_datetime(value, format="%d-%m-%Y"):
+    
+    if value is None:
+        return ""
+    return value.strftime(format)
+
 if __name__ == "__main__":
     app.run()

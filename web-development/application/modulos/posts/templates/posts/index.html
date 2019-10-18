@@ -112,9 +112,9 @@
                                 </th>
                                 <th>
                                     {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, order_by='created_at', order=_order) }}"
+                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, order_by='created_ate', order=_order) }}"
                                         class="{{ 'active' if order_by=='created_at' else '' }}"
-                                        title="Ordenar por Data">Data</a>
+                                        title="Ordenar por Data">Data </a>
                                     {% elif(titulo == 'Anúncios') %}
                                     <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, order_by='created_at', order=_order) }}"
                                         class="{{ 'active' if order_by=='created_at' else '' }}"
@@ -141,7 +141,7 @@
                             <tr>
                                 <td>{{ post.id }}</td>
                                 <td>{{ post.title }}</td>
-                                <td>{{ post.created_at}}</td>
+                                <td>{{ post.created_at|format_datetime('%m/%d/%y')}}</td>
                                 <td>
                                     <label class="badge {{post.status}}">{{ post.status }}</label>
                                 </td>
