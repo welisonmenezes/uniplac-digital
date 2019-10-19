@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
+from datetime import datetime
 
 # create a Flask app
 app = Flask(__name__, template_folder='templates', static_folder='static')
@@ -51,12 +52,19 @@ app.register_blueprint(siteBP)
 app.register_blueprint(dashboardBP)
 app.register_blueprint(apiBP)
 
-    #formata a data para padrão PT_BR
-def format_datetime(value, format="%d-%m-%Y"):
-    
+
+
+#formata a data para padrão PT_BR
+@app.template_filter('format_datetime')
+def format_datetime(value, format="%d-%m-%Y %H:%M:%S"):
+    """Format a date time to (Default): d Mon YYYY HH:MM P"""
     if value is None:
         return ""
     return value.strftime(format)
+
+
+
+
 
 if __name__ == "__main__":
     app.run()
