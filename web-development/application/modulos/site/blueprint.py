@@ -44,7 +44,7 @@ def noticias():
     filter = (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='news', Post.status=='approved'))
     
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=1, error_out=False)
+    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
     posts = paginate.items
 
     return render_template('site/posts.html', posts=posts, notices=notices, paginate=paginate, currentPage=page, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
@@ -195,7 +195,7 @@ def filtro():
         filter = filter + (Post.user_id == author,)
 
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=1, error_out=False)
+    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
     
     posts = paginate.items
 
