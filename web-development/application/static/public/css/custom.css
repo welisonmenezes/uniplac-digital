@@ -435,6 +435,8 @@ textarea.form-control{
 .blog_details img{
     width: auto;
     max-width: 100%;
+    display: block;
+    margin: 0 auto;
     margin-bottom: 15px;
 }
 .blog_details p,
@@ -492,4 +494,27 @@ textarea.form-control{
     width: 16px;
     display: inline-block;
     vertical-align: middle;
+}
+.blog_details .fr-video{
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.blog_details .fr-video.fr-fvl{
+    float: left;
+    margin-right: 15px;
+}
+.blog_details .fr-video.fr-fvr{
+    float: right;
+    margin-left: 15px;
+}
+.blog_details table{
+    border-top:  #e3e3e3 1px solid;
+    border-right:  #e3e3e3 1px solid;
+}
+.blog_details table td{
+    padding: 5px;
+    border-left: #e3e3e3 1px solid;
+    border-bottom:  #e3e3e3 1px solid;
 }
