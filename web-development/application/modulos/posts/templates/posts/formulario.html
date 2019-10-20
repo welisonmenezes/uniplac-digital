@@ -43,8 +43,8 @@
                 <h4 class="card-title">{{ titulo }}</h4>
                 <form class="forms-sample" method="POST" novalidate>
                     {{ form.csrf_token }}
-                    {{ render_field(form.title, 'required') }}
-                    {{ render_field(form.description, 'required') }}
+                    {{ render_field(form.title, 'required', '100') }}
+                    {{ render_field(form.description, 'required', '255') }}
                     <div class="rich-text-editor-container">
                         {{ render_field(form.content, 'required') }}
                         <input type="file" name="imagesContent" id="contentImageSender" accept=".jpg,.jpeg,.png,.gif" />

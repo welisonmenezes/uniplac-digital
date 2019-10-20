@@ -115,7 +115,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
-    registry = db.Column(db.String(10), nullable=False, unique=True)
+    registry = db.Column(db.String(6), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
     role = db.Column(db.String(45), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
