@@ -155,11 +155,11 @@
                                 </th>
                                 {% endif %}
                                 <td>
-                                    <a href="../single-blog.html" target="_blank">
-                                        <i class="mdi mdi-television-guide view"></i>
-                                    </a>
                                     {# Diferenciando pelo tipo de post #}
                                     {% if post.genre == 'news': %}
+                                    <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" target="_blank">
+                                        <i class="mdi mdi-television-guide view"></i>
+                                    </a>
                                     <a href="{{ url_for('posts.noticias_editar', id=post.id) }}"
                                         title="Editar Notícia {{post.id}}">
                                         <i class="mdi mdi-border-color edit"></i>
@@ -170,6 +170,9 @@
                                     </a>
                                     {% elif post.genre == 'ad': %}
                                     {% if session.get('user_role', '') != 'user'  %}
+                                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" target="_blank">
+                                        <i class="mdi mdi-television-guide view"></i>
+                                    </a>
                                     <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
                                         title="Editar Aviso {{post.id}}">
                                         <i class="mdi mdi-border-color edit"></i>
@@ -180,6 +183,9 @@
                                     </a>
                                     {% else %}
                                     {% if post.status == 'pending' %}
+                                    <a href="{{ url_for('anuncios_detalhes', id=post.id) }}" target="_blank">
+                                        <i class="mdi mdi-television-guide view"></i>
+                                    </a>
                                     <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
                                         title="Editar Aviso {{post.id}}">
                                         <i class="mdi mdi-border-color edit"></i>
@@ -191,6 +197,9 @@
                                     {% endif %}
                                     {% endif %}
                                     {% elif post.genre == 'notice': %}
+                                    <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" target="_blank">
+                                        <i class="mdi mdi-television-guide view"></i>
+                                    </a>
                                     <a href="{{ url_for('posts.avisos_editar', id=post.id) }}"
                                         title="Editar Aviso {{post.id}}">
                                         <i class="mdi mdi-border-color edit"></i>
