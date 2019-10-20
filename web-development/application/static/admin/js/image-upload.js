@@ -96,9 +96,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     } else {
                         element.value = null;
                         if (current_el.hasClass('multiple')) {
-                            addMultipleImageHTML(null, 'Tamanho inválido');
+                            addMultipleImageHTML(null, 'O tamanho da imagem não deve ultrapasar 5mb');
                         } else {
-                            addImageHTML(null, 'Tamanho inválido');
+                            addImageHTML(null, 'O tamanho da imagem não deve ultrapasar 5mb');
                         }
                     }
                 }
