@@ -2,7 +2,7 @@ import os
 from flask import current_app, Blueprint, render_template, request, url_for, flash, redirect
 from datetime import datetime
 from flask_mail import Message
-from sqlalchemy import desc, and_, or_
+from sqlalchemy import desc, and_, or_, asc
 from app import mail
 from modulos.site.formularios import ContactForm
 from database.Model import Configuration, Category, Post, ConfigurationImage, User
@@ -14,6 +14,7 @@ def index():
     configuration = Configuration.query.first()
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
+    users = User.query.order_by(asc(User.first_name)).all()
     
     current_datetime = datetime.now()
 
@@ -21,7 +22,7 @@ def index():
     ads = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='ad', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
     notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
 
-    return render_template('site/site.html', news=news, ads=ads, notices=notices, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted), 200
+    return render_template('site/site.html', news=news, ads=ads, notices=notices, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
 
 
 @siteBP.route('/noticias')
@@ -30,6 +31,7 @@ def noticias():
     configuration = Configuration.query.first()
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
+    users = User.query.order_by(asc(User.first_name)).all()
     
     current_datetime = datetime.now()
 
@@ -37,24 +39,15 @@ def noticias():
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
     page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
-    name = '' if (request.args.get('name') == None) else request.args.get('name')
-    genre = '' if (request.args.get('genre') == None) else request.args.get('genre')
-    category = '' if (request.args.get('category') == None) else request.args.get('category')
 
     # implementa o filtro se necessário
     filter = (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='news', Post.status=='approved'))
-    if category:
-        filter = filter + (Post.category_id == category,)
-    if name:
-        filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
-    if genre:
-        filter = filter + (Post.genre == genre,)
     
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
+    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=1, error_out=False)
     posts = paginate.items
 
-    return render_template('site/posts.html', posts=posts, notices=notices, paginate=paginate, currentPage=page, name=name, genre=genre, category=category, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted), 200
+    return render_template('site/posts.html', posts=posts, notices=notices, paginate=paginate, currentPage=page, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
 
 
 @siteBP.route('/noticias/<int:id>')
@@ -63,6 +56,7 @@ def noticias_detalhes(id):
     configuration = Configuration.query.first()
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
+    users = User.query.order_by(asc(User.first_name)).all()
     
     current_datetime = datetime.now()
 
@@ -75,7 +69,7 @@ def noticias_detalhes(id):
     category = Category.query.filter(Category.id==post.category_id).first()
     notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
 
-    return render_template('/site/detalhes.html', post=post, user=user, category=category, notices=notices, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted), 200
+    return render_template('/site/detalhes.html', post=post, user=user, category=category, notices=notices, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
 
 
 @siteBP.route('/anuncios')
@@ -84,31 +78,23 @@ def anuncios():
     configuration = Configuration.query.first()
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
-    
+    users = User.query.order_by(asc(User.first_name)).all()
+
     current_datetime = datetime.now()
 
     notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
     page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
-    name = '' if (request.args.get('name') == None) else request.args.get('name')
-    genre = '' if (request.args.get('genre') == None) else request.args.get('genre')
-    category = '' if (request.args.get('category') == None) else request.args.get('category')
 
     # implementa o filtro se necessário
     filter = (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='ad', Post.status=='approved'))
-    if category:
-        filter = filter + (Post.category_id == category,)
-    if name:
-        filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
-    if genre:
-        filter = filter + (Post.genre == genre,)
-    
+
     # consulta o banco de dados retornando o paginate e os dados
     paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
     posts = paginate.items
 
-    return render_template('site/posts.html', posts=posts, notices=notices, category=category, name=name, genre=genre, paginate=paginate, currentPage=page, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted), 200
+    return render_template('site/posts.html', posts=posts, notices=notices, paginate=paginate, currentPage=page, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
 
 
 @siteBP.route('/anuncios/<int:id>')
@@ -117,6 +103,7 @@ def anuncios_detalhes(id):
     configuration = Configuration.query.first()
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
+    users = User.query.order_by(asc(User.first_name)).all()
     
     current_datetime = datetime.now()
     
@@ -129,7 +116,7 @@ def anuncios_detalhes(id):
     category = Category.query.filter(Category.id==post.category_id).first()
     notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
 
-    return render_template('/site/detalhes.html', titulo=titulo, post=post, user=user, category=category, notices=notices, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted), 200
+    return render_template('/site/detalhes.html', titulo=titulo, post=post, user=user, category=category, notices=notices, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
 
 
 @siteBP.route('/avisos')
@@ -138,29 +125,21 @@ def avisos():
     configuration = Configuration.query.first()
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
+    users = User.query.order_by(asc(User.first_name)).all()
     
     current_datetime = datetime.now()
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
     page = 1 if (request.args.get('page') == None) else int(request.args.get('page'))
-    name = '' if (request.args.get('name') == None) else request.args.get('name')
-    genre = '' if (request.args.get('genre') == None) else request.args.get('genre')
-    category = '' if (request.args.get('category') == None) else request.args.get('category')
 
     # implementa o filtro se necessário
     filter = (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved'))
-    if category:
-        filter = filter + (Post.category_id == category,)
-    if name:
-        filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
-    if genre:
-        filter = filter + (Post.genre == genre,)
     
     # consulta o banco de dados retornando o paginate e os dados
     paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
     posts = paginate.items
 
-    return render_template('site/posts.html', posts=posts, category=category, name=name, genre=genre, paginate=paginate, currentPage=page, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted), 200
+    return render_template('site/posts.html', posts=posts, paginate=paginate, currentPage=page, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
 
 
 @siteBP.route('/avisos/<int:id>')
@@ -169,6 +148,7 @@ def avisos_detalhes(id):
     configuration = Configuration.query.first()
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
+    users = User.query.order_by(asc(User.first_name)).all()
    
     current_datetime = datetime.now()
 
@@ -181,7 +161,7 @@ def avisos_detalhes(id):
     category = Category.query.filter(Category.id==post.category_id).first()
     notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
 
-    return render_template('/site/detalhes.html', titulo=titulo, post=post, user=user, category=category, notices=notices, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted), 200
+    return render_template('/site/detalhes.html', titulo=titulo, post=post, user=user, category=category, notices=notices, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
 
 
 @siteBP.route('/filtro')
@@ -190,6 +170,7 @@ def filtro():
     configuration = Configuration.query.first()
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
+    users = User.query.order_by(asc(User.first_name)).all()
     
     current_datetime = datetime.now()
 
@@ -214,13 +195,13 @@ def filtro():
         filter = filter + (Post.user_id == author,)
 
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
+    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=1, error_out=False)
     
     posts = paginate.items
 
     teste = ''
 
-    return render_template('site/posts.html', teste=teste, notices=notices, posts=posts, titulo=titulo, name=name, category=category, genre=genre, currentPage=page, paginate=paginate, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted), 200
+    return render_template('site/posts.html', teste=teste, notices=notices, posts=posts, titulo=titulo, name=name, category=category, genre=genre, currentPage=page, paginate=paginate, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users, author=author), 200
 
 
 @siteBP.route('/contato', methods=['GET','POST'])
