@@ -51,10 +51,10 @@
     </aside>
     {% endif %}
     <aside class="single_sidebar_widget post_category_widget">
-        <h4 class="widget_title">Buscar por Autor</h4>
+        <h4 class="widget_title">Autores</h4>
         <form class="author-search-form" action="{{ url_for('site.filtro') }}">
             <div class="form-group">
-                <select name="a" class="form-control author-search-field" name="category">
+                <select name="author" class="form-control author-search-field" name="category">
                     <option value="">Autor</option>
                     <option value="1">Autor 1</option>
                     <option value="2">Autor 2</option>

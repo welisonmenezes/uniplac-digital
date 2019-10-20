@@ -200,6 +200,7 @@ def filtro():
     name = '' if (request.args.get('name') == None) else request.args.get('name')
     genre = '' if (request.args.get('genre') == None) else request.args.get('genre')
     category = '' if (request.args.get('category') == None) else request.args.get('category')
+    author  = '' if (request.args.get('author') == None) else request.args.get('author')
 
     # implementa o filtro se necessário
     filter = (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved'),)
@@ -209,6 +210,8 @@ def filtro():
         filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
     if genre:
         filter = filter + (Post.genre == genre,)
+    if author:
+        filter = filter + (Post.user_id == author,)
 
     # consulta o banco de dados retornando o paginate e os dados
     paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
