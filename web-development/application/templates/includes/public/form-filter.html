@@ -6,12 +6,37 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
-                    <input value="{{ name }}" name="name" type="text" class="form-control" placeholder="Pesquisar...">
+                    <input value="{{ name }}" name="name" type="text" class="form-control" placeholder="Palavra Chave">
                 </div>
             </div>
+            {% if categories %}
             <div class="col-md-3">
+                <div class="form-group">
+                    <select class="form-control" name="category">
+                        <option value="" selected>Categoria</option>
+                        {% for cat in categories %}
+                        <option {{ 'selected' if category == cat.id|string else '' }} value="{{ cat.id }}">
+                            {{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            {% endif %}
+            {% if users %}
+            <div class="col-md-2">
+                <div class="form-group">
+                    <select name="author" class="form-control" name="category">
+                        <option value="">Autor</option>
+                        {% for user in users %}
+                        <option {{ 'selected' if author == user.id|string else '' }} value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            {% endif %}
+            <div class="col-md-2">
                 <div class="form-group">
                     <select class="form-control" name="genre">
                         <option value="" selected>Tipo</option>
@@ -21,18 +46,6 @@
                     </select>
                 </div>
             </div>
-            {% if categories %}
-            <div class="col-md-3">
-                <div class="form-group">
-                    <select class="form-control" name="category">
-                        <option value="" selected>Categoria</option>
-                        {% for cat in categories %}
-                        <option {{ 'selected' if category == cat.id|string else '' }} value="{{ cat.id }}">{{ cat.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-            {% endif %}
             <div class="col-md-2">
                 <button type="submit" class="btn btn-primary btn-block">Filtrar</button>
             </div>

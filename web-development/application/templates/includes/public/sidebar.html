@@ -50,4 +50,19 @@
         </ul>
     </aside>
     {% endif %}
+    {% if users %}
+    <aside class="single_sidebar_widget post_category_widget">
+        <h4 class="widget_title">Autores</h4>
+        <form class="author-search-form" action="{{ url_for('site.filtro') }}">
+            <div class="form-group">
+                <select name="author" class="form-control author-search-field" name="category">
+                    <option value="">Autor</option>
+                    {% for user in users %}
+                    <option {{ 'selected' if author == user.id|string else '' }} value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
+    </aside>
+    {% endif %}
 </div>

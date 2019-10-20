@@ -145,7 +145,7 @@
                         {% if(titulo == 'Notícias'): %}
                         {% if currentPage > 1 %}
                         <li class="page-item">
-                            <a href="{{ url_for('site.noticias', page=paginate.prev_num, name=name, genre=genre, category=category) }}"
+                            <a href="{{ url_for('site.noticias', page=paginate.prev_num, name=name, genre=genre, category=category, author=author) }}"
                                 class="page-link" aria-label="Previous">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-left"></span>
@@ -160,7 +160,7 @@
                         </li>
                         {% else %}
                         <li class="page-item {{ 'active' if currentPage == page else '' }}">
-                            <a href="{{ url_for('site.noticias', page=page, name=name, genre=genre, category=category) }}"
+                            <a href="{{ url_for('site.noticias', page=page, name=name, genre=genre, category=category, author=author) }}"
                                 class="page-link" title="Página {{page}}">{{ page }}</a>
                         </li>
                         {% endif %}
@@ -168,7 +168,7 @@
                         {% if paginate.next_num != None %}
                         {% if currentPage < paginate.next_num %}
                         <li class="page-item">
-                            <a href="{{ url_for('site.noticias', page=paginate.next_num, name=name, category=category, genre=genre) }}"
+                            <a href="{{ url_for('site.noticias', page=paginate.next_num, name=name, category=category, genre=genre, author=author) }}"
                                 class="page-link" aria-label="Next">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-right"></span>
@@ -182,7 +182,7 @@
                         {% if(titulo == 'Anúncios'): %}
                         {% if currentPage > 1 %}
                         <li class="page-item">
-                            <a href="{{ url_for('site.anuncios', page=paginate.prev_num, name=name, genre=genre, category=category) }}"
+                            <a href="{{ url_for('site.anuncios', page=paginate.prev_num, name=name, genre=genre, category=category, author=author) }}"
                                 class="page-link" aria-label="Previous">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-left"></span>
@@ -197,7 +197,7 @@
                         </li>
                         {% else %}
                         <li class="page-item {{ 'active' if currentPage == page else '' }}">
-                            <a href="{{ url_for('site.anuncios', page=page, name=name, genre=genre, category=category) }}"
+                            <a href="{{ url_for('site.anuncios', page=page, name=name, genre=genre, category=category, author=author) }}"
                                 class="page-link" title="Página {{page}}">{{ page }}</a>
                         </li>
                         {% endif %}
@@ -205,7 +205,7 @@
                         {% if paginate.next_num != None %}
                         {% if currentPage < paginate.next_num %}
                         <li class="page-item">
-                            <a href="{{ url_for('site.anuncios', page=paginate.next_num, name=name, category=category, genre=genre) }}"
+                            <a href="{{ url_for('site.anuncios', page=paginate.next_num, name=name, category=category, genre=genre, author=author) }}"
                                 class="page-link" aria-label="Next">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-right"></span>
@@ -220,7 +220,7 @@
                         {% if(titulo == 'Avisos'): %}
                         {% if currentPage > 1 %}
                         <li class="page-item">
-                            <a href="{{ url_for('site.avisos', page=paginate.prev_num, name=name, genre=genre, category=category) }}"
+                            <a href="{{ url_for('site.avisos', page=paginate.prev_num, name=name, genre=genre, category=category, author=author) }}"
                                 class="page-link" aria-label="Previous">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-left"></span>
@@ -235,7 +235,7 @@
                         </li>
                         {% else %}
                         <li class="page-item {{ 'active' if currentPage == page else '' }}">
-                            <a href="{{ url_for('site.avisos', page=page, name=name, genre=genre, category=category) }}"
+                            <a href="{{ url_for('site.avisos', page=page, name=name, genre=genre, category=category, author=author) }}"
                                 class="page-link" title="Página {{page}}">{{ page }}</a>
                         </li>
                         {% endif %}
@@ -243,7 +243,7 @@
                         {% if paginate.next_num != None %}
                         {% if currentPage < paginate.next_num %}
                         <li class="page-item">
-                            <a href="{{ url_for('site.avisos', page=paginate.next_num, name=name, category=category, genre=genre) }}"
+                            <a href="{{ url_for('site.avisos', page=paginate.next_num, name=name, category=category, genre=genre, author=author) }}"
                                 class="page-link" aria-label="Next">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-right"></span>
@@ -257,7 +257,7 @@
                         {% if(titulo == 'Filtro'): %}
                         {% if currentPage > 1 %}
                         <li class="page-item">
-                            <a href="{{ url_for('site.filtro', page=paginate.prev_num, name=name, genre=genre, category=category) }}"
+                            <a href="{{ url_for('site.filtro', page=paginate.prev_num, name=name, genre=genre, category=category, author=author) }}"
                                 class="page-link" aria-label="Previous">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-left"></span>
@@ -272,7 +272,7 @@
                         </li>
                         {% else %}
                         <li class="page-item {{ 'active' if currentPage == page else '' }}">
-                            <a href="{{ url_for('site.filtro', page=page, name=name, genre=genre, category=category) }}"
+                            <a href="{{ url_for('site.filtro', page=page, name=name, genre=genre, category=category, author=author) }}"
                                 class="page-link" title="Página {{page}}">{{ page }}</a>
                         </li>
                         {% endif %}
@@ -280,7 +280,7 @@
                         {% if paginate.next_num != None %}
                         {% if currentPage < paginate.next_num %}
                         <li class="page-item">
-                            <a href="{{ url_for('site.filtro', page=paginate.next_num, name=name, category=category, genre=genre) }}"
+                            <a href="{{ url_for('site.filtro', page=paginate.next_num, name=name, category=category, genre=genre, author=author) }}"
                                 class="page-link" aria-label="Next">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-right"></span>
