@@ -111,3 +111,9 @@ function _scrollToTop(scrollDuration) {
      }
  }
  showHideBackToTopButton();
+
+
+
+ $('.author-search-field').on('change', function() {
+     $('.author-search-form').submit();
+ });
