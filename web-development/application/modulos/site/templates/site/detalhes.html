@@ -49,7 +49,7 @@
                             {% if category.id %}
                                 <li>
                                     <a href="{{ url_for('site.filtro', category=category.id) }}" title="Categoria {{ category.name }}">
-                                        {{ category.name }}
+                                        <i class="ti-tag"></i> {{ category.name }}
                                     </a>
                                 </li>
                             {% endif %}
