@@ -501,6 +501,9 @@ textarea.form-control{
     margin-bottom: 20px;
     text-align: center;
 }
+.blog_details .fr-video iframe{
+    max-width: 100%;
+}
 .blog_details .fr-video.fr-fvl{
     float: left;
     margin-right: 15px;
