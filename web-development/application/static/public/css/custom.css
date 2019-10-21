@@ -431,6 +431,19 @@ textarea.form-control{
 }
 
 
+.blog-info-link li::after {
+    display: none;
+}
+.blog-info-link li::before {
+    content: "|";
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.blog-info-link li:first-child::before{
+    display: none;
+}
+
+
 
 .blog_details img{
     width: auto;

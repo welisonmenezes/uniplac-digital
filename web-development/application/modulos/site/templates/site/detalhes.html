@@ -46,9 +46,16 @@
                                     <i class="ti-user"></i> Por {{ user.first_name }} {{ user.last_name }}
                                 </a>
                             </li>
+                            {% if category.id %}
+                                <li>
+                                    <a href="{{ url_for('site.filtro', category=category.id) }}" title="Categoria {{ category.name }}">
+                                        {{ category.name }}
+                                    </a>
+                                </li>
+                            {% endif %}
                             <li>
-                                <a href="{{ url_for('site.filtro', category=category.id) }}" title="Categoria {{ category.name }}">
-                                    {{ category.name }}
+                                <a href="{{ url_for('site.index') }}" title="Editar post">
+                                    <i class="ti-pencil fa-lg"></i> Editar post
                                 </a>
                             </li>
                         </ul>
