@@ -99,6 +99,21 @@
                     <button type="submit" class="btn btn-primary mr-2">Salvar</button>
                     <button type="button" class="btn btn-light"
                         onClick="history.go(-1); return false;">Cancelar</button>
+                    {% if post %}
+                        {% if post.genre == 'news' %}
+                            <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" class="btn" target="_blank" title="{{ post.title }}">
+                                <i class="mdi mdi-television-guide view"></i> Ver no site
+                            </a>
+                        {% elif post.genre == 'ad' %}
+                            <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" class="btn" target="_blank" title="{{ post.title }}">
+                                <i class="mdi mdi-television-guide view"></i> Ver no site
+                            </a>
+                        {% elif post.genre == 'notice' %}
+                            <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" class="btn" target="_blank" title="{{ post.title }}">
+                                <i class="mdi mdi-television-guide view"></i> Ver no site
+                            </a>
+                        {% endif %}
+                    {% endif %}
                 </form>
             </div>
         </div>
