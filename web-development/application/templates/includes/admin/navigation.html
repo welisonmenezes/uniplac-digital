@@ -100,6 +100,24 @@
             </div>
         </li>
         <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-category" aria-expanded="false"
+                    aria-controls="ui-category">
+                    <i class="mdi mdi-tag menu-icon"></i>
+                    <span class="menu-title">Tags</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-category">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('categorias.index') }}">Ver todas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('categorias.cadastrar') }}">Adicionar Novo</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{ url_for('configuracoes.cadastrar') }}">
                 <i class="mdi mdi-settings menu-icon"></i>
                 <span class="menu-title">Configurações</span>
