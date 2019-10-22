@@ -61,6 +61,25 @@ class Configuration(db.Model):
         return '<Configuration %r>' % self.id
 
 
+TagPost = db.Table('TagPost',
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
+    db.Column('post_id', db.Integer, db.ForeignKey('post.id'))
+)
+
+class Tag(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(45),nullable=False)
+    created_at = db.Column(db.Date, default=now, nullable=False)
+    updated_at = db.Column(db.Date, default=now, onupdate=now, nullable=False)
+
+    def __init__(self, name):
+        self.name = name
+    
+    def __repr__(self):
+        return '<Tag %r>' % self.id
+        
+
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -76,6 +95,8 @@ class Post(db.Model):
     image_id = db.Column(db.Integer, db.ForeignKey('image.id'), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True)
+    tags = db.relationship('Tag', secondary=TagPost)
+
 
     def __init__(self, title, description, content, genre, status, entry_date, departure_date, image_id, user_id, category_id=None):
         self.title = title
@@ -88,6 +109,7 @@ class Post(db.Model):
         self.image_id = image_id
         self.user_id = user_id
         self.category_id = category_id
+        
 
     def __repr__(self):
         return '<Post %r>' % self.id
