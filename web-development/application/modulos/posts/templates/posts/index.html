@@ -58,6 +58,7 @@
                                 </select>
                             </div>
                         </div>
+                        {% if(titulo != 'Minhas Publicações'): %}
                         <div class="col">
                             <div class="form-group">
                                 <select class="form-control form-control-sm" name="author">
@@ -68,6 +69,7 @@
                                 </select>
                             </div>
                         </div>
+                        {% endif %}
                         <div class="col">
                             <input type="hidden" name="order" value="{{ order }}" />
                             <input type="hidden" name="order_by" value="{{ order_by }}" />
