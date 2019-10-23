@@ -11,7 +11,7 @@ postBP = Blueprint('posts', __name__, url_prefix='/admin', template_folder='temp
 @postBP.route('/noticias')
 def noticias_index():
     configuration = Configuration.query.first()
-    users = User.query.all()
+    users = User.query.filter(or_(User.role == 'admin', User.role == 'editor')).all()
     titulo = 'Notícias'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
@@ -192,9 +192,8 @@ def noticias_deletar(id):
 
 @postBP.route('/anuncios')
 def anuncios_index():
-
     configuration = Configuration.query.first()
-
+    users = User.query.all()
     titulo = 'Anúncios'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
@@ -204,6 +203,7 @@ def anuncios_index():
     status = '' if (request.args.get('status') == None) else request.args.get('status')
     order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+    author = '' if (request.args.get('author') == None) else request.args.get('author')
 
     # previne erro ao receber string
     try:
@@ -227,6 +227,8 @@ def anuncios_index():
         filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
     if status:
         filter = filter + (Post.status == status,)
+    if author:
+        filter = filter + (Post.user_id == author, )
 
     if session.get('user_role', '') == 'user':
         filter = filter + (Post.user_id == session.get('user_id', ''), )
@@ -243,7 +245,7 @@ def anuncios_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author), 200
 
 @postBP.route('/anuncios/cadastrar', methods=['GET','POST'])
 def anuncios_cadastrar():
@@ -418,6 +420,7 @@ def anuncios_deletar(id):
 @postBP.route('/avisos')
 def avisos_index():
     configuration = Configuration.query.first()
+    users = User.query.filter(or_(User.role == 'admin', User.role == 'author')).all()
     titulo = 'Avisos'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
@@ -427,6 +430,7 @@ def avisos_index():
     status = '' if (request.args.get('status') == None) else request.args.get('status')
     order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+    author = '' if (request.args.get('author') == None) else request.args.get('author')
 
     # previne erro ao receber string
     try:
@@ -450,6 +454,8 @@ def avisos_index():
         filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
     if status:
         filter = filter + (Post.status == status,)
+    if author:
+        filter = filter + (Post.user_id == author, )
     
     # gera o order_by
     if order == 'asc':
@@ -463,7 +469,7 @@ def avisos_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author), 200
 
 @postBP.route('/avisos/cadastrar', methods=['GET','POST'])
 def avisos_cadastrar():

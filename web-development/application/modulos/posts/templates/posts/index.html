@@ -61,7 +61,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <select class="form-control form-control-sm" name="author">
-                                    <option value="">Autor</option>
+                                    <option value="">Publicado por</option>
                                     {% for user in users %}
                                     <option {{ 'selected' if author == user.id|string else '' }} value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
                                     {% endfor %}
