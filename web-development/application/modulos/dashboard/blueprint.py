@@ -18,17 +18,13 @@ def dash():
 
     configuration = Configuration.query.first()
 
-    # filter = (Post.created_at >= last_month, )
-    # countx = func.count(Post.id).label('total')
-    # posts = Post.query.filter(*filter).group_by(countx.desc())
-    results_per_genre = db.engine.execute('select count(id) from post where created_at >= "' + str(last_month) + '" group by genre')
+    results_per_genre = db.engine.execute('select count(id) from post where created_at >= "' + str(last_month) + '" group by genre order by genre asc')
     posts_per_genre = [row[0] for row in results_per_genre]
-    print(posts_per_genre)
 
-    results_per_status = db.engine.execute('select count(id) from post where created_at >= "' + str(last_month) + '" group by status')
+    results_per_status = db.engine.execute('select count(id) from post where created_at >= "' + str(last_month) + '" group by status order by status asc')
     posts_per_status = [row[0] for row in results_per_status]
-    print(posts_per_status)
+
     
     titulo = 'Dashboard'
-    return render_template('dashboard/index.html',titulo=titulo, configuration=configuration), 200
+    return render_template('dashboard/index.html',titulo=titulo, configuration=configuration, posts_per_genre=posts_per_genre, posts_per_status=posts_per_status), 200
 
