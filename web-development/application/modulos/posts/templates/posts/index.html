@@ -27,18 +27,18 @@
 
                 <form class="formm-search">
                     <div class="row">
-                        <div class="col-md-1">
+                        <div class="col">
                             <p class="btn">
                                 Filtro:
                             </p>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col">
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-sm" placeholder="Palavra chave"
                                     name="name" value="{{ name }}">
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col">
                             <div class="form-group">
                                 <select class="form-control form-control-sm" name="category">
                                     <option value="">Categoria</option>
@@ -48,7 +48,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col">
                             <div class="form-group">
                                 <select class="form-control form-control-sm" name="status">
                                     <option value="">Status</option>
@@ -58,7 +58,17 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col">
+                            <div class="form-group">
+                                <select class="form-control form-control-sm" name="author">
+                                    <option value="">Autor</option>
+                                    {% for user in users %}
+                                    <option {{ 'selected' if author == user.id|string else '' }} value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
                             <input type="hidden" name="order" value="{{ order }}" />
                             <input type="hidden" name="order_by" value="{{ order_by }}" />
                             <button type="submit" class="btn btn-primary btn-sm btn-block">Filtrar</button>
@@ -78,13 +88,13 @@
                             <tr>
                                 <th>
                                     {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, order_by='id', order=_order) }}"
+                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='id', order=_order) }}"
                                         class="{{ 'active' if order_by=='id' else '' }}" title="Ordenar por ID">ID</a>
                                     {% elif(titulo == 'Anúncios') %}
-                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, order_by='id', order=_order) }}"
+                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='id', order=_order) }}"
                                         class="{{ 'active' if order_by=='id' else '' }}" title="Ordenar por ID">ID</a>
                                     {% elif(titulo == 'Avisos') %}
-                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, order_by='id', order=_order) }}"
+                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='id', order=_order) }}"
                                         class="{{ 'active' if order_by=='id' else '' }}" title="Ordenar por ID">ID</a>
                                     {% elif(titulo == 'Minhas Publicações'): %}
                                     <a href="{{ url_for('posts.meus_posts', page=currentPage, name=name, category=category, status=status, order_by='id', order=_order) }}"
@@ -93,15 +103,15 @@
                                 </th>
                                 <th>
                                     {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, order_by='title', order=_order) }}"
+                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='title', order=_order) }}"
                                         class="{{ 'active' if order_by=='title' else '' }}"
                                         title="Ordenar por Título">Título</a>
                                     {% elif(titulo == 'Anúncios') %}
-                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, order_by='title', order=_order) }}"
+                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='title', order=_order) }}"
                                         class="{{ 'active' if order_by=='title' else '' }}"
                                         title="Ordenar por Título">Título</a>
                                     {% elif(titulo == 'Avisos') %}
-                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, order_by='title', order=_order) }}"
+                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='title', order=_order) }}"
                                         class="{{ 'active' if order_by=='title' else '' }}"
                                         title="Ordenar por Título">Título</a>
                                     {% elif(titulo == 'Minhas Publicações'): %}
@@ -112,15 +122,15 @@
                                 </th>
                                 <th>
                                     {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, order_by='created_ate', order=_order) }}"
+                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='created_ate', order=_order) }}"
                                         class="{{ 'active' if order_by=='created_at' else '' }}"
                                         title="Ordenar por Data">Data </a>
                                     {% elif(titulo == 'Anúncios') %}
-                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, order_by='created_at', order=_order) }}"
+                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='created_at', order=_order) }}"
                                         class="{{ 'active' if order_by=='created_at' else '' }}"
                                         title="Ordenar por Data">Data</a>
                                     {% elif(titulo == 'Avisos') %}
-                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, order_by='created_at', order=_order) }}"
+                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='created_at', order=_order) }}"
                                         class="{{ 'active' if order_by=='created_at' else '' }}"
                                         title="Ordenar por Data">Data</a>
                                     {% elif(titulo == 'Minhas Publicações'): %}
@@ -222,15 +232,15 @@
                             <button type="button" class="btn">...</button>
                             {% else %}
                             {% if(titulo == 'Notícias'): %}
-                            <a href="{{ url_for('posts.noticias_index', page=page, name=name, category=category, status=status, order_by=order_by, order=order) }}"
+                            <a href="{{ url_for('posts.noticias_index', page=page, name=name, category=category, status=status, author=author, order_by=order_by, order=order) }}"
                                 class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
                                 title="Página {{page}}">{{ page }}</a>
                             {% elif(titulo == 'Anúncios'): %}
-                            <a href="{{ url_for('posts.anuncios_index', page=page, name=name, category=category, status=status, order_by=order_by, order=order) }}"
+                            <a href="{{ url_for('posts.anuncios_index', page=page, name=name, category=category, status=status, author=author, order_by=order_by, order=order) }}"
                                 class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
                                 title="Página {{page}}">{{ page }}</a>
                             {% elif(titulo == 'Avisos'): %}
-                            <a href="{{ url_for('posts.avisos_index', page=page, name=name, category=category, status=status, order_by=order_by, order=order) }}"
+                            <a href="{{ url_for('posts.avisos_index', page=page, name=name, category=category, status=status, author=author, order_by=order_by, order=order) }}"
                                 class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
                                 title="Página {{page}}">{{ page }}</a>
                             {% elif(titulo == 'Minhas Publicações'): %}

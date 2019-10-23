@@ -3,7 +3,7 @@ from flask import current_app, Blueprint, render_template, request, url_for, fla
 from modulos.posts.formularios import PostForm
 from app import app
 from sqlalchemy import desc, or_, and_, asc
-from database.Model import Configuration, db, Post, Category
+from database.Model import Configuration, db, Post, Category, User
 import datetime
 
 postBP = Blueprint('posts', __name__, url_prefix='/admin', template_folder='templates', static_folder='static')
@@ -11,6 +11,7 @@ postBP = Blueprint('posts', __name__, url_prefix='/admin', template_folder='temp
 @postBP.route('/noticias')
 def noticias_index():
     configuration = Configuration.query.first()
+    users = User.query.all()
     titulo = 'Notícias'
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
@@ -20,6 +21,7 @@ def noticias_index():
     status = '' if (request.args.get('status') == None) else request.args.get('status')
     order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+    author = '' if (request.args.get('author') == None) else request.args.get('author')
 
     # previne erro ao receber string
     try:
@@ -43,6 +45,8 @@ def noticias_index():
         filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
     if status:
         filter = filter + (Post.status == status,)
+    if author:
+        filter = filter + (Post.user_id == author, )
 
     # gera o order_by
     if order == 'asc':
@@ -56,7 +60,7 @@ def noticias_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author), 200
 
 
 @postBP.route('/noticias/cadastrar', methods=['GET','POST'])
