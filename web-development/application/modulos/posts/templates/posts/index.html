@@ -58,7 +58,7 @@
                                 </select>
                             </div>
                         </div>
-                        {% if(titulo != 'Minhas Publicações'): %}
+                        {% if(titulo != 'Minhas Publicações' and session.get('user_role', '') != 'user'): %}
                         <div class="col">
                             <div class="form-group">
                                 <select class="form-control form-control-sm" name="author">
