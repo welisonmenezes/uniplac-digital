@@ -159,9 +159,9 @@
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
             ['Tipo', 'Posts Publicados', { role: 'style' }],
-            ['Anúncios', {{ posts_per_genre[0] }}, 'color: gray'],
-    ['Notícias', {{ posts_per_genre[1] }}, 'color: green'],
-        ['Avisos', {{ posts_per_genre[2] }}, 'color: blue'],
+            ['Anúncios', {{ posts_per_genre[0] }}, 'color: #4d83ff'],
+    ['Notícias', {{ posts_per_genre[1] }}, 'color: #4d83ff'],
+        ['Avisos', {{ posts_per_genre[2] }}, 'color: #4d83ff'],
         ]);
     var options = {
         legend: { position: "none" },
@@ -175,9 +175,9 @@
     function drawChart2() {
         var data = google.visualization.arrayToDataTable([
             ['Status', 'Posts Publicados', { role: 'style' }],
-            ['Aprovados', {{ posts_per_status[0] }}, 'color: green'],
-    ['Negados', {{ posts_per_status[1] }}, 'color: red'],
-        ['Pendentes', {{ posts_per_status[2] }}, 'color: yellow'],
+            ['Aprovados', {{ posts_per_status[0] }}, 'color: #71c016'],
+    ['Negados', {{ posts_per_status[1] }}, 'color: #ff4747'],
+        ['Pendentes', {{ posts_per_status[2] }}, 'color: #ffc100'],
         ]);
     var options = {
         legend: { position: "none" },

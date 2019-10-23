@@ -18,10 +18,10 @@ def dash():
 
     configuration = Configuration.query.first()
 
-    results_per_genre = db.engine.execute('select count(id) from post where created_at >= "' + str(last_month) + '" group by genre order by genre asc')
+    results_per_genre = db.engine.execute('SELECT COUNT(id) FROM post WHERE created_at >= "' + str(last_month) + '" GROUP BY genre ORDER BY genre ASC')
     posts_per_genre = [row[0] for row in results_per_genre]
 
-    results_per_status = db.engine.execute('select count(id) from post where created_at >= "' + str(last_month) + '" group by status order by status asc')
+    results_per_status = db.engine.execute('SELECT COUNT(id) FROM post WHERE created_at >= "' + str(last_month) + '" GROUP BY status ORDER BY status ASC')
     posts_per_status = [row[0] for row in results_per_status]
 
     
