@@ -3,8 +3,8 @@ from sqlalchemy import desc, asc
 from app import app
 #trocar informações daqui.....
 from modulos.tags.formularios import TagForm
-#from modulos.categorias.validations import validateCategoryToCreate, validateCategoryToUpdate
-from database.Model import db, Category, Post, Tag
+from modulos.tags.validations import validateTagToCreate
+from database.Model import db, Post, Tag
 from database.Model import Configuration
 
 tagBP = Blueprint('tags', __name__, url_prefix='/admin/tags', template_folder='templates', static_folder='static')
@@ -56,28 +56,28 @@ def cadastrar():
     configuration = Configuration.query.first()
     form = TagForm(request.form)
     titulo = 'Cadastro'
-    # if form.validate_on_submit():
-    #     try:
-    #         if validateTagToCreate(form):
-    #             # cria a categoria com os dados do formulário
-    #             tag = Tag(
-    #                 form.name.data,
-    #                 
-    #             )
-    #             
-    #             # adiciona e commita a categoria na base de dados
-    #             db.session.add(tag)
-    #             db.session.commit()
+    if form.validate_on_submit():
+        try:
+            if validateTagToCreate(form):
+                # cria a tag com os dados do formulário
+                tag = Tag(
+                    form.name.data
+                    
+                )
+                
+                # adiciona e commita a categoria na base de dados
+                db.session.add(tag)
+                db.session.commit()
 
-    #             app.logger.warning(' %s cadastrou a tag %s', session.get('user_name', ''), tag.id)
+                app.logger.warning(' %s cadastrou a tag %s', session.get('user_name', ''), tag.id)
 
-    #             # flash message e redireciona pra mesma tela para limpar o objeto request
-    #             flash('Categoria cadastrada com sucesso', 'success')
-    #             return redirect(url_for('tags.index'))
-    #     except:
-    #         # remove qualquer vestígio do usuário da sessin e flash message 
-    #         db.session.rollback()
-    #         flash('Erro ao tentar cadastrar a tag', 'danger')
+                # flash message e redireciona pra mesma tela para limpar o objeto request
+                flash('Categoria cadastrada com sucesso', 'success')
+                return redirect(url_for('tags.index'))
+        except:
+            # remove qualquer vestígio do usuário da sessin e flash message 
+            db.session.rollback()
+            flash('Erro ao tentar cadastrar a tag', 'danger')
     return render_template('/tags/formulario.html' , titulo=titulo, form=form, configuration=configuration), 200
 
 # @tagBP.route('/editar/<int:id>', methods=['GET', 'POST'])
