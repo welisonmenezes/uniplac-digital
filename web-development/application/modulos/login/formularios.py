@@ -28,16 +28,6 @@ class LoginForm(FlaskForm):
     recaptcha = RecaptchaField()
 
 
-class RecoverForm(FlaskForm):
-    registry = StringField(
-        'Informe sua matrícula',
-        validators = [DataRequired(message="Campo obrigatório")
-        ],
-        render_kw = {
-            'placeholder':'Matrícula'
-        }
-    )
-
 class RequestResetForm(FlaskForm):
     email = StringField(
         'Email',
