@@ -57,7 +57,7 @@ def recuperar():
     form = RequestResetForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        #send_reset_email(user)
+        send_reset_email(user)
         flash('Um email foi enviado com instruções para a recuperação de sua senha', 'info')
         return redirect(url_for('login.inicio'))
     return render_template('recover.html', form=form, configuration=configuration), 200
@@ -65,12 +65,12 @@ def recuperar():
 
 
 @loginBP.route("/resetar-senha/<token>", methods=['GET', 'POST'])
-def reset_token(token):
+def reset(token):
     configuration = Configuration.query.first()
     user = User.verify_reset_token(token)
     if user is None:
-        flash('O token de recuperação de senha é inválido ou está expirado. Por favor, tente novamente.', 'warning')
-        #return redirect(url_for('login.recuperar'))
+        flash('O token de recuperação de senha é inválido ou está expirado. Por favor, tente recuperar sua senha novamente.', 'warning')
+        return redirect(url_for('login.recuperar'))
     form = ResetPasswordForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -101,3 +101,16 @@ def logout():
         app.logger.warning('Logout por inatividade realizado')
     session.clear()
     return redirect( url_for('login.inicio') )
+
+
+
+def send_reset_email(user):
+    token = user.get_reset_token()
+    msg = Message('Password Reset Request',
+                  sender='noreply@demo.com',
+                  recipients=[user.email])
+    msg.body = f'''Para resetar sua senha, clique no seguite link:
+{url_for('login.reset', token=token, _external=True)}
+Se você não requeriu uma troca de senha, simplismente ignore este e-mail e nenhuam alteração será feita.
+'''
+    mail.send(msg)
