@@ -5,7 +5,7 @@ from sqlalchemy import and_, desc
 from flask_mail import Message
 from app import mail
 from database.Model import db, User
-from modulos.login.formularios import LoginForm, RecoverForm, RequestResetForm, ResetPasswordForm
+from modulos.login.formularios import LoginForm, RequestResetForm, ResetPasswordForm
 from database.Model import Configuration
 
 
@@ -13,6 +13,8 @@ loginBP = Blueprint('login', __name__, url_prefix='/login', template_folder='tem
 
 @loginBP.route('/', methods=['GET','POST'])
 def inicio():
+    if session.get('user_id', None) != None:
+        return redirect( url_for('dashboard.dash') )
     configuration = Configuration.query.first()
     form= LoginForm(request.form)
     if form.validate_on_submit():
@@ -36,6 +38,8 @@ def inicio():
 
 @loginBP.route('/recuperar-senha', methods=['GET','POST'])
 def recuperar():
+    if session.get('user_id', None) != None:
+        return redirect( url_for('dashboard.dash') )
     configuration = Configuration.query.first()
     form = RequestResetForm()
     if form.validate_on_submit():
@@ -48,6 +52,8 @@ def recuperar():
 
 @loginBP.route("/resetar-senha/<token>", methods=['GET', 'POST'])
 def reset(token):
+    if session.get('user_id', None) != None:
+        return redirect( url_for('dashboard.dash') )
     configuration = Configuration.query.first()
     user = User.verify_reset_token(token)
     if user is None:
@@ -65,6 +71,8 @@ def reset(token):
 
 @loginBP.route('/logout')
 def logout():
+    if session.get('user_id', None) == None:
+        return redirect( url_for('site.index') )
     configuration = Configuration.query.first()
     try:
         app.logger.warning(' %s deslogou da aplicação', session.get('user_name', ''))
