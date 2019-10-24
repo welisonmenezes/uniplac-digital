@@ -3,7 +3,7 @@
 {% from "macros/formFields.html" import render_field, render_checkbox_field %}
 
 {% block title%}
-{{ titulo }} de Categoria
+{{ titulo }} de Tags
 {% endblock title%}
 
 {% block content %}
@@ -15,10 +15,10 @@
                 <a href="{{ url_for('dashboard.dash') }}" title="Dashboard">Dashboard</a>
             </li>
             <li>
-                <a href="{{ url_for('categorias.index') }}" title="Categorias">Categorias</a>
+                <a href="{{ url_for('tags.index') }}" title="Categorias">Tags</a>
             </li>
             <li>
-                <b>{{ titulo }} de Categoria</b>
+                <b>{{ titulo }} de Tags</b>
             </li>
         </div>
     </div>
@@ -28,12 +28,11 @@
     <div class="col-md-6 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">{{ titulo }} de Categoria</h4>
+                <h4 class="card-title">{{ titulo }} de Tags</h4>
                 <form class="forms-sample" method="POST" novalidate>
                     {{ form.csrf_token }}
                     {{ render_field(form.name, 'required', '45') }}
-                    {{ render_field(form.description, '', '255') }}
-                    {{ render_checkbox_field(form.destacado, '', 'Destacar Categoria?') }}
+
                     <br />
                     <button type="submit" class="btn btn-primary mr-2">Enviar</button>
                     <button type="button" class="btn btn-light" onClick="history.go(-1); return false;">Cancelar</button>
