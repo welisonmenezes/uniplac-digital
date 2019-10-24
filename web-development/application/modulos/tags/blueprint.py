@@ -3,7 +3,7 @@ from sqlalchemy import desc, asc
 from app import app
 #trocar informações daqui.....
 from modulos.tags.formularios import TagForm
-from modulos.tags.validations import validateTagToCreate
+from modulos.tags.validations import validateTagToCreate, validateTagToUpdate
 from database.Model import db, Post, Tag
 from database.Model import Configuration
 
@@ -80,84 +80,84 @@ def cadastrar():
             flash('Erro ao tentar cadastrar a tag', 'danger')
     return render_template('/tags/formulario.html' , titulo=titulo, form=form, configuration=configuration), 200
 
-# @tagBP.route('/editar/<int:id>', methods=['GET', 'POST'])
-# def editar(id):
-#     configuration = Configuration.query.first()
-#     # pega a tags pelo id
-#     tag = Tag.query.filter((Tag.id==id)).first()
+@tagBP.route('/editar/<int:id>', methods=['GET', 'POST'])
+def editar(id):
+    configuration = Configuration.query.first()
+    # pega a tags pelo id
+    tag = Tag.query.filter((Tag.id==id)).first()
     
-#     # se não existe a categoria
-#     if not tag:
-#         flash('A tag não exite', 'info')
-#         return redirect(url_for('tags.index'))
+    # se não existe a categoria
+    if not tag:
+        flash('A tag não exite', 'info')
+        return redirect(url_for('tags.index'))
     
-#     titulo = 'Edição'
+    titulo = 'Edição'
 
-#     if request.form:
-#         # formulário preenchido pelo objeto request, caso exista
-#         form = TagForm(request.form)
-#     else:
-#         # formulário vazio
-#         form = TagForm()
+    if request.form:
+        # formulário preenchido pelo objeto request, caso exista
+        form = TagForm(request.form)
+    else:
+        # formulário vazio
+        form = TagForm()
 
-#         #preenche formulário com a categoria recuperada pelo id
-#         fillForm(form, tag)
+        #preenche formulário com a categoria recuperada pelo id
+        fillForm(form, tag)
 
-#     if form.validate_on_submit():
-#         try:
-#             if validateCategoryToUpdate(form, tag):
-#                 # atualiza a categoria recuperada pelo id com os dados do formulário
-#                 tag.name = form.name.data
-#                 
+    if form.validate_on_submit():
+        try:
+            if validateTagToUpdate(form, tag):
+                # atualiza a categoria recuperada pelo id com os dados do formulário
+                tag.name = form.name.data
+                
 
-#                  # commita os dados na base de dados
-#                 db.session.commit()
+                 # commita os dados na base de dados
+                db.session.commit()
 
-#                 app.logger.warning(' %s editou a tag %s', session.get('user_name', ''), tag.id)
+                app.logger.warning(' %s editou a tag %s', session.get('user_name', ''), tag.id)
 
-#                  # flash message e redireciona pra mesma tela para limpar o objeto request
-#                 flash('Tag editada com sucesso', 'success')
-#                 return redirect(url_for('tags.editar', id=id))
-#         except:
-#             # remove qualquer vestígio da tag do session e flash message
-#             db.session.rollback()
-#             flash('Erro ao tentar editar a tag', 'danger')
-#     return render_template('/tags/formulario.html' , titulo=titulo, form=form, configuration=configuration), 200
+                 # flash message e redireciona pra mesma tela para limpar o objeto request
+                flash('Tag editada com sucesso', 'success')
+                return redirect(url_for('tags.editar', id=id))
+        except:
+            # remove qualquer vestígio da tag do session e flash message
+            db.session.rollback()
+            flash('Erro ao tentar editar a tag', 'danger')
+    return render_template('/tags/formulario.html' , titulo=titulo, form=form, configuration=configuration), 200
 
-# @tagBP.route('/deletar/<int:id>', methods=['GET', 'POST'])
-# def deletar(id):
-#     configuration = Configuration.query.first()
+@tagBP.route('/deletar/<int:id>', methods=['GET', 'POST'])
+def deletar(id):
+    configuration = Configuration.query.first()
 
-#     #pega a tag pelo id
-#     tag = Tag.query.filter((Tag.id==id)).first()
+    #pega a tag pelo id
+    tag = Tag.query.filter((Tag.id==id)).first()
 
-#     # se não existe a tag
-#     if not tag:
-#         flash('A tag não existe', 'info')
-#         return redirect(url_for('tags.index'))
+    # se não existe a tag
+    if not tag:
+        flash('A tag não existe', 'info')
+        return redirect(url_for('tags.index'))
 
-#     if request.method == 'POST':
-#         tagId = request.values.get('tagId')
-#         if tagId:
-#             # verifica se a tag esta em algum post
-#             post = Post.query.filter_by(tag_id=tagId).first()
-#             if not post:
-#                 try:
+    if request.method == 'POST':
+        tagId = request.values.get('tagId')
+        if tagId:
+            # verifica se a tag esta em algum post
+            post = Post.query.filter_by(tag_id=tagId).first()
+            if not post:
+                try:
 
-#                     app.logger.warning(' %s deletou a tag %s', session.get('user_name', ''), tag.id)
+                    app.logger.warning(' %s deletou a tag %s', session.get('user_name', ''), tag.id)
 
-#                     db.session.delete(tag)
-#                     db.session.commit()
-#                     flash('Tag deletada com sucesso', 'success')
-#                     return redirect(url_for('tags.index'))
-#                 except:
-#                     db.session.rollback()
-#                     flash('Erro ao tentar excluir a tag', 'danger')
-#             else:
-#                 flash('A tag não pode ser deletada pois existem posts relacionadas a ela na base de dados', 'warning')
-#     titulo = 'Deseja realmente excluir a tag ' + tag.name
-#     return render_template('/tags/deletar.html', titulo=titulo, tagId=id, configuration=configuration), 200
+                    db.session.delete(tag)
+                    db.session.commit()
+                    flash('Tag deletada com sucesso', 'success')
+                    return redirect(url_for('tags.index'))
+                except:
+                    db.session.rollback()
+                    flash('Erro ao tentar excluir a tag', 'danger')
+            else:
+                flash('A tag não pode ser deletada pois existem posts relacionadas a ela na base de dados', 'warning')
+    titulo = 'Deseja realmente excluir a tag ' + tag.name
+    return render_template('/tags/deletar.html', titulo=titulo, tagId=id, configuration=configuration), 200
 
-#     # popula os campos do formuário
-# def fillForm(form, tag):
-#     form.name.data = tag.name
+    # popula os campos do formuário
+def fillForm(form, tag):
+    form.name.data = tag.name
