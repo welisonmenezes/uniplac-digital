@@ -5,7 +5,7 @@ from sqlalchemy import and_, desc
 from flask_mail import Message
 from app import mail
 from database.Model import db, User
-from modulos.login.formularios import LoginForm, RecoverForm
+from modulos.login.formularios import LoginForm, RecoverForm, RequestResetForm, ResetPasswordForm
 from database.Model import Configuration
 
 
@@ -37,6 +37,7 @@ def inicio():
 @loginBP.route('/recuperar-senha', methods=['GET','POST'])
 def recuperar():
     configuration = Configuration.query.first()
+    """
     form= RecoverForm(request.form)
     if form.validate_on_submit():
         user = User.query.filter(User.registry == form.registry.data).first()
@@ -52,6 +53,13 @@ def recuperar():
             return redirect( url_for('login.recuperada') )
         else:
             flash('Número de matrícula inválido.', 'danger')
+    """
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        #send_reset_email(user)
+        flash('Um email foi enviado com instruções para a recuperação de sua senha', 'info')
+        return redirect(url_for('login.inicio'))
     return render_template('recover.html', form=form, configuration=configuration) , 200
 
 
