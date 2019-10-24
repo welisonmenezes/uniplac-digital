@@ -3,118 +3,194 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-    <div class="content-wrapper">
-        <div class="row">
-            <div class="col-md-12 grid-margin">
-                <div class="d-flex justify-content-between flex-wrap">
-                    <div class="d-flex align-items-end flex-wrap">
-                        <div class="mr-md-3 mr-xl-5">
-                            <h2>Bem Vindo {{ session.get('user_name', '') }}</h2>
-                            <a href="{{ url_for('site.index') }}">
-                                <i class="mdi mdi-home text-muted hover-cursor"></i>
-                                Ver Site
-                            </a>
-                        </div>
-                    </div>
+
+<div class="row">
+    <div class="col-md-12 grid-margin">
+        <div class="d-flex justify-content-between flex-wrap">
+            <div class="d-flex align-items-end flex-wrap">
+                <div class="mr-md-3 mr-xl-5">
+                    <h2>Bem Vindo {{ session.get('user_name', '') }}</h2>
+                    <a href="{{ url_for('site.index') }}">
+                        <i class="mdi mdi-home text-muted hover-cursor"></i>
+                        Ver Site
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="row">
-            {% if session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'editor'  %}
-            <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Cadastrar Notícias</h4>
-                        <div class="media">
-                            <div class="media-body">
-                                <a href="{{ url_for('posts.noticias_cadastrar') }}">
-                                    <button type="button" class="btn btn-primary btn-icon-text">Cadastrar
-                                        Noticias</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-            <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Cadastrar Anuncios</h4>
-                        <div class="media">
-                            <div class="media-body">
-                                <a href="{{ url_for('posts.anuncios_cadastrar') }}">
-                                    <button type="button" class="btn btn-primary btn-icon-text">Cadastrar
-                                        Anuncios</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% if session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'author'  %}
-            <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Cadastrar Avisos</h4>
-                        <div class="media">
-                            <div class="media-body">
-                                <a href="{{ url_for('posts.avisos_cadastrar') }}">
-                                    <button type="button" class="btn btn-primary btn-icon-text">Cadastrar
-                                        Avisos</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-        </div>
-        {% if session.get('user_role', '') == 'admin'  %}
-        <div class="row">
-            <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Adicionar Novo Usuário</h4>
-                        <div class="media">
-                            <div class="media-body">
-                                <a href="{{ url_for('usuarios.cadastrar') }}">
-                                    <button type="button" class="btn btn-primary btn-icon-text">Adicionar Novo Usuário</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Adicionar Categoria</h4>
-                        <div class="media">
-                            <div class="media-body">
-                                <a href="{{ url_for('categorias.cadastrar') }}">
-                                    <button type="button" class="btn btn-primary btn-icon-text">Adicionar Categoria</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 grid-margin stretch-card">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Alterar Configurações do Site</h4>
-                        <div class="media">
-                            <div class="media-body">
-                                <a href="{{ url_for('configuracoes.cadastrar') }}">
-                                    <button type="button" class="btn btn-primary btn-icon-text">Alterar Configurações do Site</button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endif %}
     </div>
+</div>
+<div class="row">
+    {% if session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'editor'  %}
+    <div class="col-md-4 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Cadastrar Notícias</h4>
+                <div class="media">
+                    <div class="media-body">
+                        <a href="{{ url_for('posts.noticias_cadastrar') }}">
+                            <button type="button" class="btn btn-primary btn-icon-text">Cadastrar
+                                Noticias</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="col-md-4 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Cadastrar Anuncios</h4>
+                <div class="media">
+                    <div class="media-body">
+                        <a href="{{ url_for('posts.anuncios_cadastrar') }}">
+                            <button type="button" class="btn btn-primary btn-icon-text">Cadastrar
+                                Anuncios</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'author'  %}
+    <div class="col-md-4 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Cadastrar Avisos</h4>
+                <div class="media">
+                    <div class="media-body">
+                        <a href="{{ url_for('posts.avisos_cadastrar') }}">
+                            <button type="button" class="btn btn-primary btn-icon-text">Cadastrar
+                                Avisos</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% if session.get('user_role', '') == 'admin'  %}
+<div class="row">
+    <div class="col-md-4 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Adicionar Novo Usuário</h4>
+                <div class="media">
+                    <div class="media-body">
+                        <a href="{{ url_for('usuarios.cadastrar') }}">
+                            <button type="button" class="btn btn-primary btn-icon-text">Adicionar Novo
+                                Usuário</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Adicionar Categoria</h4>
+                <div class="media">
+                    <div class="media-body">
+                        <a href="{{ url_for('categorias.cadastrar') }}">
+                            <button type="button" class="btn btn-primary btn-icon-text">Adicionar Categoria</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Alterar Configurações do Site</h4>
+                <div class="media">
+                    <div class="media-body">
+                        <a href="{{ url_for('configuracoes.cadastrar') }}">
+                            <button type="button" class="btn btn-primary btn-icon-text">Alterar Configurações do
+                                Site</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr><br>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Posts publicados nos últimos 30 dias agrupados por tipo</h4>
+                <div class="media">
+                    <div class="media-body embed-responsive embed-responsive-4by3">
+                        <div id="chart_div" class="embed-responsive-item"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Posts publicados nos últimos 30 dias agrupados por status</h4>
+                <div class="media">
+                    <div class="media-body embed-responsive embed-responsive-4by3">
+                        <div id="chart_div_2" class="embed-responsive-item"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% endblock content %}
+
+
+
+{% block footer_script %}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Tipo', 'Posts Publicados', { role: 'style' }],
+            ['Anúncios', {{ posts_per_genre[0] }}, 'color: #4d83ff'],
+    ['Notícias', {{ posts_per_genre[1] }}, 'color: #4d83ff'],
+        ['Avisos', {{ posts_per_genre[2] }}, 'color: #4d83ff'],
+        ]);
+    var options = {
+        legend: { position: "none" },
+        width: '100%'
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+    chart.draw(data, options);
+    }
+
+    google.charts.setOnLoadCallback(drawChart2);
+    function drawChart2() {
+        var data = google.visualization.arrayToDataTable([
+            ['Status', 'Posts Publicados', { role: 'style' }],
+            ['Aprovados', {{ posts_per_status[0] }}, 'color: #71c016'],
+    ['Negados', {{ posts_per_status[1] }}, 'color: #ff4747'],
+        ['Pendentes', {{ posts_per_status[2] }}, 'color: #ffc100'],
+        ]);
+    var options = {
+        legend: { position: "none" },
+        width: '100%'
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_2'));
+    chart.draw(data, options);
+    }
+
+    $(window).resize(function () {
+        drawChart();
+        drawChart2();
+    });
+</script>
+
+{% endblock footer_script %}

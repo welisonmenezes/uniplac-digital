@@ -5,7 +5,7 @@ from sqlalchemy import and_, desc
 from flask_mail import Message
 from app import mail
 from database.Model import db, User
-from modulos.login.formularios import LoginForm, RecoverForm
+from modulos.login.formularios import LoginForm, RequestResetForm, ResetPasswordForm
 from database.Model import Configuration
 
 
@@ -13,6 +13,8 @@ loginBP = Blueprint('login', __name__, url_prefix='/login', template_folder='tem
 
 @loginBP.route('/', methods=['GET','POST'])
 def inicio():
+    if session.get('user_id', None) != None:
+        return redirect( url_for('dashboard.dash') )
     configuration = Configuration.query.first()
     form= LoginForm(request.form)
     if form.validate_on_submit():
@@ -31,38 +33,46 @@ def inicio():
                 flash('Credenciais inválidas', 'danger')
         else:
             flash('Credenciais inválidas', 'danger')
-    return render_template('login.html', form=form, configuration=configuration) , 200
+    return render_template('login.html', form=form, configuration=configuration), 200
 
 
 @loginBP.route('/recuperar-senha', methods=['GET','POST'])
 def recuperar():
+    if session.get('user_id', None) != None:
+        return redirect( url_for('dashboard.dash') )
     configuration = Configuration.query.first()
-    form= RecoverForm(request.form)
+    form = RequestResetForm()
     if form.validate_on_submit():
-        user = User.query.filter(User.registry == form.registry.data).first()
-        if user:
-            msg = Message('Recuperação de senha do Usuário - ' + user.first_name, sender='cntato@uniplacdigital.com.br', recipients=['uniplacdigital@gmail.com'])
-            msg.html = "<h1>"+ user.first_name + " " + user.last_name +" - Requisição de nova senha</h1>"
-            msg.html += "<ul>"
-            msg.html += "<li><b>Nome: </b> "+ user.first_name + " " + user.last_name +"</li>"
-            msg.html += "<li><b>Email: </b> "+ user.email +"</li>"
-            msg.html += "<li><b>Matrícula: </b> "+ user.registry +"</li>"
-            msg.html += "</ul>"
-            mail.send(msg)
-            return redirect( url_for('login.recuperada') )
-        else:
-            flash('Número de matrícula inválido.', 'danger')
-    return render_template('recover.html', form=form, configuration=configuration) , 200
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash('Um email foi enviado com instruções para a recuperação de sua senha', 'info')
+        return redirect(url_for('login.inicio'))
+    return render_template('recover.html', form=form, configuration=configuration), 200
 
 
-@loginBP.route('/senha-recuperada', methods=['GET','POST'])
-def recuperada():
+@loginBP.route("/resetar-senha/<token>", methods=['GET', 'POST'])
+def reset(token):
+    if session.get('user_id', None) != None:
+        return redirect( url_for('dashboard.dash') )
     configuration = Configuration.query.first()
-    return render_template('recover-success.html', configuration=configuration) , 200
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash('O token de recuperação de senha é inválido ou está expirado. Por favor, tente recuperar sua senha novamente.', 'warning')
+        return redirect(url_for('login.recuperar'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password = hashed_password
+        db.session.commit()
+        flash('Sua senha foi atualizada com sucesso.', 'success')
+        return redirect(url_for('login.inicio'))
+    return render_template('reset.html', form=form, configuration=configuration), 200
 
 
 @loginBP.route('/logout')
 def logout():
+    if session.get('user_id', None) == None:
+        return redirect( url_for('site.index') )
     configuration = Configuration.query.first()
     try:
         app.logger.warning(' %s deslogou da aplicação', session.get('user_name', ''))
@@ -74,3 +84,15 @@ def logout():
         app.logger.warning('Logout por inatividade realizado')
     session.clear()
     return redirect( url_for('login.inicio') )
+
+
+def send_reset_email(user):
+    token = user.get_reset_token()
+    msg = Message('Password Reset Request',
+                  sender='noreply@demo.com',
+                  recipients=[user.email])
+    msg.body = f'''Para resetar sua senha, clique no seguite link:
+{url_for('login.reset', token=token, _external=True)}
+Se você não requeriu uma troca de senha, simplismente ignore este e-mail e nenhuam alteração será feita.
+'''
+    mail.send(msg)
