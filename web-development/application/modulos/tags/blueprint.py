@@ -65,14 +65,14 @@ def cadastrar():
                     
                 )
                 
-                # adiciona e commita a categoria na base de dados
+                # adiciona e commita a tag na base de dados
                 db.session.add(tag)
                 db.session.commit()
 
                 app.logger.warning(' %s cadastrou a tag %s', session.get('user_name', ''), tag.id)
 
                 # flash message e redireciona pra mesma tela para limpar o objeto request
-                flash('Categoria cadastrada com sucesso', 'success')
+                flash('Tag cadastrada com sucesso', 'success')
                 return redirect(url_for('tags.index'))
         except:
             # remove qualquer vestígio do usuário da sessin e flash message 
@@ -86,7 +86,7 @@ def editar(id):
     # pega a tags pelo id
     tag = Tag.query.filter((Tag.id==id)).first()
     
-    # se não existe a categoria
+    # se não existe a tag
     if not tag:
         flash('A tag não exite', 'info')
         return redirect(url_for('tags.index'))
@@ -100,13 +100,13 @@ def editar(id):
         # formulário vazio
         form = TagForm()
 
-        #preenche formulário com a categoria recuperada pelo id
+        #preenche formulário com a tag recuperada pelo id
         fillForm(form, tag)
 
     if form.validate_on_submit():
         try:
             if validateTagToUpdate(form, tag):
-                # atualiza a categoria recuperada pelo id com os dados do formulário
+                # atualiza a tag recuperada pelo id com os dados do formulário
                 tag.name = form.name.data
                 
 
@@ -117,7 +117,7 @@ def editar(id):
 
                  # flash message e redireciona pra mesma tela para limpar o objeto request
                 flash('Tag editada com sucesso', 'success')
-                return redirect(url_for('tags.editar', id=id))
+                return redirect(url_for('tags.index', id=id))
         except:
             # remove qualquer vestígio da tag do session e flash message
             db.session.rollback()
@@ -139,9 +139,8 @@ def deletar(id):
     if request.method == 'POST':
         tagId = request.values.get('tagId')
         if tagId:
-            # verifica se a tag esta em algum post
-            post = Post.query.filter_by(tag_id=tagId).first()
-            if not post:
+            
+            
                 try:
 
                     app.logger.warning(' %s deletou a tag %s', session.get('user_name', ''), tag.id)
@@ -153,8 +152,7 @@ def deletar(id):
                 except:
                     db.session.rollback()
                     flash('Erro ao tentar excluir a tag', 'danger')
-            else:
-                flash('A tag não pode ser deletada pois existem posts relacionadas a ela na base de dados', 'warning')
+            
     titulo = 'Deseja realmente excluir a tag ' + tag.name
     return render_template('/tags/deletar.html', titulo=titulo, tagId=id, configuration=configuration), 200
 
