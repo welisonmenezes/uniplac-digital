@@ -64,6 +64,6 @@ class ResetPasswordForm(FlaskForm):
         'Confirmação de senha',
         validators=[
             DataRequired(message="Campo obrigatório"),
-            EqualTo('password', message="A senha deve ser igual")
+            EqualTo('password', message="A confirmação de senha deve ser igual a senha")
         ]
     )

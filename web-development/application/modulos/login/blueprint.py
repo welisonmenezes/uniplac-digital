@@ -31,7 +31,7 @@ def inicio():
                 flash('Credenciais inválidas', 'danger')
         else:
             flash('Credenciais inválidas', 'danger')
-    return render_template('login.html', form=form, configuration=configuration) , 200
+    return render_template('login.html', form=form, configuration=configuration), 200
 
 
 @loginBP.route('/recuperar-senha', methods=['GET','POST'])
@@ -60,13 +60,32 @@ def recuperar():
         #send_reset_email(user)
         flash('Um email foi enviado com instruções para a recuperação de sua senha', 'info')
         return redirect(url_for('login.inicio'))
-    return render_template('recover.html', form=form, configuration=configuration) , 200
+    return render_template('recover.html', form=form, configuration=configuration), 200
 
 
+
+@loginBP.route("/resetar-senha/<token>", methods=['GET', 'POST'])
+def reset_token(token):
+    configuration = Configuration.query.first()
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash('O token de recuperação de senha é inválido ou está expirado. Por favor, tente novamente.', 'warning')
+        #return redirect(url_for('login.recuperar'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password = hashed_password
+        db.session.commit()
+        flash('Sua senha foi atualizada com sucesso.', 'success')
+        return redirect(url_for('login.inicio'))
+    return render_template('reset.html', form=form, configuration=configuration), 200
+
+"""
 @loginBP.route('/senha-recuperada', methods=['GET','POST'])
 def recuperada():
     configuration = Configuration.query.first()
     return render_template('recover-success.html', configuration=configuration) , 200
+"""
 
 
 @loginBP.route('/logout')
