@@ -13,13 +13,13 @@
                     <div class="float-right">
                         <ul class="right_side">
                             <li>
-                                <a href="{{ url_for('site.contato') }}">
+                                <a href="{{ url_for('site.contato') }}" title="Contato">
                                     Contato
                                 </a>
                             </li>
                             {% if session.get('user_role', '') != '' %}
                                 <li>
-                                    <a href="{{ url_for('dashboard.dash') }}">
+                                    <a href="{{ url_for('dashboard.dash') }}" title="Painel Administrativo">
                                         Painel Administrativo
                                     </a>
                                 </li>
@@ -33,7 +33,7 @@
     <div class="main_menu">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light w-100">
-                <a class="navbar-brand logo_h" href="{{ url_for('site.index') }}">
+                <a class="navbar-brand logo_h" href="{{ url_for('site.index') }}" title="Portal Uniplac">
                     <img src="{{ url_for('static', filename='public/img/logo.png') }}" alt="logo" />
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -48,35 +48,35 @@
                         <div class="col-lg-10 pr-0">
                             <ul class="nav navbar-nav center_nav pull-right justify-content-center">
                                 <li class="nav-item first">
-                                    <a class="nav-link" href="{{ url_for('site.index') }}">Home</a>
+                                    <a class="nav-link" href="{{ url_for('site.index') }}" title="Home">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url_for('site.noticias') }}">Notícias</a>
+                                    <a class="nav-link" href="{{ url_for('site.noticias') }}" title="Notícias">Notícias</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url_for('site.anuncios') }}">Anúncios</a>
+                                    <a class="nav-link" href="{{ url_for('site.anuncios') }}" title="Anúncios">Anúncios</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url_for('site.avisos') }}">Avisos</a>
+                                    <a class="nav-link" href="{{ url_for('site.avisos') }}" title="Avisos">Avisos</a>
                                 </li>
                                 <li class="nav-item show-992">
-                                    <a class="nav-link" href="{{ url_for('site.contato') }}">Contato</a>
+                                    <a class="nav-link" href="{{ url_for('site.contato') }}" title="Contato">Contato</a>
                                 </li>
                                 {% if session.get('user_role', '') != '' %}
                                     <li class="nav-item show-992">
-                                        <a class="nav-link" href="{{ url_for('dashboard.dash') }}">Painel Administrativo</a>
+                                        <a class="nav-link" href="{{ url_for('dashboard.dash') }}" title="Painel Administrativo">Painel Administrativo</a>
                                     </li>
                                 {% endif %}
                             </ul>
                         </div>
                         <div class="col-lg-2 pr-0 text-right">
                             {% if session.get('user_role', '') == '' %}
-                                <a href="{{ url_for('login.inicio') }}" class="icons">
+                                <a href="{{ url_for('login.inicio') }}" class="icons" title="Login">
                                     <i class="ti-user fa-lg"></i> Login
                                 </a>
                             {% endif %}
                             {% if session.get('user_role', '') != '' %}
-                                <a href="{{ url_for('login.logout') }}" class="icons">
+                                <a href="{{ url_for('login.logout') }}" class="icons" title="Sair">
                                     <i class="ti-user fa-lg"></i> Sair
                                 </a>
                             {% endif %}

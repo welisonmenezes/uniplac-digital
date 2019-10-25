@@ -7,7 +7,6 @@ configuracaoBP = Blueprint('configuracoes', __name__, url_prefix='/admin/configu
 @configuracaoBP.route('/cadastrar', methods=['GET','POST'])
 def cadastrar():
     
-    titulo = 'Cadastrar Configuracao'
     form = ConfiguracaoForm(request.form)
     configuration = Configuration.query.first()
     images = None
@@ -142,4 +141,4 @@ def cadastrar():
             form.old_images.data = str_image
             form.new_images.data = str_image
         
-    return render_template('configuracoes/formulario.html', titulo=titulo, form=form, mode='cadastrar', images=images, configuration=configuration), 200
+    return render_template('configuracoes/formulario.html', form=form, mode='cadastrar', images=images, configuration=configuration), 200

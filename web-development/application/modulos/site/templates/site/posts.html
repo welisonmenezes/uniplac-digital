@@ -11,7 +11,7 @@
                     <h2>{{ titulo }}</h2>
                 </div>
                 <div class="page_link">
-                    <a href="{{ url_for('site.index') }}">Home</a>
+                    <a href="{{ url_for('site.index') }}" title="Home">Home</a>
                     <strong>{{ titulo }}</strong>
                 </div>
             </div>
@@ -26,111 +26,71 @@
         <div class="row">
 
             <div class="col-lg-8">
-                
+
                 <div class="blog_left_sidebar">
                     {% if posts %}
                     {% for post in posts %}
-                    <article class="blog_item">
-                        {% if titulo == 'Notícias' %}
-                        <a class="d-inline-block" href="{{ url_for('site.noticias_detalhes', id=post.id) }}">
-                            {% if post.image_id != None%}
-                            <div class="blog_item_img">
-                                <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
-                                    alt="">
-                            </div>
-                            {% endif %}
-                            <div class="blog_details">
-                                <h2>{{ post.title }}</h2>
-                        </a>
-                        <p>{{ post.description }}</p>
-                        <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" class="blog_btn">
-                            Ver Mais
-                            <span class="ml-2 ti-arrow-right"></span>
-                        </a>
-                        {% elif titulo == 'Anúncios' %}
-                        <a class="d-inline-block" href="{{ url_for('site.anuncios_detalhes', id=post.id) }}">
-                            {% if post.image_id != None%}
-                            <div class="blog_item_img">
-                                <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
-                                    alt="">
-                            </div>
-                            {% endif %}
-                            <div class="blog_details">
-                                <h2>{{ post.title }}</h2>
-                        </a>
-                        <p>{{ post.description }}</p>
-                        <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" class="blog_btn">
-                            Ver Mais
-                            <span class="ml-2 ti-arrow-right"></span>
-                        </a>
-                        {% elif titulo == 'Avisos' %}
-                        <a class="d-inline-block" href="{{ url_for('site.avisos_detalhes', id=post.id) }}">
-                            {% if post.image_id != None%}
-                            <div class="blog_item_img">
-                                <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
-                                    alt="">
-                            </div>
-                            {% endif %}
-                            <div class="blog_details">
-                                <h2>{{ post.title }}</h2>
-                        </a>
-                        <p>{{ post.description }}</p>
-                        <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" class="blog_btn">
-                            Ver Mais
-                            <span class="ml-2 ti-arrow-right"></span>
-                        </a>
-                        {% elif titulo == 'Filtro' %}
+                    <div class="blog_item">
+
                         {% if post.genre == 'news' %}
-                        <a class="d-inline-block" href="{{ url_for('site.noticias_detalhes', id=post.id) }}">
-                            {% if post.image_id != None %}
+                        <a class="d-block" href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
+                            title="{{ post.title }}">
+                            {% if post.image_id != None%}
                             <div class="blog_item_img">
                                 <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
-                                    alt="">
+                                    alt="{{ post.title }}">
                             </div>
                             {% endif %}
                             <div class="blog_details">
                                 <h2>{{ post.title }}</h2>
+                                <p>{{ post.description }}</p>
+                                <span class="blog_btn">
+                                    Ver Mais
+                                    <span class="ml-2 ti-arrow-right"></span>
+                                </span>
+                            </div>
                         </a>
-                        <p>{{ post.description }}</p>
-                        <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" class="blog_btn">
-                            Ver Mais
-                            <span class="ml-2 ti-arrow-right"></span>
-                        </a>
+
                         {% elif post.genre == 'ad' %}
-                        <a class="d-inline-block" href="{{ url_for('site.anuncios_detalhes', id=post.id) }}">
-                            {% if post.image_id != None %}
+                        <a class="d-block" href="{{ url_for('site.anuncios_detalhes', id=post.id) }}"
+                            title="{{ post.title }}">
+                            {% if post.image_id != None%}
                             <div class="blog_item_img">
                                 <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
-                                    alt="">
+                                    alt="{{ post.title }}">
                             </div>
                             {% endif %}
                             <div class="blog_details">
                                 <h2>{{ post.title }}</h2>
+                                <p>{{ post.description }}</p>
+                                <span class="blog_btn">
+                                    Ver Mais
+                                    <span class="ml-2 ti-arrow-right"></span>
+                                </span>
+                            </div>
                         </a>
-                        <p>{{ post.description }}</p>
-                        <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" class="blog_btn">
-                            Ver Mais
-                            <span class="ml-2 ti-arrow-right"></span>
-                        </a>
+
                         {% elif post.genre == 'notice' %}
-                        <a class="d-inline-block" href="{{ url_for('site.avisos_detalhes', id=post.id) }}">
-                            {% if post.image_id != None %}
+                        <a class="d-block" href="{{ url_for('site.avisos_detalhes', id=post.id) }}"
+                            title="{{ post.title }}">
+                            {% if post.image_id != None%}
                             <div class="blog_item_img">
                                 <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
-                                    alt="">
+                                    alt="{{ post.title }}">
                             </div>
                             {% endif %}
                             <div class="blog_details">
                                 <h2>{{ post.title }}</h2>
+                                <p>{{ post.description }}</p>
+                                <span class="blog_btn">
+                                    Ver Mais
+                                    <span class="ml-2 ti-arrow-right"></span>
+                                </span>
+                            </div>
                         </a>
-                        <p>{{ post.description }}</p>
-                        <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" class="blog_btn">
-                            Ver Mais
-                            <span class="ml-2 ti-arrow-right"></span>
-                        </a>
+
                         {% endif %}
-                        {% endif %}
-                    </article>
+                    </div>
                     {% endfor %}
                     {% else %}
                     <p class="no-content-found">Nenhum post encontrado.</p>
@@ -146,7 +106,7 @@
                         {% if currentPage > 1 %}
                         <li class="page-item">
                             <a href="{{ url_for('site.noticias', page=paginate.prev_num, name=name, genre=genre, category=category, author=author) }}"
-                                class="page-link" aria-label="Previous">
+                                class="page-link" aria-label="Previous" title="Página Anterior">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-left"></span>
                                 </span>
@@ -156,7 +116,7 @@
                         {% for page in paginate.iter_pages(left_edge=2, left_current=2, right_current=3, right_edge=2) %}
                         {% if page == None %}
                         <li class="page-item">
-                            <a class="page-link">...</a>
+                            <span class="page-link">...</span>
                         </li>
                         {% else %}
                         <li class="page-item {{ 'active' if currentPage == page else '' }}">
@@ -169,7 +129,7 @@
                         {% if currentPage < paginate.next_num %}
                         <li class="page-item">
                             <a href="{{ url_for('site.noticias', page=paginate.next_num, name=name, category=category, genre=genre, author=author) }}"
-                                class="page-link" aria-label="Next">
+                                class="page-link" aria-label="Next" title="Próxima Página">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-right"></span>
                                 </span>
@@ -183,7 +143,7 @@
                         {% if currentPage > 1 %}
                         <li class="page-item">
                             <a href="{{ url_for('site.anuncios', page=paginate.prev_num, name=name, genre=genre, category=category, author=author) }}"
-                                class="page-link" aria-label="Previous">
+                                class="page-link" aria-label="Previous" title="Página Anterior">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-left"></span>
                                 </span>
@@ -193,12 +153,12 @@
                         {% for page in paginate.iter_pages(left_edge=2, left_current=2, right_current=3, right_edge=2) %}
                         {% if page == None %}
                         <li class="page-item">
-                            <a class="page-link">...</a>
+                            <span class="page-link">...</span>
                         </li>
                         {% else %}
                         <li class="page-item {{ 'active' if currentPage == page else '' }}">
                             <a href="{{ url_for('site.anuncios', page=page, name=name, genre=genre, category=category, author=author) }}"
-                                class="page-link" title="Página {{page}}">{{ page }}</a>
+                                class="page-link" title="Página {{page}}" title="Próxima Página">{{ page }}</a>
                         </li>
                         {% endif %}
                         {% endfor %}
@@ -221,7 +181,7 @@
                         {% if currentPage > 1 %}
                         <li class="page-item">
                             <a href="{{ url_for('site.avisos', page=paginate.prev_num, name=name, genre=genre, category=category, author=author) }}"
-                                class="page-link" aria-label="Previous">
+                                class="page-link" aria-label="Previous" title="Página Anterior">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-left"></span>
                                 </span>
@@ -231,7 +191,7 @@
                         {% for page in paginate.iter_pages(left_edge=2, left_current=2, right_current=3, right_edge=2) %}
                         {% if page == None %}
                         <li class="page-item">
-                            <a class="page-link">...</a>
+                            <span class="page-link">...</span>
                         </li>
                         {% else %}
                         <li class="page-item {{ 'active' if currentPage == page else '' }}">
@@ -244,7 +204,7 @@
                         {% if currentPage < paginate.next_num %}
                         <li class="page-item">
                             <a href="{{ url_for('site.avisos', page=paginate.next_num, name=name, category=category, genre=genre, author=author) }}"
-                                class="page-link" aria-label="Next">
+                                class="page-link" aria-label="Next" title="Próxima Página">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-right"></span>
                                 </span>
@@ -258,7 +218,7 @@
                         {% if currentPage > 1 %}
                         <li class="page-item">
                             <a href="{{ url_for('site.filtro', page=paginate.prev_num, name=name, genre=genre, category=category, author=author) }}"
-                                class="page-link" aria-label="Previous">
+                                class="page-link" aria-label="Previous" title="Página Anterior">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-left"></span>
                                 </span>
@@ -268,7 +228,7 @@
                         {% for page in paginate.iter_pages(left_edge=2, left_current=2, right_current=3, right_edge=2) %}
                         {% if page == None %}
                         <li class="page-item">
-                            <a class="page-link">...</a>
+                            <span class="page-link">...</span>
                         </li>
                         {% else %}
                         <li class="page-item {{ 'active' if currentPage == page else '' }}">
@@ -281,7 +241,7 @@
                         {% if currentPage < paginate.next_num %}
                         <li class="page-item">
                             <a href="{{ url_for('site.filtro', page=paginate.next_num, name=name, category=category, genre=genre, author=author) }}"
-                                class="page-link" aria-label="Next">
+                                class="page-link" aria-label="Next" title="Próxima Página">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-right"></span>
                                 </span>
@@ -295,7 +255,7 @@
                     </ul>
                 </nav>
             </div>
-            
+
             <div class="col-lg-4">
                 {% include 'includes/public/sidebar.html' %}
             </div>

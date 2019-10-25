@@ -18,7 +18,7 @@
                 <a href="{{ url_for('categorias.index') }}" title="Categorias">Categorias</a>
             </li>
             <li>
-                <b>{{ titulo }} de Categoria</b>
+                <b>{{ titulo }}</b>
             </li>
         </div>
     </div>
@@ -28,7 +28,7 @@
     <div class="col-md-6 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">{{ titulo }} de Categoria</h4>
+                <h4 class="card-title">{{ titulo }}</h4>
                 <form class="forms-sample" method="POST" novalidate>
                     {{ form.csrf_token }}
                     {{ render_field(form.name, 'required', '45') }}
@@ -36,7 +36,7 @@
                     {{ render_checkbox_field(form.destacado, '', 'Destacar Categoria?') }}
                     <br />
                     <button type="submit" class="btn btn-primary mr-2">Enviar</button>
-                    <button type="button" class="btn btn-light" onClick="history.go(-1); return false;">Cancelar</button>
+                    <a href="{{ url_for('categorias.index') }}" class="btn btn-secondary" title="Cancelar">Cancelar</a>
                 </form>
             </div>
         </div>
