@@ -19,19 +19,16 @@ class Image(db.Model):
         return '<Image %r>' % self.id
 
 
-
 class ImageSchema(ma.Schema):
     id = fields.Integer()
     created_at = fields.DateTime()
     updated_at = fields.DateTime()
 
 
-
 ConfigurationImage = db.Table('ConfigurationImage',
     db.Column('image_id', db.Integer, db.ForeignKey('image.id')),
     db.Column('configuration_id', db.Integer, db.ForeignKey('configuration.id'))
 )
-
 
 
 class Configuration(db.Model):
@@ -67,6 +64,7 @@ TagPost = db.Table('TagPost',
     db.Column('post_id', db.Integer, db.ForeignKey('post.id'))
 )
 
+
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(45),nullable=False)
@@ -79,8 +77,6 @@ class Tag(db.Model):
     def __repr__(self):
         return '<Tag %r>' % self.id
         
-
-
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -98,7 +94,6 @@ class Post(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True)
     tags = db.relationship('Tag', secondary=TagPost)
 
-
     def __init__(self, title, description, content, genre, status, entry_date, departure_date, image_id, user_id, category_id=None):
         self.title = title
         self.description = description
@@ -111,10 +106,8 @@ class Post(db.Model):
         self.user_id = user_id
         self.category_id = category_id
         
-
     def __repr__(self):
         return '<Post %r>' % self.id
-
 
 
 class Category(db.Model):
@@ -131,7 +124,6 @@ class Category(db.Model):
 
     def __repr__(self):
         return '<Category %r>' % self.id
-
 
 
 class User(db.Model):
