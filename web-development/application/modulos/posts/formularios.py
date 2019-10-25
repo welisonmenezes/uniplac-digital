@@ -7,10 +7,13 @@ from database.Model import Category
 import datetime
 
 
-categories = Category.query.filter()
 choice = []
-for category in categories:
-    choice.append((str(category.id), category.name))
+try:
+    categories = Category.query.filter()
+    for category in categories:
+        choice.append((str(category.id), category.name))
+except:
+    pass
 
 class NonValidatingSelectField(SelectField):
     def pre_validate(self, form):

@@ -1,7 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow import Schema, fields
 import datetime
-from app import db, ma
+from app import db, ma, app
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 now = datetime.datetime.now()
 
@@ -18,19 +19,16 @@ class Image(db.Model):
         return '<Image %r>' % self.id
 
 
-
 class ImageSchema(ma.Schema):
     id = fields.Integer()
     created_at = fields.DateTime()
     updated_at = fields.DateTime()
 
 
-
 ConfigurationImage = db.Table('ConfigurationImage',
     db.Column('image_id', db.Integer, db.ForeignKey('image.id')),
     db.Column('configuration_id', db.Integer, db.ForeignKey('configuration.id'))
 )
-
 
 
 class Configuration(db.Model):
@@ -61,6 +59,24 @@ class Configuration(db.Model):
         return '<Configuration %r>' % self.id
 
 
+TagPost = db.Table('TagPost',
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
+    db.Column('post_id', db.Integer, db.ForeignKey('post.id'))
+)
+
+
+class Tag(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(45),nullable=False)
+    created_at = db.Column(db.Date, default=now, nullable=False)
+    updated_at = db.Column(db.Date, default=now, onupdate=now, nullable=False)
+
+    def __init__(self, name):
+        self.name = name
+    
+    def __repr__(self):
+        return '<Tag %r>' % self.id
+        
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -76,6 +92,7 @@ class Post(db.Model):
     image_id = db.Column(db.Integer, db.ForeignKey('image.id'), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True)
+    tags = db.relationship('Tag', secondary=TagPost)
 
     def __init__(self, title, description, content, genre, status, entry_date, departure_date, image_id, user_id, category_id=None):
         self.title = title
@@ -88,10 +105,9 @@ class Post(db.Model):
         self.image_id = image_id
         self.user_id = user_id
         self.category_id = category_id
-
+        
     def __repr__(self):
         return '<Post %r>' % self.id
-
 
 
 class Category(db.Model):
@@ -108,7 +124,6 @@ class Category(db.Model):
 
     def __repr__(self):
         return '<Category %r>' % self.id
-
 
 
 class User(db.Model):
@@ -133,6 +148,19 @@ class User(db.Model):
         self.email = email
         self.phone = phone
         self.image_id = image_id
+
+    def get_reset_token(self, expires_sec=1800):
+        s = Serializer(app.config['SECRET_KEY'], expires_sec)
+        return s.dumps({'user_id': self.id}).decode('utf-8')
+
+    @staticmethod
+    def verify_reset_token(token):
+        s = Serializer(app.config['SECRET_KEY'])
+        try:
+            user_id = s.loads(token)['user_id']
+        except:
+            return None
+        return User.query.get(user_id)
 
     def __repr__(self):
         return '<User %r>' % self.id
