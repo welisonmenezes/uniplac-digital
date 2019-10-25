@@ -129,6 +129,11 @@
     color: #26507e;
 }
 
+.single-blog a p{
+    color: #797979;
+    text-transform: none;
+}
+
 .l_blog_item .l_blog_text h4:hover {
     color: #26507e;
 }
@@ -443,7 +448,9 @@ textarea.form-control{
     display: none;
 }
 
-
+.blog_item a p{
+    color: #797979;
+}
 
 .blog_details img{
     width: auto;
