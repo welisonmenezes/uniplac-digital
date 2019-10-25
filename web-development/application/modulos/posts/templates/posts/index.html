@@ -24,13 +24,10 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">{{ titulo }}</h4>
-
-                <form class="formm-search">
+                <form class="formm-search" novalidate>
                     <div class="row">
                         <div class="col">
-                            <p class="btn">
-                                Filtro:
-                            </p>
+                            <p class="btn">Filtro:</p>
                         </div>
                         <div class="col">
                             <div class="form-group">
@@ -182,7 +179,7 @@
                                     </a>
                                     {% elif post.genre == 'ad': %}
                                     {% if session.get('user_role', '') != 'user'  %}
-                                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" target="_blank">
+                                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" target="_blank" title="Ver no site">
                                         <i class="mdi mdi-television-guide view"></i>
                                     </a>
                                     <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
@@ -195,7 +192,7 @@
                                     </a>
                                     {% else %}
                                     {% if post.status == 'pending' %}
-                                    <a href="{{ url_for('anuncios_detalhes', id=post.id) }}" target="_blank">
+                                    <a href="{{ url_for('anuncios_detalhes', id=post.id) }}" target="_blank" title="Ver no site">
                                         <i class="mdi mdi-television-guide view"></i>
                                     </a>
                                     <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
@@ -209,7 +206,7 @@
                                     {% endif %}
                                     {% endif %}
                                     {% elif post.genre == 'notice': %}
-                                    <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" target="_blank">
+                                    <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" target="_blank" title="Ver no site">
                                         <i class="mdi mdi-television-guide view"></i>
                                     </a>
                                     <a href="{{ url_for('posts.avisos_editar', id=post.id) }}"
