@@ -54,7 +54,7 @@ def index():
 def cadastrar():
     configuration = Configuration.query.first()
     form = CategoriaForm(request.form)
-    titulo = 'Cadastro'
+    titulo = 'Cadastrar Categoria'
     if form.validate_on_submit():
         try:
             if validateCategoryToCreate(form):
@@ -90,7 +90,7 @@ def editar(id):
         flash('A categoria não exite', 'info')
         return redirect(url_for('categorias.index'))
     
-    titulo = 'Edição'
+    titulo = 'Editar Categoria'
 
     if request.form:
         # formulário preenchido pelo objeto request, caso exista
