@@ -20,18 +20,14 @@
 </div>
 
 <div class="row">
-    <!--Lista de Noticias-->
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">{{ titulo }}</h4>
-
                 <form class="formm-search" action="{{ url_for('categorias.index') }}" method="GET" novalidate>
                     <div class="row">
                         <div class="col-md-1">
-                            <p class="btn">
-                                Filtro:
-                            </p>
+                            <p class="btn"> Filtro: </p>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
@@ -80,10 +76,10 @@
                                 <td>{{ category.name }}</td>
                                 <td>{{ category.created_at|format_datetime('%d/%m/%Y') }}</td>
                                 <td>
-                                    <a href="{{ url_for('categorias.editar', id=category.id) }}">
+                                    <a href="{{ url_for('categorias.editar', id=category.id) }}" title="Editar">
                                         <i class="mdi mdi-border-color edit"></i>
                                     </a>
-                                    <a href="{{ url_for('categorias.deletar', id=category.id) }}">
+                                    <a href="{{ url_for('categorias.deletar', id=category.id) }}" title="Deletar">
                                         <i class="mdi mdi-delete-forever delete"></i>
                                     </a>
                                 </td>
