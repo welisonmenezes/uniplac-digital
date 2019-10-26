@@ -7,6 +7,8 @@ from modulos.api.Validations.ImageValidations import ImageValidation
 
 class ImageResource(Resource):
     def get(self, id=None):
+        if not session.get('user_id', None):
+            return {'message': 'Sem permissão para acessar este recurso'}, 401
         args = request.args
         page = 1
         if (args and args['page']):
@@ -35,6 +37,8 @@ class ImageResource(Resource):
 
 
     def post(self):
+        if not session.get('user_id', None):
+            return {'message': 'Sem permissão para acessar este recurso'}, 401
         json_data = request.get_json()
         if json_data:
             imageValidator = ImageValidation(json_data)
@@ -62,6 +66,8 @@ class ImageResource(Resource):
 
     @mustHaveId
     def put(self, id=None):
+        if not session.get('user_id', None):
+            return {'message': 'Sem permissão para acessar este recurso'}, 401
         json_data = request.get_json()
         if json_data:
             image = Image.query.filter_by(id=id).first()
@@ -91,6 +97,8 @@ class ImageResource(Resource):
 
     @mustHaveId
     def delete(self, id=None):
+        if not session.get('user_id', None):
+            return {'message': 'Sem permissão para acessar este recurso'}, 401
         post = Post.query.filter_by(image_id=id).first()
         if post: 
             return {'message': 'A imagem não pode ser deletada pois possui posts relacionados a ela'}, 501
