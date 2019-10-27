@@ -36,7 +36,13 @@
                     {{ render_field(form.registry, 'mask-number required numeric', '6') }}
                     {{ render_field(form.email, 'required email', '255') }}
                     {{ render_field(form.phone, 'mask-phone phone required') }}
+
+                    {% if titulo == 'Editar Usuário' %}
+                    {{ render_field(form.password, '', '100') }}
+                    {% else %}
                     {{ render_field(form.password, 'required', '100') }}
+                    {% endif %}
+
                     {{ render_field(form.role, 'required') }}
                     <div>
                         {{ render_file_field(form.image, '') }}

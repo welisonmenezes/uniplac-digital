@@ -59,7 +59,7 @@ def index():
 @usuarioBP.route('/cadastrar', methods=['GET', 'POST'])
 def cadastrar():
     configuration = Configuration.query.first()
-    titulo = 'Cadastrar usuário'
+    titulo = 'Cadastrar Usuário'
     form = UsuarioForm(request.form)
     if form.validate_on_submit():
         try:
@@ -106,7 +106,7 @@ def editar(id):
         flash('O usuário não existe', 'info')
         return redirect(url_for('usuarios.index'))
 
-    titulo = 'Editar usuário'
+    titulo = 'Editar Usuário'
 
     if request.form:
         # formulário preenchido pelo objeto request, caso exista

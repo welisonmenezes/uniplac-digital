@@ -12,14 +12,13 @@
                    <h2> {{ titulo }} </h2>
                 </div>
                 <div class="page_link">
-                    <a href="{{ url_for('site.index') }}">Home</a>
-                    {# Diferenciando pelo tipo de post #}
+                    <a href="{{ url_for('site.index') }}" title="Home">Home</a>
                     {% if(titulo == 'Notícias'): %}
-                    <a href="{{ url_for('site.noticias') }}">{{ titulo }}</a>
+                    <a href="{{ url_for('site.noticias') }}" title="{{ titulo }}">{{ titulo }}</a>
                     {% elif(titulo == 'Anuncios'): %}
-                    <a href="{{ url_for('site.anuncios') }}">{{ titulo }}</a>
+                    <a href="{{ url_for('site.anuncios') }}" title="{{ titulo }}">{{ titulo }}</a>
                     {% elif(titulo == 'Avisos'): %}
-                    <a href="{{ url_for('site.avisos') }}">{{ titulo }}</a>
+                    <a href="{{ url_for('site.avisos') }}" title="{{ titulo }}">{{ titulo }}</a>
                     {% endif %}
                     <strong>{{ post.title }}</strong>
                 </div>
@@ -35,7 +34,7 @@
                 <div class="single-post">
                     {% if post.image_id != None%}
                     <div class="feature-img">
-                        <img class="img-fluid" src="{{request.url_root}}api/media/{{post.image_id}}" alt="">
+                        <img class="img-fluid" src="{{request.url_root}}api/media/{{post.image_id}}" alt="{{ post.title }}">
                     </div>
                     {% endif %}
                     <div class="blog_details">

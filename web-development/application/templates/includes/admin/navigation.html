@@ -2,14 +2,14 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('dashboard.dash') }}">
+            <a class="nav-link" href="{{ url_for('dashboard.dash') }}" title="Dashboard">
                 <i class="mdi mdi-home menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
         {% if session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'editor'  %}
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-news" aria-expanded="false" aria-controls="ui-news">
+            <a class="nav-link" data-toggle="collapse" href="#ui-news" aria-expanded="false" aria-controls="ui-news" title="Notícias">
                 <i class="mdi mdi-newspaper menu-icon"></i>
                 <span class="menu-title">Notícias</span>
                 <i class="menu-arrow"></i>
@@ -17,17 +17,17 @@
             <div class="collapse" id="ui-news">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('posts.noticias_index') }}">Ver todos</a>
+                        <a class="nav-link" href="{{ url_for('posts.noticias_index') }}" title="Ver todos">Ver todos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('posts.noticias_cadastrar') }}">Adicionar Novo</a>
+                        <a class="nav-link" href="{{ url_for('posts.noticias_cadastrar') }}" title="Adicionar Novo">Adicionar Novo</a>
                     </li>
                 </ul>
             </div>
         </li>
         {% endif %}
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-ads" aria-expanded="false" aria-controls="ui-ads">
+            <a class="nav-link" data-toggle="collapse" href="#ui-ads" aria-expanded="false" aria-controls="ui-ads" title="Anúnicios">
                 <i class="mdi mdi-bullhorn menu-icon"></i>
                 <span class="menu-title">Anúncios</span>
                 <i class="menu-arrow"></i>
@@ -35,18 +35,17 @@
             <div class="collapse" id="ui-ads">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('posts.anuncios_index') }}">Ver todos</a>
+                        <a class="nav-link" href="{{ url_for('posts.anuncios_index') }}" title="Ver todos">Ver todos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('posts.anuncios_cadastrar') }}">Adicionar Novo</a>
+                        <a class="nav-link" href="{{ url_for('posts.anuncios_cadastrar') }}" title="Adicionar Novo">Adicionar Novo</a>
                     </li>
                 </ul>
             </div>
         </li>
         {% if session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'author'  %}
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-novices" aria-expanded="false"
-                aria-controls="ui-novices">
+            <a class="nav-link" data-toggle="collapse" href="#ui-novices" aria-expanded="false" aria-controls="ui-novices" title="Avisos">
                 <i class="mdi mdi-sim-alert menu-icon"></i>
                 <span class="menu-title">Avisos</span>
                 <i class="menu-arrow"></i>
@@ -54,10 +53,10 @@
             <div class="collapse" id="ui-novices">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('posts.avisos_index') }}">Ver todos</a>
+                        <a class="nav-link" href="{{ url_for('posts.avisos_index') }}" title="Ver todos">Ver todos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('posts.avisos_cadastrar') }}">Adicionar Novo</a>
+                        <a class="nav-link" href="{{ url_for('posts.avisos_cadastrar') }}" title="Adicionar Novo">Adicionar Novo</a>
                     </li>
                 </ul>
             </div>
@@ -65,7 +64,7 @@
         {% endif %}
         {% if session.get('user_role', '') == 'admin'  %}
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-user" aria-expanded="false" aria-controls="ui-user">
+            <a class="nav-link" data-toggle="collapse" href="#ui-user" aria-expanded="false" aria-controls="ui-user" title="Usuários">
                 <i class="mdi mdi-account menu-icon"></i>
                 <span class="menu-title">Usuários</span>
                 <i class="menu-arrow"></i>
@@ -73,17 +72,16 @@
             <div class="collapse" id="ui-user">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('usuarios.index') }}">Ver todos</a>
+                        <a class="nav-link" href="{{ url_for('usuarios.index') }}" title="Ver todos">Ver todos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('usuarios.cadastrar') }}">Adicionar Novo</a>
+                        <a class="nav-link" href="{{ url_for('usuarios.cadastrar') }}" title="Adicionar Novo">Adicionar Novo</a>
                     </li>
                 </ul>
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-category" aria-expanded="false"
-                aria-controls="ui-category">
+            <a class="nav-link" data-toggle="collapse" href="#ui-category" aria-expanded="false" aria-controls="ui-category" title="Categorias">
                 <i class="mdi mdi-tag menu-icon"></i>
                 <span class="menu-title">Categorias</span>
                 <i class="menu-arrow"></i>
@@ -91,10 +89,10 @@
             <div class="collapse" id="ui-category">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('categorias.index') }}">Ver todas</a>
+                        <a class="nav-link" href="{{ url_for('categorias.index') }}" title="Ver todas">Ver todas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('categorias.cadastrar') }}">Adicionar Novo</a>
+                        <a class="nav-link" href="{{ url_for('categorias.cadastrar') }}" title="Adicionar Nova">Adicionar Nova</a>
                     </li>
                 </ul>
             </div>
@@ -109,16 +107,16 @@
                 <div class="collapse" id="ui-tag">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('tags.index') }}">Ver todas</a>
+                            <a class="nav-link" href="{{ url_for('tags.index') }}" title="Ver todas">Ver todas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('tags.cadastrar') }}">Adicionar Novo</a>
+                            <a class="nav-link" href="{{ url_for('tags.cadastrar') }}" title="Adicionar Nova">Adicionar Novo</a>
                         </li>
                     </ul>
                 </div>
             </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('configuracoes.cadastrar') }}">
+            <a class="nav-link" href="{{ url_for('configuracoes.cadastrar') }}" title="Configurações">
                 <i class="mdi mdi-settings menu-icon"></i>
                 <span class="menu-title">Configurações</span>
             </a>

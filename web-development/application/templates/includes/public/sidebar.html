@@ -5,34 +5,33 @@
         {% for post in notices %}
         {% if post.image_id == None %}
         <div class="media post_item no-image">
-            <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}">
-
+            <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" title="{{ post.title }}">
                 <div class="media-body">
                     <h3>{{ post.title }}</h3>
-                    <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" class="blog_btn">
+                    <span class="blog_btn">
                         Ver Mais
                         <span class="ml-2 ti-arrow-right"></span>
-                    </a>
+                    </span>
                 </div>
             </a>
         </div>
         {% else %}
         <div class="media post_item">
             <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}">
-                <img src="{{request.url_root}}api/media/{{post.image_id}}" alt="post">
+                <img src="{{request.url_root}}api/media/{{post.image_id}}" alt="post" title="{{ post.title }}">
                 <div class="media-body">
                     <h3>{{ post.title }}</h3>
-                    <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" class="blog_btn">
+                    <span class="blog_btn">
                         Ver Mais
                         <span class="ml-2 ti-arrow-right"></span>
-                    </a>
+                    </span>
                 </div>
             </a>
         </div>
         {% endif %}
         {% endfor%}
         <div class="action">
-            <a href="{{ url_for('site.avisos') }}" class="btn btn-info btn-sm btn-block">Ver todos</a>
+            <a href="{{ url_for('site.avisos') }}" class="btn btn-info btn-sm btn-block" title="Ver todos">Ver todos</a>
         </div>
     </aside>
     {% endif %}
@@ -42,7 +41,7 @@
         <ul class="list cat-list">
             {% for category in categories_highlighted %}
             <li>
-                <a href="{{ url_for('site.filtro', category=category.id) }}" class="d-flex">
+                <a href="{{ url_for('site.filtro', category=category.id) }}" class="d-flex" title="{{ category.name }}">
                     <p>{{ category.name }}</p>
                 </a>
             </li>
@@ -52,7 +51,7 @@
     {% endif %}
     {% if users %}
     <aside class="single_sidebar_widget post_category_widget">
-        <h4 class="widget_title">Autores</h4>
+        <h4 class="widget_title">Filtrar por autor:</h4>
         <form class="author-search-form" action="{{ url_for('site.filtro') }}">
             <div class="form-group">
                 <select name="author" class="form-control author-search-field" name="category">

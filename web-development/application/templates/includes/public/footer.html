@@ -6,16 +6,16 @@
                 <h4>Menu Principal</h4>
                 <ul>
                     <li>
-                        <a href="{{ url_for('site.index') }}">Home</a>
+                        <a href="{{ url_for('site.index') }}" title="Home">Home</a>
                     </li>
                     <li>
-                        <a href="{{ url_for('site.noticias') }}">Notícias</a>
+                        <a href="{{ url_for('site.noticias') }}" title="Notícias">Notícias</a>
                     </li>
                     <li>
-                        <a href="{{ url_for('site.anuncios') }}">Anúnicios</a>
+                        <a href="{{ url_for('site.anuncios') }}" title="Anúncios">Anúnicios</a>
                     </li>
                     <li>
-                        <a href="{{ url_for('site.avisos') }}">Avisos</a>
+                        <a href="{{ url_for('site.avisos') }}" title="Avisos">Avisos</a>
                     </li>
                 </ul>
             </div>
@@ -23,17 +23,17 @@
                 <h4>Outros Links</h4>
                 <ul>
                     <li>
-                        <a href="{{ url_for('site.contato') }}">Contato</a>
+                        <a href="{{ url_for('site.contato') }}" title="Contato">Contato</a>
                     </li>
                     <li>
-                        <a href="https://moodle.uniplac.net/" target="_blank">Moodle Uniplac</a>
+                        <a href="https://moodle.uniplac.net/" target="_blank" title="Moodle Uniplac">Moodle Uniplac</a>
                     </li>
                     <li>
-                        <a href="https://portal.uniplaclages.edu.br/corpore.net/Login.aspx" target="_blank">Portal
+                        <a href="https://portal.uniplaclages.edu.br/corpore.net/Login.aspx" target="_blank" title="Portal Uniplac">Portal
                             Uniplac</a>
                     </li>
                     <li>
-                        <a href="https://www.uniplaclages.edu.br/" target="_blank">Site Uniplac</a>
+                        <a href="https://www.uniplaclages.edu.br/" target="_blank" title="Site Uniplac">Site Uniplac</a>
                     </li>
                 </ul>
             </div>
@@ -42,7 +42,9 @@
                     <h4>Categorias Principais</h4>
                     <ul>
                         {% for category in categories_highlighted %}
-                            <li><a href="{{ url_for('site.filtro', c=category.id) }}">{{ category.name }}</a></li>
+                            <li>
+                                <a href="{{ url_for('site.filtro', c=category.id) }}" title="{{ category.name }}">{{ category.name }}</a>
+                            </li>
                         {% endfor %}
                     </ul>
                 </div>

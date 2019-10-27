@@ -14,17 +14,17 @@
             <li>
                 <a href="{{ url_for('dashboard.dash') }}" title="Dashboard">Dashboard</a>
             </li>
-            {% if titulo == 'Notícias' %}
+            {% if titulo == 'Cadastrar Notícias' or titulo == 'Editar Notícia' %}
             <li>
                 <a href="{{ url_for('posts.noticias_index') }}" title="Notícias">Notícias</a>
             </li>
             {% endif %}
-            {% if titulo == 'Anúncios' %}
+            {% if titulo == 'Cadastrar Anúncios' or titulo == 'Editar Anúncio' %}
             <li>
                 <a href="{{ url_for('posts.anuncios_index') }}" title="Anúncios">Anúncios</a>
             </li>
             {% endif %}
-            {% if titulo == 'Avisos' %}
+            {% if titulo == 'Cadastrar Avisos' or titulo == 'Editar Aviso' %}
             <li>
                 <a href="{{ url_for('posts.avisos_index') }}" title="Avisos">Avisos</a>
             </li>
@@ -69,7 +69,7 @@
                                 <div class="cropp-result"></div>
                             </div>
                             <div class="cropp-box-2 cropp-img-result cropp-hide">
-                                <img class="cropp-cropped" src="" alt="">
+                                <img class="cropp-cropped" src="" alt="Imagem cropada">
                             </div>
                             <div class="cropp-box">
                                 <button type="button" class="btn btn-secondary cropp-cropp cropp-hide">
