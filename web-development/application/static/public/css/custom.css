@@ -545,7 +545,12 @@ textarea.form-control{
     border-left: #e3e3e3 1px solid;
     border-bottom:  #e3e3e3 1px solid;
 }
-
+.blog_right_sidebar .media > a{
+    display: flex;
+}
+.blog_right_sidebar .media > a img{
+    align-self: self-start;
+}
 .post_marker{
     padding: 5px;
     border-radius: 4px;
@@ -566,7 +571,6 @@ textarea.form-control{
     color: #fff;
     background-color: #f89d13;
 }
-
 .date{
     margin-left: 10px;
     font-size: .8rem;
