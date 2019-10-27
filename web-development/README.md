@@ -38,7 +38,7 @@ Abaixo segue o exemplo de como implementamos em nosso ambiente:
 
 ## Dependências da aplicação
 
-A aplicação está sendo rodada com Python 3.7.4. As dependências do aplicação estão descritas no arquivo application/requirements.txt.
+A aplicação está sendo rodada com Python 3.7.4. As dependências da aplicação estão descritas no arquivo application/requirements.txt.
 
 A instalação de todas as dependências podem ser realizadas pelo seguinte commando executado a partir do diretório application/:
 
