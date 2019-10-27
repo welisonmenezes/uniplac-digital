@@ -20,3 +20,6 @@
 ## Metodologia Ágil (Adminstração de tarefas com Kanban)
 
 - Todos os nossos cards e tarefas estão cadastradas no trello: https://trello.com/b/6tNXQxrr/uniplacdigital
+
+
+#### Qualquer dúvida, estamos à disposição.
