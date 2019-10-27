@@ -55,11 +55,11 @@
                             <tr>
                                 <th>
                                     <a href="{{ url_for('categorias.index', page=currentPage, name=name, order_by='id', order=_order) }}"
-                                        class="{{ 'active' if order_by=='id' else '' }}" title="Ordenar por ID">ID</a>
+                                        class="{{ 'active' if order_by=='id' else '' }} {{ order }}" title="Ordenar por ID">ID</a>
                                 </th>
                                 <th>
                                     <a href="{{ url_for('categorias.index', page=currentPage, name=name, order_by='name', order=_order) }}"
-                                        class="{{ 'active' if order_by=='name' else '' }}" title="Ordenar por Nome">Nome</a>
+                                        class="{{ 'active' if order_by=='name' else '' }} {{ order }}" title="Ordenar por Nome">Nome</a>
                                 </th>
                                 <th>
                                     <a href="{{ url_for('categorias.index', page=currentPage, name=name, order_by='created_at', order=_order) }}"
