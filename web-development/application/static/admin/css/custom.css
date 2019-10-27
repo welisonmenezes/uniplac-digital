@@ -32,10 +32,15 @@ table a:hover{
 table thead a{
     color: #212529;
     text-decoration: underline;
+    display: inline-block;
+    padding-right: 20px;
+    min-height: 20px;
 }
 table thead a.active{
     color: #4d83ff;
     text-decoration: underline;
+    background: url(../images/down-arrow.svg) no-repeat center right;
+    background-size: 10px 10px;
 }
 
 .table-pagination{
