@@ -541,3 +541,7 @@ textarea.form-control{
     border-left: #e3e3e3 1px solid;
     border-bottom:  #e3e3e3 1px solid;
 }
+
+.blog_right_sidebar .media > a{
+    display: flex;
+}
