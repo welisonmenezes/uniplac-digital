@@ -16,8 +16,7 @@
     <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                    <!--<img src="{{request.url_root}}api/media/{{ session.get('user_avatar', 0) }}" alt="profile" />-->
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown" title="{{ session.get('user_name', None) }}">
                     <div class="img-avatar" style="background-image: url({{request.url_root}}api/media/{{ session.get('user_avatar', 0) }})"></div>
                     <span class="nav-profile-name">{{ session.get('user_name', None) }}</span>
                 </a>
@@ -26,7 +25,7 @@
                         <i class="mdi mdi-monitor-multiple text-primary"></i>
                         Ver Site
                     </a>
-                    <a class="dropdown-item" href="{{ url_for('posts.meus_posts') }}">
+                    <a class="dropdown-item" href="{{ url_for('posts.meus_posts') }}" title="Minhas Publicações">
                         <i class="mdi mdi-view-list text-primary"></i>
                         Minhas Publicações
                     </a>

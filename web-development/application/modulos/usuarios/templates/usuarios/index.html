@@ -67,12 +67,12 @@
                                 <th>Avatar</th>
                                 <th>
                                     <a href="{{ url_for('usuarios.index', page=currentPage, name=name, role=role, order_by='id', order=_order) }}"
-                                        class="{{ 'active' if order_by=='id' else '' }}"
+                                        class="{{ 'active' if order_by=='id' else '' }} {{ order }}"
                                         title="Ordenar por ID">ID</a>
                                 </th>
                                 <th>
                                     <a href="{{ url_for('usuarios.index', page=currentPage, name=name, role=role, order_by='first_name', order=_order) }}"
-                                        class="{{ 'active' if order_by=='first_name' else '' }}"
+                                        class="{{ 'active' if order_by=='first_name' else '' }} {{ order }}"
                                         title="Ordenar por Nome">Nome</a>
                                 </th>
                                 <th>Nível de Usuário</th>

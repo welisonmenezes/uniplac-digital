@@ -10,7 +10,7 @@
             <div class="d-flex align-items-end flex-wrap">
                 <div class="mr-md-3 mr-xl-5">
                     <h2>Bem Vindo {{ session.get('user_name', '') }}</h2>
-                    <a href="{{ url_for('site.index') }}">
+                    <a href="{{ url_for('site.index') }}" title="Ver Site">
                         <i class="mdi mdi-home text-muted hover-cursor"></i>
                         Ver Site
                     </a>
@@ -24,12 +24,11 @@
     <div class="col-md-4 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Cadastrar Notícias</h4>
+                <h4 class="card-title">Cadastrar Notícia</h4>
                 <div class="media">
                     <div class="media-body">
-                        <a href="{{ url_for('posts.noticias_cadastrar') }}">
-                            <button type="button" class="btn btn-primary btn-icon-text">Cadastrar
-                                Noticias</button>
+                        <a href="{{ url_for('posts.noticias_cadastrar') }}" class="btn btn-primary btn-icon-text" title="Cadastrar Notícia">
+                            Cadastrar Noticia
                         </a>
                     </div>
                 </div>
@@ -40,12 +39,11 @@
     <div class="col-md-4 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Cadastrar Anuncios</h4>
+                <h4 class="card-title">Cadastrar Anúncio</h4>
                 <div class="media">
                     <div class="media-body">
-                        <a href="{{ url_for('posts.anuncios_cadastrar') }}">
-                            <button type="button" class="btn btn-primary btn-icon-text">Cadastrar
-                                Anuncios</button>
+                        <a href="{{ url_for('posts.anuncios_cadastrar') }}" class="btn btn-primary btn-icon-text" title="Cadastrar Anúncio">
+                            Cadastrar Anúncio
                         </a>
                     </div>
                 </div>
@@ -56,12 +54,11 @@
     <div class="col-md-4 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Cadastrar Avisos</h4>
+                <h4 class="card-title">Cadastrar Aviso</h4>
                 <div class="media">
                     <div class="media-body">
-                        <a href="{{ url_for('posts.avisos_cadastrar') }}">
-                            <button type="button" class="btn btn-primary btn-icon-text">Cadastrar
-                                Avisos</button>
+                        <a href="{{ url_for('posts.avisos_cadastrar') }}" class="btn btn-primary btn-icon-text" title="Cadastrar Aviso">
+                            Cadastrar Aviso
                         </a>
                     </div>
                 </div>
@@ -75,12 +72,11 @@
     <div class="col-md-4 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Adicionar Novo Usuário</h4>
+                <h4 class="card-title">Cadastrar Usuário</h4>
                 <div class="media">
                     <div class="media-body">
-                        <a href="{{ url_for('usuarios.cadastrar') }}">
-                            <button type="button" class="btn btn-primary btn-icon-text">Adicionar Novo
-                                Usuário</button>
+                        <a href="{{ url_for('usuarios.cadastrar') }}" class="btn btn-primary btn-icon-text" title="Cadastar Usuário">
+                            Cadastrar Usuário
                         </a>
                     </div>
                 </div>
@@ -90,11 +86,11 @@
     <div class="col-md-4 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Adicionar Categoria</h4>
+                <h4 class="card-title">Cadastrar Categoria</h4>
                 <div class="media">
                     <div class="media-body">
-                        <a href="{{ url_for('categorias.cadastrar') }}">
-                            <button type="button" class="btn btn-primary btn-icon-text">Adicionar Categoria</button>
+                        <a href="{{ url_for('categorias.cadastrar') }}" class="btn btn-primary btn-icon-text" title="Cadastrar Categoria">
+                            Cadastrar Categoria
                         </a>
                     </div>
                 </div>
@@ -104,12 +100,11 @@
     <div class="col-md-4 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Alterar Configurações do Site</h4>
+                <h4 class="card-title">Editar Configurações</h4>
                 <div class="media">
                     <div class="media-body">
-                        <a href="{{ url_for('configuracoes.cadastrar') }}">
-                            <button type="button" class="btn btn-primary btn-icon-text">Alterar Configurações do
-                                Site</button>
+                        <a href="{{ url_for('configuracoes.cadastrar') }}" class="btn btn-primary btn-icon-text" title="Editar Configurações">
+                            Editar Configurações
                         </a>
                     </div>
                 </div>

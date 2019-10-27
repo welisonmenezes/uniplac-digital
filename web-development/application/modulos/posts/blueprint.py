@@ -116,7 +116,7 @@ def noticias_editar(id):
         flash('A notícia não existe', 'info')
         return redirect(url_for('posts.noticias_index'))
 
-    titulo = 'Editar notícia'
+    titulo = 'Editar Notícia'
     
     if request.form:
         # formulário preenchido pelo objeto request, caso exista
@@ -323,7 +323,7 @@ def anuncios_editar(id):
             return redirect(url_for('posts.anuncios_index'))
 
 
-    titulo = 'Editar anúncio'
+    titulo = 'Editar Anúncio'
 
     if request.form:
         # formulário preenchido pelo objeto request, caso exista
@@ -525,7 +525,7 @@ def avisos_editar(id):
         flash('O aviso não existe', 'info')
         return redirect(url_for('posts.avisos_index'))
 
-    titulo = 'Editar aviso'
+    titulo = 'Editar Aviso'
 
     if request.form:
         # formulário preenchido pelo objeto request, caso exista
