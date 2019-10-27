@@ -41,8 +41,17 @@
                                     alt="{{ post.title }}">
                             </div>
                             {% endif %}
+
                             <div class="blog_details">
                                 <h2>{{ post.title }}</h2>
+                                <div>
+                                    <span class="post_marker {{post.genre}}">
+                                        Notícia
+                                    </span>
+                                    <span class="date">
+                                        <i class="ti-calendar"></i> {{ post.created_at|format_datetime('%d/%m/%Y') }}
+                                    </span>
+                                </div>
                                 <p>{{ post.description }}</p>
                                 <span class="blog_btn">
                                     Ver Mais
@@ -62,6 +71,14 @@
                             {% endif %}
                             <div class="blog_details">
                                 <h2>{{ post.title }}</h2>
+                                <div>
+                                    <span class="post_marker {{post.genre}}">
+                                        Anuncio
+                                    </span>
+                                    <span class="date">
+                                        <i class="ti-calendar"></i> {{ post.created_at|format_datetime('%d/%m/%Y') }}
+                                    </span>
+                                </div>
                                 <p>{{ post.description }}</p>
                                 <span class="blog_btn">
                                     Ver Mais
@@ -81,6 +98,14 @@
                             {% endif %}
                             <div class="blog_details">
                                 <h2>{{ post.title }}</h2>
+                                <div>
+                                    <span class="post_marker {{post.genre}}">
+                                        Aviso
+                                    </span>
+                                    <span class="date">
+                                        <i class="ti-calendar"></i> {{ post.created_at|format_datetime('%d/%m/%Y') }}
+                                    </span>
+                                </div>
                                 <p>{{ post.description }}</p>
                                 <span class="blog_btn">
                                     Ver Mais
@@ -88,7 +113,6 @@
                                 </span>
                             </div>
                         </a>
-
                         {% endif %}
                     </div>
                     {% endfor %}
