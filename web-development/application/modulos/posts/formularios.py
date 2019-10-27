@@ -95,6 +95,17 @@ class PostForm(FlaskForm):
         format='%d-%m-%Y %H:%M:%S'
     )
 
+    tag = StringField(
+        'Tags',
+        validators = [
+            DataRequired(message="Campo obrigatório")
+        ],
+        render_kw = {
+            'placeholder':'Tags'
+        }
+    )
+
+
     def validate_entry_date(self, field):
         if field == '':
             raise ValidationError('A data de entrada é obrigatório')

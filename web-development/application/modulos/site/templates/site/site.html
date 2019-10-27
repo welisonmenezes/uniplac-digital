@@ -89,6 +89,15 @@
                                 {% endif %}
                                 <div class="short_details">
                                     <h3>{{ post.title }}</h3>
+                                    <div>
+                                        <span class="post_marker {{post.genre}}">
+                                            Notícia
+                                        </span>
+                                        <span class="date">
+                                            <i class="ti-calendar"></i>
+                                            {{ post.created_at|format_datetime('%d/%m/%Y') }}
+                                        </span>
+                                    </div>
                                     <div class="text-wrap">
                                         <p>
                                             {{ post.description }}
