@@ -9,7 +9,7 @@
         <div class="container">
             <div class="banner_content d-md-flex justify-content-between align-items-center">
                 <div class="mb-3 mb-md-0">
-                   <h2> {{ titulo }} </h2>
+                    <h2> {{ titulo }} </h2>
                 </div>
                 <div class="page_link">
                     <a href="{{ url_for('site.index') }}" title="Home">Home</a>
@@ -41,47 +41,72 @@
                         <h2>{{ post.title }}</h2>
                         <ul class="blog-info-link mt-3 mb-4">
                             <li>
-                                <a href="{{ url_for('site.filtro', author=user.id) }}" title="Autor {{ user.first_name }} {{ user.last_name }}">
+                                {% if post.genre == 'news' %}
+                                <a href="{{ url_for('site.noticias') }}" title="" class="post_marker {{post.genre}}">
+                                    Notícia
+                                </a>
+                                {% elif post.genre == 'ad' %}
+                                <a href="{{ url_for('site.anuncios') }}" title="" class="post_marker {{post.genre}}">
+                                    Anúncio
+                                </a>
+                                {% elif post.genre == 'notice' %}
+                                <a href="{{ url_for('site.avisos') }}" title="" class="post_marker {{post.genre}}">
+                                    Aviso
+                                </a>
+                                {% endif %}
+                                <a class="author" href="{{ url_for('site.filtro', author=user.id) }}"
+                                    title="Autor {{ user.first_name }} {{ user.last_name }}">
                                     <i class="ti-user"></i> Por {{ user.first_name }} {{ user.last_name }}
+                                </a>
+
+                            </li>
+                            <li>
+                                <a class="">
+                                    <i class="ti-calendar"></i> {{ post.created_at|format_datetime('%d/%m/%Y') }}
                                 </a>
                             </li>
                             {% if category.id %}
-                                <li>
-                                    <a href="{{ url_for('site.filtro', category=category.id) }}" title="Categoria {{ category.name }}">
-                                        <i class="ti-tag"></i> {{ category.name }}
-                                    </a>
-                                </li>
+                            <li>
+                                <a href="{{ url_for('site.filtro', category=category.id) }}"
+                                    title="Categoria {{ category.name }}">
+                                    <i class="ti-tag"></i> {{ category.name }}
+                                </a>
+                            </li>
                             {% endif %}
                             {% if session.get('user_role', '')  %}
-                                {% if post.genre == 'news' and (session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'editor')  %}
-                                <li>
-                                    <a href="{{ url_for('posts.noticias_editar', id=post.id) }}" target="_blank" title="Editar aviso">
-                                        <i class="ti-pencil fa-lg"></i> Editar notícia
-                                    </a>
-                                </li>
-                                {% elif post.genre == 'notice' and (session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'author')  %}
-                                <li>
-                                    <a href="{{ url_for('posts.avisos_editar', id=post.id) }}" target="_blank" title="Editar aviso">
-                                        <i class="ti-pencil fa-lg"></i> Editar aviso
-                                    </a>
-                                </li>
-                                {% elif post.genre == 'ad'  %}
-                                    {% if session.get('user_role', '') == 'user' %}
-                                        {% if post.user_id == session.get('user_id', '') %}
-                                        <li>
-                                            <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}" target="_blank" title="Editar anúncio">
-                                                <i class="ti-pencil fa-lg"></i> Editar anúncio
-                                            </a>
-                                        </li>
-                                        {% endif %}
-                                    {% else %}
-                                    <li>
-                                        <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}" target="_blank" title="Editar anúncio">
-                                            <i class="ti-pencil fa-lg"></i> Editar anúncio
-                                        </a>
-                                    </li>
-                                    {% endif %}
-                                {% endif  %}
+                            {% if post.genre == 'news' and (session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'editor')  %}
+                            <li>
+                                <a href="{{ url_for('posts.noticias_editar', id=post.id) }}" target="_blank"
+                                    title="Editar aviso">
+                                    <i class="ti-pencil fa-lg"></i> Editar notícia
+                                </a>
+                            </li>
+                            {% elif post.genre == 'notice' and (session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'author')  %}
+                            <li>
+                                <a href="{{ url_for('posts.avisos_editar', id=post.id) }}" target="_blank"
+                                    title="Editar aviso">
+                                    <i class="ti-pencil fa-lg"></i> Editar aviso
+                                </a>
+                            </li>
+                            {% elif post.genre == 'ad'  %}
+                            {% if session.get('user_role', '') == 'user' %}
+                            {% if post.user_id == session.get('user_id', '') %}
+                            <li>
+                                <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}" target="_blank"
+                                    title="Editar anúncio">
+                                    <i class="ti-pencil fa-lg"></i> Editar anúncio
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% else %}
+                            <li>
+                                <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}" target="_blank"
+                                    title="Editar anúncio">
+                                    <i class="ti-pencil fa-lg"></i> Editar anúncio
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% endif  %}
                             {% endif %}
                         </ul>
                         <p class="excert">
