@@ -13,7 +13,7 @@ def before_request_func():
     if bool(re.search(request.url_root+'admin*', request.url)):
         if not user:
             flash('Faça o seu login para poder acessar o painel administrativo', 'warning')
-            return redirect(url_for('login.inicio'))
+            return redirect(url_for('login.inicio', url=request.url))
 
 
     if bool(re.search(request.url_root+'admin/usuarios*', request.url)):

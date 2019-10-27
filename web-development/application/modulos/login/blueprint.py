@@ -28,7 +28,12 @@ def inicio():
                 session['user_name'] = user.first_name
                 session['user_role'] = user.role
                 app.logger.warning(' %s se logou na aplicação', user.first_name)
-                return redirect( url_for('dashboard.dash') )
+
+                url = request.args.get('url')
+                if url:
+                    return redirect( url )
+                else:
+                    return redirect( url_for('dashboard.dash') )
             else:
                 flash('Credenciais inválidas', 'danger')
         else:
