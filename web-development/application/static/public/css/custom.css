@@ -540,7 +540,7 @@ textarea.form-control{
 }
 
 .post_marker{
-    padding: 2px 10px;
+    padding: 5px;
     border-radius: 4px;
     letter-spacing: .2em;
     font-weight: 500;
@@ -549,7 +549,6 @@ textarea.form-control{
 }
 .post_marker.news{
     color: #fff;
-    background-color: #58b4e6;
     background-color: #009eef;
 }
 .post_marker.ad{
@@ -563,6 +562,8 @@ textarea.form-control{
 
 .date{
     margin-left: 10px;
-    font-size: .7rem;
-
+    font-size: .8rem;
+}
+.author{
+    margin-left: 10px;
 }

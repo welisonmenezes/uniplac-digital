@@ -43,11 +43,11 @@
                                 <h2>{{ post.title }}</h2>
                         </a>
                         <div>
-                            <a href="" title="" class="post_marker {{post.genre}}">
+                            <a href="{{ url_for('site.noticias') }}" title="" class="post_marker {{post.genre}}">
                                 Notícia
                             </a>
                             <a class="date">
-                                <i class="ti-calendar"></i> {{ post.created_at }}
+                                <i class="ti-calendar"></i> {{ post.created_at|format_datetime('%d/%m/%Y') }}
                             </a>
                         </div>
                         <p>{{ post.description }}</p>
@@ -67,11 +67,11 @@
                                 <h2>{{ post.title }}</h2>
                         </a>
                         <div>
-                            <a href="" title="" class="post_marker {{post.genre}}">
+                            <a href="{{ url_for('site.anuncios') }}" title="" class="post_marker {{post.genre}}">
                                 Anúncio
                             </a>
                             <a class="date">
-                                <i class="ti-calendar"></i> {{ post.created_at }}
+                                <i class="ti-calendar"></i> {{ post.created_at|format_datetime('%d/%m/%Y') }}
                             </a>
                         </div>
                         <p>{{ post.description }}</p>
@@ -91,11 +91,11 @@
                                 <h2>{{ post.title }}</h2>
                         </a>
                         <div>
-                            <a href="" title="" class="post_marker {{post.genre}}">
+                            <a href="{{ url_for('site.avisos') }}" title="" class="post_marker {{post.genre}}">
                                 Aviso
                             </a>
                             <a class="date">
-                                <i class="ti-calendar"></i> {{ post.created_at }}
+                                <i class="ti-calendar"></i> {{ post.created_at|format_datetime('%d/%m/%Y') }}
                             </a>
                         </div>
                         <p>{{ post.description }}</p>
@@ -116,11 +116,11 @@
                                 <h2>{{ post.title }}</h2>
                         </a>
                         <div>
-                            <a href="" title="" class="post_marker {{post.genre}}">
+                            <a href="{{ url_for('site.noticias') }}" title="" class="post_marker {{post.genre}}">
                                 Notícia
                             </a>
                             <a class="date">
-                                <i class="ti-calendar"></i> {{ post.created_at }}
+                                <i class="ti-calendar"></i> {{ post.created_at|format_datetime('%d/%m/%Y') }}
                             </a>
                         </div>
                         <p>{{ post.description }}</p>
@@ -140,11 +140,11 @@
                                 <h2>{{ post.title }}</h2>
                         </a>
                         <div>
-                            <a href="" title="" class="post_marker {{post.genre}}">
+                            <a href="{{ url_for('site.anuncios') }}" title="" class="post_marker {{post.genre}}">
                                 Anúncio
                             </a>
                             <a class="date">
-                                <i class="ti-calendar"></i> {{ post.created_at }}
+                                <i class="ti-calendar"></i> {{ post.created_at|format_datetime('%d/%m/%Y') }}
                             </a>
                         </div>
                         <p>{{ post.description }}</p>
@@ -164,11 +164,11 @@
                                 <h2>{{ post.title }}</h2>
                         </a>
                         <div>
-                            <a href="" title="" class="post_marker {{post.genre}}">
+                            <a href="{{ url_for('site.avisos') }}" title="" class="post_marker {{post.genre}}">
                                 Aviso
                             </a>
                             <a class="date">
-                                <i class="ti-calendar"></i> {{ post.created_at }}
+                                <i class="ti-calendar"></i> {{ post.created_at|format_datetime('%d/%m/%Y') }}
                             </a>
                         </div>
                         <p>{{ post.description }}</p>
