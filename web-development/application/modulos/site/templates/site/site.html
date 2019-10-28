@@ -9,7 +9,7 @@
         <div class="slideshow">
             {% for image in configuration.images %}
             <div>
-                <div style="background-image:  url({{request.url_root}}api/media/{{image.id}})"></div>
+                <div class="animated-bg-zoom" style="background-image:  url({{request.url_root}}api/media/{{image.id}})"></div>
             </div>
             {% endfor %}
         </div>
