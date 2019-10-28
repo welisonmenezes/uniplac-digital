@@ -581,3 +581,14 @@ textarea.form-control{
 .author{
     margin-left: 10px;
 }
+
+
+.carousel .blog__slide__img{
+    overflow: hidden;
+}
+.carousel .blog__slide__img img{
+    transition: all 300ms linear 0s;
+}
+.carousel .blog__slide:hover .blog__slide__img img{
+    transform: scale(1.1);
+}
