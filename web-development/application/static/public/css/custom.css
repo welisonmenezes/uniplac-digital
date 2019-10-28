@@ -584,14 +584,17 @@ textarea.form-control{
 
 
 .carousel .blog__slide__img,
-.blog_right_sidebar .post_img{
+.blog_right_sidebar .post_img,
+.blog_item .blog_item_img{
     overflow: hidden;
 }
 .carousel .blog__slide__img img,
-.blog_right_sidebar .post_img img{
+.blog_right_sidebar .post_img img,
+.blog_item .blog_item_img img{
     transition: all 300ms linear 0s;
 }
 .carousel .blog__slide:hover .blog__slide__img img,
-.blog_right_sidebar .media:hover .post_img img{
+.blog_right_sidebar .media:hover .post_img img,
+.blog_item:hover .blog_item_img img{
     transform: scale(1.1);
 }
