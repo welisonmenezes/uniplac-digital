@@ -579,6 +579,9 @@ textarea.form-control{
     margin-left: 10px;
     font-size: .8rem;
 }
+.blog_details .date{
+    color: #797979 !important;
+}
 .author{
     margin-left: 10px;
 }

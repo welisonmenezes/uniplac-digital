@@ -154,9 +154,9 @@
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
             ['Tipo', 'Posts Publicados', { role: 'style' }],
-            ['Anúncios', {{ posts_per_genre[0] }}, 'color: #4d83ff'],
-    ['Notícias', {{ posts_per_genre[1] }}, 'color: #4d83ff'],
-        ['Avisos', {{ posts_per_genre[2] }}, 'color: #4d83ff'],
+            ['Anúncios', {{ posts_per_genre[0] }}, 'color: #f4284b'],
+    ['Notícias', {{ posts_per_genre[1] }}, 'color: #009eef'],
+        ['Avisos', {{ posts_per_genre[2] }}, 'color: #f89d13'],
         ]);
     var options = {
         legend: { position: "none" },
