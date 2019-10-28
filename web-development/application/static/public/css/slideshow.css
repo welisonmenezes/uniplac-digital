@@ -26,6 +26,10 @@ h2 {
     color: #3a414e;
 }
 
+.wrapper .slideshow .slick-slide{
+    height: 60vh;
+    overflow: hidden;
+}
 .wrapper .slideshow .slick-slide>div {
     height: 60vh;
     background-position: center;
