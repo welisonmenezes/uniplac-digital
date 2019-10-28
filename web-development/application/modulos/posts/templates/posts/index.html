@@ -192,7 +192,7 @@
                                     </a>
                                     {% else %}
                                     {% if post.status == 'pending' %}
-                                    <a href="{{ url_for('anuncios_detalhes', id=post.id) }}" target="_blank" title="Ver no site">
+                                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" target="_blank" title="Ver no site">
                                         <i class="mdi mdi-television-guide view"></i>
                                     </a>
                                     <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
