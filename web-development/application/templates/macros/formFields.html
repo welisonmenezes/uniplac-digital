@@ -24,7 +24,10 @@
 
 {% macro render_file_field(field, cssClass='') %}
 <div class="form-group">
-    {{ field.label }}
+    {{ field.label }} 
+    <sup>
+        <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="Para adicionar uma imagem, selecione-a, corte-a, envie-a para o servidor e salve o formulário clicando no botão 'Salvar'"></i>
+    </sup>
     {{ field(class="file-upload-default "+cssClass, accept=".jpg,.jpeg,.png,.gif") }}
     <div class="input-group">
         <input type="text" class="form-control file-upload-info" readonly placeholder="Upload Image">

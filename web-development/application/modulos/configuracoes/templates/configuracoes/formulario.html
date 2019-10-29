@@ -47,12 +47,7 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">
-                        Imagens do banner
-                        <sup>
-                            <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="Para adicionar uma imagem, selecione-a, corte-a, envie-a para o servidor e salve o formulário clicando no botão 'Salvar'"></i>
-                        </sup>
-                    </h4>
+                    <h4 class="card-title">Imagens do banner</h4>
                     <p><small>*Tamanho sugerido: (2000x500)</small></p>
                     <div class="forms-sample">
                         {{ render_hidden_field(form.new_images) }}
@@ -116,9 +111,5 @@
             phone: 'Número de telefone inválido'
         }
     });
-
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
 </script>
 {% endblock footer_script %}
