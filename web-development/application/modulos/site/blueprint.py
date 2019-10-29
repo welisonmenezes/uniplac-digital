@@ -1,5 +1,5 @@
 import os
-from flask import current_app, Blueprint, render_template, request, url_for, flash, redirect
+from flask import current_app, Blueprint, render_template, request, url_for, flash, redirect, session
 from datetime import datetime
 from flask_mail import Message
 from sqlalchemy import desc, and_, or_, asc
@@ -60,8 +60,10 @@ def noticias_detalhes(id):
     
     current_datetime = datetime.now()
 
-    post = Post.query.filter(and_(Post.id==id, Post.genre=='news')).first()
-
+    if session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'editor':
+        post = Post.query.filter(and_(Post.id==id, Post.genre=='news')).first()
+    else:
+        post = Post.query.filter(and_(Post.id==id, Post.genre=='news', Post.status=='approved', Post.entry_date <= current_datetime, Post.departure_date >= current_datetime)).first()
     if not post:
         return redirect(url_for('error.pageNotFound'))
 
@@ -106,12 +108,24 @@ def anuncios_detalhes(id):
     users = User.query.order_by(asc(User.first_name)).all()
     
     current_datetime = datetime.now()
-    
-    post = Post.query.filter(and_(Post.id==id, Post.genre=='ad')).first()
+
+    ps = Post.query.filter(Post.id==id).first()
+    if ps:
+        if session.get('user_role', '') == 'user':
+            if session.get('user_id', '') == ps.user_id:
+                post = Post.query.filter(and_(Post.id==id, Post.user_id==session.get('user_id', ''), Post.genre=='ad', Post.status!='denied')).first()
+            else: 
+                post = Post.query.filter(and_(Post.id==id, Post.genre=='ad', Post.status=='approved', Post.entry_date <= current_datetime, Post.departure_date >= current_datetime)).first()
+        elif session.get('user_role', '') == '':
+            post = Post.query.filter(and_(Post.id==id, Post.genre=='ad', Post.status=='approved', Post.entry_date <= current_datetime, Post.departure_date >= current_datetime)).first()
+        else:
+            post = Post.query.filter(and_(Post.id==id, Post.genre=='ad')).first()
+    else:
+        post = ''    
 
     if not post:
         return redirect(url_for('error.pageNotFound'))
-        
+       
     user = User.query.filter(User.id==post.user_id).first()
     category = Category.query.filter(Category.id==post.category_id).first()
     notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
@@ -152,8 +166,11 @@ def avisos_detalhes(id):
    
     current_datetime = datetime.now()
 
-    post = Post.query.filter(and_(Post.id==id, Post.genre=='notice')).first()
-
+    if session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'author':
+        post = Post.query.filter(and_(Post.id==id, Post.genre=='notice')).first()
+    else:
+        post = Post.query.filter(and_(Post.id==id, Post.genre=='notice', Post.status=='approved', Post.entry_date <= current_datetime, Post.departure_date >= current_datetime)).first()
+    
     if not post:
         return redirect(url_for('error.pageNotFound'))
 
