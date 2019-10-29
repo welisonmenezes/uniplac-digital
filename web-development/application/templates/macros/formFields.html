@@ -93,6 +93,11 @@
         {{ field(class="form-check-input "+cssClass) }}
         {{label}}
         <i class="input-helper"></i>
+        {% if field.name == 'destacado' %}
+        <sup>
+            <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="Se checado, a categoria será exibida na sidebar e no footer do site."></i>
+        </sup>
+        {% endif %}
     </label>
     {% if field.errors %}
         {% for error in field.errors %}
