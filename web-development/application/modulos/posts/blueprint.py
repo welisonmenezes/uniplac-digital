@@ -142,7 +142,7 @@ def noticias_editar(id):
             post.image_id = None
             if (form.image_id.data != ''):
                 post.image_id = form.image_id.data
-            post.user_id = session.get('user_id', '')
+            #post.user_id = session.get('user_id', '')
             post.category_id = form.category_id.data
 
             # commita os dados na base de dados
@@ -356,7 +356,7 @@ def anuncios_editar(id):
             post.image_id = None
             if (form.image_id.data != ''):
                 post.image_id = form.image_id.data
-            post.user_id = session.get('user_id', '')
+            #post.user_id = session.get('user_id', '')
             post.category_id = form.category_id.data
 
             # commita os dados na base de dados
@@ -551,7 +551,7 @@ def avisos_editar(id):
             post.image_id = None
             if (form.image_id.data != ''):
                 post.image_id = form.image_id.data
-            post.user_id = session.get('user_id', '')
+            #post.user_id = session.get('user_id', '')
             post.category_id = form.category_id.data
 
             # commita os dados na base de dados

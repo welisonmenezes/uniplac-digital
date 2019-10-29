@@ -49,7 +49,7 @@
                         {{ render_field(form.content, 'required') }}
                         <input type="file" name="imagesContent" id="contentImageSender" accept=".jpg,.jpeg,.png,.gif" />
                     </div>
-                    {{ render_field(form.category_id, 'required') }}
+                    {{ render_field(form.category_id, '') }}
                     {% if session.get('user_role', '') != 'user'  %}
                         {{ render_field(form.status, 'required') }}
                     {% endif %}
