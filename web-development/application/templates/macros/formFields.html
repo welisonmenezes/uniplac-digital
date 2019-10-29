@@ -1,6 +1,18 @@
 {% macro render_field(field, cssClass='', maxLength='') %}
 <div class="form-group">
     {{ field.label }}
+
+    {% if field.name == 'content' %}
+    <sup>
+        <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="O editor de conteúdo do post lhe permite adicionar elementos de títulos, tabelas, listas, imagens, embed de vídeos, etc. Divirta-se!"></i>
+    </sup>
+    {% endif %}
+    {% if field.name == 'map' %}
+    <sup>
+        <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="O valor para este campo deve ser o embed do mapa recuperado do Google Maps. Qualquer dúvida contate o suporte."></i>
+    </sup>
+    {% endif %}
+
     {% if field.errors %}
     {{ field(class="form-control is-invalid "+cssClass, maxLength=""+maxLength) }}
     {% for error in field.errors %}
@@ -24,7 +36,10 @@
 
 {% macro render_file_field(field, cssClass='') %}
 <div class="form-group">
-    {{ field.label }}
+    {{ field.label }} 
+    <sup>
+        <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="Para adicionar uma imagem, selecione-a, corte-a, envie-a para o servidor e salve o formulário clicando no botão 'Salvar'"></i>
+    </sup>
     {{ field(class="file-upload-default "+cssClass, accept=".jpg,.jpeg,.png,.gif") }}
     <div class="input-group">
         <input type="text" class="form-control file-upload-info" readonly placeholder="Upload Image">
@@ -43,6 +58,9 @@
 {% macro render_field_date(field, cssClass='') %}
 <div class="form-group">
     {{ field.label }}
+    <sup>
+        <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="Certifique-se de que a data/hora selecionada seja maior que do que a data/hora atual."></i>
+    </sup>
     {% if field.errors %}
     <div class="input-group">
         {{ field(class="form-control is-invalid mask-date "+cssClass, data_toggle="datetimepicker", data_target="#"+field.name) }}
@@ -75,6 +93,11 @@
         {{ field(class="form-check-input "+cssClass) }}
         {{label}}
         <i class="input-helper"></i>
+        {% if field.name == 'destacado' %}
+        <sup>
+            <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="Se checado, a categoria será exibida na sidebar e no footer do site."></i>
+        </sup>
+        {% endif %}
     </label>
     {% if field.errors %}
         {% for error in field.errors %}
