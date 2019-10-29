@@ -109,17 +109,23 @@ def anuncios_detalhes(id):
     
     current_datetime = datetime.now()
 
-
-    if session.get('user_role', '') == 'user':
-        post = Post.query.filter((and_(Post.id==id, Post.genre=='ad', Post.status=='approved', Post.entry_date <= current_datetime, Post.departure_date >= current_datetime))((or_(Post.user_id==session.get('user_id', ''))))).first()
-    elif session.get('user_role', '') == '':
-        post = Post.query.filter(and_(Post.id==id, Post.genre=='ad', Post.status=='approved', Post.entry_date <= current_datetime, Post.departure_date >= current_datetime)).first()
+    ps = Post.query.filter(Post.id==id).first()
+    if ps:
+        if session.get('user_role', '') == 'user':
+            if session.get('user_id', '') == ps.user_id:
+                post = Post.query.filter(and_(Post.id==id, Post.user_id==session.get('user_id', ''), Post.genre=='ad', Post.status!='denied')).first()
+            else: 
+                post = Post.query.filter(and_(Post.id==id, Post.genre=='ad', Post.status=='approved', Post.entry_date <= current_datetime, Post.departure_date >= current_datetime)).first()
+        elif session.get('user_role', '') == '':
+            post = Post.query.filter(and_(Post.id==id, Post.genre=='ad', Post.status=='approved', Post.entry_date <= current_datetime, Post.departure_date >= current_datetime)).first()
+        else:
+            post = Post.query.filter(and_(Post.id==id, Post.genre=='ad')).first()
     else:
-        post = Post.query.filter(and_(Post.id==id, Post.genre=='ad')).first()
-    
+        post = ''    
+
     if not post:
         return redirect(url_for('error.pageNotFound'))
-        
+       
     user = User.query.filter(User.id==post.user_id).first()
     category = Category.query.filter(Category.id==post.category_id).first()
     notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
