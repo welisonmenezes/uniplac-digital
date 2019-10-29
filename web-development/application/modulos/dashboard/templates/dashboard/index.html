@@ -143,48 +143,56 @@
 
 {% endblock content %}
 
-
-
 {% block footer_script %}
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
+    var chart_div = document.getElementById('chart_div');
     google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Tipo', 'Posts Publicados', { role: 'style' }],
-            ['Anúncios', {{ posts_per_genre[0] }}, 'color: #f4284b'],
-    ['Notícias', {{ posts_per_genre[1] }}, 'color: #009eef'],
-        ['Avisos', {{ posts_per_genre[2] }}, 'color: #f89d13'],
-        ]);
-    var options = {
-        legend: { position: "none" },
-        width: '100%'
-    };
-    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
+    if (chart_div) {
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Tipo', 'Posts Publicados', { role: 'style' }],
+                ['Anúncios', {{ posts_per_genre[0] }}, 'color: #f4284b'],
+                ['Notícias', {{ posts_per_genre[1] }}, 'color: #009eef'],
+                ['Avisos', {{ posts_per_genre[2] }}, 'color: #f89d13'],
+            ]);
+            var options = {
+                legend: { position: "none" },
+                width: '100%'
+            };
+            var chart = new google.visualization.ColumnChart(chart_div);
+            chart.draw(data, options);
+        }
     }
 
-    google.charts.setOnLoadCallback(drawChart2);
-    function drawChart2() {
-        var data = google.visualization.arrayToDataTable([
-            ['Status', 'Posts Publicados', { role: 'style' }],
-            ['Aprovados', {{ posts_per_status[0] }}, 'color: #71c016'],
-    ['Negados', {{ posts_per_status[1] }}, 'color: #ff4747'],
-        ['Pendentes', {{ posts_per_status[2] }}, 'color: #ffc100'],
-        ]);
-    var options = {
-        legend: { position: "none" },
-        width: '100%'
-    };
-    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_2'));
-    chart.draw(data, options);
+    var chart_div_2 = document.getElementById('chart_div_2');
+    if (chart_div_2) {
+        google.charts.setOnLoadCallback(drawChart2);
+        function drawChart2() {
+            var data = google.visualization.arrayToDataTable([
+                ['Status', 'Posts Publicados', { role: 'style' }],
+                ['Aprovados', {{ posts_per_status[0] }}, 'color: #71c016'],
+                ['Negados', {{ posts_per_status[1] }}, 'color: #ff4747'],
+                ['Pendentes', {{ posts_per_status[2] }}, 'color: #ffc100'],
+            ]);
+            var options = {
+                legend: { position: "none" },
+                width: '100%'
+            };
+            var chart = new google.visualization.ColumnChart(chart_div_2);
+            chart.draw(data, options);
+        }
     }
 
     $(window).resize(function () {
-        drawChart();
-        drawChart2();
+        if (chart_div) {
+            drawChart();
+        }
+        if (chart_div_2) {
+            drawChart2();
+        }
     });
 </script>
 
