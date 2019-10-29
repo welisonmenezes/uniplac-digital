@@ -237,3 +237,30 @@ select.form-control, .dataTables_wrapper select{
     float: left;
     margin-left: 13%;
 }
+
+
+
+.table-label{
+    display: none;
+}
+@media (max-width: 650px) {
+    .table-label{
+        display: inline-block;
+    }
+    .table,
+    .table tbody,
+    .table tfoot,
+    .table tr,
+    .table th,
+    .table td{
+        display: block !important;
+    }
+    .table thead{
+        display: none;
+    }
+    .table td{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border: none !important;
+    }
+}

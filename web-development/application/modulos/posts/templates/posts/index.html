@@ -148,20 +148,22 @@
                         <tbody>
                             {% for post in posts %}
                             <tr>
-                                <td>{{ post.id }}</td>
-                                <td>{{ post.title }}</td>
-                                <td>{{ post.created_at|format_datetime('%d/%m/%Y')}}</td>
+                                <td><strong class="table-label">Id: </strong>{{ post.id }}</td>
+                                <td><strong class="table-label">Título: </strong>{{ post.title }}</td>
+                                <td><strong class="table-label">Data: </strong>{{ post.created_at|format_datetime('%d/%m/%Y')}}</td>
                                 <td>
+                                    <strong class="table-label">Status: </strong>
                                     <label class="badge {{post.status}}">{{ post.status }}</label>
                                 </td>
                                 {% if fromUser %}
-                                <th>
+                                <td>
+                                    <strong class="table-label">Tipo: </strong>
                                     <label class="badge badge-info">
                                         {% if post.genre =='notice' %}Aviso{% endif %}
                                         {% if post.genre =='ad' %}Anúncio{% endif %}
                                         {% if post.genre =='news' %}Notícia{% endif %}
                                     </label>
-                                </th>
+                                </td>
                                 {% endif %}
                                 <td>
                                     {# Diferenciando pelo tipo de post #}
