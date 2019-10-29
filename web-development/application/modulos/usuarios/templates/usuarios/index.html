@@ -83,6 +83,7 @@
                             {% for user in users %}
                             <tr>
                                 <td class="py-1">
+                                    <strong class="table-label">Avatar: </strong>
                                     {% if user.image_id=='' %}
 
                                     <div class="img-avatar"
@@ -97,9 +98,10 @@
                                     </a>
                                     {% endif %}
                                 </td>
-                                <td>{{ user.id }}</td>
-                                <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                <td><strong class="table-label">Id: </strong>{{ user.id }}</td>
+                                <td><strong class="table-label">Nome: </strong>{{ user.first_name }} {{ user.last_name }}</td>
                                 <td>
+                                    <strong class="table-label">Nível: </strong>
                                     <label class="badge badge-warning">
                                         <i class="mdi mdi-account"></i>
                                         {{ user.role }}

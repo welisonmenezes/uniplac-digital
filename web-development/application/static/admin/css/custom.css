@@ -263,4 +263,20 @@ select.form-control, .dataTables_wrapper select{
         padding-bottom: 10px;
         border: none !important;
     }
+    .table tr{
+        margin-bottom: 10px;
+    }
+
+    .btn-group, .btn-group-vertical{
+        display: block;
+    }
+    .btn-group .btn{
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .formm-search{
+        margin-bottom: 35px;
+    }
 }
