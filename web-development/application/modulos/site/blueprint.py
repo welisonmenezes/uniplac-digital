@@ -15,7 +15,6 @@ def index():
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
     users = User.query.order_by(asc(User.first_name)).all()
-    
     current_datetime = datetime.now()
 
     news = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='news', Post.status=='approved')).order_by(desc(Post.id)).limit(10)
@@ -32,26 +31,7 @@ def noticias():
 
 @siteBP.route('/noticias/<int:id>')
 def noticias_detalhes(id):
-    titulo = 'Notícias' 
-    configuration = Configuration.query.first()
-    categories = Category.query.order_by(desc(Category.id)).all()
-    categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
-    users = User.query.order_by(asc(User.first_name)).all()
-    
-    current_datetime = datetime.now()
-
-    if session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'editor':
-        post = Post.query.filter(and_(Post.id==id, Post.genre=='news')).first()
-    else:
-        post = Post.query.filter(and_(Post.id==id, Post.genre=='news', Post.status=='approved', Post.entry_date <= current_datetime, Post.departure_date >= current_datetime)).first()
-    if not post:
-        return redirect(url_for('error.pageNotFound'))
-
-    user = User.query.filter(User.id==post.user_id).first()
-    category = Category.query.filter(Category.id==post.category_id).first()
-    notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
-
-    return render_template('/site/detalhes.html', post=post, user=user, category=category, notices=notices, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
+    return render_post_detail_by_type('news', 'Notícias', id)
 
 
 @siteBP.route('/anuncios')
@@ -61,36 +41,7 @@ def anuncios():
 
 @siteBP.route('/anuncios/<int:id>')
 def anuncios_detalhes(id):
-    titulo = 'Anuncios'
-    configuration = Configuration.query.first()
-    categories = Category.query.order_by(desc(Category.id)).all()
-    categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
-    users = User.query.order_by(asc(User.first_name)).all()
-    
-    current_datetime = datetime.now()
-
-    ps = Post.query.filter(Post.id==id).first()
-    if ps:
-        if session.get('user_role', '') == 'user':
-            if session.get('user_id', '') == ps.user_id:
-                post = Post.query.filter(and_(Post.id==id, Post.user_id==session.get('user_id', ''), Post.genre=='ad', Post.status!='denied')).first()
-            else: 
-                post = Post.query.filter(and_(Post.id==id, Post.genre=='ad', Post.status=='approved', Post.entry_date <= current_datetime, Post.departure_date >= current_datetime)).first()
-        elif session.get('user_role', '') == '':
-            post = Post.query.filter(and_(Post.id==id, Post.genre=='ad', Post.status=='approved', Post.entry_date <= current_datetime, Post.departure_date >= current_datetime)).first()
-        else:
-            post = Post.query.filter(and_(Post.id==id, Post.genre=='ad')).first()
-    else:
-        post = ''    
-
-    if not post:
-        return redirect(url_for('error.pageNotFound'))
-       
-    user = User.query.filter(User.id==post.user_id).first()
-    category = Category.query.filter(Category.id==post.category_id).first()
-    notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
-
-    return render_template('/site/detalhes.html', titulo=titulo, post=post, user=user, category=category, notices=notices, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
+    return render_post_detail_by_type('ad', 'Anúncios', id)
 
 
 @siteBP.route('/avisos')
@@ -100,27 +51,7 @@ def avisos():
 
 @siteBP.route('/avisos/<int:id>')
 def avisos_detalhes(id):
-    titulo = 'Avisos'
-    configuration = Configuration.query.first()
-    categories = Category.query.order_by(desc(Category.id)).all()
-    categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
-    users = User.query.order_by(asc(User.first_name)).all()
-   
-    current_datetime = datetime.now()
-
-    if session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'author':
-        post = Post.query.filter(and_(Post.id==id, Post.genre=='notice')).first()
-    else:
-        post = Post.query.filter(and_(Post.id==id, Post.genre=='notice', Post.status=='approved', Post.entry_date <= current_datetime, Post.departure_date >= current_datetime)).first()
-    
-    if not post:
-        return redirect(url_for('error.pageNotFound'))
-
-    user = User.query.filter(User.id==post.user_id).first()
-    category = Category.query.filter(Category.id==post.category_id).first()
-    notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
-
-    return render_template('/site/detalhes.html', titulo=titulo, post=post, user=user, category=category, notices=notices, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
+    return render_post_detail_by_type('notice', 'Avisos', id)
 
 
 @siteBP.route('/filtro')
@@ -197,3 +128,50 @@ def render_post_list_by_type(post_type, title):
         return render_template('site/posts.html', notices=notices, posts=posts, titulo=titulo, name=name, category=category, genre=genre, currentPage=page, paginate=paginate, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users, author=author), 200
     else:
         return render_template('site/posts.html', posts=posts, notices=notices, paginate=paginate, currentPage=page, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
+
+
+def render_post_detail_by_type(post_type, title, id):
+    titulo = title 
+    configuration = Configuration.query.first()
+    categories = Category.query.order_by(desc(Category.id)).all()
+    categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
+    users = User.query.order_by(asc(User.first_name)).all()
+    current_datetime = datetime.now()
+    post = None
+
+    # notícia
+    if post_type == 'news':
+        if session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'editor':
+            post = Post.query.filter(and_(Post.id==id, Post.genre=='news')).first()
+        else:
+            post = Post.query.filter(and_(Post.id==id, Post.genre=='news', Post.status=='approved', Post.entry_date <= current_datetime, Post.departure_date >= current_datetime)).first()
+
+    # anuncio
+    if post_type == 'ad':
+        ps = Post.query.filter(Post.id==id).first()
+        if ps:
+            if session.get('user_role', '') == 'user':
+                if session.get('user_id', '') == ps.user_id:
+                    post = Post.query.filter(and_(Post.id==id, Post.user_id==session.get('user_id', ''), Post.genre=='ad', Post.status!='denied')).first()
+                else: 
+                    post = Post.query.filter(and_(Post.id==id, Post.genre=='ad', Post.status=='approved', Post.entry_date <= current_datetime, Post.departure_date >= current_datetime)).first()
+            elif session.get('user_role', '') == '':
+                post = Post.query.filter(and_(Post.id==id, Post.genre=='ad', Post.status=='approved', Post.entry_date <= current_datetime, Post.departure_date >= current_datetime)).first()
+            else:
+                post = Post.query.filter(and_(Post.id==id, Post.genre=='ad')).first()
+
+    # aviso
+    if post_type == 'notice':
+        if session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'author':
+            post = Post.query.filter(and_(Post.id==id, Post.genre=='notice')).first()
+        else:
+            post = Post.query.filter(and_(Post.id==id, Post.genre=='notice', Post.status=='approved', Post.entry_date <= current_datetime, Post.departure_date >= current_datetime)).first()
+
+    if not post:
+        return redirect(url_for('error.pageNotFound'))
+
+    user = User.query.filter(User.id==post.user_id).first()
+    category = Category.query.filter(Category.id==post.category_id).first()
+    notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
+
+    return render_template('/site/detalhes.html', post=post, user=user, category=category, notices=notices, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
