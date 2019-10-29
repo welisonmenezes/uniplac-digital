@@ -3,7 +3,7 @@ from database.Model import Tag
 
 def validateTagToCreate(form):
     try:
-        if hasTagWithName(form.name.data):
+        if not hasTagWithName(form.name.data):
             return False
 
         return True
@@ -15,7 +15,7 @@ def validateTagToUpdate(form, tag):
     try:
         # se a matrícula for diferente, chama validação
         if (tag.name != form.name.data):
-            if hasTagWithName(form.name.data):
+            if not hasTagWithName(form.name.data):
                 return False
         
         return True
@@ -30,3 +30,4 @@ def hasTagWithName(name):
     if tagWithName:
         flash('O nome informado já foi cadastrado', 'danger')
         return False
+    return True

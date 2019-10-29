@@ -67,7 +67,7 @@ TagPost = db.Table('TagPost',
 
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(45),nullable=False)
+    name = db.Column(db.String(45),nullable=False, unique=True)
     created_at = db.Column(db.Date, default=now, nullable=False)
     updated_at = db.Column(db.Date, default=now, onupdate=now, nullable=False)
 

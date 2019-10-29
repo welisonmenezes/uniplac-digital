@@ -256,6 +256,8 @@ def anuncios_cadastrar():
     
     if session.get('user_role', '') == 'user':
         form.status.validators = []
+
+    print(form.tag.data)
         
     if form.validate_on_submit():
         try:

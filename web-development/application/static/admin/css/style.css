@@ -10298,7 +10298,7 @@ pre code {
   border: 0;
 }
 
-.form-control, .dataTables_wrapper select {
+.form-control, .dataTables_wrapper select, .bootstrap-tagsinput {
   display: block;
   width: 100%;
   height: 2.875rem;
@@ -13248,7 +13248,7 @@ input[type="button"].btn-block {
   border-bottom-right-radius: 0.2rem;
 }
 
-.badge {
+.badge, .label {
   display: inline-block;
   padding: 0.25em 0.4em;
   font-size: 75%;
@@ -13331,7 +13331,7 @@ a.badge-success:focus, a.badge-success.focus {
   box-shadow: 0 0 0 0.2rem rgba(113, 192, 22, 0.5);
 }
 
-.badge-info {
+.badge-info, .label-info {
   color: #fff;
   background-color: #7859df;
 }
