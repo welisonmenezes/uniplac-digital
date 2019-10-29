@@ -226,6 +226,7 @@ def contato():
     configuration = Configuration.query.first()
     categories = Category.query.order_by(desc(Category.id)).all()
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
+    users = User.query.order_by(asc(User.first_name)).all()
 
     form = ContactForm(request.form)
     if form.validate_on_submit():
@@ -243,7 +244,7 @@ def contato():
         except:
             flash('Descuple, ocorreu um problema ao tentar enviar sua mensagem.', 'warning')
         
-    return render_template('site/contato.html', form=form, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted), 200
+    return render_template('site/contato.html', form=form, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
 
 
 
