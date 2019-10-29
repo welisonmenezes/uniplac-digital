@@ -284,3 +284,10 @@ select.form-control, .dataTables_wrapper select{
         display: block;
     }
 }
+
+@media (max-width: 992px) {
+    .ul-fig-banner li {
+        width: 95%;
+        flex-basis: 95%;
+    }
+}
