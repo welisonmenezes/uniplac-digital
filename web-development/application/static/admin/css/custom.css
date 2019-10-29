@@ -232,3 +232,8 @@ select.form-control, .dataTables_wrapper select{
     padding: 50px 0;
     font-size: 20px;
 }
+
+.one-icon{
+    float: left;
+    margin-left: 13%;
+}

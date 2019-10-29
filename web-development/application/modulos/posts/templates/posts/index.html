@@ -203,6 +203,10 @@
                                         title="Deletar Aviso {{post.id}}">
                                         <i class="mdi mdi-delete-forever delete"></i>
                                     </a>
+                                    {% elif post.status == 'approved' %}
+                                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" target="_blank" title="Ver no site" class="one-icon">
+                                        <i class="mdi mdi-television-guide view"></i>
+                                    </a>
                                     {% endif %}
                                     {% endif %}
                                     {% elif post.genre == 'notice': %}
