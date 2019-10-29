@@ -279,4 +279,8 @@ select.form-control, .dataTables_wrapper select{
     .formm-search{
         margin-bottom: 35px;
     }
+
+    .formm-search .row{
+        display: block;
+    }
 }
