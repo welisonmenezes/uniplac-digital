@@ -18,7 +18,9 @@
         {% else %}
         <div class="media post_item">
             <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}">
-                <img src="{{request.url_root}}api/media/{{post.image_id}}" alt="post" title="{{ post.title }}">
+                <div class="post_img">
+                    <img src="{{request.url_root}}api/media/{{post.image_id}}" alt="post" title="{{ post.title }}">
+                </div>
                 <div class="media-body">
                     <h3>{{ post.title }}</h3>
                     <span class="blog_btn">
