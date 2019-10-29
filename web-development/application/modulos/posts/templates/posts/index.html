@@ -148,9 +148,9 @@
                         <tbody>
                             {% for post in posts %}
                             <tr>
-                                <td><strong class="table-label">Id: </strong>{{ post.id }}</td>
-                                <td><strong class="table-label">Título: </strong>{{ post.title }}</td>
-                                <td><strong class="table-label">Data: </strong>{{ post.created_at|format_datetime('%d/%m/%Y')}}</td>
+                                <td><strong class="table-label">Id: </strong> {{ post.id }}</td>
+                                <td><strong class="table-label">Título: </strong> {{ post.title }}</td>
+                                <td><strong class="table-label">Data: </strong> {{ post.created_at|format_datetime('%d/%m/%Y')}}</td>
                                 <td>
                                     <strong class="table-label">Status: </strong>
                                     <label class="badge {{post.status}}">{{ post.status }}</label>
