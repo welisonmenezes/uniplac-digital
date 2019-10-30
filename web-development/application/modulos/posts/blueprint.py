@@ -3,7 +3,7 @@ from flask import current_app, Blueprint, render_template, request, url_for, fla
 from modulos.posts.formularios import PostForm
 from app import app
 from sqlalchemy import desc, or_, and_, asc
-from database.Model import Configuration, db, Post, Category, User
+from database.Model import Configuration, db, Post, Category, User, Tag
 import datetime
 
 postBP = Blueprint('posts', __name__, url_prefix='/admin', template_folder='templates', static_folder='static')
@@ -70,7 +70,7 @@ def noticias_cadastrar():
     titulo = 'Cadastrar Notícias'
     operacao = 'Cadastro'
     if form.validate_on_submit():
-        try:
+        
             form.user_id = session.get('user_id', '')
 
             # cria o post com os dados do formulário
@@ -89,17 +89,33 @@ def noticias_cadastrar():
             
             if form.image_id.data != '':
                 post.image_id = form.image_id.data
+            
+            #adiciona a tag no banco
+            
+            tags = form.tag.data
+            array_tags = tags.split(',')
+            for t in array_tags:
+                tag = Tag.query.filter((Tag.name==t)).first()
+                if tag:
+                    post.tags.append(tag)
+        
+                else:
+                    tag = Tag(t)
+                    post.tags.append(tag)
+
 
             # adiciona e commita a categoria na base de dados
             db.session.add(post)
             db.session.commit()
+
+
 
             app.logger.warning(' %s cadastrou a noticia %s', session.get('user_name', ''), post.title)
 
             # flash message e redireciona pra mesma tela para limpar o objeto request
             flash('Notícia cadastrada com sucesso', 'success')
             return redirect(url_for('posts.noticias_index'))
-        except:
+        
             # remove qualquer vestígio do usuário da sessin e flash message 
             db.session.rollback()
             flash('Erro ao tentar cadastrar a notícia', 'danger')
