@@ -26,9 +26,11 @@
                 <h4 class="card-title">{{ titulo }}</h4>
                 <form class="formm-search posts" novalidate>
                     <div class="row">
-                        <div class="col">
-                            <p class="btn">Filtro:</p>
-                        </div>
+                            <div class="col">
+                                    <p class="btn filtro">Filtro:</p>
+                                </div>
+                    </div>
+                    <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-sm" placeholder="Palavra chave"
@@ -67,6 +69,16 @@
                             </div>
                         </div>
                         {% endif %}
+                        <div class="form-group">
+                            <select class="form-control form-control-sm" name="data">
+                                <option value="">Data</option>
+                                <option {{ 'selected' if data == 'ar' else '' }} value="ar">No Ar</option>
+                                <option {{ 'selected' if data == 'no-ar' else '' }} value="no-ar">Fora do Ar
+                                </option>
+                                <option {{ 'selected' if data == 'next-entries' else '' }} value="next-entries">
+                                    Próximas Entradas</option>
+                            </select>
+                        </div>
                         <div class="col">
                             <input type="hidden" name="order" value="{{ order }}" />
                             <input type="hidden" name="order_by" value="{{ order_by }}" />
