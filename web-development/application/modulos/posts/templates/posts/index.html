@@ -24,11 +24,13 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">{{ titulo }}</h4>
-                <form class="formm-search" novalidate>
+                <form class="formm-search posts" novalidate>
                     <div class="row">
-                        <div class="col">
-                            <p class="btn">Filtro:</p>
-                        </div>
+                            <div class="col">
+                                    <p class="btn filtro">Filtro:</p>
+                                </div>
+                    </div>
+                    <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-sm" placeholder="Palavra chave"
@@ -67,6 +69,16 @@
                             </div>
                         </div>
                         {% endif %}
+                        <div class="form-group">
+                            <select class="form-control form-control-sm" name="data">
+                                <option value="">Data</option>
+                                <option {{ 'selected' if data == 'ar' else '' }} value="ar">No Ar</option>
+                                <option {{ 'selected' if data == 'no-ar' else '' }} value="no-ar">Fora do Ar
+                                </option>
+                                <option {{ 'selected' if data == 'next-entries' else '' }} value="next-entries">
+                                    Próximas Entradas</option>
+                            </select>
+                        </div>
                         <div class="col">
                             <input type="hidden" name="order" value="{{ order }}" />
                             <input type="hidden" name="order_by" value="{{ order_by }}" />
@@ -148,20 +160,22 @@
                         <tbody>
                             {% for post in posts %}
                             <tr>
-                                <td>{{ post.id }}</td>
-                                <td>{{ post.title }}</td>
-                                <td>{{ post.created_at|format_datetime('%d/%m/%Y')}}</td>
+                                <td><strong class="table-label">Id: </strong> {{ post.id }}</td>
+                                <td><strong class="table-label">Título: </strong> {{ post.title }}</td>
+                                <td><strong class="table-label">Data: </strong> {{ post.created_at|format_datetime('%d/%m/%Y')}}</td>
                                 <td>
+                                    <strong class="table-label">Status: </strong>
                                     <label class="badge {{post.status}}">{{ post.status }}</label>
                                 </td>
                                 {% if fromUser %}
-                                <th>
+                                <td>
+                                    <strong class="table-label">Tipo: </strong>
                                     <label class="badge badge-info">
                                         {% if post.genre =='notice' %}Aviso{% endif %}
                                         {% if post.genre =='ad' %}Anúncio{% endif %}
                                         {% if post.genre =='news' %}Notícia{% endif %}
                                     </label>
-                                </th>
+                                </td>
                                 {% endif %}
                                 <td>
                                     {# Diferenciando pelo tipo de post #}
@@ -192,7 +206,7 @@
                                     </a>
                                     {% else %}
                                     {% if post.status == 'pending' %}
-                                    <a href="{{ url_for('anuncios_detalhes', id=post.id) }}" target="_blank" title="Ver no site">
+                                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" target="_blank" title="Ver no site">
                                         <i class="mdi mdi-television-guide view"></i>
                                     </a>
                                     <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
@@ -202,6 +216,10 @@
                                     <a href="{{ url_for('posts.anuncios_deletar', id=post.id)}}"
                                         title="Deletar Aviso {{post.id}}">
                                         <i class="mdi mdi-delete-forever delete"></i>
+                                    </a>
+                                    {% elif post.status == 'approved' %}
+                                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" target="_blank" title="Ver no site" class="one-icon">
+                                        <i class="mdi mdi-television-guide view"></i>
                                     </a>
                                     {% endif %}
                                     {% endif %}

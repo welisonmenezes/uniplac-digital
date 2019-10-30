@@ -9,7 +9,7 @@ import datetime
 
 choice = []
 try:
-    categories = Category.query.filter()
+    categories = Category.query.all()
     for category in categories:
         choice.append((str(category.id), category.name))
 except:

@@ -4,7 +4,7 @@ from modulos.posts.formularios import PostForm
 from app import app
 from sqlalchemy import desc, or_, and_, asc
 from database.Model import Configuration, db, Post, Category, User
-import datetime
+from datetime import datetime
 
 postBP = Blueprint('posts', __name__, url_prefix='/admin', template_folder='templates', static_folder='static')
 
@@ -14,6 +14,8 @@ def noticias_index():
     users = User.query.filter(or_(User.role == 'admin', User.role == 'editor')).all()
     titulo = 'Notícias'
 
+    current_datetime = datetime.now()
+
     # pega os argumentos da string, se existir, senão, seta valores padrão
     page = '1' if (request.args.get('page') == None) else request.args.get('page')
     name = '' if (request.args.get('name') == None) else request.args.get('name')
@@ -22,6 +24,7 @@ def noticias_index():
     order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
     author = '' if (request.args.get('author') == None) else request.args.get('author')
+    data = '' if (request.args.get('data') == None) else request.args.get('data')
 
     # previne erro ao receber string
     try:
@@ -47,6 +50,12 @@ def noticias_index():
         filter = filter + (Post.status == status,)
     if author:
         filter = filter + (Post.user_id == author, )
+    if data == 'ar':
+        filter = filter + (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved'),)
+    elif data == 'no-ar':
+        filter = filter + (and_(Post.departure_date < current_datetime, Post.status=='approved'),)
+    elif data == 'next-entries':
+        filter = filter + (and_(Post.entry_date > current_datetime, Post.status=='approved'),)
 
     # gera o order_by
     if order == 'asc':
@@ -60,7 +69,7 @@ def noticias_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, data=data), 200
 
 
 @postBP.route('/noticias/cadastrar', methods=['GET','POST'])
@@ -142,7 +151,7 @@ def noticias_editar(id):
             post.image_id = None
             if (form.image_id.data != ''):
                 post.image_id = form.image_id.data
-            post.user_id = session.get('user_id', '')
+            #post.user_id = session.get('user_id', '')
             post.category_id = form.category_id.data
 
             # commita os dados na base de dados
@@ -196,6 +205,8 @@ def anuncios_index():
     users = User.query.all()
     titulo = 'Anúncios'
 
+    current_datetime = datetime.now()
+
     # pega os argumentos da string, se existir, senão, seta valores padrão
     page = '1' if (request.args.get('page') == None) else request.args.get('page')
     name = '' if (request.args.get('name') == None) else request.args.get('name')
@@ -204,6 +215,7 @@ def anuncios_index():
     order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
     author = '' if (request.args.get('author') == None) else request.args.get('author')
+    data = '' if (request.args.get('data') == None) else request.args.get('data')
 
     # previne erro ao receber string
     try:
@@ -229,6 +241,12 @@ def anuncios_index():
         filter = filter + (Post.status == status,)
     if author:
         filter = filter + (Post.user_id == author, )
+    if data == 'ar':
+        filter = filter + (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved'),)
+    elif data == 'no-ar':
+        filter = filter + (and_(Post.departure_date < current_datetime, Post.status=='approved'),)
+    elif data == 'next-entries':
+        filter = filter + (and_(Post.entry_date > current_datetime, Post.status=='approved'),)
 
     if session.get('user_role', '') == 'user':
         filter = filter + (Post.user_id == session.get('user_id', ''), )
@@ -245,7 +263,7 @@ def anuncios_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, data=data), 200
 
 @postBP.route('/anuncios/cadastrar', methods=['GET','POST'])
 def anuncios_cadastrar():
@@ -356,7 +374,7 @@ def anuncios_editar(id):
             post.image_id = None
             if (form.image_id.data != ''):
                 post.image_id = form.image_id.data
-            post.user_id = session.get('user_id', '')
+            #post.user_id = session.get('user_id', '')
             post.category_id = form.category_id.data
 
             # commita os dados na base de dados
@@ -423,6 +441,8 @@ def avisos_index():
     users = User.query.filter(or_(User.role == 'admin', User.role == 'author')).all()
     titulo = 'Avisos'
 
+    current_datetime = datetime.now()
+
     # pega os argumentos da string, se existir, senão, seta valores padrão
     page = '1' if (request.args.get('page') == None) else request.args.get('page')
     name = '' if (request.args.get('name') == None) else request.args.get('name')
@@ -431,6 +451,7 @@ def avisos_index():
     order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
     author = '' if (request.args.get('author') == None) else request.args.get('author')
+    data = '' if (request.args.get('data') == None) else request.args.get('data')
 
     # previne erro ao receber string
     try:
@@ -456,7 +477,13 @@ def avisos_index():
         filter = filter + (Post.status == status,)
     if author:
         filter = filter + (Post.user_id == author, )
-    
+    if data == 'ar':
+        filter = filter + (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved'),)
+    elif data == 'no-ar':
+        filter = filter + (and_(Post.departure_date < current_datetime, Post.status=='approved'),)
+    elif data == 'next-entries':
+        filter = filter + (and_(Post.entry_date > current_datetime, Post.status=='approved'),)
+
     # gera o order_by
     if order == 'asc':
         query_order = asc(order_by)
@@ -469,7 +496,7 @@ def avisos_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, data=data), 200
 
 @postBP.route('/avisos/cadastrar', methods=['GET','POST'])
 def avisos_cadastrar():
@@ -551,7 +578,7 @@ def avisos_editar(id):
             post.image_id = None
             if (form.image_id.data != ''):
                 post.image_id = form.image_id.data
-            post.user_id = session.get('user_id', '')
+            #post.user_id = session.get('user_id', '')
             post.category_id = form.category_id.data
 
             # commita os dados na base de dados
