@@ -238,7 +238,9 @@ select.form-control, .dataTables_wrapper select{
     margin-left: 13%;
 }
 
-
+.filtro{
+    padding-left: 0;
+}
 
 .table-label{
     display: none;
