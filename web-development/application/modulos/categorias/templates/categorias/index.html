@@ -72,9 +72,9 @@
                         <tbody>
                             {% for category in categories %}
                             <tr>
-                                <td>{{ category.id }}</td>
-                                <td>{{ category.name }}</td>
-                                <td>{{ category.created_at|format_datetime('%d/%m/%Y') }}</td>
+                                <td><strong class="table-label">Id: </strong> {{ category.id }}</td>
+                                <td><strong class="table-label">Nome: </strong> {{ category.name }}</td>
+                                <td><strong class="table-label">Data: </strong> {{ category.created_at|format_datetime('%d/%m/%Y') }}</td>
                                 <td>
                                     <a href="{{ url_for('categorias.editar', id=category.id) }}" title="Editar">
                                         <i class="mdi mdi-border-color edit"></i>

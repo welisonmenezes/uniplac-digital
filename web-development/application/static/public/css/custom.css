@@ -452,6 +452,10 @@ textarea.form-control{
     display: none;
 }
 
+.blog-info-link li span{
+    color: #999999;
+}
+
 .blog_item a p{
     color: #797979;
 }

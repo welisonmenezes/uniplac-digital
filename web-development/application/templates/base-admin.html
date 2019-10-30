@@ -115,6 +115,10 @@
             var time = 60 * 60;
             startTimer(time);
         };
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
     </script>
     {% block footer_script %}{% endblock footer_script %}
 </body>
