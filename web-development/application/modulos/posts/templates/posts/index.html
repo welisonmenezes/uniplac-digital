@@ -25,61 +25,69 @@
             <div class="card-body">
                 <h4 class="card-title">{{ titulo }}</h4>
                 <form class="formm-search posts" novalidate>
+                    
                     <div class="row">
-                            <div class="col">
+                            <div class="col-md-1">
                                     <p class="btn filtro">Filtro:</p>
                                 </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-sm" placeholder="Palavra chave"
                                     name="name" value="{{ name }}">
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <select class="form-control form-control-sm" name="category">
+                                <select class="form-control form-control-sm" title="Categoria" name="category">
                                     <option value="">Categoria</option>
                                     {% for cat in categories %}
-                                    <option {{ 'selected' if category == cat.id|string else '' }} value="{{ cat.id }}">{{ cat.name }}</option>
+                                    <option {{ 'selected' if category == cat.id|string else '' }} value="{{ cat.id }}">
+                                        {{ cat.name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-3">
                             <div class="form-group">
-                                <select class="form-control form-control-sm" name="status">
+                                <select class="form-control form-control-sm" title="Status" name="status">
                                     <option value="">Status</option>
-                                    <option {{ 'selected' if status == 'approved' else '' }} value="approved">Aprovado</option>
-                                    <option {{ 'selected' if status == 'pending' else '' }} value="pending">Pendente</option>
-                                    <option {{ 'selected' if status == 'denied' else '' }} value="denied">Negado</option>
+                                    <option {{ 'selected' if status == 'approved' else '' }} value="approved">Aprovado
+                                    </option>
+                                    <option {{ 'selected' if status == 'pending' else '' }} value="pending">Pendente
+                                    </option>
+                                    <option {{ 'selected' if status == 'denied' else '' }} value="denied">Negado
+                                    </option>
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         {% if(titulo != 'Minhas Publicações' and session.get('user_role', '') != 'user'): %}
-                        <div class="col">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <select class="form-control form-control-sm" name="author">
+                                <select class="form-control form-control-sm" title="Publicado por" name="author">
                                     <option value="">Publicado por</option>
                                     {% for user in users %}
-                                    <option {{ 'selected' if author == user.id|string else '' }} value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+                                    <option {{ 'selected' if author == user.id|string else '' }} value="{{ user.id }}">
+                                        {{ user.first_name }} {{ user.last_name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
                         </div>
                         {% endif %}
-                        <div class="form-group">
-                            <select class="form-control form-control-sm" name="data">
-                                <option value="">Data</option>
-                                <option {{ 'selected' if data == 'ar' else '' }} value="ar">No Ar</option>
-                                <option {{ 'selected' if data == 'no-ar' else '' }} value="no-ar">Fora do Ar
-                                </option>
-                                <option {{ 'selected' if data == 'next-entries' else '' }} value="next-entries">
-                                    Próximas Entradas</option>
-                            </select>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select class="form-control form-control-sm" title="Status de publicação" name="publication">
+                                    <option value="">Status de publicação</option>
+                                    <option {{ 'selected' if publication == 'current' else '' }} value="current">Posts Atuais</option>
+                                    <option {{ 'selected' if publication == 'expired' else '' }} value="expired">Posts Expirados
+                                    </option>
+                                    <option {{ 'selected' if publication == 'scheduled' else '' }} value="scheduled">
+                                        Posts Agendados</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-3">
                             <input type="hidden" name="order" value="{{ order }}" />
                             <input type="hidden" name="order_by" value="{{ order_by }}" />
                             <button type="submit" class="btn btn-primary btn-sm btn-block">Filtrar</button>
@@ -99,53 +107,57 @@
                             <tr>
                                 <th>
                                     {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='id', order=_order) }}"
-                                        class="{{ 'active' if order_by=='id' else '' }} {{ order }}" title="Ordenar por ID">ID</a>
+                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='id', order=_order, publication=publication) }}"
+                                        class="{{ 'active' if order_by=='id' else '' }} {{ order }}"
+                                        title="Ordenar por ID">ID</a>
                                     {% elif(titulo == 'Anúncios') %}
-                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='id', order=_order) }}"
-                                        class="{{ 'active' if order_by=='id' else '' }} {{ order }}" title="Ordenar por ID">ID</a>
+                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='id', order=_order, publication=publication) }}"
+                                        class="{{ 'active' if order_by=='id' else '' }} {{ order }}"
+                                        title="Ordenar por ID">ID</a>
                                     {% elif(titulo == 'Avisos') %}
-                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='id', order=_order) }}"
-                                        class="{{ 'active' if order_by=='id' else '' }} {{ order }}" title="Ordenar por ID">ID</a>
+                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='id', order=_order, publication=publication) }}"
+                                        class="{{ 'active' if order_by=='id' else '' }} {{ order }}"
+                                        title="Ordenar por ID">ID</a>
                                     {% elif(titulo == 'Minhas Publicações'): %}
-                                    <a href="{{ url_for('posts.meus_posts', page=currentPage, name=name, category=category, status=status, order_by='id', order=_order) }}"
-                                        class="{{ 'active' if order_by=='id' else '' }} {{ order }}" title="Ordenar por ID">ID</a>
+                                    <a href="{{ url_for('posts.meus_posts', page=currentPage, name=name, category=category, status=status, order_by='id', order=_order, publication=publication) }}"
+                                        class="{{ 'active' if order_by=='id' else '' }} {{ order }}"
+                                        title="Ordenar por ID">ID</a>
                                     {% endif %}
                                 </th>
                                 <th>
                                     {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='title', order=_order) }}"
+                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='title', order=_order, publication=publication) }}"
                                         class="{{ 'active' if order_by=='title' else '' }} {{ order }}"
                                         title="Ordenar por Título">Título</a>
                                     {% elif(titulo == 'Anúncios') %}
-                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='title', order=_order) }}"
+                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='title', order=_order, publication=publication) }}"
                                         class="{{ 'active' if order_by=='title' else '' }} {{ order }}"
                                         title="Ordenar por Título">Título</a>
                                     {% elif(titulo == 'Avisos') %}
-                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='title', order=_order) }}"
+                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='title', order=_order, publication=publication) }}"
                                         class="{{ 'active' if order_by=='title' else '' }} {{ order }}"
                                         title="Ordenar por Título">Título</a>
                                     {% elif(titulo == 'Minhas Publicações'): %}
-                                    <a href="{{ url_for('posts.meus_posts', page=currentPage, name=name, category=category, status=status, order_by='title', order=_order) }}"
+                                    <a href="{{ url_for('posts.meus_posts', page=currentPage, name=name, category=category, status=status, order_by='title', order=_order, publication=publication) }}"
                                         class="{{ 'active' if order_by=='title' else '' }} {{ order }}"
                                         title="Ordenar por Título">Título</a>
                                     {% endif %}
                                 </th>
                                 <th>
                                     {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='created_at', order=_order) }}"
+                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='created_at', order=_order, publication=publication) }}"
                                         class="{{ 'active' if order_by=='created_at' else '' }} {{ order }}"
                                         title="Ordenar por Data">Data </a>
                                     {% elif(titulo == 'Anúncios') %}
-                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='created_at', order=_order) }}"
+                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='created_at', order=_order, publication=publication) }}"
                                         class="{{ 'active' if order_by=='created_at' else '' }} {{ order }}"
                                         title="Ordenar por Data">Data</a>
                                     {% elif(titulo == 'Avisos') %}
-                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='created_at', order=_order) }}"
+                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='created_at', order=_order, publication=publication) }}"
                                         class="{{ 'active' if order_by=='created_at' else '' }} {{ order }}"
                                         title="Ordenar por Data">Data</a>
                                     {% elif(titulo == 'Minhas Publicações'): %}
-                                    <a href="{{ url_for('posts.meus_posts', page=currentPage, name=name, category=category, status=status, order_by='created_at', order=_order) }}"
+                                    <a href="{{ url_for('posts.meus_posts', page=currentPage, name=name, category=category, status=status, order_by='created_at', order=_order, publication=publication) }}"
                                         class="{{ 'active' if order_by=='created_at' else '' }} {{ order }}"
                                         title="Ordenar por Data">Data</a>
                                     {% endif %}
@@ -162,7 +174,8 @@
                             <tr>
                                 <td><strong class="table-label">Id: </strong> {{ post.id }}</td>
                                 <td><strong class="table-label">Título: </strong> {{ post.title }}</td>
-                                <td><strong class="table-label">Data: </strong> {{ post.created_at|format_datetime('%d/%m/%Y')}}</td>
+                                <td><strong class="table-label">Data: </strong>
+                                    {{ post.created_at|format_datetime('%d/%m/%Y')}}</td>
                                 <td>
                                     <strong class="table-label">Status: </strong>
                                     <label class="badge {{post.status}}">{{ post.status }}</label>
@@ -180,7 +193,8 @@
                                 <td>
                                     {# Diferenciando pelo tipo de post #}
                                     {% if post.genre == 'news': %}
-                                    <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" target="_blank">
+                                    <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" target="_blank"
+                                    title="Ver no site">
                                         <i class="mdi mdi-television-guide view"></i>
                                     </a>
                                     <a href="{{ url_for('posts.noticias_editar', id=post.id) }}"
@@ -193,7 +207,8 @@
                                     </a>
                                     {% elif post.genre == 'ad': %}
                                     {% if session.get('user_role', '') != 'user'  %}
-                                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" target="_blank" title="Ver no site">
+                                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" target="_blank"
+                                        title="Ver no site">
                                         <i class="mdi mdi-television-guide view"></i>
                                     </a>
                                     <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
@@ -206,7 +221,8 @@
                                     </a>
                                     {% else %}
                                     {% if post.status == 'pending' %}
-                                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" target="_blank" title="Ver no site">
+                                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" target="_blank"
+                                        title="Ver no site">
                                         <i class="mdi mdi-television-guide view"></i>
                                     </a>
                                     <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
@@ -218,13 +234,15 @@
                                         <i class="mdi mdi-delete-forever delete"></i>
                                     </a>
                                     {% elif post.status == 'approved' %}
-                                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" target="_blank" title="Ver no site" class="one-icon">
+                                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" target="_blank"
+                                        title="Ver no site" class="one-icon">
                                         <i class="mdi mdi-television-guide view"></i>
                                     </a>
                                     {% endif %}
                                     {% endif %}
                                     {% elif post.genre == 'notice': %}
-                                    <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" target="_blank" title="Ver no site">
+                                    <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" target="_blank"
+                                        title="Ver no site">
                                         <i class="mdi mdi-television-guide view"></i>
                                     </a>
                                     <a href="{{ url_for('posts.avisos_editar', id=post.id) }}"
