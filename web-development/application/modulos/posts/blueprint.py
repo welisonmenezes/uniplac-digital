@@ -1,15 +1,12 @@
 import os
 from flask import current_app, Blueprint, render_template, request, url_for, flash, session, redirect
 from modulos.posts.formularios import PostForm
+from modulos.tags.formularios import TagForm
+
 from app import app
 from sqlalchemy import desc, or_, and_, asc
-<<<<<<< HEAD
 from database.Model import Configuration, db, Post, Category, User, Tag
-import datetime
-=======
-from database.Model import Configuration, db, Post, Category, User
 from datetime import datetime
->>>>>>> master
 
 postBP = Blueprint('posts', __name__, url_prefix='/admin', template_folder='templates', static_folder='static')
 
@@ -146,6 +143,15 @@ def noticias_editar(id):
         flash('A notícia não existe', 'info')
         return redirect(url_for('posts.noticias_index'))
 
+    print(post.tags)
+    strtags = ''
+    for tag in post.tags:
+        strtags = strtags+str(tag.name)+','
+
+    if strtags.endswith(','):
+        strtags = strtags[:-1]
+    print(strtags)    
+
     titulo = 'Editar Notícia'
     
     if request.form:
@@ -154,9 +160,16 @@ def noticias_editar(id):
     else:
         # formulário vazio
         form = PostForm()
+        form.tag.data = strtags
 
         # preenche formulário com post recuperado pelo id
         fillForm(form, post, 'news')
+
+
+    if request.form:
+        # formulário preenchido pelo objeto request, caso exista
+        form = TagForm(request.form)
+
 
     clearDateValidatons(post, form)
 
@@ -174,6 +187,22 @@ def noticias_editar(id):
                 post.image_id = form.image_id.data
             #post.user_id = session.get('user_id', '')
             post.category_id = form.category_id.data
+            
+            #Edição de tags
+            
+
+            
+
+                # tags = form.tag.data
+                # array_tags = tags.split(',')
+                # for t in array_tags:
+                #     tag = Tag.query.filter((Tag.name==t)).first()
+                #     if tag:
+                #         post.tags.append(tag)
+        
+                #     else:
+                #         tag = Tag(t)
+                #         post.tags.append(tag)
 
             # commita os dados na base de dados
             db.session.commit()
