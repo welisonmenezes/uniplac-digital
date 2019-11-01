@@ -5,7 +5,7 @@ from modulos.tags.formularios import TagForm
 
 from app import app
 from sqlalchemy import desc, or_, and_, asc
-from database.Model import Configuration, db, Post, Category, User, Tag
+from database.Model import Configuration, db, Post, Category, User, Tag, TagPost
 from datetime import datetime
 
 postBP = Blueprint('posts', __name__, url_prefix='/admin', template_folder='templates', static_folder='static')
@@ -27,6 +27,7 @@ def noticias_index():
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
     author = '' if (request.args.get('author') == None) else request.args.get('author')
     publication = '' if (request.args.get('publication') == None) else request.args.get('publication')
+    tagg = '' if (request.args.get('tagg') == None) else request.args.get('tagg')
 
     # previne erro ao receber string
     try:
@@ -50,6 +51,12 @@ def noticias_index():
         filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
     if status:
         filter = filter + (Post.status == status,)
+
+    if tagg:
+        for tag in post.tags:
+            if tag.id == tagg:
+                filter = filter + (tag.id == tagg)
+
     if author:
         filter = filter + (Post.user_id == author, )
     if publication == 'current':
@@ -71,7 +78,7 @@ def noticias_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
+    return render_template('/posts/index.html', tagg=tagg, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
 
 
 @postBP.route('/noticias/cadastrar', methods=['GET','POST'])
@@ -81,7 +88,7 @@ def noticias_cadastrar():
     titulo = 'Cadastrar Notícias'
     operacao = 'Cadastro'
     if form.validate_on_submit():
-        
+        try:
             form.user_id = session.get('user_id', '')
 
             # cria o post com os dados do formulário
@@ -126,7 +133,7 @@ def noticias_cadastrar():
             # flash message e redireciona pra mesma tela para limpar o objeto request
             flash('Notícia cadastrada com sucesso', 'success')
             return redirect(url_for('posts.noticias_index'))
-        
+        except:
             # remove qualquer vestígio do usuário da sessin e flash message 
             db.session.rollback()
             flash('Erro ao tentar cadastrar a notícia', 'danger')
@@ -172,7 +179,7 @@ def noticias_editar(id):
     clearDateValidatons(post, form)
 
     if form.validate_on_submit():
-        
+        try:
             post.title = form.title.data
             post.description = form.description.data
             post.content = form.content.data
@@ -217,7 +224,7 @@ def noticias_editar(id):
             # flash message e redireciona pra mesma tela para limpar o objeto request
             flash('Notícia editada com sucesso', 'success')
             return redirect(url_for('posts.noticias_editar', id=id))
-        
+        except:
             # remove qualquer vestígio do usuário da sessin e flash message
             db.session.rollback()
             flash('Erro ao tentar editar a notícia', 'danger')
@@ -292,6 +299,9 @@ def anuncios_index():
         filter = filter + (Post.category_id == category,)
     if name:
         filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
+    
+    
+    
     if status:
         filter = filter + (Post.status == status,)
     if author:

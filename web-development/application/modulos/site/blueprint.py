@@ -5,7 +5,7 @@ from flask_mail import Message
 from sqlalchemy import desc, and_, or_, asc
 from app import mail
 from modulos.site.formularios import ContactForm
-from database.Model import Configuration, Category, Post, ConfigurationImage, User
+from database.Model import Configuration, Category, Post, ConfigurationImage, User, Tag, TagPost
 
 siteBP = Blueprint('site', __name__, url_prefix='/', template_folder='templates', static_folder='static')
 
@@ -59,6 +59,11 @@ def filtro():
     return render_post_list_by_type('filter', 'Filtro')
 
 
+@siteBP.route('/tag')
+def tag():
+    return render_post_list_by_type('tag', 'Tag')
+
+
 @siteBP.route('/contato', methods=['GET','POST'])
 def contato():
     configuration = Configuration.query.first()
@@ -106,6 +111,8 @@ def render_post_list_by_type(post_type, title):
         genre = '' if (request.args.get('genre') == None) else request.args.get('genre')
         category = '' if (request.args.get('category') == None) else request.args.get('category')
         author  = '' if (request.args.get('author') == None) else request.args.get('author')
+        
+        
         # filtro
         filter = (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved'),)
         if category:
@@ -116,16 +123,19 @@ def render_post_list_by_type(post_type, title):
             filter = filter + (Post.genre == genre,)
         if author:
             filter = filter + (Post.user_id == author,)
+    elif(post_type == 'tag'): 
+        tagg = '' if (request.args.get('tagg') == None) else request.args.get('tagg')
+        filter=(Post.tags.any(id=tagg),)
     else:
         # fitro
         filter = (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre==post_type, Post.status=='approved'))
-
+    print(Post.query.filter(*filter).order_by(desc(Post.id)))
     # consulta o banco de dados retornando o paginate e os dados
     paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
     posts = paginate.items
 
     if post_type == 'filter':
-        return render_template('site/posts.html', notices=notices, posts=posts, titulo=titulo, name=name, category=category, genre=genre, currentPage=page, paginate=paginate, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users, author=author), 200
+        return render_template('site/posts.html', tagg=tagg, notices=notices, posts=posts, titulo=titulo, name=name, category=category, genre=genre, currentPage=page, paginate=paginate, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users, author=author), 200
     else:
         return render_template('site/posts.html', posts=posts, notices=notices, paginate=paginate, currentPage=page, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
 
