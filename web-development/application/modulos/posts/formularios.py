@@ -97,9 +97,6 @@ class PostForm(FlaskForm):
 
     tag = StringField(
         'Tags',
-        validators = [
-            DataRequired(message="Campo obrigatório")
-        ],
         render_kw = {
             'placeholder':'Tags'
         }

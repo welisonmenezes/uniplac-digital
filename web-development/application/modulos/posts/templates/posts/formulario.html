@@ -45,7 +45,7 @@
                     {{ form.csrf_token }}
                     {{ render_field(form.title, 'required', '100') }}
                     {{ render_field(form.description, 'required', '255') }}
-                    {{ render_tags_field(form.tag , 'required', '100', 'tagsinput') }}
+                    {{ render_tags_field(form.tag , '', '100', 'tagsinput') }}
                     <div class="rich-text-editor-container">
                         {{ render_field(form.content, 'required') }}
                         <input type="file" name="imagesContent" id="contentImageSender" accept=".jpg,.jpeg,.png,.gif" />

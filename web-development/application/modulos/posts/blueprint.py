@@ -166,15 +166,13 @@ def noticias_editar(id):
         fillForm(form, post, 'news')
 
 
-    if request.form:
-        # formulário preenchido pelo objeto request, caso exista
-        form = TagForm(request.form)
+    
 
 
     clearDateValidatons(post, form)
 
     if form.validate_on_submit():
-        try:
+        
             post.title = form.title.data
             post.description = form.description.data
             post.content = form.content.data
@@ -187,22 +185,29 @@ def noticias_editar(id):
                 post.image_id = form.image_id.data
             #post.user_id = session.get('user_id', '')
             post.category_id = form.category_id.data
-            
+
+                           
+
+            id_tags=[]
             #Edição de tags
+            for t in post.tags:
+                id_tags.append(t.id)
             
+            for t in id_tags:   
+                tag=Tag.query.get(t)
+                post.tags.remove(tag)
 
-            
+            tags = form.tag.data
+            array_tags = tags.split(',')
 
-                # tags = form.tag.data
-                # array_tags = tags.split(',')
-                # for t in array_tags:
-                #     tag = Tag.query.filter((Tag.name==t)).first()
-                #     if tag:
-                #         post.tags.append(tag)
+            for t in array_tags:
+                tag = Tag.query.filter((Tag.name==t)).first()
+                if tag:
+                    post.tags.append(tag)
         
-                #     else:
-                #         tag = Tag(t)
-                #         post.tags.append(tag)
+                else:
+                    tag = Tag(t)
+                    post.tags.append(tag)
 
             # commita os dados na base de dados
             db.session.commit()
@@ -212,7 +217,7 @@ def noticias_editar(id):
             # flash message e redireciona pra mesma tela para limpar o objeto request
             flash('Notícia editada com sucesso', 'success')
             return redirect(url_for('posts.noticias_editar', id=id))
-        except:
+        
             # remove qualquer vestígio do usuário da sessin e flash message
             db.session.rollback()
             flash('Erro ao tentar editar a notícia', 'danger')
