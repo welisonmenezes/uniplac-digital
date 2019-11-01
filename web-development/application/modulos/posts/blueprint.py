@@ -26,7 +26,7 @@ def noticias_index():
     order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
     author = '' if (request.args.get('author') == None) else request.args.get('author')
-    data = '' if (request.args.get('data') == None) else request.args.get('data')
+    publication = '' if (request.args.get('publication') == None) else request.args.get('publication')
 
     # previne erro ao receber string
     try:
@@ -52,12 +52,12 @@ def noticias_index():
         filter = filter + (Post.status == status,)
     if author:
         filter = filter + (Post.user_id == author, )
-    if data == 'ar':
-        filter = filter + (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved'),)
-    elif data == 'no-ar':
-        filter = filter + (and_(Post.departure_date < current_datetime, Post.status=='approved'),)
-    elif data == 'next-entries':
-        filter = filter + (and_(Post.entry_date > current_datetime, Post.status=='approved'),)
+    if publication == 'current':
+        filter = filter + (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime),)
+    elif publication == 'expired':
+        filter = filter + (and_(Post.departure_date < current_datetime),)
+    elif publication == 'scheduled':
+        filter = filter + (and_(Post.entry_date > current_datetime),)
 
     # gera o order_by
     if order == 'asc':
@@ -71,7 +71,7 @@ def noticias_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, data=data), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
 
 
 @postBP.route('/noticias/cadastrar', methods=['GET','POST'])
@@ -270,7 +270,7 @@ def anuncios_index():
     order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
     author = '' if (request.args.get('author') == None) else request.args.get('author')
-    data = '' if (request.args.get('data') == None) else request.args.get('data')
+    publication = '' if (request.args.get('publication') == None) else request.args.get('publication')
 
     # previne erro ao receber string
     try:
@@ -296,12 +296,12 @@ def anuncios_index():
         filter = filter + (Post.status == status,)
     if author:
         filter = filter + (Post.user_id == author, )
-    if data == 'ar':
-        filter = filter + (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved'),)
-    elif data == 'no-ar':
-        filter = filter + (and_(Post.departure_date < current_datetime, Post.status=='approved'),)
-    elif data == 'next-entries':
-        filter = filter + (and_(Post.entry_date > current_datetime, Post.status=='approved'),)
+    if publication == 'current':
+        filter = filter + (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime),)
+    elif publication == 'expired':
+        filter = filter + (and_(Post.departure_date < current_datetime),)
+    elif publication == 'scheduled':
+        filter = filter + (and_(Post.entry_date > current_datetime),)
 
     if session.get('user_role', '') == 'user':
         filter = filter + (Post.user_id == session.get('user_id', ''), )
@@ -318,7 +318,7 @@ def anuncios_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, data=data), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
 
 @postBP.route('/anuncios/cadastrar', methods=['GET','POST'])
 def anuncios_cadastrar():
@@ -508,7 +508,7 @@ def avisos_index():
     order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
     author = '' if (request.args.get('author') == None) else request.args.get('author')
-    data = '' if (request.args.get('data') == None) else request.args.get('data')
+    publication = '' if (request.args.get('publication') == None) else request.args.get('publication')
 
     # previne erro ao receber string
     try:
@@ -534,12 +534,12 @@ def avisos_index():
         filter = filter + (Post.status == status,)
     if author:
         filter = filter + (Post.user_id == author, )
-    if data == 'ar':
-        filter = filter + (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved'),)
-    elif data == 'no-ar':
-        filter = filter + (and_(Post.departure_date < current_datetime, Post.status=='approved'),)
-    elif data == 'next-entries':
-        filter = filter + (and_(Post.entry_date > current_datetime, Post.status=='approved'),)
+    if publication == 'current':
+        filter = filter + (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime),)
+    elif publication == 'expired':
+        filter = filter + (and_(Post.departure_date < current_datetime),)
+    elif publication == 'scheduled':
+        filter = filter + (and_(Post.entry_date > current_datetime),)
 
     # gera o order_by
     if order == 'asc':
@@ -553,7 +553,7 @@ def avisos_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, data=data), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
 
 @postBP.route('/avisos/cadastrar', methods=['GET','POST'])
 def avisos_cadastrar():
