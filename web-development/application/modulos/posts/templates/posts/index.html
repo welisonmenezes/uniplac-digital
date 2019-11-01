@@ -25,11 +25,11 @@
             <div class="card-body">
                 <h4 class="card-title">{{ titulo }}</h4>
                 <form class="formm-search posts" novalidate>
-                    
+
                     <div class="row">
-                            <div class="col-md-1">
-                                    <p class="btn filtro">Filtro:</p>
-                                </div>
+                        <div class="col-md-1">
+                            <p class="btn filtro">Filtro:</p>
+                        </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-sm" placeholder="Palavra chave"
@@ -58,6 +58,10 @@
                                     <option {{ 'selected' if status == 'denied' else '' }} value="denied">Negado
                                     </option>
                                 </select>
+                                <sup>
+                                    <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true"
+                                        title="Os posts aprovados também dependem que o status de publicação seja atual para estarem visíveis no site. Veja os campos Data/Hora de Entrada e Data/Hora de Saída na edição do post."></i>
+                                </sup>
                             </div>
                         </div>
                     </div>
@@ -79,14 +83,21 @@
                         {% endif %}
                         <div class="col-md-4">
                             <div class="form-group">
-                                <select class="form-control form-control-sm" title="Status de publicação" name="publication">
+                                <select class="form-control form-control-sm" title="Status de publicação"
+                                    name="publication">
                                     <option value="">Status de publicação</option>
-                                    <option {{ 'selected' if publication == 'current' else '' }} value="current">Posts Atuais</option>
-                                    <option {{ 'selected' if publication == 'expired' else '' }} value="expired">Posts Expirados
+                                    <option {{ 'selected' if publication == 'current' else '' }} value="current">Posts
+                                        Atuais</option>
+                                    <option {{ 'selected' if publication == 'expired' else '' }} value="expired">Posts
+                                        Expirados
                                     </option>
                                     <option {{ 'selected' if publication == 'scheduled' else '' }} value="scheduled">
                                         Posts Agendados</option>
                                 </select>
+                                <sup>
+                                    <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true"
+                                        title="Os posts atuais também dependem que o status do post esteja marcado como aprovado para estarem visíveis no site. Veja o campo Status na edição do post."></i>
+                                </sup>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -196,7 +207,7 @@
                                     {# Diferenciando pelo tipo de post #}
                                     {% if post.genre == 'news': %}
                                     <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" target="_blank"
-                                    title="Ver no site">
+                                        title="Ver no site">
                                         <i class="mdi mdi-television-guide view"></i>
                                     </a>
                                     <a href="{{ url_for('posts.noticias_editar', id=post.id) }}"
