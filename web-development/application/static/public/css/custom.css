@@ -575,6 +575,13 @@ textarea.form-control{
     color: #fff;
     background-color: #f89d13;
 }
+.post_marker.tags{
+    color: #fff;
+    background-color: #009eef;
+    margin-top: 20px;
+    
+}
+
 .date{
     margin-left: 10px;
     font-size: .8rem;

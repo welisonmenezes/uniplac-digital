@@ -115,13 +115,18 @@
                         <p>
                             {{ post.content|safe }}
                         </p>
-                        <p name="tags">
-                            {% for tag in post.tags %}
-                            <a href="{{ url_for('site.tag', tagg=tag.id) }}" value="{{tag.id}}">{{ tag.name }}</a>
-                            {% endfor %}
-                        </p>
+                       
                         
                     </div>
+                    <div class="tags">
+                    <p>Tags:</p>
+                    </div>
+                    <p name="tags">
+                        
+                        {% for tag in post.tags %}
+                        <a href="{{ url_for('site.tag', tagg=tag.id) }}" value="{{tag.id}}" class="post_marker post_marker {{post.genre}}">{{ tag.name }}</a>
+                        {% endfor %}
+                    </p>
                 </div>
             </div>
             
