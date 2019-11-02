@@ -293,3 +293,13 @@ select.form-control, .dataTables_wrapper select{
         flex-basis: 95%;
     }
 }
+
+.formm-search .form-group{
+    position: relative;
+}
+.formm-search .form-group sup{
+    display: inline-block;
+    position: absolute;
+    top: 1px;
+    right: -7px;
+}
