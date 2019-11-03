@@ -7,7 +7,7 @@ from database.Model import Category
 import datetime
 
 
-choice = []
+choice = [('', 'Selecione')]
 try:
     categories = Category.query.all()
     for category in categories:

@@ -242,6 +242,10 @@ select.form-control, .dataTables_wrapper select{
     padding-left: 0;
 }
 
+.table .small .mdi{
+    font-size: 12px;
+}
+
 .table-label{
     display: none;
 }
