@@ -577,11 +577,16 @@ textarea.form-control{
 }
 .post_marker.tags{
     color: #fff;
-    background-color: #009eef;
+    background-color: #979797;
     margin-top: 20px;
     
 }
+.cloud-tags{
+    list-style: none;
+    border-bottom: 1px dotted #ccc;
+    padding: 13px;
 
+}
 .date{
     margin-left: 10px;
     font-size: .8rem;

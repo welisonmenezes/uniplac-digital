@@ -139,7 +139,9 @@ def deletar(id):
     if request.method == 'POST':
         tagId = request.values.get('tagId')
         if tagId:
-            
+            # verifica se a tags esta em algum post
+            post = Post.query.filter_by(tag_id=tagId).first()
+            if not post:
             
                 try:
 
@@ -152,6 +154,8 @@ def deletar(id):
                 except:
                     db.session.rollback()
                     flash('Erro ao tentar excluir a tag', 'danger')
+            else:
+                flash('A tag não pode ser deletada pois existem posts relacionadas a ela na base de dados', 'warning')
             
     titulo = 'Deseja realmente excluir a tag ' + tag.name
     return render_template('/tags/deletar.html', titulo=titulo, tagId=id, configuration=configuration), 200
