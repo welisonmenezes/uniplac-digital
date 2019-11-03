@@ -59,9 +59,6 @@ class PostForm(FlaskForm):
 
     category_id = SelectField(
         'Categoria',
-        validators = [
-            DataRequired(message="Campo obrigatório")
-        ],
          choices=choice
     )
 

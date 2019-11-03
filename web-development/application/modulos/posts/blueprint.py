@@ -93,11 +93,14 @@ def noticias_cadastrar():
                 form.departure_date.data,
                 None,
                 form.user_id,
-                form.category_id.data
+                None
             )
             
             if form.image_id.data != '':
                 post.image_id = form.image_id.data
+
+            if form.category_id.data != '':
+                post.category_id = form.category_id.data
 
             # adiciona e commita a categoria na base de dados
             db.session.add(post)
@@ -152,7 +155,9 @@ def noticias_editar(id):
             if (form.image_id.data != ''):
                 post.image_id = form.image_id.data
             #post.user_id = session.get('user_id', '')
-            post.category_id = form.category_id.data
+            post.category_id = None
+            if form.category_id.data != '':
+                post.category_id = form.category_id.data
 
             # commita os dados na base de dados
             db.session.commit()
@@ -290,7 +295,7 @@ def anuncios_cadastrar():
                 form.departure_date.data,
                 None,
                 form.user_id,
-                form.category_id.data
+                None
             )
             
             if session.get('user_role', '') == 'user':
@@ -300,6 +305,9 @@ def anuncios_cadastrar():
             
             if form.image_id.data != '':
                 post.image_id = form.image_id.data
+
+            if form.category_id.data != '':
+                post.category_id = form.category_id.data
 
             # adiciona e commita a categoria na base de dados
             db.session.add(post)
@@ -375,7 +383,9 @@ def anuncios_editar(id):
             if (form.image_id.data != ''):
                 post.image_id = form.image_id.data
             #post.user_id = session.get('user_id', '')
-            post.category_id = form.category_id.data
+            post.category_id = None
+            if form.category_id.data != '':
+                post.category_id = form.category_id.data
 
             # commita os dados na base de dados
             db.session.commit()
@@ -520,11 +530,14 @@ def avisos_cadastrar():
                 form.departure_date.data,
                 None,
                 form.user_id,
-                form.category_id.data
+                None
             )
             
             if form.image_id.data != '':
                 post.image_id = form.image_id.data
+
+            if form.category_id.data != '':
+                post.category_id = form.category_id.data
 
             # adiciona e commita a categoria na base de dados
             db.session.add(post)
@@ -579,7 +592,9 @@ def avisos_editar(id):
             if (form.image_id.data != ''):
                 post.image_id = form.image_id.data
             #post.user_id = session.get('user_id', '')
-            post.category_id = form.category_id.data
+            post.category_id = None
+            if form.category_id.data != '':
+                post.category_id = form.category_id.data
 
             # commita os dados na base de dados
             db.session.commit()
@@ -692,7 +707,7 @@ def fillForm(form, post, genre):
     if (post.image_id != ''):
         form.image_id.data = post.image_id 
     form.user_id = session.get('user_id', '')
-    form.category_id.data = post.category_id 
+    form.category_id.data = str(post.category_id)
 
 
 
