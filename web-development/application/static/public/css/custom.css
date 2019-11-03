@@ -629,6 +629,10 @@ textarea.form-control{
     transform: scale(1.1);
 }
 
+.carouse .btn-info{
+    min-width: 180px;
+}
+
 
 
 .animated-bg-zoom{
@@ -666,5 +670,25 @@ textarea.form-control{
     }
     .blog-info-link li::before{
         display: none;
+    }
+}
+
+
+.show-480{
+    display: none;
+}
+.hide-480{
+    display: block;
+}
+@media (max-width:480px){
+    .show-480{
+        display: block;
+    }
+    .hide-480{
+        display: none;
+    }
+    .carouse .carousel,
+    .carouse h2{
+        margin-bottom: 20px;
     }
 }
