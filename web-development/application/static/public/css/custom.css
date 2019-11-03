@@ -450,7 +450,9 @@ textarea.form-control{
     left: 7px;
 }
 
-
+.blog-info-link li{
+    font-size: 12px;
+}
 .blog-info-link li::after {
     display: none;
 }
@@ -597,8 +599,11 @@ textarea.form-control{
 .blog_details .date{
     color: #797979 !important;
 }
-.author{
+/* .author{
     margin-left: 10px;
+} */
+.blog-info-link li i, .blog-info-link li span{
+    margin: 0;
 }
 
 .blog_item_img,
@@ -651,3 +656,15 @@ textarea.form-control{
 	50% {transform: scale(1.2);}
 	100% {transform: scale(1);}
 } 
+
+
+@media (max-width: 768px) {
+    .blog-info-link li{
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    .blog-info-link li::before{
+        display: none;
+    }
+}
