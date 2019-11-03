@@ -299,9 +299,20 @@
 .single-blog h3{
     font-size: 20px;
     margin-top: 20px;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
     line-height: 30px;
     transition: all 300ms linear 0s;
+    text-transform: none;
+    font-weight: 600;
+}
+.single-blog .blog-info-link{
+    text-transform: none !important;
+    font-weight: normal !important;
+}
+.single-blog p{
+    text-transform: none;
+    color: #797979;
+    font-weight: normal;
 }
 
 .text-wrap{
@@ -455,6 +466,9 @@ textarea.form-control{
 .blog-info-link li span{
     color: #999999;
 }
+.blog-info-link a{
+    text-decoration: underline;
+}
 
 .blog_item a p{
     color: #797979;
@@ -560,8 +574,9 @@ textarea.form-control{
     border-radius: 4px;
     letter-spacing: .2em;
     font-weight: 500;
-    font-size: .6rem;
+    font-size: .6rem !important;
     text-transform: uppercase;
+    text-decoration: none !important;
 }
 .post_marker.news{
     color: #fff;
@@ -586,7 +601,10 @@ textarea.form-control{
     margin-left: 10px;
 }
 
-
+.blog_item_img,
+.single-blog .thumb{
+    display: block;
+}
 .carousel .blog__slide__img,
 .blog_right_sidebar .post_img,
 .blog_item .blog_item_img,

@@ -17,7 +17,7 @@ def index():
     users = User.query.order_by(asc(User.first_name)).all()
     current_datetime = datetime.now()
 
-    news = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='news', Post.status=='approved')).order_by(desc(Post.id)).limit(10)
+    news = Post.query.join(User, User.id == Post.user_id).join(Category, Category.id == Post.category_id).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='news', Post.status=='approved')).order_by(desc(Post.id)).limit(10)
     ads = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='ad', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
     notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
 
@@ -121,7 +121,7 @@ def render_post_list_by_type(post_type, title):
         filter = (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre==post_type, Post.status=='approved'))
 
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
+    paginate = Post.query.join(User, User.id == Post.user_id).join(Category, Category.id == Post.category_id).filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
     posts = paginate.items
 
     if post_type == 'filter':
