@@ -86,9 +86,10 @@
                                 <td><strong class="table-label">Data: </strong>
                                     {{ category.created_at|format_datetime('%d/%m/%Y') }}</td>
                                 <td>
+                                    <strong class="table-label">Destacada? </strong>
                                     <div class="form-check form-check-flat form-check-primary">
                                         <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input change-category-highlight" {{ 'checked' if category.is_highlighted == True else '' }} value="{{ category.is_highlighted }}" />
+                                            <input type="checkbox" class="form-check-input change-category-highlight" data-category-id="{{ category.id }}" {{ 'checked' if category.is_highlighted == True else '' }} value="{{ category.is_highlighted }}" />
                                             <i class="input-helper"></i>
 
                                         </label>
@@ -131,4 +132,44 @@
     </div>
 
 </div>
+
+<!-- Modal Message -->
+<div class="modal fade" id="modalMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Alerta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="textModalMessage"></p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content%}
+
+{% block footer_script %}
+    <script>
+        $('.change-category-highlight').on('change', function() {
+            var t = $(this);
+            var category_id = t.attr('data-category-id');
+            if (t.val() === 'True') {
+                t.val('False')
+            } else {
+                t.val('True')
+            }
+            $.ajax({
+                method: 'POST',
+                url: '/admin/categorias/change-category-highlight',
+                data: { highlight: t.val(), category_id: category_id }
+            }).done(function (data) {
+                $('#textModalMessage').html(data.message);
+                $('#modalMessage').modal('toggle');
+            });
+        });
+    </script>
+{% endblock footer_script %}

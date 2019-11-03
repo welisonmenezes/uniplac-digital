@@ -279,6 +279,9 @@ select.form-control, .dataTables_wrapper select{
     .btn-group .btn{
         margin-bottom: 10px;
     }
+    .table .form-check{
+        display: inline-block;
+    }
 }
 
 @media (max-width: 768px) {

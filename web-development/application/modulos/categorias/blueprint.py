@@ -1,4 +1,4 @@
-from flask import current_app, Blueprint, render_template, request, url_for, redirect, flash, session
+from flask import current_app, Blueprint, render_template, request, url_for, redirect, flash, session, jsonify
 from sqlalchemy import desc, asc
 from app import app
 from modulos.categorias.formularios import CategoriaForm
@@ -163,3 +163,30 @@ def fillForm(form, category):
     form.name.data = category.name
     form.description.data = category.description
     form.destacado.data = category.is_highlighted
+
+
+@categoriaBP.route('/change-category-highlight', methods=['POST'])
+def changeCategoryHightlight():
+    if request.form['highlight'] and request.form['category_id']:
+
+        #pega a categoria pelo id
+        category = Category.query.filter((Category.id==request.form['category_id'])).first()
+
+        # se não existe a categoria
+        if not category:
+            return jsonify({'message': 'A categoria indicada não existe.'})
+
+        # altera no banco de dados
+        try:
+            if request.form['highlight'] == 'False':
+                category.is_highlighted = False
+            else:
+                category.is_highlighted = True
+
+            db.session.commit()
+            
+            return jsonify({'message': 'A categoria ' + category.name + ' foi atualizada com sucesso.'})
+        except:
+            return jsonify({'message': 'Desculpe-nos, não foi possível alterar a categoria.'})
+
+    return jsonify({'message': 'Dados para a requisição incompletos.'})
