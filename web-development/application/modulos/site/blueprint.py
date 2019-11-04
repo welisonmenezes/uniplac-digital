@@ -98,7 +98,7 @@ def render_post_list_by_type(post_type, title):
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
     users = User.query.order_by(asc(User.first_name)).all()
     current_datetime = datetime.now()
-    tagg = Tag.query.order_by(desc(Tag.id)).all()
+    tagg = Tag.query.order_by(desc(Tag.id)).all()   
     
 
     # sidebar avisos
@@ -141,7 +141,7 @@ def render_post_list_by_type(post_type, title):
     if post_type == 'filter':
         return render_template('site/posts.html', tagg=tagg, notices=notices, posts=posts, titulo=titulo, name=name, category=category, genre=genre, currentPage=page, paginate=paginate, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users, author=author), 200
     else:
-        return render_template('site/posts.html', posts=posts, notices=notices, paginate=paginate, currentPage=page, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
+        return render_template('site/posts.html', tagg=tagg, posts=posts, notices=notices, paginate=paginate, currentPage=page, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
 
 
 def render_post_detail_by_type(post_type, title, id):
@@ -151,6 +151,8 @@ def render_post_detail_by_type(post_type, title, id):
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
     users = User.query.order_by(asc(User.first_name)).all()
     current_datetime = datetime.now()
+    tagg = Tag.query.order_by(desc(Tag.id)).all()
+
    
     
     post = None
@@ -191,4 +193,4 @@ def render_post_detail_by_type(post_type, title, id):
     category = Category.query.filter(Category.id==post.category_id).first()
     notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
 
-    return render_template('/site/detalhes.html', post=post, user=user, category=category, notices=notices, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
+    return render_template('/site/detalhes.html', tagg=tagg, post=post, user=user, category=category, notices=notices, titulo=titulo, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200

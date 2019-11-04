@@ -38,6 +38,11 @@ def before_request_func():
         if not role or role != 'admin':
             flash('Você não tem acesso à esse recurso', 'warning')
             return redirect(url_for('dashboard.dash'))
+    
+    if bool(re.search(request.url_root+'admin/tags*', request.url)):
+        if not role or role != 'admin':
+            flash('Você não tem acesso à esse recurso', 'warning')
+            return redirect(url_for('dashboard.dash'))
 
     
     if bool(re.search(request.url_root+'admin/noticias*', request.url)):

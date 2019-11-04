@@ -1,16 +1,17 @@
 from flask import current_app, Blueprint, render_template, request, url_for, redirect, flash, session
-from sqlalchemy import desc, asc
+from sqlalchemy import desc, or_, and_, asc
 from app import app
 #trocar informações daqui.....
 from modulos.tags.formularios import TagForm
 from modulos.tags.validations import validateTagToCreate, validateTagToUpdate
-from database.Model import db, Post, Tag
+from database.Model import db, Post, Tag, User
 from database.Model import Configuration
 
 tagBP = Blueprint('tags', __name__, url_prefix='/admin/tags', template_folder='templates', static_folder='static')
 
 @tagBP.route('/')
 def index():
+    users = User.query.filter(or_(User.role == 'admin', User.role == 'editor')).all()
     configuration = Configuration.query.first()
     titulo = 'Tags'
 
@@ -49,7 +50,7 @@ def index():
     paginate = Tag.query.filter(*filter).order_by(query_order).paginate(page=page, per_page=10, error_out=False)
     tags = paginate.items
 
-    return render_template('/tags/index.html', paginate=paginate, tags=tags, currentPage=page, name=name, order_by=order_by, order=order, titulo=titulo, configuration=configuration), 200
+    return render_template('/tags/index.html', users=users, paginate=paginate, tags=tags, currentPage=page, name=name, order_by=order_by, order=order, titulo=titulo, configuration=configuration), 200
 
 @tagBP.route('/cadastrar', methods=['GET','POST'])
 def cadastrar():
@@ -140,7 +141,7 @@ def deletar(id):
         tagId = request.values.get('tagId')
         if tagId:
             # verifica se a tags esta em algum post
-            post = Post.query.filter_by(tag_id=tagId).first()
+            post = Post.query.filter_by(id=tagId).all()
             if not post:
             
                 try:

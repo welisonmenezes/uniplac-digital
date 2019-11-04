@@ -67,17 +67,17 @@
     </aside>
     {% endif %}
     {% if tagg %}
-    <aside class="blog_right_sidebar tag_cloud_widget">
+    <aside class="">
         <h4 class="widget_title">Tags</h4>
-        
+        <p name="tags"></p>
             {% for t in tagg %}
-           
-                <a href="{{ url_for('site.tag', tagg=t.id) }}"  title="{{ t.name }}">
-                    <p>{{ t.name }}</p>
+            
+                <a href="{{ url_for('site.tag', tagg=t.id) }}" class="btn btn-secondary"  title="{{ t.name }}">
+                    {{ t.name }}
                 </a>
             
             {% endfor %}
-       
+        </p>
     </aside>
     {% endif %}
 </div>
