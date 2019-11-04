@@ -33,86 +33,159 @@
                     <div class="blog_item">
 
                         {% if post.genre == 'news' %}
-                        <a class="d-block" href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
-                            title="{{ post.title }}">
+                        <div class="d-block">
                             {% if post.image_id != None%}
-                            <div class="blog_item_img">
+                            <a class="blog_item_img" href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
+                                title="{{ post.title }}">
                                 <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
                                     alt="{{ post.title }}">
-                            </div>
+                            </a>
                             {% endif %}
 
                             <div class="blog_details">
-                                <h2>{{ post.title }}</h2>
-                                <div>
-                                    <span class="post_marker {{post.genre}}">
-                                        Notícia
-                                    </span>
-                                    <span class="date">
-                                        <i class="ti-calendar"></i> {{ post.created_at|format_datetime('%d/%m/%Y') }}
-                                    </span>
-                                </div>
+                                <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" title="{{ post.title }}">
+                                    <h2>{{ post.title }}</h2>
+                                </a>
+                                <ul class="blog-info-link mt-3 mb-4">
+                                    <li>
+                                        <a href="{{ url_for('site.noticias') }}" title=""
+                                            class="post_marker {{post.genre}}">
+                                            Notícia
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="date">
+                                            <i class="ti-calendar"></i>
+                                            {{ post.created_at|format_datetime('%d/%m/%Y') }}
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <a class="author" href="{{ url_for('site.filtro', author=post.user.id) }}"
+                                            title="Autor {{ post.user.first_name }} {{ post.user.last_name }}">
+                                            <i class="ti-user"></i> Por {{ post.user.first_name }}
+                                            {{ post.user.last_name }}
+                                        </a>
+                                    </li>
+                                    {% if post.category.id %}
+                                    <li>
+                                        <a href="{{ url_for('site.filtro', category=post.category.id) }}"
+                                            title="Categoria {{ post.category.name }}">
+                                            <i class="ti-tag"></i> {{ post.category.name }}
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
                                 <p>{{ post.description }}</p>
-                                <span class="blog_btn">
+                                <a class="blog_btn" href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
+                                    title="{{ post.title }}">
                                     Ver Mais
                                     <span class="ml-2 ti-arrow-right"></span>
-                                </span>
+                                </a>
                             </div>
-                        </a>
+                        </div>
 
                         {% elif post.genre == 'ad' %}
-                        <a class="d-block" href="{{ url_for('site.anuncios_detalhes', id=post.id) }}"
-                            title="{{ post.title }}">
+                        <div class="d-block">
                             {% if post.image_id != None%}
-                            <div class="blog_item_img">
+                            <a class="blog_item_img" href="{{ url_for('site.anuncios_detalhes', id=post.id) }}"
+                                title="{{ post.title }}">
                                 <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
                                     alt="{{ post.title }}">
-                            </div>
+                            </a>
                             {% endif %}
                             <div class="blog_details">
-                                <h2>{{ post.title }}</h2>
-                                <div>
-                                    <span class="post_marker {{post.genre}}">
-                                        Anúncio
-                                    </span>
-                                    <span class="date">
-                                        <i class="ti-calendar"></i> {{ post.created_at|format_datetime('%d/%m/%Y') }}
-                                    </span>
-                                </div>
+                                <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" title="{{ post.title }}">
+                                    <h2>{{ post.title }}</h2>
+                                </a>
+                                <ul class="blog-info-link mt-3 mb-4">
+                                    <li>
+                                        <a href="{{ url_for('site.anuncios') }}" title=""
+                                            class="post_marker {{post.genre}}">
+                                            Anúncio
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="date">
+                                            <i class="ti-calendar"></i>
+                                            {{ post.created_at|format_datetime('%d/%m/%Y') }}
+                                        </span>
+                                    </li>
+                                    <li>
+
+                                        <a class="author" href="{{ url_for('site.filtro', author=post.user.id) }}"
+                                            title="Autor {{ post.user.first_name }} {{ post.user.last_name }}">
+                                            <i class="ti-user"></i> Por {{ post.user.first_name }}
+                                            {{ post.user.last_name }}
+                                        </a>
+                                    </li>
+                                    {% if post.category.id %}
+                                    <li>
+                                        <a href="{{ url_for('site.filtro', category=post.category.id) }}"
+                                            title="Categoria {{ post.category.name }}">
+                                            <i class="ti-tag"></i> {{ post.category.name }}
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
                                 <p>{{ post.description }}</p>
-                                <span class="blog_btn">
+                                <a class="blog_btn" href="{{ url_for('site.anuncios_detalhes', id=post.id) }}"
+                                    title="{{ post.title }}">
                                     Ver Mais
                                     <span class="ml-2 ti-arrow-right"></span>
-                                </span>
+                                </a>
                             </div>
-                        </a>
+                        </div>
 
                         {% elif post.genre == 'notice' %}
-                        <a class="d-block" href="{{ url_for('site.avisos_detalhes', id=post.id) }}"
-                            title="{{ post.title }}">
+                        <div class="d-block">
                             {% if post.image_id != None%}
-                            <div class="blog_item_img">
+                            <a class="blog_item_img" href="{{ url_for('site.avisos_detalhes', id=post.id) }}"
+                                title="{{ post.title }}">
                                 <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
                                     alt="{{ post.title }}">
-                            </div>
+                            </a>
                             {% endif %}
                             <div class="blog_details">
-                                <h2>{{ post.title }}</h2>
-                                <div>
-                                    <span class="post_marker {{post.genre}}">
-                                        Aviso
-                                    </span>
-                                    <span class="date">
-                                        <i class="ti-calendar"></i> {{ post.created_at|format_datetime('%d/%m/%Y') }}
-                                    </span>
-                                </div>
+                                <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" title="{{ post.title }}">
+                                    <h2>{{ post.title }}</h2>
+                                </a>
+                                <ul class="blog-info-link mt-3 mb-4">
+                                    <li>
+                                        <a href="{{ url_for('site.avisos') }}" title=""
+                                            class="post_marker {{post.genre}}">
+                                            Aviso
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="date">
+                                            <i class="ti-calendar"></i>
+                                            {{ post.created_at|format_datetime('%d/%m/%Y') }}
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <a class="author" href="{{ url_for('site.filtro', author=post.user.id) }}"
+                                            title="Autor {{ post.user.first_name }} {{ post.user.last_name }}">
+                                            <i class="ti-user"></i> Por {{ post.user.first_name }}
+                                            {{ post.user.last_name }}
+                                        </a>
+                                    </li>
+                                    {% if post.category.id %}
+                                    <li>
+                                        <a href="{{ url_for('site.filtro', category=post.category.id) }}"
+                                            title="Categoria {{ post.category.name }}">
+                                            <i class="ti-tag"></i> {{ post.category.name }}
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
                                 <p>{{ post.description }}</p>
-                                <span class="blog_btn">
+                                <a class="blog_btn" href="{{ url_for('site.avisos_detalhes', id=post.id) }}"
+                                    title="{{ post.title }}">
                                     Ver Mais
                                     <span class="ml-2 ti-arrow-right"></span>
-                                </span>
+                                </a>
                             </div>
-                        </a>
+                        </div>
                         {% endif %}
                     </div>
                     {% endfor %}

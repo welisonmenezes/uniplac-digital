@@ -55,16 +55,25 @@
                             <tr>
                                 <th>
                                     <a href="{{ url_for('categorias.index', page=currentPage, name=name, order_by='id', order=_order) }}"
-                                        class="{{ 'active' if order_by=='id' else '' }} {{ order }}" title="Ordenar por ID">ID</a>
+                                        class="{{ 'active' if order_by=='id' else '' }} {{ order }}"
+                                        title="Ordenar por ID">ID</a>
                                 </th>
                                 <th>
                                     <a href="{{ url_for('categorias.index', page=currentPage, name=name, order_by='name', order=_order) }}"
-                                        class="{{ 'active' if order_by=='name' else '' }} {{ order }}" title="Ordenar por Nome">Nome</a>
+                                        class="{{ 'active' if order_by=='name' else '' }} {{ order }}"
+                                        title="Ordenar por Nome">Nome</a>
                                 </th>
                                 <th>
                                     <a href="{{ url_for('categorias.index', page=currentPage, name=name, order_by='created_at', order=_order) }}"
                                         class="{{ 'active' if order_by=='created_at' else '' }}"
                                         title="Ordenar por Data">Data</a>
+                                </th>
+                                <th>
+                                    Destacada?
+                                    <sup class="small">
+                                        <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true"
+                                            title="Se checado, a categoria será exibida na sidebar e no footer do site."></i>
+                                    </sup>
                                 </th>
                                 <th>Editar/Deletar</th>
                             </tr>
@@ -74,7 +83,18 @@
                             <tr>
                                 <td><strong class="table-label">Id: </strong> {{ category.id }}</td>
                                 <td><strong class="table-label">Nome: </strong> {{ category.name }}</td>
-                                <td><strong class="table-label">Data: </strong> {{ category.created_at|format_datetime('%d/%m/%Y') }}</td>
+                                <td><strong class="table-label">Data: </strong>
+                                    {{ category.created_at|format_datetime('%d/%m/%Y') }}</td>
+                                <td>
+                                    <strong class="table-label">Destacada? </strong>
+                                    <div class="form-check form-check-flat form-check-primary">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input change-category-highlight" data-category-id="{{ category.id }}" {{ 'checked' if category.is_highlighted == True else '' }} value="{{ category.is_highlighted }}" />
+                                            <i class="input-helper"></i>
+
+                                        </label>
+                                    </div>
+                                </td>
                                 <td>
                                     <a href="{{ url_for('categorias.editar', id=category.id) }}" title="Editar">
                                         <i class="mdi mdi-border-color edit"></i>
@@ -112,4 +132,44 @@
     </div>
 
 </div>
+
+<!-- Modal Message -->
+<div class="modal fade" id="modalMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Alerta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="textModalMessage"></p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content%}
+
+{% block footer_script %}
+    <script>
+        $('.change-category-highlight').on('change', function() {
+            var t = $(this);
+            var category_id = t.attr('data-category-id');
+            if (t.val() === 'True') {
+                t.val('False')
+            } else {
+                t.val('True')
+            }
+            $.ajax({
+                method: 'POST',
+                url: '/admin/categorias/change-category-highlight',
+                data: { highlight: t.val(), category_id: category_id }
+            }).done(function (data) {
+                $('#textModalMessage').html(data.message);
+                $('#modalMessage').modal('toggle');
+            });
+        });
+    </script>
+{% endblock footer_script %}

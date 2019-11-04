@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 import logging
 import datetime
 from flask.logging import default_handler
@@ -30,13 +30,15 @@ app.config['RECAPTCHA_PUBLIC_KEY']= '6LccGOISAAAAAPVdDHhzpAXI64FnnX1vYL7Yea23'
 app.config['RECAPTCHA_PRIVATE_KEY']='6LccGOISAAAAAFhRBXgRg5-1x_U2S0m9sxQJjdOW'
 app.config['RECAPTCHA_OPTIONS'] = {'theme':'white'}
 
-print(app.config)
-
 # initialize app dependencies
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 bcrypt = Bcrypt(app)
 mail = Mail(app)
+
+@app.errorhandler(500)
+def serverError(error):
+    return redirect( url_for('error.pageError') )
 
 import utils.middleware
 from modulos import *

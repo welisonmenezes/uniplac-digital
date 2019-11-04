@@ -13,7 +13,10 @@ def notFound(error):
     configuration = Configuration.query.first()
     return render_template('error404.html', configuration=configuration), 404
 
+@errorBP.route('/500')
+def pageError():
+    return render_template('error500.html'), 500
+
 @errorBP.errorhandler(500)
 def serverError(error):
-    configuration = Configuration.query.first()
-    return render_template('error500.html', configuration=configuration), 500
+    return render_template('error500.html'), 500

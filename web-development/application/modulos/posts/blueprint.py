@@ -102,7 +102,7 @@ def noticias_cadastrar():
                 form.departure_date.data,
                 None,
                 form.user_id,
-                form.category_id.data
+                None
             )
             
             if form.image_id.data != '':
@@ -121,6 +121,9 @@ def noticias_cadastrar():
                     tag = Tag(t)
                     post.tags.append(tag)
 
+
+            if form.category_id.data != '':
+                post.category_id = form.category_id.data
 
             # adiciona e commita a categoria na base de dados
             db.session.add(post)
@@ -191,7 +194,9 @@ def noticias_editar(id):
             if (form.image_id.data != ''):
                 post.image_id = form.image_id.data
             #post.user_id = session.get('user_id', '')
-            post.category_id = form.category_id.data
+            post.category_id = None
+            if form.category_id.data != '':
+                post.category_id = form.category_id.data
 
                            
 
@@ -366,7 +371,7 @@ def anuncios_cadastrar():
                 form.departure_date.data,
                 None,
                 form.user_id,
-                form.category_id.data
+                None
             )
             
             if session.get('user_role', '') == 'user':
@@ -391,6 +396,8 @@ def anuncios_cadastrar():
                     tag = Tag(t)
                     post.tags.append(tag)
 
+            if form.category_id.data != '':
+                post.category_id = form.category_id.data
             # adiciona e commita a categoria na base de dados
             db.session.add(post)
             db.session.commit()
@@ -473,7 +480,9 @@ def anuncios_editar(id):
             if (form.image_id.data != ''):
                 post.image_id = form.image_id.data
             #post.user_id = session.get('user_id', '')
-            post.category_id = form.category_id.data
+            post.category_id = None
+            if form.category_id.data != '':
+                post.category_id = form.category_id.data
 
 
             id_tags=[]
@@ -649,7 +658,7 @@ def avisos_cadastrar():
                 form.departure_date.data,
                 None,
                 form.user_id,
-                form.category_id.data
+                None
             )
             
             if form.image_id.data != '':
@@ -668,6 +677,8 @@ def avisos_cadastrar():
                     tag = Tag(t)
                     post.tags.append(tag)
 
+            if form.category_id.data != '':
+                post.category_id = form.category_id.data
             # adiciona e commita a categoria na base de dados
             db.session.add(post)
             db.session.commit()
@@ -729,7 +740,9 @@ def avisos_editar(id):
             if (form.image_id.data != ''):
                 post.image_id = form.image_id.data
             #post.user_id = session.get('user_id', '')
-            post.category_id = form.category_id.data
+            post.category_id = None
+            if form.category_id.data != '':
+                post.category_id = form.category_id.data
 
             id_tags=[]
             #Edição de tags
@@ -803,6 +816,8 @@ def meus_posts():
     configuration = Configuration.query.first()
     titulo = 'Minhas Publicações'
 
+    current_datetime = datetime.now()
+
     # pega os argumentos da string, se existir, senão, seta valores padrão
     page = '1' if (request.args.get('page') == None) else request.args.get('page')
     name = '' if (request.args.get('name') == None) else request.args.get('name')
@@ -810,6 +825,7 @@ def meus_posts():
     status = '' if (request.args.get('status') == None) else request.args.get('status')
     order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+    publication = '' if (request.args.get('publication') == None) else request.args.get('publication')
 
     # previne erro ao receber string
     try:
@@ -833,6 +849,12 @@ def meus_posts():
         filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
     if status:
         filter = filter + (Post.status == status,)
+    if publication == 'current':
+        filter = filter + (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime),)
+    elif publication == 'expired':
+        filter = filter + (and_(Post.departure_date < current_datetime),)
+    elif publication == 'scheduled':
+        filter = filter + (and_(Post.entry_date > current_datetime),)
 
     # gera o order_by
     if order == 'asc':
@@ -846,7 +868,7 @@ def meus_posts():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, fromUser=True), 200
+    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, fromUser=True, publication=publication), 200
 
 
 
@@ -863,7 +885,7 @@ def fillForm(form, post, genre):
     if (post.image_id != ''):
         form.image_id.data = post.image_id 
     form.user_id = session.get('user_id', '')
-    form.category_id.data = post.category_id 
+    form.category_id.data = str(post.category_id)
 
 
 

@@ -242,6 +242,10 @@ select.form-control, .dataTables_wrapper select{
     padding-left: 0;
 }
 
+.table .small .mdi{
+    font-size: 12px;
+}
+
 .table-label{
     display: none;
 }
@@ -274,6 +278,9 @@ select.form-control, .dataTables_wrapper select{
     }
     .btn-group .btn{
         margin-bottom: 10px;
+    }
+    .table .form-check{
+        display: inline-block;
     }
 }
 

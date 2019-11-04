@@ -47,4 +47,5 @@ def hasUserWithEmail(email):
     userWithEmail = User.query.filter((User.email == email)).first()
     if userWithEmail:
         flash('O email informado já foi cadastrado', 'danger')
-        return False
+        return True
+    return False

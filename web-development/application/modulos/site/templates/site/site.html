@@ -9,7 +9,8 @@
         <div class="slideshow">
             {% for image in configuration.images %}
             <div>
-                <div class="animated-bg-zoom" style="background-image:  url({{request.url_root}}api/media/{{image.id}})"></div>
+                <div class="animated-bg-zoom"
+                    style="background-image:  url({{request.url_root}}api/media/{{image.id}})"></div>
             </div>
             {% endfor %}
         </div>
@@ -26,9 +27,10 @@
                     <div class="col">
                         <h2>Anúncios</h2>
                     </div>
-                    <div class="col text-right">
-                        <a href="{{ url_for('site.anuncios') }}" class="btn btn-info btn-sm" title="Ver Todos">Ver
-                            Todos</a>
+                    <div class="col text-right hide-480">
+                        <a href="{{ url_for('site.anuncios') }}" class="btn btn-info btn-sm" title="Ver todos os anúncios">
+                            Ver todos os anúncios
+                        </a>
                     </div>
                 </div>
                 <div class="carousel">
@@ -61,6 +63,13 @@
                     </div>
                     {% endfor %}
                 </div>
+                <div class="row show-480">
+                    <div class="col">
+                        <a href="{{ url_for('site.anuncios') }}" class="btn btn-info btn-sm btn-block" title="Ver todos os anúnicios">
+                            Ver todos os anúnicios
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -79,43 +88,67 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="single-blog">
-                            <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" class="blog_btn"
-                                title="{{ post.title }}">
+                            <div class="blog_btn">
                                 {% if post.image_id != None %}
-                                <div class="thumb">
+                                <a class="thumb" href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
+                                    title="{{ post.title }}">
                                     <img class="img-fluid" src="{{request.url_root}}api/media/{{post.image_id}}"
                                         alt="{{ post.title }}">
-                                </div>
+                                </a>
                                 {% endif %}
                                 <div class="short_details">
-                                    <h3>{{ post.title }}</h3>
-                                    <div>
-                                        <span class="post_marker {{post.genre}}">
-                                            Notícia
-                                        </span>
-                                        <span class="date">
-                                            <i class="ti-calendar"></i>
-                                            {{ post.created_at|format_datetime('%d/%m/%Y') }}
-                                        </span>
-                                    </div>
+                                    <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
+                                        title="{{ post.title }}">
+                                        <h3>{{ post.title }}</h3>
+                                    </a>
+                                    <ul class="blog-info-link mt-3 mb-4">
+                                        <li>
+                                            <a href="{{ url_for('site.noticias') }}" title=""
+                                                class="post_marker {{post.genre}}">
+                                                Notícia
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span class="date">
+                                                <i class="ti-calendar"></i>
+                                                {{ post.created_at|format_datetime('%d/%m/%Y') }}
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <a class="author" href="{{ url_for('site.filtro', author=post.user.id) }}"
+                                                title="Autor {{ post.user.first_name }} {{ post.user.last_name }}">
+                                                <i class="ti-user"></i> Por {{ post.user.first_name }}
+                                                {{ post.user.last_name }}
+                                            </a>
+                                        </li>
+                                        {% if post.category.id %}
+                                        <li>
+                                            <a href="{{ url_for('site.filtro', category=post.category.id) }}"
+                                                title="Categoria {{ post.category.name }}">
+                                                <i class="ti-tag"></i> {{ post.category.name }}
+                                            </a>
+                                        </li>
+                                        {% endif %}
+                                    </ul>
                                     <div class="text-wrap">
                                         <p>
                                             {{ post.description }}
                                         </p>
                                     </div>
-                                    <span class="blog_btn">
+                                    <a class="blog_btn" href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
+                                        title="{{ post.title }}">
                                         Ver Mais
                                         <span class="ml-2 ti-arrow-right"></span>
-                                    </span>
+                                    </a>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="{{ url_for('site.noticias') }}" class="btn btn-info btn-block">Ver Todas a Notícias</a>
+                        <a href="{{ url_for('site.noticias') }}" class="btn btn-info btn-block" title="Ver todas as notícias">Ver todas as notícias</a>
                     </div>
                 </div>
             </div>

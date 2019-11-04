@@ -7,7 +7,7 @@ from database.Model import Category
 import datetime
 
 
-choice = []
+choice = [('', 'Selecione')]
 try:
     categories = Category.query.all()
     for category in categories:
@@ -59,9 +59,6 @@ class PostForm(FlaskForm):
 
     category_id = SelectField(
         'Categoria',
-        validators = [
-            DataRequired(message="Campo obrigatório")
-        ],
          choices=choice
     )
 

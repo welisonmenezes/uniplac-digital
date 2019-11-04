@@ -93,6 +93,8 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True)
     tags = db.relationship('Tag', secondary=TagPost)
+    user = db.relationship('User', backref='user')
+    category = db.relationship('Category', backref='category')
 
     def __init__(self, title, description, content, genre, status, entry_date, departure_date, image_id, user_id, category_id=None):
         self.title = title
