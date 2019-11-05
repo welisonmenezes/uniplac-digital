@@ -1,8 +1,6 @@
 import os
-from flask import current_app, Blueprint, render_template, request, url_for, flash, session, redirect
+from flask import Blueprint, render_template, request, url_for, flash, session, redirect
 from modulos.posts.formularios import PostForm
-from modulos.tags.formularios import TagForm
-
 from app import app
 from sqlalchemy import desc, or_, and_, asc
 from database.Model import Configuration, db, Post, Category, User, Tag, TagPost
@@ -188,7 +186,6 @@ def render_post_register_by_type(post_type, title):
     configuration = Configuration.query.first()
     form = PostForm(request.form)
     titulo = title
-    operacao = 'Cadastro'
 
     if post_type == 'ad':
         if session.get('user_role', '') == 'user':
@@ -265,7 +262,7 @@ def render_post_register_by_type(post_type, title):
             elif post_type == 'ad':
                 flash('Erro ao tentar cadastrar o anúncio', 'danger')
 
-    return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form, configuration=configuration), 200
+    return render_template('/posts/formulario.html', titulo=titulo, form=form, configuration=configuration), 200
 
 
 # EDIÇÃO DE POSTS

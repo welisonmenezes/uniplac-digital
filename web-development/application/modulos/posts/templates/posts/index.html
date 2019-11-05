@@ -110,70 +110,39 @@
 
                 <div class="table-responsive">
                     {% if posts|length > 0 %}
-                    {% if order == 'asc' %}
-                    {% set _order = 'desc' %}
-                    {% else %}
-                    {% set _order = 'asc' %}
+                        {% if order == 'asc' %}
+                            {% set _order = 'desc' %}
+                        {% else %}
+                            {% set _order = 'asc' %}
+                    {% endif %}
+
+                    {% set url_for_index = '' %}
+                    {% if(titulo == 'Notícias'): %}
+                        {% set url_for_index = 'posts.noticias_index' %}
+                    {% elif(titulo == 'Anúncios') %}
+                        {% set url_for_index = 'posts.anuncios_index' %}
+                    {% elif(titulo == 'Avisos') %}
+                        {% set url_for_index = 'posts.avisos_index' %}
+                    {% elif(titulo == 'Minhas Publicações'): %}
+                        {% set url_for_index = 'posts.meus_posts' %}
                     {% endif %}
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>
-                                    {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='id', order=_order, publication=publication) }}"
+                                    <a href="{{ url_for(url_for_index, page=currentPage, name=name, category=category, status=status, author=author, order_by='id', order=_order, publication=publication) }}"
                                         class="{{ 'active' if order_by=='id' else '' }} {{ order }}"
                                         title="Ordenar por ID">ID</a>
-                                    {% elif(titulo == 'Anúncios') %}
-                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='id', order=_order, publication=publication) }}"
-                                        class="{{ 'active' if order_by=='id' else '' }} {{ order }}"
-                                        title="Ordenar por ID">ID</a>
-                                    {% elif(titulo == 'Avisos') %}
-                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='id', order=_order, publication=publication) }}"
-                                        class="{{ 'active' if order_by=='id' else '' }} {{ order }}"
-                                        title="Ordenar por ID">ID</a>
-                                    {% elif(titulo == 'Minhas Publicações'): %}
-                                    <a href="{{ url_for('posts.meus_posts', page=currentPage, name=name, category=category, status=status, order_by='id', order=_order, publication=publication) }}"
-                                        class="{{ 'active' if order_by=='id' else '' }} {{ order }}"
-                                        title="Ordenar por ID">ID</a>
-                                    {% endif %}
                                 </th>
                                 <th>
-                                    {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='title', order=_order, publication=publication) }}"
+                                    <a href="{{ url_for(url_for_index, page=currentPage, name=name, category=category, status=status, author=author, order_by='title', order=_order, publication=publication) }}"
                                         class="{{ 'active' if order_by=='title' else '' }} {{ order }}"
                                         title="Ordenar por Título">Título</a>
-                                    {% elif(titulo == 'Anúncios') %}
-                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='title', order=_order, publication=publication) }}"
-                                        class="{{ 'active' if order_by=='title' else '' }} {{ order }}"
-                                        title="Ordenar por Título">Título</a>
-                                    {% elif(titulo == 'Avisos') %}
-                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='title', order=_order, publication=publication) }}"
-                                        class="{{ 'active' if order_by=='title' else '' }} {{ order }}"
-                                        title="Ordenar por Título">Título</a>
-                                    {% elif(titulo == 'Minhas Publicações'): %}
-                                    <a href="{{ url_for('posts.meus_posts', page=currentPage, name=name, category=category, status=status, order_by='title', order=_order, publication=publication) }}"
-                                        class="{{ 'active' if order_by=='title' else '' }} {{ order }}"
-                                        title="Ordenar por Título">Título</a>
-                                    {% endif %}
                                 </th>
                                 <th>
-                                    {% if(titulo == 'Notícias'): %}
-                                    <a href="{{ url_for('posts.noticias_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='created_at', order=_order, publication=publication) }}"
+                                    <a href="{{ url_for(url_for_index, page=currentPage, name=name, category=category, status=status, author=author, order_by='created_at', order=_order, publication=publication) }}"
                                         class="{{ 'active' if order_by=='created_at' else '' }} {{ order }}"
                                         title="Ordenar por Data">Data </a>
-                                    {% elif(titulo == 'Anúncios') %}
-                                    <a href="{{ url_for('posts.anuncios_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='created_at', order=_order, publication=publication) }}"
-                                        class="{{ 'active' if order_by=='created_at' else '' }} {{ order }}"
-                                        title="Ordenar por Data">Data</a>
-                                    {% elif(titulo == 'Avisos') %}
-                                    <a href="{{ url_for('posts.avisos_index', page=currentPage, name=name, category=category, status=status, author=author, order_by='created_at', order=_order, publication=publication) }}"
-                                        class="{{ 'active' if order_by=='created_at' else '' }} {{ order }}"
-                                        title="Ordenar por Data">Data</a>
-                                    {% elif(titulo == 'Minhas Publicações'): %}
-                                    <a href="{{ url_for('posts.meus_posts', page=currentPage, name=name, category=category, status=status, order_by='created_at', order=_order, publication=publication) }}"
-                                        class="{{ 'active' if order_by=='created_at' else '' }} {{ order }}"
-                                        title="Ordenar por Data">Data</a>
-                                    {% endif %}
                                 </th>
                                 <th>Status</th>
                                 <th>Status de publicação</th>
@@ -212,67 +181,55 @@
                                 </td>
                                 <td>
                                     {# Diferenciando pelo tipo de post #}
+                                    {% set url_for_edit = '' %}
+                                    {% set url_for_detail = '' %}
+                                    {% set url_for_delete = '' %}
                                     {% if post.genre == 'news': %}
-                                    <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" target="_blank"
-                                        title="Ver no site">
-                                        <i class="mdi mdi-television-guide view"></i>
-                                    </a>
-                                    <a href="{{ url_for('posts.noticias_editar', id=post.id) }}"
-                                        title="Editar Notícia {{post.id}}">
-                                        <i class="mdi mdi-border-color edit"></i>
-                                    </a>
-                                    <a href="{{ url_for('posts.noticias_deletar', id=post.id) }}"
-                                        title="Deletar Notícia {{post.id}}">
-                                        <i class="mdi mdi-delete-forever delete"></i>
-                                    </a>
+                                        {% set url_for_edit = 'posts.noticias_editar' %}
+                                        {% set url_for_detail = 'site.noticias_detalhes' %}
+                                        {% set url_for_delete = 'posts.noticias_deletar' %}
                                     {% elif post.genre == 'ad': %}
-                                    {% if session.get('user_role', '') != 'user'  %}
-                                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" target="_blank"
-                                        title="Ver no site">
-                                        <i class="mdi mdi-television-guide view"></i>
-                                    </a>
-                                    <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
-                                        title="Editar Aviso {{post.id}}">
-                                        <i class="mdi mdi-border-color edit"></i>
-                                    </a>
-                                    <a href="{{ url_for('posts.anuncios_deletar', id=post.id)}}"
-                                        title="Deletar Aviso {{post.id}}">
-                                        <i class="mdi mdi-delete-forever delete"></i>
-                                    </a>
-                                    {% else %}
-                                    {% if post.status == 'pending' %}
-                                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" target="_blank"
-                                        title="Ver no site">
-                                        <i class="mdi mdi-television-guide view"></i>
-                                    </a>
-                                    <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}"
-                                        title="Editar Aviso {{post.id}}">
-                                        <i class="mdi mdi-border-color edit"></i>
-                                    </a>
-                                    <a href="{{ url_for('posts.anuncios_deletar', id=post.id)}}"
-                                        title="Deletar Aviso {{post.id}}">
-                                        <i class="mdi mdi-delete-forever delete"></i>
-                                    </a>
-                                    {% elif post.status == 'approved' %}
-                                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" target="_blank"
-                                        title="Ver no site" class="one-icon">
-                                        <i class="mdi mdi-television-guide view"></i>
-                                    </a>
-                                    {% endif %}
-                                    {% endif %}
+                                        {% set url_for_edit = 'posts.anuncios_editar' %}
+                                        {% set url_for_detail = 'site.anuncios_detalhes' %}
+                                        {% set url_for_delete = 'posts.anuncios_deletar' %}
                                     {% elif post.genre == 'notice': %}
-                                    <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" target="_blank"
-                                        title="Ver no site">
-                                        <i class="mdi mdi-television-guide view"></i>
-                                    </a>
-                                    <a href="{{ url_for('posts.avisos_editar', id=post.id) }}"
-                                        title="Editar Aviso {{post.id}}">
-                                        <i class="mdi mdi-border-color edit"></i>
-                                    </a>
-                                    <a href="{{ url_for('posts.avisos_deletar', id=post.id)}}"
-                                        title="Deletar Aviso {{post.id}}">
-                                        <i class="mdi mdi-delete-forever delete"></i>
-                                    </a>
+                                        {% set url_for_edit = 'posts.avisos_editar' %}
+                                        {% set url_for_detail = 'site.avisos_detalhes' %}
+                                        {% set url_for_delete = 'posts.avisos_deletar' %}
+                                    {% endif %}
+                                    {% if session.get('user_role', '') != 'user'  %}
+                                        <a href="{{ url_for(url_for_detail, id=post.id) }}" target="_blank"
+                                            title="Ver no site">
+                                            <i class="mdi mdi-television-guide view"></i>
+                                        </a>
+                                        <a href="{{ url_for(url_for_edit, id=post.id) }}"
+                                            title="Editar Post {{post.id}}">
+                                            <i class="mdi mdi-border-color edit"></i>
+                                        </a>
+                                        <a href="{{ url_for(url_for_delete, id=post.id) }}"
+                                            title="Deletar Post {{post.id}}">
+                                            <i class="mdi mdi-delete-forever delete"></i>
+                                        </a>
+                                    {% else %}
+                                        {% if post.genre == 'ad' and post.status == 'pending' %}
+                                            <a href="{{ url_for(url_for_detail, id=post.id) }}" target="_blank"
+                                                title="Ver no site">
+                                                <i class="mdi mdi-television-guide view"></i>
+                                            </a>
+                                            <a href="{{ url_for(url_for_edit, id=post.id) }}"
+                                                title="Editar Post {{post.id}}">
+                                                <i class="mdi mdi-border-color edit"></i>
+                                            </a>
+                                            <a href="{{ url_for(url_for_delete, id=post.id) }}"
+                                                title="Deletar Post {{post.id}}">
+                                                <i class="mdi mdi-delete-forever delete"></i>
+                                            </a>
+                                        {% elif post.genre == 'ad' and post.status == 'approved' %}
+                                            <a href="{{ url_for(url_for_detail, id=post.id) }}" target="_blank"
+                                                title="Ver no site">
+                                                <i class="mdi mdi-television-guide view"></i>
+                                            </a>
+                                        {% endif %}
                                     {% endif %}
                                 </td>
                             </tr>
@@ -286,23 +243,9 @@
                             {% if page == None %}
                             <button type="button" class="btn">...</button>
                             {% else %}
-                            {% if(titulo == 'Notícias'): %}
-                            <a href="{{ url_for('posts.noticias_index', page=page, name=name, category=category, status=status, author=author, order_by=order_by, order=order) }}"
+                            <a href="{{ url_for(url_for_index, page=page, name=name, category=category, status=status, author=author, order_by=order_by, order=order) }}"
                                 class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
                                 title="Página {{page}}">{{ page }}</a>
-                            {% elif(titulo == 'Anúncios'): %}
-                            <a href="{{ url_for('posts.anuncios_index', page=page, name=name, category=category, status=status, author=author, order_by=order_by, order=order) }}"
-                                class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
-                                title="Página {{page}}">{{ page }}</a>
-                            {% elif(titulo == 'Avisos'): %}
-                            <a href="{{ url_for('posts.avisos_index', page=page, name=name, category=category, status=status, author=author, order_by=order_by, order=order) }}"
-                                class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
-                                title="Página {{page}}">{{ page }}</a>
-                            {% elif(titulo == 'Minhas Publicações'): %}
-                            <a href="{{ url_for('posts.meus_posts', page=page, name=name, category=category, status=status, order_by=order_by, order=order) }}"
-                                class="btn btn-primary {{ 'active' if currentPage == page else '' }}"
-                                title="Página {{page}}">{{ page }}</a>
-                            {% endif %}
                             {% endif %}
                             {% endfor %}
                             {% endif %}
