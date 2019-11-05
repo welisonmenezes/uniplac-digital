@@ -55,3 +55,6 @@ def before_request_func():
         if not role or (role != 'admin' and role != 'author'):
             flash('Você não tem acesso à esse recurso', 'warning')
             return redirect(url_for('dashboard.dash'))
+
+    if bool(re.search(request.url_root+'admin/tags*', request.url)) or bool(re.search(request.url_root+'tag*', request.url)):
+        return redirect(url_for('erro.pageError'))
