@@ -27,7 +27,6 @@ def noticias_index():
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
     author = '' if (request.args.get('author') == None) else request.args.get('author')
     publication = '' if (request.args.get('publication') == None) else request.args.get('publication')
-    tagg = '' if (request.args.get('tagg') == None) else request.args.get('tagg')
 
     # previne erro ao receber string
     try:
@@ -52,10 +51,6 @@ def noticias_index():
     if status:
         filter = filter + (Post.status == status,)
 
-    if tagg:
-        for tag in post.tags:
-            if tag.id == tagg:
-                filter = filter + (tag.id == tagg)
 
     if author:
         filter = filter + (Post.user_id == author, )
@@ -78,7 +73,7 @@ def noticias_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', current_datetime=current_datetime, tagg=tagg, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
+    return render_template('/posts/index.html', current_datetime=current_datetime, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
 
 
 @postBP.route('/noticias/cadastrar', methods=['GET','POST'])
@@ -131,8 +126,6 @@ def noticias_cadastrar():
             db.session.add(post)
             db.session.commit()
 
-
-
             app.logger.warning(' %s cadastrou a noticia %s', session.get('user_name', ''), post.title)
 
             # flash message e redireciona pra mesma tela para limpar o objeto request
@@ -143,6 +136,7 @@ def noticias_cadastrar():
             db.session.rollback()
             flash('Erro ao tentar cadastrar a notícia', 'danger')
     return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form, configuration=configuration), 200
+
 
 @postBP.route('/noticias/editar/<int:id>', methods=['GET','POST'])
 def noticias_editar(id):
@@ -155,7 +149,6 @@ def noticias_editar(id):
         flash('A notícia não existe', 'info')
         return redirect(url_for('posts.noticias_index'))
 
-    
     strtags = ''
     for tag in post.tags:
         strtags = strtags+str(tag.name)+','
@@ -163,7 +156,6 @@ def noticias_editar(id):
     if strtags.endswith(','):
         strtags = strtags[:-1]
         
-
     titulo = 'Editar Notícia'
     
     if request.form:
@@ -176,10 +168,6 @@ def noticias_editar(id):
 
         # preenche formulário com post recuperado pelo id
         fillForm(form, post, 'news')
-
-
-    
-
 
     clearDateValidatons(post, form)
 
@@ -199,8 +187,6 @@ def noticias_editar(id):
             post.category_id = None
             if form.category_id.data != '':
                 post.category_id = form.category_id.data
-
-                           
 
             id_tags=[]
             #Edição de tags
@@ -287,8 +273,6 @@ def anuncios_index():
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
     author = '' if (request.args.get('author') == None) else request.args.get('author')
     publication = '' if (request.args.get('publication') == None) else request.args.get('publication')
-    tagg = '' if (request.args.get('tagg') == None) else request.args.get('tagg')
-
 
     # previne erro ao receber string
     try:
@@ -311,16 +295,8 @@ def anuncios_index():
     if name:
         filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
     
-    
-    
     if status:
         filter = filter + (Post.status == status,)
-
-
-    if tagg:
-        for tag in post.tags:
-            if tag.id == tagg:
-                filter = filter + (tag.id == tagg)
 
     if author:
         filter = filter + (Post.user_id == author, )
@@ -346,7 +322,8 @@ def anuncios_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', current_datetime=current_datetime, tagg=tagg ,categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
+    return render_template('/posts/index.html', current_datetime=current_datetime ,categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
+
 
 @postBP.route('/anuncios/cadastrar', methods=['GET','POST'])
 def anuncios_cadastrar():
@@ -358,8 +335,6 @@ def anuncios_cadastrar():
     if session.get('user_role', '') == 'user':
         form.status.validators = []
 
-    
-        
     if form.validate_on_submit():
         try:
             form.user_id = session.get('user_id', '')
@@ -386,9 +361,7 @@ def anuncios_cadastrar():
             if form.image_id.data != '':
                 post.image_id = form.image_id.data
 
-
             #adiciona a tag no banco
-            
             tags = form.tag.data
             array_tags = tags.split(',')
             for t in array_tags:
@@ -418,6 +391,7 @@ def anuncios_cadastrar():
             db.session.rollback()
             flash('Erro ao tentar cadastrar o anúncio', 'danger')
     return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form, configuration=configuration), 200
+
 
 @postBP.route('/anuncios/editar/<int:id>', methods=['GET','POST'])
 def anuncios_editar(id):
@@ -449,7 +423,6 @@ def anuncios_editar(id):
 
     if strtags.endswith(','):
         strtags = strtags[:-1]
-
 
     titulo = 'Editar Anúncio'
 
@@ -490,7 +463,6 @@ def anuncios_editar(id):
             if form.category_id.data != '':
                 post.category_id = form.category_id.data
 
-
             id_tags=[]
             #Edição de tags
             for t in post.tags:
@@ -528,6 +500,7 @@ def anuncios_editar(id):
             flash('Erro ao tentar editar o anúncio', 'danger')
 
     return render_template('/posts/formulario.html', titulo=titulo, form=form, post=post, configuration=configuration), 200
+
 
 @postBP.route('/anuncios/deletar/<int:id>', methods=['GET', 'POST'])
 def anuncios_deletar(id):
@@ -589,8 +562,6 @@ def avisos_index():
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
     author = '' if (request.args.get('author') == None) else request.args.get('author')
     publication = '' if (request.args.get('publication') == None) else request.args.get('publication')
-    tagg = '' if (request.args.get('tagg') == None) else request.args.get('tagg')
-
 
     # previne erro ao receber string
     try:
@@ -615,12 +586,6 @@ def avisos_index():
     if status:
         filter = filter + (Post.status == status,)
 
-    if tagg:
-        for tag in post.tags:
-            if tag.id == tagg:
-                filter = filter + (tag.id == tagg)
-
-
     if author:
         filter = filter + (Post.user_id == author, )
     if publication == 'current':
@@ -642,7 +607,8 @@ def avisos_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', current_datetime=current_datetime, tagg=tagg, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
+    return render_template('/posts/index.html', current_datetime=current_datetime, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
+
 
 @postBP.route('/avisos/cadastrar', methods=['GET','POST'])
 def avisos_cadastrar():
@@ -673,7 +639,6 @@ def avisos_cadastrar():
                 post.image_id = form.image_id.data
 
             #adiciona a tag no banco
-            
             tags = form.tag.data
             array_tags = tags.split(',')
             for t in array_tags:
@@ -703,6 +668,7 @@ def avisos_cadastrar():
             db.session.rollback()
             flash('Erro ao tentar cadastrar o aviso', 'danger')
     return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form, configuration=configuration), 200
+
 
 @postBP.route('/avisos/editar/<int:id>', methods=['GET','POST'])
 def avisos_editar(id):
@@ -792,6 +758,7 @@ def avisos_editar(id):
 
     return render_template('/posts/formulario.html', titulo=titulo, form=form, post=post, configuration=configuration), 200
 
+
 @postBP.route('/avisos/deletar/<int:id>', methods=['GET', 'POST'])
 def avisos_deletar(id):
     configuration = Configuration.query.first()
@@ -820,7 +787,6 @@ def avisos_deletar(id):
     titulo = 'Avisos'
     pergunta = 'Deseja realmente excluir o aviso ' + post.title
     return render_template('/posts/deletar.html', titulo=titulo, pergunta=pergunta, postId=id, configuration=configuration), 200
-
 
 
 @postBP.route('/meus-posts')
