@@ -480,7 +480,8 @@ textarea.form-control{
 .blog-info-link li span{
     color: #999999;
 }
-.blog-info-link a{
+
+.blog-info-link a:hover{
     text-decoration: underline;
 }
 
@@ -598,11 +599,11 @@ textarea.form-control{
 }
 .post_marker.ad{
     color: #fff;
-    background-color: #f4284b;
+    background-color: #851878;
 }
 .post_marker.notice{
     color: #fff;
-    background-color: #f89d13;
+    background-color: #990000;
 }
 .post_marker.tags{
     color: #fff;
@@ -610,6 +611,31 @@ textarea.form-control{
     margin-top: 20px;
     
 }
+
+.badge-tag{
+    color: #58b4e6;
+    border: 1px solid #58b4e6;
+    background-color: transparent;
+}
+
+.badge-tag:hover{
+    color: white;
+    border: 1px solid #58b4e6; 
+    background-color: #58b4e6 !important; 
+}
+
+.btn-tag{
+    color: #58b4e6;
+    border: 1px solid #58b4e6;
+    background-color: transparent;
+}
+
+.btn-tag:hover{
+    color: white;
+    border: 1px solid #58b4e6; 
+    background-color: #58b4e6 !important; 
+}
+
 .cloud-tags{
     list-style: none;
     border-bottom: 1px dotted #ccc;

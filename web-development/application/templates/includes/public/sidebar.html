@@ -71,7 +71,7 @@
         <h4 class="widget_title">Trending Tags</h4>
         <p name="tags"></p>
             {% for t in tags %}
-                <a href="{{ url_for('site.tag', tag=t.id) }}" class="btn btn-secondary"  title="{{ t.name }}">
+                <a href="{{ url_for('site.tag', tag=t.id) }}" class="btn btn-tag"  title="{{ t.name }}">
                     {{ t.name }}
                 </a>
             {% endfor %}
