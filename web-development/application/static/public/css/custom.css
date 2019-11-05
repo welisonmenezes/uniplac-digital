@@ -716,3 +716,14 @@ textarea.form-control{
         margin-bottom: 20px;
     }
 }
+
+.post-comments{
+    margin-top: 25px;
+}
+.post-comments iframe{
+    width: 100% !important;
+}
+
+.clear{
+    clear: both;
+}

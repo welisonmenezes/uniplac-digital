@@ -4,6 +4,9 @@
 
 {% block content %}
 
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v5.0&appId=323691997731292&autoLogAppEvents=1"></script>
+
 <section class="banner_area">
     <div class="banner_inner d-flex align-items-center">
         <div class="container">
@@ -30,7 +33,9 @@
 <section class="blog_area single-post-area section_gap">
     <div class="container">
         <div class="row">
+
             <div class="col-lg-8 posts-list">
+
                 <div class="single-post">
                     {% if post.image_id != None%}
                     <div class="feature-img">
@@ -115,6 +120,7 @@
                             {{ post.content|safe }}
                         </p>
                     </div>
+                    <div class="clear"></div>
                     <hr />
                     <p class="tags">
                         <span class="inline-block"><strong>Tags:</strong></span>
@@ -122,11 +128,16 @@
                         <a href="{{ url_for('site.tag', tagg=tag.id) }}" value="{{tag.id}}" class="badge badge-secondary">{{ tag.name }}</a>
                         {% endfor %}
                     </p>
+                    <hr />
                 </div>
+
+                <div class="post-comments">
+                    <div class="fb-comments" data-href="{{request.url}}" data-width="100%" data-numposts="10"></div>
+                </div>
+
             </div>
             
             <div class="col-lg-4">
-                    
                 {% include 'includes/public/sidebar.html' %}
             </div>
 
