@@ -22,91 +22,7 @@ def noticias_cadastrar():
 
 @postBP.route('/noticias/editar/<int:id>', methods=['GET','POST'])
 def noticias_editar(id):
-    configuration = Configuration.query.first()
-
-    # pega o post pelo id e com o genero noticia
-    post = Post.query.filter(and_(Post.id==id, Post.genre=='news')).first()
-
-    if not post:
-        flash('A notícia não existe', 'info')
-        return redirect(url_for('posts.noticias_index'))
-
-    strtags = ''
-    for tag in post.tags:
-        strtags = strtags+str(tag.name)+','
-
-    if strtags.endswith(','):
-        strtags = strtags[:-1]
-        
-    titulo = 'Editar Notícia'
-    
-    if request.form:
-        # formulário preenchido pelo objeto request, caso exista
-        form = PostForm(request.form)
-    else:
-        # formulário vazio
-        form = PostForm()
-        form.tag.data = strtags
-
-        # preenche formulário com post recuperado pelo id
-        fillForm(form, post, 'news')
-
-    clearDateValidatons(post, form)
-
-    if form.validate_on_submit():
-        try:
-            post.title = form.title.data
-            post.description = form.description.data
-            post.content = form.content.data
-            post.genre = 'news'
-            post.status = form.status.data
-            post.entry_date = form.entry_date.data
-            post.departure_date = form.departure_date.data
-            post.image_id = None
-            if (form.image_id.data != ''):
-                post.image_id = form.image_id.data
-            #post.user_id = session.get('user_id', '')
-            post.category_id = None
-            if form.category_id.data != '':
-                post.category_id = form.category_id.data
-
-            id_tags=[]
-            #Edição de tags
-            for t in post.tags:
-                id_tags.append(t.id)
-            
-            for t in id_tags:   
-                tag=Tag.query.get(t)
-                post.tags.remove(tag)
-
-            tags = form.tag.data
-            array_tags = tags.split(',')
-
-            for t in array_tags:
-                if t.strip() == '':
-                    continue
-                tag = Tag.query.filter((Tag.name==t)).first()
-                if tag:
-                    post.tags.append(tag)
-        
-                else:
-                    tag = Tag(t)
-                    post.tags.append(tag)
-
-            # commita os dados na base de dados
-            db.session.commit()
-
-            app.logger.warning(' %s editou a noticia %s', session.get('user_name', ''), post.id)
-
-            # flash message e redireciona pra mesma tela para limpar o objeto request
-            flash('Notícia editada com sucesso', 'success')
-            return redirect(url_for('posts.noticias_editar', id=id))
-        except:
-            # remove qualquer vestígio do usuário da sessin e flash message
-            db.session.rollback()
-            flash('Erro ao tentar editar a notícia', 'danger')
-
-    return render_template('/posts/formulario.html', titulo=titulo, form=form, post=post, configuration=configuration), 200
+    return render_post_edit_by_type('news', 'Editar Notícia', id)
 
 
 @postBP.route('/noticias/deletar/<int:id>', methods=['GET', 'POST'])
@@ -151,111 +67,7 @@ def anuncios_cadastrar():
 
 @postBP.route('/anuncios/editar/<int:id>', methods=['GET','POST'])
 def anuncios_editar(id):
-    
-    configuration = Configuration.query.first()
-
-    # pega o post pelo id e com o genero anuncio
-    post = Post.query.filter(and_(Post.id==id, Post.genre=='ad')).first()
-
-    if not post:
-        flash('O anúncio não existe', 'info')
-        return redirect(url_for('posts.anuncios_index'))
-
-    # se for user nivel 4
-    if session.get('user_role', '') == 'user':
-        # se não for seu anuncio
-        if post.user_id != session.get('user_id', ''):
-            flash('Você não tem permissão para editar este anúncio', 'info')
-            return redirect(url_for('posts.anuncios_index'))
-        
-        # se anúncio não for pendente 
-        if post.status != 'pending':
-            flash('Este anúncio não pode ser mais editado', 'info')
-            return redirect(url_for('posts.anuncios_index'))
-
-    strtags = ''
-    for tag in post.tags:
-        strtags = strtags+str(tag.name)+','
-
-    if strtags.endswith(','):
-        strtags = strtags[:-1]
-
-    titulo = 'Editar Anúncio'
-
-    if request.form:
-        # formulário preenchido pelo objeto request, caso exista
-        form = PostForm(request.form)
-    else:
-        # formulário vazio
-        form = PostForm()
-        form.tag.data = strtags
-
-        # preenche formulário com post recuperado pelo id
-        fillForm(form, post, 'ad')
-
-    # se usuário nível 4, remove validator
-    if session.get('user_role', '') == 'user':
-        form.status.validators = []
-
-    clearDateValidatons(post, form)
-
-    if form.validate_on_submit():
-        try:
-            post.title = form.title.data
-            post.description = form.description.data
-            post.content = form.content.data
-            post.genre = 'ad'
-            if session.get('user_role', '') == 'user':
-                post.status = 'pending'
-            else:
-                post.status = form.status.data
-            post.entry_date = form.entry_date.data
-            post.departure_date = form.departure_date.data
-            post.image_id = None
-            if (form.image_id.data != ''):
-                post.image_id = form.image_id.data
-            #post.user_id = session.get('user_id', '')
-            post.category_id = None
-            if form.category_id.data != '':
-                post.category_id = form.category_id.data
-
-            id_tags=[]
-            #Edição de tags
-            for t in post.tags:
-                id_tags.append(t.id)
-            
-            for t in id_tags:   
-                tag=Tag.query.get(t)
-                post.tags.remove(tag)
-
-            tags = form.tag.data
-            array_tags = tags.split(',')
-
-            for t in array_tags:
-                if t.strip() == '':
-                    continue
-                tag = Tag.query.filter((Tag.name==t)).first()
-                if tag:
-                    post.tags.append(tag)
-        
-                else:
-                    tag = Tag(t)
-                    post.tags.append(tag)
-
-            # commita os dados na base de dados
-            db.session.commit()
-
-            app.logger.warning(' %s editou o anúncio %s', session.get('user_name', ''), post.id)
-
-            # flash message e redireciona pra mesma tela para limpar o objeto request
-            flash('Anúncio editado com sucesso', 'success')
-            return redirect(url_for('posts.anuncios_editar', id=id))
-        except:
-            # remove qualquer vestígio do usuário da sessin e flash message
-            db.session.rollback()
-            flash('Erro ao tentar editar o anúncio', 'danger')
-
-    return render_template('/posts/formulario.html', titulo=titulo, form=form, post=post, configuration=configuration), 200
+    return render_post_edit_by_type('ad', 'Editar Anúncio', id)
 
 
 @postBP.route('/anuncios/deletar/<int:id>', methods=['GET', 'POST'])
@@ -313,91 +125,7 @@ def avisos_cadastrar():
 
 @postBP.route('/avisos/editar/<int:id>', methods=['GET','POST'])
 def avisos_editar(id):
-    configuration = Configuration.query.first()
-    
-    # pega o post pelo id e com o genero anuncio
-    post = Post.query.filter(and_(Post.id==id, Post.genre=='notice')).first()
-
-    if not post:
-        flash('O aviso não existe', 'info')
-        return redirect(url_for('posts.avisos_index'))
-
-    strtags = ''
-    for tag in post.tags:
-        strtags = strtags+str(tag.name)+','
-
-    if strtags.endswith(','):
-        strtags = strtags[:-1]
-
-    titulo = 'Editar Aviso'
-
-    if request.form:
-        # formulário preenchido pelo objeto request, caso exista
-        form = PostForm(request.form)
-    else:
-        # formulário vazio
-        form = PostForm()
-        form.tag.data = strtags
-
-        # preenche formulário com post recuperado pelo id
-        fillForm(form, post, 'notice')
-
-    clearDateValidatons(post, form)
-    
-    if form.validate_on_submit():
-        try:
-            post.title = form.title.data
-            post.description = form.description.data
-            post.content = form.content.data
-            post.genre = 'notice'
-            post.status = form.status.data
-            post.entry_date = form.entry_date.data
-            post.departure_date = form.departure_date.data
-            post.image_id = None
-            if (form.image_id.data != ''):
-                post.image_id = form.image_id.data
-            #post.user_id = session.get('user_id', '')
-            post.category_id = None
-            if form.category_id.data != '':
-                post.category_id = form.category_id.data
-
-            id_tags=[]
-            #Edição de tags
-            for t in post.tags:
-                id_tags.append(t.id)
-            
-            for t in id_tags:   
-                tag=Tag.query.get(t)
-                post.tags.remove(tag)
-
-            tags = form.tag.data
-            array_tags = tags.split(',')
-
-            for t in array_tags:
-                if t.strip() == '':
-                    continue
-                tag = Tag.query.filter((Tag.name==t)).first()
-                if tag:
-                    post.tags.append(tag)
-        
-                else:
-                    tag = Tag(t)
-                    post.tags.append(tag)
-
-            # commita os dados na base de dados
-            db.session.commit()
-
-            app.logger.warning(' %s editou o aviso %s', session.get('user_name', ''), post.id)
-
-            # flash message e redireciona pra mesma tela para limpar o objeto request
-            flash('Aviso editado com sucesso', 'success')
-            return redirect(url_for('posts.avisos_editar', id=id))
-        except:
-            # remove qualquer vestígio do usuário da sessin e flash message
-            db.session.rollback()
-            flash('Erro ao tentar editar o aviso', 'danger')
-
-    return render_template('/posts/formulario.html', titulo=titulo, form=form, post=post, configuration=configuration), 200
+    return render_post_edit_by_type('notice', 'Editar Aviso', id)
 
 
 @postBP.route('/avisos/deletar/<int:id>', methods=['GET', 'POST'])
@@ -451,7 +179,7 @@ def fillForm(form, post, genre):
     form.category_id.data = str(post.category_id)
 
 
-
+# remove as validações de data
 def clearDateValidatons(post, form):
     if post.entry_date == form.entry_date.data:
         form.entry_date.validators = []
@@ -521,9 +249,14 @@ def render_post_list_by_type(post_type, title):
         filter = filter + (and_(Post.departure_date < current_datetime),)
     elif publication == 'scheduled':
         filter = filter + (and_(Post.entry_date > current_datetime),)
+
     if post_type != 'meus-posts':
         if author:
             filter = filter + (Post.user_id == author, )
+    
+    if post_type == 'ad':
+        if session.get('user_role', '') == 'user':
+            filter = filter + (Post.user_id == session.get('user_id', ''), )
 
     # gera o order_by
     if order == 'asc':
@@ -621,3 +354,137 @@ def render_post_register_by_type(post_type, title):
                 flash('Erro ao tentar cadastrar o anúncio', 'danger')
 
     return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form, configuration=configuration), 200
+
+
+# EDIÇÃO DE POSTS
+def render_post_edit_by_type(post_type, title, id):
+    configuration = Configuration.query.first()
+    titulo = title
+
+    # pega o post pelo id e com o genero noticia
+    post = Post.query.filter(and_(Post.id==id, Post.genre==post_type)).first()
+
+    if not post:
+        if post_type == 'news':
+            flash('A notícia solicitada não existe', 'info')
+            return redirect(url_for('posts.noticias_index'))
+        elif post_type == 'notice':
+            flash('O aviso solicitado não existe', 'info')
+            return redirect(url_for('posts.avisos_index'))
+        elif post_type == 'ad':
+            flash('O anúncio solicitado não existe', 'info')
+            return redirect(url_for('posts.anuncios_index'))
+
+    if post_type == 'ad':
+        # se for user nivel 4
+        if session.get('user_role', '') == 'user':
+            # se não for seu anuncio
+            if post.user_id != session.get('user_id', ''):
+                flash('Você não tem permissão para editar este anúncio', 'info')
+                return redirect(url_for('posts.anuncios_index'))
+            
+            # se anúncio não for pendente 
+            if post.status != 'pending':
+                flash('Este anúncio não pode ser mais editado', 'info')
+                return redirect(url_for('posts.anuncios_index'))
+
+    strtags = ''
+    for tag in post.tags:
+        strtags = strtags+str(tag.name)+','
+    if strtags.endswith(','):
+        strtags = strtags[:-1]
+
+    if request.form:
+        # formulário preenchido pelo objeto request, caso exista
+        form = PostForm(request.form)
+    else:
+        # formulário vazio
+        form = PostForm()
+        form.tag.data = strtags
+
+        # preenche formulário com post recuperado pelo id
+        fillForm(form, post, post_type)
+
+    if post_type == 'ad':
+        # se usuário nível 4, remove validator
+        if session.get('user_role', '') == 'user':
+            form.status.validators = []
+
+    clearDateValidatons(post, form)
+
+    if form.validate_on_submit():
+        try:
+            post.title = form.title.data
+            post.description = form.description.data
+            post.content = form.content.data
+            post.genre = post_type
+            post.entry_date = form.entry_date.data
+            post.departure_date = form.departure_date.data
+            
+            if post_type == 'ad':
+                if session.get('user_role', '') == 'user':
+                    post.status = 'pending'
+                else:
+                    post.status = form.status.data
+            else:
+                post.status = form.status.data
+                
+            post.image_id = None
+            if (form.image_id.data != ''):
+                post.image_id = form.image_id.data
+
+            post.category_id = None
+            if form.category_id.data != '':
+                post.category_id = form.category_id.data
+
+            id_tags=[]
+            for t in post.tags:
+                id_tags.append(t.id)
+            
+            for t in id_tags:   
+                tag=Tag.query.get(t)
+                post.tags.remove(tag)
+
+            tags = form.tag.data
+            array_tags = tags.split(',')
+
+            for t in array_tags:
+                if t.strip() == '':
+                    continue
+                tag = Tag.query.filter((Tag.name==t)).first()
+                if tag:
+                    post.tags.append(tag)
+        
+                else:
+                    tag = Tag(t)
+                    post.tags.append(tag)
+
+            # commita os dados na base de dados
+            db.session.commit()
+
+            if post_type == 'news':
+                app.logger.warning(' %s editou a noticia %s', session.get('user_name', ''), post.id)
+                flash('Notícia editada com sucesso', 'success')
+                return redirect(url_for('posts.noticias_editar', id=id))
+            elif post_type == 'notice':
+                app.logger.warning(' %s editou o aviso %s', session.get('user_name', ''), post.id)
+                flash('Aviso editado com sucesso', 'success')
+                return redirect(url_for('posts.avisos_editar', id=id))
+            elif post_type == 'ad':
+                app.logger.warning(' %s editou o anúncio %s', session.get('user_name', ''), post.id)
+                flash('Anúncio editado com sucesso', 'success')
+                return redirect(url_for('posts.anuncios_editar', id=id))
+        except:
+            # remove qualquer vestígio do usuário da sessin e flash message
+            db.session.rollback()
+            if post_type == 'news':
+                flash('Erro ao tentar editar a notícia', 'danger')
+            elif post_type == 'notice':
+                flash('Erro ao tentar editar o aviso', 'danger')
+            elif post_type == 'ad':
+                flash('Erro ao tentar editar o anúncio', 'danger')
+
+    return render_template('/posts/formulario.html', titulo=titulo, form=form, post=post, configuration=configuration), 200
+        
+    
+        
