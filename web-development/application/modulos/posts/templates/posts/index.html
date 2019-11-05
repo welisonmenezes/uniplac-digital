@@ -195,7 +195,7 @@
                                 <td>
                                     <strong class="table-label">Status de publicação: </strong>
                                     {% if post.entry_date <= current_datetime and post.departure_date >= current_datetime %}
-                                        <label class="badge badge-success">No Ar</label>
+                                        <label class="badge badge-success">Atual</label>
                                     {% elif post.departure_date < current_datetime %}
                                         <label class="badge badge-danger">Expirado</label>
                                     {% elif post.entry_date > current_datetime %}

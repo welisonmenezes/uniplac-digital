@@ -12,69 +12,7 @@ postBP = Blueprint('posts', __name__, url_prefix='/admin', template_folder='temp
 
 @postBP.route('/noticias')
 def noticias_index():
-    configuration = Configuration.query.first()
-    users = User.query.filter(or_(User.role == 'admin', User.role == 'editor')).all()
-    titulo = 'Notícias'
-
-    current_datetime = datetime.now()
-
-    # pega os argumentos da string, se existir, senão, seta valores padrão
-    page = '1' if (request.args.get('page') == None) else request.args.get('page')
-    name = '' if (request.args.get('name') == None) else request.args.get('name')
-    category = '' if (request.args.get('category') == None) else request.args.get('category')
-    status = '' if (request.args.get('status') == None) else request.args.get('status')
-    order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
-    order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
-    author = '' if (request.args.get('author') == None) else request.args.get('author')
-    publication = '' if (request.args.get('publication') == None) else request.args.get('publication')
-
-    # previne erro ao receber string
-    try:
-        page = int(page)
-    except:
-        page = 1
-
-    # previne erro ao recebe string inválida
-    if not order_by in ['id', 'title', 'created_at']:
-        order_by = 'id'
-
-    # previne erro ao recebe string inválida
-    if not order in ['desc', 'asc']:
-        order = 'desc'
-
-    # implementa o filtro se necessário
-    filter = (Post.genre == 'news', )
-    if category:
-        filter = filter + (Post.category_id == category,)
-    if name:
-        filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
-    if status:
-        filter = filter + (Post.status == status,)
-
-
-    if author:
-        filter = filter + (Post.user_id == author, )
-    if publication == 'current':
-        filter = filter + (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime),)
-    elif publication == 'expired':
-        filter = filter + (and_(Post.departure_date < current_datetime),)
-    elif publication == 'scheduled':
-        filter = filter + (and_(Post.entry_date > current_datetime),)
-
-    # gera o order_by
-    if order == 'asc':
-        query_order = asc(order_by)
-    else:
-        query_order = desc(order_by)
-
-    # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(query_order).paginate(page=page, per_page=10, error_out=False)
-    posts = paginate.items
-
-    categories = Category.query.filter()
-
-    return render_template('/posts/index.html', current_datetime=current_datetime, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
-
+    return render_post_list_by_type('news', 'Notícias')
 
 @postBP.route('/noticias/cadastrar', methods=['GET','POST'])
 def noticias_cadastrar():
@@ -258,71 +196,7 @@ def noticias_deletar(id):
 
 @postBP.route('/anuncios')
 def anuncios_index():
-    configuration = Configuration.query.first()
-    users = User.query.all()
-    titulo = 'Anúncios'
-
-    current_datetime = datetime.now()
-
-    # pega os argumentos da string, se existir, senão, seta valores padrão
-    page = '1' if (request.args.get('page') == None) else request.args.get('page')
-    name = '' if (request.args.get('name') == None) else request.args.get('name')
-    category = '' if (request.args.get('category') == None) else request.args.get('category')
-    status = '' if (request.args.get('status') == None) else request.args.get('status')
-    order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
-    order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
-    author = '' if (request.args.get('author') == None) else request.args.get('author')
-    publication = '' if (request.args.get('publication') == None) else request.args.get('publication')
-
-    # previne erro ao receber string
-    try:
-        page = int(page)
-    except:
-        page = 1
-
-    # previne erro ao recebe string inválida
-    if not order_by in ['id', 'title', 'created_at']:
-        order_by = 'id'
-
-    # previne erro ao recebe string inválida
-    if not order in ['desc', 'asc']:
-        order = 'desc'
-
-    # implementa o filtro se necessário
-    filter = (Post.genre == 'ad', )
-    if category:
-        filter = filter + (Post.category_id == category,)
-    if name:
-        filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
-    
-    if status:
-        filter = filter + (Post.status == status,)
-
-    if author:
-        filter = filter + (Post.user_id == author, )
-    if publication == 'current':
-        filter = filter + (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime),)
-    elif publication == 'expired':
-        filter = filter + (and_(Post.departure_date < current_datetime),)
-    elif publication == 'scheduled':
-        filter = filter + (and_(Post.entry_date > current_datetime),)
-
-    if session.get('user_role', '') == 'user':
-        filter = filter + (Post.user_id == session.get('user_id', ''), )
-
-    # gera o order_by
-    if order == 'asc':
-        query_order = asc(order_by)
-    else:
-        query_order = desc(order_by)
-
-    # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(query_order).paginate(page=page, per_page=10, error_out=False)
-    posts = paginate.items
-
-    categories = Category.query.filter()
-
-    return render_template('/posts/index.html', current_datetime=current_datetime ,categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
+    return render_post_list_by_type('ad', 'Anúncios')
 
 
 @postBP.route('/anuncios/cadastrar', methods=['GET','POST'])
@@ -547,67 +421,7 @@ def anuncios_deletar(id):
 
 @postBP.route('/avisos')
 def avisos_index():
-    configuration = Configuration.query.first()
-    users = User.query.filter(or_(User.role == 'admin', User.role == 'author')).all()
-    titulo = 'Avisos'
-
-    current_datetime = datetime.now()
-
-    # pega os argumentos da string, se existir, senão, seta valores padrão
-    page = '1' if (request.args.get('page') == None) else request.args.get('page')
-    name = '' if (request.args.get('name') == None) else request.args.get('name')
-    category = '' if (request.args.get('category') == None) else request.args.get('category')
-    status = '' if (request.args.get('status') == None) else request.args.get('status')
-    order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
-    order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
-    author = '' if (request.args.get('author') == None) else request.args.get('author')
-    publication = '' if (request.args.get('publication') == None) else request.args.get('publication')
-
-    # previne erro ao receber string
-    try:
-        page = int(page)
-    except:
-        page = 1
-
-    # previne erro ao recebe string inválida
-    if not order_by in ['id', 'title', 'created_at']:
-        order_by = 'id'
-
-    # previne erro ao recebe string inválida
-    if not order in ['desc', 'asc']:
-        order = 'desc'
-
-    # implementa o filtro se necessário
-    filter = (Post.genre == 'notice', )
-    if category:
-        filter = filter + (Post.category_id == category,)
-    if name:
-        filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
-    if status:
-        filter = filter + (Post.status == status,)
-
-    if author:
-        filter = filter + (Post.user_id == author, )
-    if publication == 'current':
-        filter = filter + (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime),)
-    elif publication == 'expired':
-        filter = filter + (and_(Post.departure_date < current_datetime),)
-    elif publication == 'scheduled':
-        filter = filter + (and_(Post.entry_date > current_datetime),)
-
-    # gera o order_by
-    if order == 'asc':
-        query_order = asc(order_by)
-    else:
-        query_order = desc(order_by)
-
-    # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(query_order).paginate(page=page, per_page=10, error_out=False)
-    posts = paginate.items
-
-    categories = Category.query.filter()
-
-    return render_template('/posts/index.html', current_datetime=current_datetime, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
+    return render_post_list_by_type('notice', 'Avisos')
 
 
 @postBP.route('/avisos/cadastrar', methods=['GET','POST'])
@@ -791,63 +605,7 @@ def avisos_deletar(id):
 
 @postBP.route('/meus-posts')
 def meus_posts():
-    configuration = Configuration.query.first()
-    titulo = 'Minhas Publicações'
-
-    current_datetime = datetime.now()
-
-    # pega os argumentos da string, se existir, senão, seta valores padrão
-    page = '1' if (request.args.get('page') == None) else request.args.get('page')
-    name = '' if (request.args.get('name') == None) else request.args.get('name')
-    category = '' if (request.args.get('category') == None) else request.args.get('category')
-    status = '' if (request.args.get('status') == None) else request.args.get('status')
-    order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
-    order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
-    publication = '' if (request.args.get('publication') == None) else request.args.get('publication')
-
-    # previne erro ao receber string
-    try:
-        page = int(page)
-    except:
-        page = 1
-
-    # previne erro ao recebe string inválida
-    if not order_by in ['id', 'title', 'created_at']:
-        order_by = 'id'
-
-    # previne erro ao recebe string inválida
-    if not order in ['desc', 'asc']:
-        order = 'desc'
-
-    # implementa o filtro se necessário
-    filter = (Post.user_id == session.get('user_id', ''), )
-    if category:
-        filter = filter + (Post.category_id == category,)
-    if name:
-        filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
-    if status:
-        filter = filter + (Post.status == status,)
-    if publication == 'current':
-        filter = filter + (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime),)
-    elif publication == 'expired':
-        filter = filter + (and_(Post.departure_date < current_datetime),)
-    elif publication == 'scheduled':
-        filter = filter + (and_(Post.entry_date > current_datetime),)
-
-    # gera o order_by
-    if order == 'asc':
-        query_order = asc(order_by)
-    else:
-        query_order = desc(order_by)
-
-    # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.filter(*filter).order_by(query_order).paginate(page=page, per_page=10, error_out=False)
-    posts = paginate.items
-
-    categories = Category.query.filter()
-
-    return render_template('/posts/index.html', current_datetime=current_datetime, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, fromUser=True, publication=publication), 200
-
+    return render_post_list_by_type('meus-posts', 'Minhas Publicações')
 
 
 # popula os campos do formuário
@@ -881,3 +639,73 @@ def clearDateValidatons(post, form):
         def nullValidate(self, field):
             return True
         form.departure_date.validate = nullValidate
+
+
+
+def render_post_list_by_type(post_type, title):
+    configuration = Configuration.query.first()
+    titulo = title
+    current_datetime = datetime.now()
+    categories = Category.query.filter()
+    users = None
+    if post_type != 'meus-posts':
+        users = User.query.filter(or_(User.role == 'admin', User.role == 'editor')).all()
+
+    # pega os argumentos da string, se existir, senão, seta valores padrão
+    page = '1' if (request.args.get('page') == None) else request.args.get('page')
+    name = '' if (request.args.get('name') == None) else request.args.get('name')
+    category = '' if (request.args.get('category') == None) else request.args.get('category')
+    status = '' if (request.args.get('status') == None) else request.args.get('status')
+    order_by = 'id' if (request.args.get('order_by') == None) else request.args.get('order_by')
+    order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
+    publication = '' if (request.args.get('publication') == None) else request.args.get('publication')
+    author = ''
+    if post_type != 'meus-posts':
+        author = '' if (request.args.get('author') == None) else request.args.get('author')
+
+    # previne erro ao receber string
+    try:
+        page = int(page)
+    except:
+        page = 1
+
+    # previne erro ao recebe string inválida
+    if not order_by in ['id', 'title', 'created_at']:
+        order_by = 'id'
+
+    # previne erro ao recebe string inválida
+    if not order in ['desc', 'asc']:
+        order = 'desc'
+
+    # implementa o filtro se necessário
+    if post_type != 'meus-posts':
+        filter = (Post.genre == post_type, )
+    else:
+        filter = (Post.user_id == session.get('user_id', ''), )
+    if category:
+        filter = filter + (Post.category_id == category,)
+    if name:
+        filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
+    if status:
+        filter = filter + (Post.status == status,)
+    if publication == 'current':
+        filter = filter + (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime),)
+    elif publication == 'expired':
+        filter = filter + (and_(Post.departure_date < current_datetime),)
+    elif publication == 'scheduled':
+        filter = filter + (and_(Post.entry_date > current_datetime),)
+    if post_type != 'meus-posts':
+        if author:
+            filter = filter + (Post.user_id == author, )
+
+    # gera o order_by
+    if order == 'asc':
+        query_order = asc(order_by)
+    else:
+        query_order = desc(order_by)
+
+    # consulta o banco de dados retornando o paginate e os dados
+    paginate = Post.query.filter(*filter).order_by(query_order).paginate(page=page, per_page=10, error_out=False)
+    posts = paginate.items
+
+    return render_template('/posts/index.html', current_datetime=current_datetime, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, publication=publication, users=users), 200
