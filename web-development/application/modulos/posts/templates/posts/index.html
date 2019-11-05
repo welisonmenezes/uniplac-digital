@@ -176,9 +176,8 @@
                                     {% endif %}
                                 </th>
                                 <th>Status</th>
-                                {% if fromUser %}
+                                <th>Status de publicação</th>
                                 <th>Tipo</th>
-                                {% endif %}
                                 <th>Ver/Editar/Deletar</th>
                             </tr>
                         </thead>
@@ -193,7 +192,16 @@
                                     <strong class="table-label">Status: </strong>
                                     <label class="badge {{post.status}}">{{ post.status }}</label>
                                 </td>
-                                {% if fromUser %}
+                                <td>
+                                    <strong class="table-label">Status de publicação: </strong>
+                                    {% if post.entry_date <= current_datetime and post.departure_date >= current_datetime %}
+                                        <label class="badge badge-success">No Ar</label>
+                                    {% elif post.departure_date < current_datetime %}
+                                        <label class="badge badge-danger">Expirado</label>
+                                    {% elif post.entry_date > current_datetime %}
+                                        <label class="badge badge-warning">Agendado</label>
+                                    {% endif %}
+                                </td>
                                 <td>
                                     <strong class="table-label">Tipo: </strong>
                                     <label class="badge badge-info">
@@ -202,7 +210,6 @@
                                         {% if post.genre =='news' %}Notícia{% endif %}
                                     </label>
                                 </td>
-                                {% endif %}
                                 <td>
                                     {# Diferenciando pelo tipo de post #}
                                     {% if post.genre == 'news': %}

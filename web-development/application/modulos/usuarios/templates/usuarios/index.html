@@ -102,10 +102,7 @@
                                 <td><strong class="table-label">Nome: </strong> {{ user.first_name }} {{ user.last_name }}</td>
                                 <td>
                                     <strong class="table-label">Nível: </strong>
-                                    <label class="badge badge-warning">
-                                        <i class="mdi mdi-account"></i>
-                                        {{ user.role }}
-                                    </label>
+                                    <label class="badge badge-info">{{ user.role }}</label>
                                 </td>
                                 <td>
                                     <a href="{{ url_for('usuarios.editar', id=user.id) }}"

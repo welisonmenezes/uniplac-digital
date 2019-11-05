@@ -323,3 +323,7 @@ select.form-control, .dataTables_wrapper select{
 .dash-links li:first-child::before{
     display: none;
 }
+
+.table .badge{
+    padding: 3px;
+}
