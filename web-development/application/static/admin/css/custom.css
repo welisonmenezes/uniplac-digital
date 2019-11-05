@@ -310,6 +310,9 @@ select.form-control, .dataTables_wrapper select{
     top: 1px;
     right: -7px;
 }
+.formm-search .btn{
+    line-height: 17px;
+}
 
 .dash-links li{
     display: inline-block;
