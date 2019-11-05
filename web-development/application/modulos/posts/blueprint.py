@@ -78,7 +78,7 @@ def noticias_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', tagg=tagg, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
+    return render_template('/posts/index.html', current_datetime=current_datetime, tagg=tagg, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
 
 
 @postBP.route('/noticias/cadastrar', methods=['GET','POST'])
@@ -346,7 +346,7 @@ def anuncios_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html',tagg=tagg ,categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
+    return render_template('/posts/index.html', current_datetime=current_datetime, tagg=tagg ,categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
 
 @postBP.route('/anuncios/cadastrar', methods=['GET','POST'])
 def anuncios_cadastrar():
@@ -642,7 +642,7 @@ def avisos_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', tagg=tagg, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
+    return render_template('/posts/index.html', current_datetime=current_datetime, tagg=tagg, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
 
 @postBP.route('/avisos/cadastrar', methods=['GET','POST'])
 def avisos_cadastrar():
@@ -880,7 +880,7 @@ def meus_posts():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, fromUser=True, publication=publication), 200
+    return render_template('/posts/index.html', current_datetime=current_datetime, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, fromUser=True, publication=publication), 200
 
 
 

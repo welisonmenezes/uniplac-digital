@@ -176,6 +176,7 @@
                                     {% endif %}
                                 </th>
                                 <th>Status</th>
+                                <th>Status de publicação</th>
                                 {% if fromUser %}
                                 <th>Tipo</th>
                                 {% endif %}
@@ -192,6 +193,15 @@
                                 <td>
                                     <strong class="table-label">Status: </strong>
                                     <label class="badge {{post.status}}">{{ post.status }}</label>
+                                </td>
+                                <td>
+                                    {% if post.entry_date <= current_datetime and post.departure_date >= current_datetime %}
+                                        <label class="badge badge-info">No Ar</label>
+                                    {% elif post.departure_date < current_datetime %}
+                                        <label class="badge badge-info">Expirado</label>
+                                    {% elif post.entry_date > current_datetime %}
+                                        <label class="badge badge-info">Agendado</label>
+                                    {% endif %}
                                 </td>
                                 {% if fromUser %}
                                 <td>
