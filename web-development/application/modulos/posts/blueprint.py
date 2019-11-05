@@ -27,32 +27,7 @@ def noticias_editar(id):
 
 @postBP.route('/noticias/deletar/<int:id>', methods=['GET', 'POST'])
 def noticias_deletar(id):
-    configuration = Configuration.query.first()
-
-    # pega o post pelo id e pelo genero notica
-    post = Post.query.filter(and_(Post.id==id, Post.genre=='news')).first()
-
-    # se não existe a noticia, bye
-    if not post:
-        flash('A notícia não existe', 'info')
-        return redirect(url_for('posts.noticias_index'))
-
-    if request.method == 'POST':
-        postId = request.values.get('postId')
-        if postId:
-            try:
-                app.logger.warning(' %s deletou a notícia %s', session.get('user_name', ''), post.id)
-                db.session.delete(post)
-                db.session.commit()
-                flash('Notícia deletada com sucesso', 'success')
-                return redirect(url_for('posts.noticias_index'))
-            except:
-                db.session.rollback()
-                flash('Erro ao tentar deletar a notícia', 'danger')
-            
-    titulo = 'Notícias'
-    pergunta = 'Deseja realmente excluir a notícia ' + post.title
-    return render_template('/posts/deletar.html', titulo=titulo, pergunta=pergunta, postId=id, configuration=configuration), 200
+    return render_post_delete_by_type('news', 'Deseja realmente excluir a notícia', id)
 
 
 @postBP.route('/anuncios')
@@ -72,45 +47,7 @@ def anuncios_editar(id):
 
 @postBP.route('/anuncios/deletar/<int:id>', methods=['GET', 'POST'])
 def anuncios_deletar(id):
-    #TODO se usuario comum permitir deletar apenas o próprio anúnico e se ainda estiver pendente
-    configuration = Configuration.query.first()
-
-    # pega o post pelo id e pelo genero anuncio
-    post = Post.query.filter(and_(Post.id==id, Post.genre=='ad')).first()
-
-    # se for user nivel 4
-    if session.get('user_role', '') == 'user':
-        # se não for seu anuncio
-        if post.user_id != session.get('user_id', ''):
-            flash('Você não tem permissão para deletar este anúncio', 'info')
-            return redirect(url_for('posts.anuncios_index'))
-        
-        # se anúncio não for pendente 
-        if post.status != 'pending':
-            flash('Este anúncio não pode ser mais deletado', 'info')
-            return redirect(url_for('posts.anuncios_index'))
-
-    # se não existe a noticia, bye
-    if not post:
-        flash('O anúncio não existe', 'info')
-        return redirect(url_for('posts.anuncios_index'))
-
-    if request.method == 'POST':
-        postId = request.values.get('postId')
-        if postId:
-            try:
-                app.logger.warning(' %s deletou o anúncio %s', session.get('user_name', ''), post.id)
-                db.session.delete(post)
-                db.session.commit()
-                flash('Anúncio deletado com sucesso', 'success')
-                return redirect(url_for('posts.anuncios_index'))
-            except:
-                db.session.rollback()
-                flash('Erro ao tentar deletar o anúncio', 'danger')
-            
-    titulo = 'Anúncios'
-    pergunta = 'Deseja realmente excluir o anúncio ' + post.title
-    return render_template('/posts/deletar.html', titulo=titulo, pergunta=pergunta, postId=id, configuration=configuration), 200
+    return render_post_delete_by_type('ad', 'Deseja realmente excluir o anúncio', id)
 
 
 @postBP.route('/avisos')
@@ -130,32 +67,7 @@ def avisos_editar(id):
 
 @postBP.route('/avisos/deletar/<int:id>', methods=['GET', 'POST'])
 def avisos_deletar(id):
-    configuration = Configuration.query.first()
-
-    # pega o post pelo id e pelo genero anuncio
-    post = Post.query.filter(and_(Post.id==id, Post.genre=='notice')).first()
-
-    # se não existe a noticia, bye
-    if not post:
-        flash('O aviso não existe', 'info')
-        return redirect(url_for('posts.avisos_index'))
-
-    if request.method == 'POST':
-        postId = request.values.get('postId')
-        if postId:
-            try:
-                app.logger.warning(' %s deletou o aviso %s', session.get('user_name', ''), post.id)
-                db.session.delete(post)
-                db.session.commit()
-                flash('Aviso deletado com sucesso', 'success')
-                return redirect(url_for('posts.avisos_index'))
-            except:
-                db.session.rollback()
-                flash('Erro ao tentar deletar o aviso', 'danger')
-            
-    titulo = 'Avisos'
-    pergunta = 'Deseja realmente excluir o aviso ' + post.title
-    return render_template('/posts/deletar.html', titulo=titulo, pergunta=pergunta, postId=id, configuration=configuration), 200
+    return render_post_delete_by_type('notice', 'Deseja realmente excluir o aviso', id)
 
 
 @postBP.route('/meus-posts')
@@ -361,8 +273,8 @@ def render_post_edit_by_type(post_type, title, id):
     configuration = Configuration.query.first()
     titulo = title
 
-    # pega o post pelo id e com o genero noticia
-    post = Post.query.filter(and_(Post.id==id, Post.genre==post_type)).first()
+    # pega o post pelo id 
+    post = Post.query.filter(and_(Post.id==id)).first()
 
     if not post:
         if post_type == 'news':
@@ -487,4 +399,70 @@ def render_post_edit_by_type(post_type, title, id):
     return render_template('/posts/formulario.html', titulo=titulo, form=form, post=post, configuration=configuration), 200
         
     
-        
+# DELEÇÃO DE POSTS
+def render_post_delete_by_type(post_type, title, id):
+    configuration = Configuration.query.first()
+
+    # pega o post pelo id
+    post = Post.query.filter(and_(Post.id==id)).first()
+
+    # se não existe a noticia, bye
+    if not post:
+        if post_type == 'news':
+            flash('A notícia solicitada não existe', 'info')
+            return redirect(url_for('posts.noticias_index'))
+        elif post_type == 'notice':
+            flash('O aviso solicitado não existe', 'info')
+            return redirect(url_for('posts.avisos_index'))
+        elif post_type == 'ad':
+            flash('O anúncio solicitado não existe', 'info')
+            return redirect(url_for('posts.anuncios_index'))
+
+    if post_type == 'ad':
+        # se for user nivel 4
+        if session.get('user_role', '') == 'user':
+            # se não for seu anuncio
+            if post.user_id != session.get('user_id', ''):
+                flash('Você não tem permissão para deletar este anúncio', 'info')
+                return redirect(url_for('posts.anuncios_index'))
+            
+            # se anúncio não for pendente 
+            if post.status != 'pending':
+                flash('Este anúncio não pode ser mais deletado', 'info')
+                return redirect(url_for('posts.anuncios_index'))
+
+    pergunta = title + ' ' + post.title
+
+    if request.method == 'POST':
+        postId = request.values.get('postId')
+        if postId:
+            try:
+
+                # deleta as tags relacionadas
+                db.engine.execute('DELETE FROM tagpost WHERE post_id =' + str(post.id))
+                db.session.commit()
+
+                db.session.delete(post)
+                db.session.commit()
+                if post_type == 'news':
+                    app.logger.warning(' %s deletou a notícia %s', session.get('user_name', ''), post.id)
+                    flash('Notícia deletada com sucesso', 'success')
+                    return redirect(url_for('posts.noticias_index'))
+                elif post_type == 'notice':
+                    app.logger.warning(' %s deletou o aviso %s', session.get('user_name', ''), post.id)
+                    flash('Aviso deletado com sucesso', 'success')
+                    return redirect(url_for('posts.avisos_index'))
+                elif post_type == 'ad':
+                    app.logger.warning(' %s deletou o anúncio %s', session.get('user_name', ''), post.id)
+                    flash('Anúncio deletado com sucesso', 'success')
+                    return redirect(url_for('posts.anuncios_index'))
+            except:
+                db.session.rollback()
+                if post_type == 'news':
+                    flash('Erro ao tentar deletar a notícia', 'danger')
+                elif post_type == 'notice':
+                    flash('Erro ao tentar deletar o aviso', 'danger')
+                elif post_type == 'ad':
+                    flash('Erro ao tentar deletar o anúncio', 'danger')
+            
+    return render_template('/posts/deletar.html', post_type=post_type, pergunta=pergunta, postId=id, configuration=configuration), 200

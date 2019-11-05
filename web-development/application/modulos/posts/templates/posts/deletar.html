@@ -1,8 +1,8 @@
 {% extends 'base-admin.html' %}
 
-{% block title%}
+{% block title %}
 {{ pergunta }}
-{% endblock title%}
+{% endblock title %}
 
 {% block content %}
 
@@ -39,19 +39,19 @@
         <h4>{{ pergunta }}</h4>
         <hr>
         {# Diferenciando pelo tipo de post #}
-        {% if(titulo == 'Notícias'): %}
+        {% if(post_type == 'news'): %}
         <form action="{{ url_for('posts.noticias_deletar', id=postId) }}" method="POST">
             <button type="submit" class="btn btn-danger">Excluir</button>
             <input type="hidden" name="postId" value="{{ postId }}">
             <a href="{{ url_for('posts.noticias_index') }}" class="btn btn-secondary" title="Cancelar">Cancelar</a>
         </form>
-        {% elif(titulo == 'Anúncios'): %}
+        {% elif(post_type == 'ad'): %}
         <form action="{{ url_for('posts.anuncios_deletar', id=postId) }}" method="POST">
             <button type="submit" class="btn btn-danger">Excluir</button>
             <input type="hidden" name="postId" value="{{ postId }}">
             <a href="{{ url_for('posts.anuncios_index') }}" class="btn btn-secondary" title="Cancelar">Cancelar</a>
         </form>
-        {% elif(titulo == 'Avisos'): %}
+        {% elif(post_type == 'notice'): %}
         <form action="{{ url_for('posts.avisos_deletar', id=postId) }}" method="POST">
             <button type="submit" class="btn btn-danger">Excluir</button>
             <input type="hidden" name="postId" value="{{ postId }}">
