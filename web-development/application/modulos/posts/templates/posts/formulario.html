@@ -1,6 +1,6 @@
 {% extends 'base-admin.html' %}
 
-{% from "macros/formFields.html" import render_field, render_file_field, render_hidden_field, render_field_date %}
+{% from "macros/formFields.html" import render_field, render_file_field, render_hidden_field, render_field_date, render_tags_field %}
 
 {% block title%}
 {{ titulo }}
@@ -45,13 +45,14 @@
                     {{ form.csrf_token }}
                     {{ render_field(form.title, 'required', '100') }}
                     {{ render_field(form.description, 'required', '255') }}
+                    {{ render_tags_field(form.tag , '', '100', 'tagsinput') }}
                     <div class="rich-text-editor-container">
                         {{ render_field(form.content, 'required') }}
                         <input type="file" name="imagesContent" id="contentImageSender" accept=".jpg,.jpeg,.png,.gif" />
                     </div>
                     {{ render_field(form.category_id, '') }}
                     {% if session.get('user_role', '') != 'user'  %}
-                        {{ render_field(form.status, 'required') }}
+                    {{ render_field(form.status, 'required') }}
                     {% endif %}
                     <div class="row">
                         <div class="col-md-6 wrap-date">
@@ -100,19 +101,22 @@
                     <button type="button" class="btn btn-light"
                         onClick="history.go(-1); return false;">Cancelar</button>
                     {% if post %}
-                        {% if post.genre == 'news' %}
-                            <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" class="btn" target="_blank" title="{{ post.title }}">
-                                <i class="mdi mdi-television-guide view"></i> Ver no site
-                            </a>
-                        {% elif post.genre == 'ad' %}
-                            <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" class="btn" target="_blank" title="{{ post.title }}">
-                                <i class="mdi mdi-television-guide view"></i> Ver no site
-                            </a>
-                        {% elif post.genre == 'notice' %}
-                            <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" class="btn" target="_blank" title="{{ post.title }}">
-                                <i class="mdi mdi-television-guide view"></i> Ver no site
-                            </a>
-                        {% endif %}
+                    {% if post.genre == 'news' %}
+                    <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" class="btn" target="_blank"
+                        title="{{ post.title }}">
+                        <i class="mdi mdi-television-guide view"></i> Ver no site
+                    </a>
+                    {% elif post.genre == 'ad' %}
+                    <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" class="btn" target="_blank"
+                        title="{{ post.title }}">
+                        <i class="mdi mdi-television-guide view"></i> Ver no site
+                    </a>
+                    {% elif post.genre == 'notice' %}
+                    <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" class="btn" target="_blank"
+                        title="{{ post.title }}">
+                        <i class="mdi mdi-television-guide view"></i> Ver no site
+                    </a>
+                    {% endif %}
                     {% endif %}
                 </form>
             </div>
@@ -224,6 +228,12 @@
     src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/special_characters.min.js') }}"></script>
 <script type="text/javascript"
     src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/word_paste.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='admin/distt/bootstrap-tagsinput.min.js') }}">
+</script>
+
+
+
+
 <script>
     var contentArea = document.getElementById('content');
     if (contentArea) {
@@ -268,15 +278,15 @@
                     var reader = new FileReader();
                     reader.onloadend = () => {
                         fetch(GLOBALS.BASE_URL + 'api/image', {
-                            method: 'POST',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                image: reader.result
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    image: reader.result
+                                })
                             })
-                        })
                             .then(data => data.json())
                             .then(data => {
                                 if (data && data.id) {
@@ -305,6 +315,11 @@
         $('#modalMessageText').html(text);
         $('#modalMessages').modal('show');
     };
+
+    //tags
+    var tag = $('#tag');
+    tag.tagsinput({});
+
 </script>
 {% endblock especifcscripts %}
 {% block footer_script %}

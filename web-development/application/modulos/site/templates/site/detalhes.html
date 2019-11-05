@@ -115,9 +115,18 @@
                             {{ post.content|safe }}
                         </p>
                     </div>
+                    <hr />
+                    <p class="tags">
+                        <span class="inline-block"><strong>Tags:</strong></span>
+                        {% for tag in post.tags %}
+                        <a href="{{ url_for('site.tag', tagg=tag.id) }}" value="{{tag.id}}" class="badge badge-secondary">{{ tag.name }}</a>
+                        {% endfor %}
+                    </p>
                 </div>
             </div>
+            
             <div class="col-lg-4">
+                    
                 {% include 'includes/public/sidebar.html' %}
             </div>
 

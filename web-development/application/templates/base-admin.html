@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/base/vendor.bundle.base.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/cropper.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/lightbox.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/distt/bootstrap-tagsinput.css') }}">
+
+
 
     {% block especifcstyles %}{% endblock especifcstyles %}
 
@@ -90,6 +93,7 @@
     <script src="{{ url_for('static', filename='admin/js/custom.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/image-upload.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/dist/vanilla-validator.concat.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='admin/distt/bootstrap-tagsinput.min.js') }}"></script>
     <script>
         $(window).on('load', function () {
             setTimeout(function () {

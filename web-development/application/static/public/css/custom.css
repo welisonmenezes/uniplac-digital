@@ -216,6 +216,18 @@
     color: #26507e;
 }
 
+.single-blog .blog_details{
+    margin-bottom: 25px;
+}
+
+.single-post .tags{
+    margin-top: 25px;
+}
+.single-post .tags .badge{
+    font-weight: normal;
+    padding: 5px;
+}
+
 .comments-area .btn-reply:hover {
     color: #26507e;
 }
@@ -591,6 +603,18 @@ textarea.form-control{
 .post_marker.notice{
     color: #fff;
     background-color: #f89d13;
+}
+.post_marker.tags{
+    color: #fff;
+    background-color: #979797;
+    margin-top: 20px;
+    
+}
+.cloud-tags{
+    list-style: none;
+    border-bottom: 1px dotted #ccc;
+    padding: 13px;
+
 }
 .date{
     margin-left: 10px;

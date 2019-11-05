@@ -53,6 +53,7 @@ app.register_blueprint(loginBP)
 app.register_blueprint(siteBP)
 app.register_blueprint(dashboardBP)
 app.register_blueprint(apiBP)
+app.register_blueprint(tagBP)
 
 
 

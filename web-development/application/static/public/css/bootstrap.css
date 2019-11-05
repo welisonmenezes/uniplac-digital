@@ -2433,7 +2433,8 @@ textarea.form-control {
     user-select: none;
     border: 1px solid transparent;
     padding: .375rem .75rem;
-    font-size: 1rem;
+    margin-bottom: 1%;
+    font-size: smaller  ;
     line-height: 1.5;
     border-radius: .25rem;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
@@ -2511,13 +2512,16 @@ fieldset:disabled a.btn {
 .btn-secondary {
     color: #fff;
     background-color: #6c757d;
-    border-color: #6c757d
+    border-color: #6c757d;
+    display: inline-block;
+    font-size: smaller;
+    margin-bottom: 1%;
 }
 
 .btn-secondary:hover {
     color: #fff;
     background-color: #5a6268;
-    border-color: #545b62
+    border-color: #545b62;
 }
 
 .btn-secondary.focus,

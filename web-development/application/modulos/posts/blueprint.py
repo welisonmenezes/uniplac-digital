@@ -1,9 +1,11 @@
 import os
 from flask import current_app, Blueprint, render_template, request, url_for, flash, session, redirect
 from modulos.posts.formularios import PostForm
+from modulos.tags.formularios import TagForm
+
 from app import app
 from sqlalchemy import desc, or_, and_, asc
-from database.Model import Configuration, db, Post, Category, User
+from database.Model import Configuration, db, Post, Category, User, Tag, TagPost
 from datetime import datetime
 
 postBP = Blueprint('posts', __name__, url_prefix='/admin', template_folder='templates', static_folder='static')
@@ -25,6 +27,7 @@ def noticias_index():
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
     author = '' if (request.args.get('author') == None) else request.args.get('author')
     publication = '' if (request.args.get('publication') == None) else request.args.get('publication')
+    tagg = '' if (request.args.get('tagg') == None) else request.args.get('tagg')
 
     # previne erro ao receber string
     try:
@@ -48,6 +51,12 @@ def noticias_index():
         filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
     if status:
         filter = filter + (Post.status == status,)
+
+    if tagg:
+        for tag in post.tags:
+            if tag.id == tagg:
+                filter = filter + (tag.id == tagg)
+
     if author:
         filter = filter + (Post.user_id == author, )
     if publication == 'current':
@@ -69,7 +78,7 @@ def noticias_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
+    return render_template('/posts/index.html', tagg=tagg, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
 
 
 @postBP.route('/noticias/cadastrar', methods=['GET','POST'])
@@ -98,6 +107,22 @@ def noticias_cadastrar():
             
             if form.image_id.data != '':
                 post.image_id = form.image_id.data
+            
+            #adiciona a tag no banco
+            
+            tags = form.tag.data
+            array_tags = tags.split(',')
+            for t in array_tags:
+                if t.strip() == '':
+                    continue
+                tag = Tag.query.filter((Tag.name==t)).first()
+                if tag:
+                    post.tags.append(tag)
+        
+                else:
+                    tag = Tag(t)
+                    post.tags.append(tag)
+
 
             if form.category_id.data != '':
                 post.category_id = form.category_id.data
@@ -105,6 +130,8 @@ def noticias_cadastrar():
             # adiciona e commita a categoria na base de dados
             db.session.add(post)
             db.session.commit()
+
+
 
             app.logger.warning(' %s cadastrou a noticia %s', session.get('user_name', ''), post.title)
 
@@ -128,6 +155,15 @@ def noticias_editar(id):
         flash('A notícia não existe', 'info')
         return redirect(url_for('posts.noticias_index'))
 
+    
+    strtags = ''
+    for tag in post.tags:
+        strtags = strtags+str(tag.name)+','
+
+    if strtags.endswith(','):
+        strtags = strtags[:-1]
+        
+
     titulo = 'Editar Notícia'
     
     if request.form:
@@ -136,9 +172,14 @@ def noticias_editar(id):
     else:
         # formulário vazio
         form = PostForm()
+        form.tag.data = strtags
 
         # preenche formulário com post recuperado pelo id
         fillForm(form, post, 'news')
+
+
+    
+
 
     clearDateValidatons(post, form)
 
@@ -158,6 +199,31 @@ def noticias_editar(id):
             post.category_id = None
             if form.category_id.data != '':
                 post.category_id = form.category_id.data
+
+                           
+
+            id_tags=[]
+            #Edição de tags
+            for t in post.tags:
+                id_tags.append(t.id)
+            
+            for t in id_tags:   
+                tag=Tag.query.get(t)
+                post.tags.remove(tag)
+
+            tags = form.tag.data
+            array_tags = tags.split(',')
+
+            for t in array_tags:
+                if t.strip() == '':
+                    continue
+                tag = Tag.query.filter((Tag.name==t)).first()
+                if tag:
+                    post.tags.append(tag)
+        
+                else:
+                    tag = Tag(t)
+                    post.tags.append(tag)
 
             # commita os dados na base de dados
             db.session.commit()
@@ -221,6 +287,8 @@ def anuncios_index():
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
     author = '' if (request.args.get('author') == None) else request.args.get('author')
     publication = '' if (request.args.get('publication') == None) else request.args.get('publication')
+    tagg = '' if (request.args.get('tagg') == None) else request.args.get('tagg')
+
 
     # previne erro ao receber string
     try:
@@ -242,8 +310,18 @@ def anuncios_index():
         filter = filter + (Post.category_id == category,)
     if name:
         filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
+    
+    
+    
     if status:
         filter = filter + (Post.status == status,)
+
+
+    if tagg:
+        for tag in post.tags:
+            if tag.id == tagg:
+                filter = filter + (tag.id == tagg)
+
     if author:
         filter = filter + (Post.user_id == author, )
     if publication == 'current':
@@ -268,7 +346,7 @@ def anuncios_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
+    return render_template('/posts/index.html',tagg=tagg ,categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
 
 @postBP.route('/anuncios/cadastrar', methods=['GET','POST'])
 def anuncios_cadastrar():
@@ -279,6 +357,8 @@ def anuncios_cadastrar():
     
     if session.get('user_role', '') == 'user':
         form.status.validators = []
+
+    
         
     if form.validate_on_submit():
         try:
@@ -306,9 +386,24 @@ def anuncios_cadastrar():
             if form.image_id.data != '':
                 post.image_id = form.image_id.data
 
+
+            #adiciona a tag no banco
+            
+            tags = form.tag.data
+            array_tags = tags.split(',')
+            for t in array_tags:
+                if t.strip() == '':
+                    continue
+                tag = Tag.query.filter((Tag.name==t)).first()
+                if tag:
+                    post.tags.append(tag)
+        
+                else:
+                    tag = Tag(t)
+                    post.tags.append(tag)
+
             if form.category_id.data != '':
                 post.category_id = form.category_id.data
-
             # adiciona e commita a categoria na base de dados
             db.session.add(post)
             db.session.commit()
@@ -348,6 +443,13 @@ def anuncios_editar(id):
             flash('Este anúncio não pode ser mais editado', 'info')
             return redirect(url_for('posts.anuncios_index'))
 
+    strtags = ''
+    for tag in post.tags:
+        strtags = strtags+str(tag.name)+','
+
+    if strtags.endswith(','):
+        strtags = strtags[:-1]
+
 
     titulo = 'Editar Anúncio'
 
@@ -357,6 +459,7 @@ def anuncios_editar(id):
     else:
         # formulário vazio
         form = PostForm()
+        form.tag.data = strtags
 
         # preenche formulário com post recuperado pelo id
         fillForm(form, post, 'ad')
@@ -386,6 +489,30 @@ def anuncios_editar(id):
             post.category_id = None
             if form.category_id.data != '':
                 post.category_id = form.category_id.data
+
+
+            id_tags=[]
+            #Edição de tags
+            for t in post.tags:
+                id_tags.append(t.id)
+            
+            for t in id_tags:   
+                tag=Tag.query.get(t)
+                post.tags.remove(tag)
+
+            tags = form.tag.data
+            array_tags = tags.split(',')
+
+            for t in array_tags:
+                if t.strip() == '':
+                    continue
+                tag = Tag.query.filter((Tag.name==t)).first()
+                if tag:
+                    post.tags.append(tag)
+        
+                else:
+                    tag = Tag(t)
+                    post.tags.append(tag)
 
             # commita os dados na base de dados
             db.session.commit()
@@ -462,6 +589,8 @@ def avisos_index():
     order = 'desc' if (request.args.get('order') == None) else request.args.get('order')
     author = '' if (request.args.get('author') == None) else request.args.get('author')
     publication = '' if (request.args.get('publication') == None) else request.args.get('publication')
+    tagg = '' if (request.args.get('tagg') == None) else request.args.get('tagg')
+
 
     # previne erro ao receber string
     try:
@@ -485,6 +614,13 @@ def avisos_index():
         filter = filter + (or_(Post.title.like('%'+name+'%'), Post.description.like('%'+name+'%'), Post.content.like('%'+name+'%')),)
     if status:
         filter = filter + (Post.status == status,)
+
+    if tagg:
+        for tag in post.tags:
+            if tag.id == tagg:
+                filter = filter + (tag.id == tagg)
+
+
     if author:
         filter = filter + (Post.user_id == author, )
     if publication == 'current':
@@ -506,7 +642,7 @@ def avisos_index():
 
     categories = Category.query.filter()
 
-    return render_template('/posts/index.html', categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
+    return render_template('/posts/index.html', tagg=tagg, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, users=users, author=author, publication=publication), 200
 
 @postBP.route('/avisos/cadastrar', methods=['GET','POST'])
 def avisos_cadastrar():
@@ -536,9 +672,23 @@ def avisos_cadastrar():
             if form.image_id.data != '':
                 post.image_id = form.image_id.data
 
+            #adiciona a tag no banco
+            
+            tags = form.tag.data
+            array_tags = tags.split(',')
+            for t in array_tags:
+                if t.strip() == '':
+                    continue
+                tag = Tag.query.filter((Tag.name==t)).first()
+                if tag:
+                    post.tags.append(tag)
+        
+                else:
+                    tag = Tag(t)
+                    post.tags.append(tag)
+
             if form.category_id.data != '':
                 post.category_id = form.category_id.data
-
             # adiciona e commita a categoria na base de dados
             db.session.add(post)
             db.session.commit()
@@ -565,6 +715,13 @@ def avisos_editar(id):
         flash('O aviso não existe', 'info')
         return redirect(url_for('posts.avisos_index'))
 
+    strtags = ''
+    for tag in post.tags:
+        strtags = strtags+str(tag.name)+','
+
+    if strtags.endswith(','):
+        strtags = strtags[:-1]
+
     titulo = 'Editar Aviso'
 
     if request.form:
@@ -573,6 +730,7 @@ def avisos_editar(id):
     else:
         # formulário vazio
         form = PostForm()
+        form.tag.data = strtags
 
         # preenche formulário com post recuperado pelo id
         fillForm(form, post, 'notice')
@@ -595,6 +753,29 @@ def avisos_editar(id):
             post.category_id = None
             if form.category_id.data != '':
                 post.category_id = form.category_id.data
+
+            id_tags=[]
+            #Edição de tags
+            for t in post.tags:
+                id_tags.append(t.id)
+            
+            for t in id_tags:   
+                tag=Tag.query.get(t)
+                post.tags.remove(tag)
+
+            tags = form.tag.data
+            array_tags = tags.split(',')
+
+            for t in array_tags:
+                if t.strip() == '':
+                    continue
+                tag = Tag.query.filter((Tag.name==t)).first()
+                if tag:
+                    post.tags.append(tag)
+        
+                else:
+                    tag = Tag(t)
+                    post.tags.append(tag)
 
             # commita os dados na base de dados
             db.session.commit()

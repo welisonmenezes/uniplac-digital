@@ -310,3 +310,16 @@ select.form-control, .dataTables_wrapper select{
     top: 1px;
     right: -7px;
 }
+
+.dash-links li{
+    display: inline-block;
+    list-style: none;
+}
+.dash-links li::before {
+    content: "|";
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.dash-links li:first-child::before{
+    display: none;
+}

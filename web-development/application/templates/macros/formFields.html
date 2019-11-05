@@ -106,3 +106,19 @@
     {% endif %}
 </div>
 {% endmacro %}
+
+{% macro render_tags_field(field, cssClass='', maxLength='', dataRole='') %}
+<div class="form-group">
+        {{ field.label }}
+        {% if field.errors %}
+        {{ field(class="form-control is-invalid "+cssClass, maxLength=""+maxLength, dataRole=""+dataRole) }}
+        
+        {% for error in field.errors %}
+        <span class="invalid-feedback">{{ error }}</span>
+        {% endfor %}
+        {% else %}
+        {{ field(class="form-control "+cssClass, maxLength=""+maxLength, dataRole=""+dataRole) }}
+        {% endif %}
+    </div>
+{% endmacro %}
+

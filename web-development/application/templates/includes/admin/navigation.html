@@ -98,6 +98,24 @@
             </div>
         </li>
         <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-tag" aria-expanded="false"
+                    aria-controls="ui-tag">
+                    <i class="mdi mdi-tag-multiple menu-icon"></i>
+                    <span class="menu-title">Tags</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="ui-tag">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('tags.index') }}" title="Ver todas">Ver todas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('tags.cadastrar') }}" title="Adicionar Nova">Adicionar Novo</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{ url_for('configuracoes.cadastrar') }}" title="Configurações">
                 <i class="mdi mdi-settings menu-icon"></i>
                 <span class="menu-title">Configurações</span>
