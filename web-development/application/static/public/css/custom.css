@@ -727,3 +727,7 @@ textarea.form-control{
 .clear{
     clear: both;
 }
+
+.search-form .btn{
+    line-height: 23px;
+}
