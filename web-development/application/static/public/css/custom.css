@@ -216,6 +216,18 @@
     color: #26507e;
 }
 
+.single-blog .blog_details{
+    margin-bottom: 25px;
+}
+
+.single-post .tags{
+    margin-top: 25px;
+}
+.single-post .tags .badge{
+    font-weight: normal;
+    padding: 5px;
+}
+
 .comments-area .btn-reply:hover {
     color: #26507e;
 }

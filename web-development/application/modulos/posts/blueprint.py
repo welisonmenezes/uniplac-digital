@@ -113,6 +113,8 @@ def noticias_cadastrar():
             tags = form.tag.data
             array_tags = tags.split(',')
             for t in array_tags:
+                if t.strip() == '':
+                    continue
                 tag = Tag.query.filter((Tag.name==t)).first()
                 if tag:
                     post.tags.append(tag)
@@ -213,6 +215,8 @@ def noticias_editar(id):
             array_tags = tags.split(',')
 
             for t in array_tags:
+                if t.strip() == '':
+                    continue
                 tag = Tag.query.filter((Tag.name==t)).first()
                 if tag:
                     post.tags.append(tag)
@@ -388,6 +392,8 @@ def anuncios_cadastrar():
             tags = form.tag.data
             array_tags = tags.split(',')
             for t in array_tags:
+                if t.strip() == '':
+                    continue
                 tag = Tag.query.filter((Tag.name==t)).first()
                 if tag:
                     post.tags.append(tag)
@@ -498,6 +504,8 @@ def anuncios_editar(id):
             array_tags = tags.split(',')
 
             for t in array_tags:
+                if t.strip() == '':
+                    continue
                 tag = Tag.query.filter((Tag.name==t)).first()
                 if tag:
                     post.tags.append(tag)
@@ -669,6 +677,8 @@ def avisos_cadastrar():
             tags = form.tag.data
             array_tags = tags.split(',')
             for t in array_tags:
+                if t.strip() == '':
+                    continue
                 tag = Tag.query.filter((Tag.name==t)).first()
                 if tag:
                     post.tags.append(tag)
@@ -757,6 +767,8 @@ def avisos_editar(id):
             array_tags = tags.split(',')
 
             for t in array_tags:
+                if t.strip() == '':
+                    continue
                 tag = Tag.query.filter((Tag.name==t)).first()
                 if tag:
                     post.tags.append(tag)

@@ -70,6 +70,7 @@ class Tag(db.Model):
     name = db.Column(db.String(45),nullable=False, unique=True)
     created_at = db.Column(db.Date, default=now, nullable=False)
     updated_at = db.Column(db.Date, default=now, onupdate=now, nullable=False)
+    posts = db.relationship("Post", secondary=TagPost, backref="posts")
 
     def __init__(self, name):
         self.name = name

@@ -98,7 +98,8 @@ def render_post_list_by_type(post_type, title):
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
     users = User.query.order_by(asc(User.first_name)).all()
     current_datetime = datetime.now()
-    tags = Tag.query.order_by(desc(Tag.id)).all()   
+    tags = Tag.query.join(Post, Tag.posts).order_by(desc(Tag.id)).all()
+    tag = ''
     
 
     # sidebar avisos
@@ -134,9 +135,9 @@ def render_post_list_by_type(post_type, title):
     else:
         # fitro
         filter = (and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre==post_type, Post.status=='approved'))
-    #print(Post.query.filter(*filter).order_by(desc(Post.id)))
+    
     # consulta o banco de dados retornando o paginate e os dados
-    paginate = Post.query.outerjoin(User, User.id == Post.user_id).outerjoin(Category, Category.id == Post.category_id).filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=1, error_out=False)
+    paginate = Post.query.outerjoin(User, User.id == Post.user_id).outerjoin(Category, Category.id == Post.category_id).filter(*filter).order_by(desc(Post.id)).paginate(page=page, per_page=10, error_out=False)
     posts = paginate.items
 
     if post_type == 'filter':
@@ -154,8 +155,6 @@ def render_post_detail_by_type(post_type, title, id):
     current_datetime = datetime.now()
     tags = Tag.query.order_by(desc(Tag.id)).all()
 
-   
-    
     post = None
 
     # notícia
