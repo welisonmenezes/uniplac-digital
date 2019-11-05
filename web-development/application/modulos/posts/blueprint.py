@@ -14,66 +14,10 @@ postBP = Blueprint('posts', __name__, url_prefix='/admin', template_folder='temp
 def noticias_index():
     return render_post_list_by_type('news', 'Notícias')
 
+
 @postBP.route('/noticias/cadastrar', methods=['GET','POST'])
 def noticias_cadastrar():
-    configuration = Configuration.query.first()
-    form = PostForm(request.form)
-    titulo = 'Cadastrar Notícias'
-    operacao = 'Cadastro'
-    if form.validate_on_submit():
-        try:
-            form.user_id = session.get('user_id', '')
-
-            # cria o post com os dados do formulário
-            post = Post(
-                form.title.data,
-                form.description.data,
-                form.content.data,
-                'news',
-                form.status.data,
-                form.entry_date.data,
-                form.departure_date.data,
-                None,
-                form.user_id,
-                None
-            )
-            
-            if form.image_id.data != '':
-                post.image_id = form.image_id.data
-            
-            #adiciona a tag no banco
-            
-            tags = form.tag.data
-            array_tags = tags.split(',')
-            for t in array_tags:
-                if t.strip() == '':
-                    continue
-                tag = Tag.query.filter((Tag.name==t)).first()
-                if tag:
-                    post.tags.append(tag)
-        
-                else:
-                    tag = Tag(t)
-                    post.tags.append(tag)
-
-
-            if form.category_id.data != '':
-                post.category_id = form.category_id.data
-
-            # adiciona e commita a categoria na base de dados
-            db.session.add(post)
-            db.session.commit()
-
-            app.logger.warning(' %s cadastrou a noticia %s', session.get('user_name', ''), post.title)
-
-            # flash message e redireciona pra mesma tela para limpar o objeto request
-            flash('Notícia cadastrada com sucesso', 'success')
-            return redirect(url_for('posts.noticias_index'))
-        except:
-            # remove qualquer vestígio do usuário da sessin e flash message 
-            db.session.rollback()
-            flash('Erro ao tentar cadastrar a notícia', 'danger')
-    return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form, configuration=configuration), 200
+    return render_post_register_by_type('news', 'Cadastrar Notícia')
 
 
 @postBP.route('/noticias/editar/<int:id>', methods=['GET','POST'])
@@ -164,6 +108,7 @@ def noticias_editar(id):
 
     return render_template('/posts/formulario.html', titulo=titulo, form=form, post=post, configuration=configuration), 200
 
+
 @postBP.route('/noticias/deletar/<int:id>', methods=['GET', 'POST'])
 def noticias_deletar(id):
     configuration = Configuration.query.first()
@@ -201,70 +146,7 @@ def anuncios_index():
 
 @postBP.route('/anuncios/cadastrar', methods=['GET','POST'])
 def anuncios_cadastrar():
-    configuration = Configuration.query.first()
-    form = PostForm(request.form)
-    titulo = 'Cadastrar Anúncios'
-    operacao = 'Cadastro'
-    
-    if session.get('user_role', '') == 'user':
-        form.status.validators = []
-
-    if form.validate_on_submit():
-        try:
-            form.user_id = session.get('user_id', '')
-
-            # cria o post com os dados do formulário
-            post = Post(
-                form.title.data,
-                form.description.data,
-                form.content.data,
-                'ad',
-                '',
-                form.entry_date.data,
-                form.departure_date.data,
-                None,
-                form.user_id,
-                None
-            )
-            
-            if session.get('user_role', '') == 'user':
-                post.status = 'pending'
-            else:
-                post.status = form.status.data
-            
-            if form.image_id.data != '':
-                post.image_id = form.image_id.data
-
-            #adiciona a tag no banco
-            tags = form.tag.data
-            array_tags = tags.split(',')
-            for t in array_tags:
-                if t.strip() == '':
-                    continue
-                tag = Tag.query.filter((Tag.name==t)).first()
-                if tag:
-                    post.tags.append(tag)
-        
-                else:
-                    tag = Tag(t)
-                    post.tags.append(tag)
-
-            if form.category_id.data != '':
-                post.category_id = form.category_id.data
-            # adiciona e commita a categoria na base de dados
-            db.session.add(post)
-            db.session.commit()
-
-            app.logger.warning(' %s cadastrou o anúncio %s', session.get('user_name', ''), post.title)
-
-            # flash message e redireciona pra mesma tela para limpar o objeto request
-            flash('Anúncio cadastrado com sucesso', 'success')
-            return redirect(url_for('posts.anuncios_index'))
-        except:
-            # remove qualquer vestígio do usuário da sessin e flash message 
-            db.session.rollback()
-            flash('Erro ao tentar cadastrar o anúncio', 'danger')
-    return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form, configuration=configuration), 200
+    return render_post_register_by_type('ad', 'Cadastrar Anúncio')
 
 
 @postBP.route('/anuncios/editar/<int:id>', methods=['GET','POST'])
@@ -426,62 +308,7 @@ def avisos_index():
 
 @postBP.route('/avisos/cadastrar', methods=['GET','POST'])
 def avisos_cadastrar():
-    configuration = Configuration.query.first()
-    form = PostForm(request.form)
-    titulo = 'Cadastrar Avisos'
-    operacao = 'Cadastro'
-
-    if form.validate_on_submit():
-        try:
-            form.user_id = session.get('user_id', '')
-
-            # cria o post com os dados do formulário
-            post = Post(
-                form.title.data,
-                form.description.data,
-                form.content.data,
-                'notice',
-                form.status.data,
-                form.entry_date.data,
-                form.departure_date.data,
-                None,
-                form.user_id,
-                None
-            )
-            
-            if form.image_id.data != '':
-                post.image_id = form.image_id.data
-
-            #adiciona a tag no banco
-            tags = form.tag.data
-            array_tags = tags.split(',')
-            for t in array_tags:
-                if t.strip() == '':
-                    continue
-                tag = Tag.query.filter((Tag.name==t)).first()
-                if tag:
-                    post.tags.append(tag)
-        
-                else:
-                    tag = Tag(t)
-                    post.tags.append(tag)
-
-            if form.category_id.data != '':
-                post.category_id = form.category_id.data
-            # adiciona e commita a categoria na base de dados
-            db.session.add(post)
-            db.session.commit()
-
-            app.logger.warning(' %s cadastrou o aviso %s', session.get('user_name', ''), post.title)
-
-            # flash message e redireciona pra mesma tela para limpar o objeto request
-            flash('Aviso cadastrado com sucesso', 'success')
-            return redirect(url_for('posts.avisos_index'))
-        except:
-            # remove qualquer vestígio do usuário da sessin e flash message 
-            db.session.rollback()
-            flash('Erro ao tentar cadastrar o aviso', 'danger')
-    return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form, configuration=configuration), 200
+    return render_post_register_by_type('notice', 'Cadastrar Aviso')
 
 
 @postBP.route('/avisos/editar/<int:id>', methods=['GET','POST'])
@@ -641,7 +468,7 @@ def clearDateValidatons(post, form):
         form.departure_date.validate = nullValidate
 
 
-
+# LISTAGEM DE POSTS
 def render_post_list_by_type(post_type, title):
     configuration = Configuration.query.first()
     titulo = title
@@ -709,3 +536,88 @@ def render_post_list_by_type(post_type, title):
     posts = paginate.items
 
     return render_template('/posts/index.html', current_datetime=current_datetime, categories=categories, paginate=paginate, posts=posts, currentPage=page, name=name, category=category, status=status, order_by=order_by, order=order, titulo=titulo, configuration=configuration, publication=publication, users=users), 200
+
+
+# CADASTRO DE POSTS
+def render_post_register_by_type(post_type, title):
+    configuration = Configuration.query.first()
+    form = PostForm(request.form)
+    titulo = title
+    operacao = 'Cadastro'
+
+    if post_type == 'ad':
+        if session.get('user_role', '') == 'user':
+            form.status.validators = []
+
+    if form.validate_on_submit():
+        try:
+            form.user_id = session.get('user_id', '')
+
+            # cria o post com os dados do formulário
+            post = Post(
+                form.title.data,
+                form.description.data,
+                form.content.data,
+                post_type,
+                '',
+                form.entry_date.data,
+                form.departure_date.data,
+                None,
+                form.user_id,
+                None
+            )
+
+            if post_type == 'ad':
+                if session.get('user_role', '') == 'user':
+                    post.status = 'pending'
+                else:
+                    post.status = form.status.data
+            else:
+                post.status = form.status.data
+
+            if form.image_id.data != '':
+                post.image_id = form.image_id.data
+
+            #adiciona a tag no banco
+            tags = form.tag.data
+            array_tags = tags.split(',')
+            for t in array_tags:
+                if t.strip() == '':
+                    continue
+                tag = Tag.query.filter((Tag.name==t)).first()
+                if tag:
+                    post.tags.append(tag)
+        
+                else:
+                    tag = Tag(t)
+                    post.tags.append(tag)
+
+            if form.category_id.data != '':
+                post.category_id = form.category_id.data
+
+            db.session.add(post)
+            db.session.commit()
+
+            if post_type == 'news':
+                app.logger.warning(' %s cadastrou a notícia %s', session.get('user_name', ''), post.title)
+                flash('Notícia cadastrada com sucesso', 'success')
+                return redirect(url_for('posts.noticias_index'))
+            elif post_type == 'notice':
+                app.logger.warning(' %s cadastrou o aviso %s', session.get('user_name', ''), post.title)
+                flash('Aviso cadastrado com sucesso', 'success')
+                return redirect(url_for('posts.avisos_index'))
+            elif post_type == 'ad':
+                app.logger.warning(' %s cadastrou o anúncio %s', session.get('user_name', ''), post.title)
+                flash('Anúncio cadastrado com sucesso', 'success')
+                return redirect(url_for('posts.anuncios_index'))
+        except:
+            # remove qualquer vestígio do usuário da sessin e flash message 
+            db.session.rollback()
+            if post_type == 'news':
+                flash('Erro ao tentar cadastrar a notícia', 'danger')
+            elif post_type == 'notice':
+                flash('Erro ao tentar cadastrar o aviso', 'danger')
+            elif post_type == 'ad':
+                flash('Erro ao tentar cadastrar o anúncio', 'danger')
+
+    return render_template('/posts/formulario.html', titulo=titulo, operacao=operacao, form=form, configuration=configuration), 200
