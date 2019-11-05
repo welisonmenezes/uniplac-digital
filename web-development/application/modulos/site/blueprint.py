@@ -16,7 +16,7 @@ def index():
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
     users = User.query.order_by(asc(User.first_name)).all()
     current_datetime = datetime.now()
-    tags = Tag.query.join(Post, Tag.posts).order_by(desc(Tag.id)).all()
+    tags = Tag.query.join(Post, Tag.posts).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='news', Post.status=='approved')).order_by(asc(Tag.name)).all()
 
     news = Post.query.outerjoin(User, User.id == Post.user_id).outerjoin(Category, Category.id == Post.category_id).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='news', Post.status=='approved')).order_by(desc(Post.id)).limit(10)
     ads = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='ad', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
@@ -98,7 +98,7 @@ def render_post_list_by_type(post_type, title):
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
     users = User.query.order_by(asc(User.first_name)).all()
     current_datetime = datetime.now()
-    tags = Tag.query.join(Post, Tag.posts).order_by(desc(Tag.id)).all()
+    tags = Tag.query.join(Post, Tag.posts).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='news', Post.status=='approved')).order_by(asc(Tag.name)).all()
     tag = ''
     
 
@@ -153,7 +153,7 @@ def render_post_detail_by_type(post_type, title, id):
     categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
     users = User.query.order_by(asc(User.first_name)).all()
     current_datetime = datetime.now()
-    tags = Tag.query.join(Post, Tag.posts).order_by(desc(Tag.id)).all()
+    tags = Tag.query.join(Post, Tag.posts).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='news', Post.status=='approved')).order_by(asc(Tag.name)).all()
 
     post = None
 
