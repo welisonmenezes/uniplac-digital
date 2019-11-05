@@ -193,6 +193,7 @@
                                     <label class="badge {{post.status}}">{{ post.status }}</label>
                                 </td>
                                 <td>
+                                    <strong class="table-label">Status de publicação: </strong>
                                     {% if post.entry_date <= current_datetime and post.departure_date >= current_datetime %}
                                         <label class="badge badge-success">No Ar</label>
                                     {% elif post.departure_date < current_datetime %}
