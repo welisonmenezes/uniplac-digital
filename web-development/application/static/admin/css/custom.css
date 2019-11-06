@@ -330,3 +330,17 @@ select.form-control, .dataTables_wrapper select{
 .table .badge{
     padding: 3px;
 }
+
+.table thead th i.mdi-help-circle{
+    margin: 0;
+}
+
+.table sup.small{
+    display: inline-block;
+}
+
+.table sup.small i{
+    display: block;
+    width: 12px;
+    height: 12px;
+}

@@ -110,6 +110,9 @@
 {% macro render_tags_field(field, cssClass='', maxLength='', dataRole='') %}
 <div class="form-group">
         {{ field.label }}
+        <sup>
+            <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="Adicione tags separando-as por vírgula."></i>
+        </sup>
         {% if field.errors %}
         {{ field(class="form-control is-invalid "+cssClass, maxLength=""+maxLength, dataRole=""+dataRole) }}
         
