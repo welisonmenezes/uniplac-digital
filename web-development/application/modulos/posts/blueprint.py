@@ -5,6 +5,8 @@ from app import app
 from sqlalchemy import desc, or_, and_, asc
 from database.Model import Configuration, db, Post, Category, User, Tag, TagPost
 from datetime import datetime
+from flask_mail import Message
+from app import mail
 
 postBP = Blueprint('posts', __name__, url_prefix='/admin', template_folder='templates', static_folder='static')
 
@@ -241,14 +243,17 @@ def render_post_register_by_type(post_type, title):
             db.session.commit()
 
             if post_type == 'news':
+                send_post_email('Novo cadastro de notícia', 'O usuário ' + session.get('user_name', '') + ' cadastrou uma nova notícia.')
                 app.logger.warning(' %s cadastrou a notícia %s', session.get('user_name', ''), post.title)
                 flash('Notícia cadastrada com sucesso', 'success')
                 return redirect(url_for('posts.noticias_index'))
             elif post_type == 'notice':
+                send_post_email('Novo cadastro de aviso', 'O usuário ' + session.get('user_name', '') + ' cadastrou um novo aviso.')
                 app.logger.warning(' %s cadastrou o aviso %s', session.get('user_name', ''), post.title)
                 flash('Aviso cadastrado com sucesso', 'success')
                 return redirect(url_for('posts.avisos_index'))
             elif post_type == 'ad':
+                send_post_email('Novo cadastro de anúncio', 'O usuário ' + session.get('user_name', '') + ' cadastrou um novo anúncio.')
                 app.logger.warning(' %s cadastrou o anúncio %s', session.get('user_name', ''), post.title)
                 flash('Anúncio cadastrado com sucesso', 'success')
                 return redirect(url_for('posts.anuncios_index'))
@@ -463,3 +468,17 @@ def render_post_delete_by_type(post_type, title, id):
                     flash('Erro ao tentar deletar o anúncio', 'danger')
             
     return render_template('/posts/deletar.html', post_type=post_type, pergunta=pergunta, postId=id, configuration=configuration), 200
+
+
+# NOTIFICA USUÁRIO ADMINISTRADORES POR EMAIL
+def send_post_email(title, message):
+    reci = ['uniplacdigital@gmail.com']
+    users = User.query.filter(User.role == 'admin').all()
+    for user in users:
+        reci.append(user.email)
+
+    msg = Message(title,
+                  sender='contato@uniplacdigital.com.br',
+                  recipients=reci)
+    msg.body = f'''{message}'''
+    mail.send(msg)

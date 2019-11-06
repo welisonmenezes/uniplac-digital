@@ -94,7 +94,7 @@ def logout():
 def send_reset_email(user):
     token = user.get_reset_token()
     msg = Message('Password Reset Request',
-                  sender='noreply@demo.com',
+                  sender='contato@uniplacdigital.com.br',
                   recipients=[user.email])
     msg.body = f'''Para resetar sua senha, clique no seguite link:
 {url_for('login.reset', token=token, _external=True)}
