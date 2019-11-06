@@ -7,6 +7,7 @@ from flask_marshmallow import Marshmallow
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
 from datetime import datetime
+from flask_executor import Executor
 
 # create a Flask app
 app = Flask(__name__, template_folder='templates', static_folder='static')
@@ -34,6 +35,7 @@ app.config['RECAPTCHA_OPTIONS'] = {'theme':'white'}
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 bcrypt = Bcrypt(app)
+executor = Executor(app)
 mail = Mail(app)
 
 @app.errorhandler(500)

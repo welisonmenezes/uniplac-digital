@@ -3,7 +3,7 @@ from flask import current_app, Blueprint, render_template, request, url_for, fla
 from datetime import datetime
 from flask_mail import Message
 from sqlalchemy import desc, and_, or_, asc
-from app import mail
+from app import mail, executor
 from modulos.site.formularios import ContactForm
 from database.Model import Configuration, Category, Post, ConfigurationImage, User, Tag, TagPost
 
@@ -75,20 +75,25 @@ def contato():
     form = ContactForm(request.form)
     if form.validate_on_submit():
         try:
-            msg = Message('Mensagem de - ' + form.name.data, sender='contato@uniplacdigital.com.br', recipients=['uniplacdigital@gmail.com'])
-            msg.html = "<h1>"+ form.assunto.data +"</h1>"
-            msg.html += "<ul>"
-            msg.html += "<li><b>Nome: </b> "+ form.name.data +"</li>"
-            msg.html += "<li><b>Email: </b> "+ form.email.data +"</li>"
-            msg.html += "<li><b>Descrição: </b> "+ form.text.data +"</li>"
-            msg.html += "</ul>"
-            mail.send(msg)
+            executor.submit(send_email, form)
             flash('Mensagem enviada com sucesso.', 'success')
             return redirect(url_for('site.contato', _anchor='formulario'))
         except:
             flash('Desculpe, ocorreu um problema ao tentar enviar sua mensagem.', 'warning')
         
     return render_template('site/contato.html', form=form, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
+
+
+def send_email(form):
+    msg = Message('Mensagem de - ' + form.name.data, sender='contato@uniplacdigital.com.br', recipients=['uniplacdigital@gmail.com'])
+    msg.html = "<h1>"+ form.assunto.data +"</h1>"
+    msg.html += "<ul>"
+    msg.html += "<li><b>Nome: </b> "+ form.name.data +"</li>"
+    msg.html += "<li><b>Email: </b> "+ form.email.data +"</li>"
+    msg.html += "<li><b>Descrição: </b> "+ form.text.data +"</li>"
+    msg.html += "</ul>"
+    mail.send(msg)
+    mail.send(msg)
 
 
 def render_post_list_by_type(post_type, title):

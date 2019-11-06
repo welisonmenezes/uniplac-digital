@@ -9,18 +9,12 @@
     <meta content="{{ configuration.description }}" name="description">
     <title>{% block title %}{% endblock title %} - {{ configuration.name }}</title>
     {% block pagestyles %}
-    <style type="text/css">
-        body {
-            -moz-opacity: 0.00;
-            -khtml-opacity: 0.00;
-            opacity: 0.00;
-        }
-    </style>
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/bootstrap.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/themify-icons.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='public/vendors/nice-select/css/nice-select.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='public/css/slick-theme.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='public/css/slick.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='share/css/pace.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='public/css/slideshow.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/style.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/responsive.css') }}" />
@@ -31,6 +25,7 @@
 </head>
 
 <body>
+    <div class="body-wrap">
     {% include "includes/public/header.html" %}
     {% block content %}
     conteúdo aqui
@@ -39,6 +34,7 @@
     <span id="on-back-to-top" class="on-back-to-top">
         <img src="{{ url_for('static', filename='public/img/navigate-up-arrow.svg') }}" alt="Voltar para o topo">
     </span>
+    </div>
     {% block scripts %}
         <script src="{{ url_for('static', filename='public/js/jquery-3.2.1.min.js') }}"></script>
         <script src="{{ url_for('static', filename='public/js/popper.js') }}"></script>
@@ -47,16 +43,9 @@
         <script src="{{ url_for('static', filename='public/vendors/nice-select/js/jquery.nice-select.min.js') }}"></script>
         <script src="{{ url_for('static', filename='public/js/theme.js') }}?"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='public/js/slick.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='share/js/pace.js') }}"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='public/js/script.js') }}"></script>
         <script src="{{ url_for('static', filename='public/dist/vanilla-validator.concat.min.js') }}"></script>
-        <script>
-            $(window).on('load', function () {
-                setTimeout(function () {
-                    $("body").fadeTo(300, 1);
-                    $(window).resize();
-                }, 1);
-            });
-        </script>
         {% if session.get('user_id', '') != '' %}
             <script>
                 function startTimer(duration) {
