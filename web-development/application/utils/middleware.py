@@ -1,6 +1,7 @@
 from flask import request, redirect, url_for, flash, session
 from app import app
 import re
+from database.Model import User
 
 # middleware para rejeitar qualquer requisição ao admin para não autenticado
 @app.before_request
@@ -14,6 +15,19 @@ def before_request_func():
         if not user:
             flash('Faça o seu login para poder acessar o painel administrativo', 'warning')
             return redirect(url_for('login.inicio', url=request.url))
+        else:
+            l_user = User.query.filter((User.id==user)).first()
+            if not l_user:
+                try:
+                    app.logger.warning(' %s deslogou da aplicação', session.get('user_name', ''))
+                    session.pop('user_id')
+                    session.pop('user_avatar')
+                    session.pop('user_name')
+                    session.pop('user_role')
+                except:
+                    app.logger.warning('Logout por inatividade realizado')
+                session.clear()
+                return redirect(url_for('login.inicio'))
 
 
     if bool(re.search(request.url_root+'admin/usuarios*', request.url)):
