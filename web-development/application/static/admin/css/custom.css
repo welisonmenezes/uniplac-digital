@@ -330,3 +330,18 @@ select.form-control, .dataTables_wrapper select{
 .table .badge{
     padding: 3px;
 }
+
+.badge.news{
+    color: #fff;
+    background-color: #009eef;
+}
+
+.badge.ad{
+    color: #fff;
+    background-color: #851878;
+}
+
+.badge.notice{
+    color: #fff;
+    background-color: #990000;
+}
