@@ -144,8 +144,20 @@
                                         class="{{ 'active' if order_by=='created_at' else '' }} {{ order }}"
                                         title="Ordenar por Data">Data </a>
                                 </th>
-                                <th>Status</th>
-                                <th>Status de publicação</th>
+                                <th>
+                                    Status
+                                    <sup class="small">
+                                        <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true"
+                                            title="Os posts aprovados também dependem que o status de publicação seja atual para estarem visíveis no site. Veja os campos Data/Hora de Entrada e Data/Hora de Saída na edição do post."></i>
+                                    </sup>
+                                </th>
+                                <th>
+                                    Status de publicação
+                                    <sup class="small">
+                                        <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true"
+                                            title="Os posts atuais também dependem que o status do post esteja marcado como aprovado para estarem visíveis no site. Veja o campo Status na edição do post."></i>
+                                    </sup>
+                                </th>
                                 <th>Tipo</th>
                                 <th>Ver/Editar/Deletar</th>
                             </tr>

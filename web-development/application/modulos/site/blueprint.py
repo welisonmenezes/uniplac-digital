@@ -75,7 +75,7 @@ def contato():
     form = ContactForm(request.form)
     if form.validate_on_submit():
         try:
-            msg = Message('Mensagem de - ' + form.name.data, sender='cntato@uniplacdigital.com.br', recipients=['uniplacdigital@gmail.com'])
+            msg = Message('Mensagem de - ' + form.name.data, sender='contato@uniplacdigital.com.br', recipients=['uniplacdigital@gmail.com'])
             msg.html = "<h1>"+ form.assunto.data +"</h1>"
             msg.html += "<ul>"
             msg.html += "<li><b>Nome: </b> "+ form.name.data +"</li>"
