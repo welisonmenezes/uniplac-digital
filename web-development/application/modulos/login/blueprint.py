@@ -3,7 +3,7 @@ from flask import current_app, Blueprint, render_template, request, url_for, red
 from app import app, bcrypt
 from sqlalchemy import and_, desc
 from flask_mail import Message
-from app import mail
+from app import mail, executor
 from database.Model import db, User
 from modulos.login.formularios import LoginForm, RequestResetForm, ResetPasswordForm
 from database.Model import Configuration
@@ -49,7 +49,7 @@ def recuperar():
     form = RequestResetForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        send_reset_email(user)
+        executor.submit(send_reset_email, user)
         flash('Um email foi enviado com instruções para a recuperação de sua senha', 'info')
         return redirect(url_for('login.inicio'))
     return render_template('recover.html', form=form, configuration=configuration), 200
