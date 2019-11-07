@@ -344,3 +344,7 @@ select.form-control, .dataTables_wrapper select{
     width: 12px;
     height: 12px;
 }
+
+.fr-wrapper a[href="https://www.froala.com/wysiwyg-editor?k=u"]{
+    display: none !important;
+}

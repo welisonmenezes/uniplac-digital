@@ -8,6 +8,8 @@ TEMPLATES_AUTO_RELOAD = True
 # Configurações de banco de dados
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:@localhost/uniplacdigital'
 
+#SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://welison:menezes85@welison.mysql.pythonanywhere-services.com/welison$uniplacdigital'
+
 # Configurações de segurança
 SECRET_KEY = '#$#gdFDKF#993FDVKkfdkj#$$2@@@@dfdlafFGÇPLO^dfe__fd'
 PERMANENT_SESSION_LIFETIME = timedelta(minutes=60)

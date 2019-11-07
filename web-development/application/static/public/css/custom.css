@@ -757,3 +757,7 @@ textarea.form-control{
 .search-form .btn{
     line-height: 23px;
 }
+
+.blog_details p[data-f-id="pbf"]{
+    display: none !important;
+}
