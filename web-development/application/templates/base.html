@@ -2,6 +2,19 @@
 <html lang="pt-br">
 
 <head>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-151739330-1', 'none');
+        ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics -->
+
     {% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,43 +39,43 @@
 
 <body>
     <div class="body-wrap">
-    {% include "includes/public/header.html" %}
-    {% block content %}
-    conteúdo aqui
-    {% endblock content %}
-    {% include "includes/public/footer.html" ignore missing %}
-    <span id="on-back-to-top" class="on-back-to-top">
-        <img src="{{ url_for('static', filename='public/img/navigate-up-arrow.svg') }}" alt="Voltar para o topo">
-    </span>
+        {% include "includes/public/header.html" %}
+        {% block content %}
+        conteúdo aqui
+        {% endblock content %}
+        {% include "includes/public/footer.html" ignore missing %}
+        <span id="on-back-to-top" class="on-back-to-top">
+            <img src="{{ url_for('static', filename='public/img/navigate-up-arrow.svg') }}" alt="Voltar para o topo">
+        </span>
     </div>
     {% block scripts %}
-        <script src="{{ url_for('static', filename='public/js/jquery-3.2.1.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='public/js/popper.js') }}"></script>
-        <script src="{{ url_for('static', filename='public/js/bootstrap.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='public/js/stellar.js') }}"></script>
-        <script src="{{ url_for('static', filename='public/vendors/nice-select/js/jquery.nice-select.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='public/js/theme.js') }}?"></script>
-        <script type="text/javascript" src="{{ url_for('static', filename='public/js/slick.min.js') }}"></script>
-        <script type="text/javascript" src="{{ url_for('static', filename='share/js/pace.js') }}"></script>
-        <script type="text/javascript" src="{{ url_for('static', filename='public/js/script.js') }}"></script>
-        <script src="{{ url_for('static', filename='public/dist/vanilla-validator.concat.min.js') }}"></script>
-        {% if session.get('user_id', '') != '' %}
-            <script>
-                function startTimer(duration) {
-                    var timer = duration;
-                    var interval = setInterval(function () {
-                        if (--timer < 0) {
-                            clearInterval(interval);
-                            window.location.replace('/login/logout');
-                        }
-                    }, 1000);
+    <script src="{{ url_for('static', filename='public/js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='public/js/popper.js') }}"></script>
+    <script src="{{ url_for('static', filename='public/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='public/js/stellar.js') }}"></script>
+    <script src="{{ url_for('static', filename='public/vendors/nice-select/js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='public/js/theme.js') }}?"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='public/js/slick.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='share/js/pace.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='public/js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='public/dist/vanilla-validator.concat.min.js') }}"></script>
+    {% if session.get('user_id', '') != '' %}
+    <script>
+        function startTimer(duration) {
+            var timer = duration;
+            var interval = setInterval(function () {
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    window.location.replace('/login/logout');
                 }
-                window.onload = function () {
-                    var time = 60 * 60;
-                    startTimer(time);
-                };
-            </script>
-        {% endif %}
+            }, 1000);
+        }
+        window.onload = function () {
+            var time = 60 * 60;
+            startTimer(time);
+        };
+    </script>
+    {% endif %}
     {% endblock %}
     {% block footer_script %}{% endblock footer_script %}
 </body>
