@@ -122,6 +122,7 @@
                         </p>
                     </div>
                     <div class="clear"></div>
+                    {% if post.tags %}
                     <hr />
                     <p class="tags">
                         <span class="inline-block"><strong>Tags:</strong></span>
@@ -130,6 +131,7 @@
                             class="badge badge-tag">{{ tag.name }}</a>
                         {% endfor %}
                     </p>
+                    {% endif %}
                 </div>
             </div>
             <div class="col-lg-4">

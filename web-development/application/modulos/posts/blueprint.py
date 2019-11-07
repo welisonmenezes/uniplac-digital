@@ -1,12 +1,12 @@
 import os
-from flask import Blueprint, render_template, request, url_for, flash, session, redirect
+from flask import current_app, Blueprint, render_template, request, url_for, flash, session, redirect
 from modulos.posts.formularios import PostForm
 from app import app
 from sqlalchemy import desc, or_, and_, asc
 from database.Model import Configuration, db, Post, Category, User, Tag, TagPost
 from datetime import datetime
 from flask_mail import Message
-from app import mail
+from app import mail, executor
 
 postBP = Blueprint('posts', __name__, url_prefix='/admin', template_folder='templates', static_folder='static')
 
@@ -243,17 +243,17 @@ def render_post_register_by_type(post_type, title):
             db.session.commit()
 
             if post_type == 'news':
-                send_post_email('Novo cadastro de notícia', 'O usuário ' + session.get('user_name', '') + ' cadastrou uma nova notícia.')
+                executor.submit(send_post_email, 'Novo cadastro de notícia', 'O usuário ' + session.get('user_name', '') + ' cadastrou uma nova notícia.')
                 app.logger.warning(' %s cadastrou a notícia %s', session.get('user_name', ''), post.title)
                 flash('Notícia cadastrada com sucesso', 'success')
                 return redirect(url_for('posts.noticias_index'))
             elif post_type == 'notice':
-                send_post_email('Novo cadastro de aviso', 'O usuário ' + session.get('user_name', '') + ' cadastrou um novo aviso.')
+                executor.submit(send_post_email, 'Novo cadastro de aviso', 'O usuário ' + session.get('user_name', '') + ' cadastrou um novo aviso.')
                 app.logger.warning(' %s cadastrou o aviso %s', session.get('user_name', ''), post.title)
                 flash('Aviso cadastrado com sucesso', 'success')
                 return redirect(url_for('posts.avisos_index'))
             elif post_type == 'ad':
-                send_post_email('Novo cadastro de anúncio', 'O usuário ' + session.get('user_name', '') + ' cadastrou um novo anúncio.')
+                executor.submit(send_post_email, 'Novo cadastro de anúncio', 'O usuário ' + session.get('user_name', '') + ' cadastrou um novo anúncio.')
                 app.logger.warning(' %s cadastrou o anúncio %s', session.get('user_name', ''), post.title)
                 flash('Anúncio cadastrado com sucesso', 'success')
                 return redirect(url_for('posts.anuncios_index'))
