@@ -18,4 +18,4 @@ MAIL_SERVER = 'smtp.gmail.com'
 MAIL_PORT = 587
 MAIL_USE_TLS = True
 MAIL_USERNAME = 'uniplacdigital@gmail.com'
-MAIL_PASSWORD = 'glw-9ud67'
+MAIL_PASSWORD = 'ud1902@wlg'
