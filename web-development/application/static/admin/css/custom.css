@@ -286,6 +286,10 @@ select.form-control, .dataTables_wrapper select{
     .bootstrap-datetimepicker-widget{
         width: 100% !important;
     }
+
+    .bootstrap-tagsinput{
+        height: auto;
+    }
 }
 
 @media (max-width: 768px) {
