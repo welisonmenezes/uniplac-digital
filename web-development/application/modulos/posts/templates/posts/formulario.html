@@ -82,6 +82,10 @@
                             </div>
                         </div>
 
+                        <div class="upload-loading">
+                            <img src="{{ url_for('static', filename='admin/images/loading.gif') }}" alt="loading...">
+                        </div>
+
                         <div class="image-container">
                             {% if form.image_id.data %}
                             <div class="form-group">
