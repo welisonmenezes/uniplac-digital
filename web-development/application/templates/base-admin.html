@@ -30,7 +30,7 @@
     <meta content="{{ configuration.description }}" name="description">
     <title>{% block title %}{% endblock title %} - {{ configuration.name }} - Admin</title>
 
-    <style type="text/css">
+    <style>
         body {
             -moz-opacity: 0.00;
             -khtml-opacity: 0.00;
@@ -43,8 +43,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/cropper.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/lightbox.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='admin/distt/bootstrap-tagsinput.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='share/css/pace.css') }}" />
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='share/css/pace.css') }}" />
 
     {% block especifcstyles %}{% endblock especifcstyles %}
 
@@ -85,7 +84,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"></h5>
+                    <h5 class="modal-title">&nbsp;</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -105,7 +104,7 @@
     </script>
 
     <script src="{{ url_for('static', filename='admin/vendors/base/vendor.bundle.base.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='share/js/pace.js') }}"></script>
+    <script src="{{ url_for('static', filename='share/js/pace.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/cropper.min.js') }}"></script>
     <script src="{{ url_for('static', filename='admin/js/lightbox.min.js') }}"></script>
 
