@@ -365,6 +365,9 @@ select.form-control, .dataTables_wrapper select{
 }
 
 
-a:focus{
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .5) !important;
+a:focus,
+.form-control:focus,
+button:focus,
+span:focus{
+    box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, .2) !important;
 }
