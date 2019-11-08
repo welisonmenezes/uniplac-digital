@@ -1,4 +1,4 @@
-{% macro render_field(field, cssClass='', maxLength='') %}
+{% macro render_field(field, cssClass='', maxLength='255') %}
 <div class="form-group">
     {{ field.label }}
 
@@ -14,12 +14,20 @@
     {% endif %}
 
     {% if field.errors %}
+    {% if maxLength == None %}
+    {{ field(class="form-control is-invalid "+cssClass) }}
+    {% else %}
     {{ field(class="form-control is-invalid "+cssClass, maxLength=""+maxLength) }}
+    {% endif %}
     {% for error in field.errors %}
     <span class="invalid-feedback">{{ error }}</span>
     {% endfor %}
     {% else %}
+    {% if maxLength == None %}
+    {{ field(class="form-control "+cssClass) }}
+    {% else %}
     {{ field(class="form-control "+cssClass, maxLength=""+maxLength) }}
+    {% endif %}
     {% endif %}
 </div>
 {% endmacro %}
@@ -113,20 +121,20 @@
 </div>
 {% endmacro %}
 
-{% macro render_tags_field(field, cssClass='', maxLength='', dataRole='') %}
+{% macro render_tags_field(field, cssClass='', maxLength='') %}
 <div class="form-group">
         {{ field.label }}
         <sup>
             <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="Adicione tags separando-as por vírgula."></i>
         </sup>
         {% if field.errors %}
-        {{ field(class="form-control is-invalid "+cssClass, maxLength=""+maxLength, dataRole=""+dataRole) }}
+        {{ field(class="form-control is-invalid "+cssClass, maxLength=""+maxLength) }}
         
         {% for error in field.errors %}
         <span class="invalid-feedback">{{ error }}</span>
         {% endfor %}
         {% else %}
-        {{ field(class="form-control "+cssClass, maxLength=""+maxLength, dataRole=""+dataRole) }}
+        {{ field(class="form-control "+cssClass, maxLength=""+maxLength) }}
         {% endif %}
     </div>
 {% endmacro %}
