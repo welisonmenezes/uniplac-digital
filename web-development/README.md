@@ -52,4 +52,7 @@ A instalação de todas as dependências podem ser realizadas pelo seguinte comm
 `pip install -r requirements.txt`
 
 
+### Mesmo rodando localmente é necessário estar conectado à internet devido ao Google Captcha implementado no login da aplicação
+
+
 #### Qualquer dúvida, estamos à disposição.
