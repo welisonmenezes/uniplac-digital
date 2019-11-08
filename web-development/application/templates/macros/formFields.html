@@ -58,9 +58,15 @@
 {% macro render_field_date(field, cssClass='') %}
 <div class="form-group">
     {{ field.label }}
+    {% if field.name == 'entry_date' %}
     <sup>
-        <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="Certifique-se de que a data/hora selecionada seja maior que do que a data/hora atual."></i>
+        <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="A data/hora de entrada será quando o post estreará na área pública do site."></i>
     </sup>
+    {% elif field.name == 'departure_date' %}
+    <sup>
+        <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="A data/hora de saída será quando o post deixará de estar disponível na área pública do site. Esta deve ser maior que a data/hora de entrada."></i>
+    </sup>
+    {% endif %}
     {% if field.errors %}
     <div class="input-group">
         {{ field(class="form-control is-invalid mask-date "+cssClass, data_toggle="datetimepicker", data_target="#"+field.name, autocomplete="off") }}

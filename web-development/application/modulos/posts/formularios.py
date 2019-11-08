@@ -105,8 +105,8 @@ class PostForm(FlaskForm):
             raise ValidationError('A data de entrada é obrigatório')
         if not self.validateDate(field.data):
             raise ValidationError('Data inválida')
-        if not self.compareDateWithNow(field):
-            raise ValidationError('A data/hora selecionada precisa ser maior que a data/hora atual')
+        #if not self.compareDateWithNow(field):
+            #raise ValidationError('A data/hora selecionada precisa ser maior que a data/hora atual')
 
 
     def validate_departure_date(self, field):
@@ -114,8 +114,8 @@ class PostForm(FlaskForm):
             raise ValidationError('A data de saída é obrigatório')
         if not self.validateDate(field.data):
             raise ValidationError('Data inválida')
-        if not self.compareDateWithNow(field):
-            raise ValidationError('A data/hora selecionada deve ser maior que a data/hora atual')
+        #if not self.compareDateWithNow(field):
+            #raise ValidationError('A data/hora selecionada deve ser maior que a data/hora atual')
         if not self.compareDates(self.entry_date, field):
             raise ValidationError('A data/hora de saída deve ser 60 minutos maior que a data/hora de entrada')
 
