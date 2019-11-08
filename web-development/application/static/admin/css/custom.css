@@ -356,3 +356,10 @@ select.form-control, .dataTables_wrapper select{
 .fr-wrapper a[href="https://www.froala.com/wysiwyg-editor?k=u"]{
     display: none !important;
 }
+
+.upload-loading{
+    display: none;
+}
+.upload-loading.show{
+    display: block;
+}

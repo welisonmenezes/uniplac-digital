@@ -72,6 +72,9 @@
 
                         <div class="errorContainer"></div>
                     </div>
+                    <div class="upload-loading">
+                        <img src="{{ url_for('static', filename='admin/images/loading.gif') }}" alt="loading...">
+                    </div>
                     <ul class="ul-fig-banner">
                         {% if images != None %}
                         {% for image in images %}
