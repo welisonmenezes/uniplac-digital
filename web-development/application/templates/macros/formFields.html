@@ -63,7 +63,7 @@
     </sup>
     {% if field.errors %}
     <div class="input-group">
-        {{ field(class="form-control is-invalid mask-date "+cssClass, data_toggle="datetimepicker", data_target="#"+field.name) }}
+        {{ field(class="form-control is-invalid mask-date "+cssClass, data_toggle="datetimepicker", data_target="#"+field.name, autocomplete="off") }}
         <span class="input-group-append">
             <button type="button" class="btn btn-outline-secondary" data-toggle="datetimepicker" data-target="#{{ field.name }}">
                 <i class="mdi mdi-calendar"></i>
@@ -75,7 +75,7 @@
     {% endfor %}
     {% else %}
     <div class="input-group date">
-        {{ field(class="form-control mask-date "+cssClass, data_toggle="datetimepicker", data_target="#"+field.name) }}
+        {{ field(class="form-control mask-date "+cssClass, data_toggle="datetimepicker", data_target="#"+field.name, autocomplete="off") }}
         <span class="input-group-append">
             <button type="button" class="btn btn-outline-secondary" data-toggle="datetimepicker" data-target="#{{ field.name }}">
                 <i class="mdi mdi-calendar"></i>
