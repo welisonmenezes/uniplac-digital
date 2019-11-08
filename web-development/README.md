@@ -7,6 +7,13 @@ A aplicação em si encontra-se no diretório application/
 No diretório database/ encontra-se o dump do banco de dados atualizado.
 
 
+## Site On-line
+
+O site está publicado em: http://welison.pythonanywhere.com/
+
+O host que conseguimos é free, por tanto, a conexão com o banco de dados é instável. Caso entre na página de erro 500, clique em voltar para o site, pois as vezes o site perde a conexão brevemente.
+
+
 ## Usuários para testes:
 
 Foram cadastrados 4 usuários, cada qual com um nível de permissão. Estes são:
