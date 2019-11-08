@@ -87,6 +87,7 @@
 
 {% endblock %}
 {% block footer_script %}
+<script src="{{ url_for('static', filename='share/js/vanilla-validator.concat.js') }}"></script>
 <script>
     var validator = new VanillaValidator({
         messages: {
