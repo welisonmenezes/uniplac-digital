@@ -64,9 +64,9 @@ class PostForm(FlaskForm):
 
     status = NonValidatingSelectField(
         'Status',
-        validators = [
-            DataRequired(message="Campo obrigatório")
-        ],
+        # validators = [
+        #     DataRequired(message="Campo obrigatório")
+        # ],
         choices=[('approved', 'Aprovado'), ('pending', 'Pendente'), ('denied', 'Negado')]
     )
 
@@ -95,7 +95,8 @@ class PostForm(FlaskForm):
     tag = StringField(
         'Tags',
         render_kw = {
-            'placeholder':'Tags'
+            'placeholder':'Tags',
+            'data-role': 'tagsinput'
         }
     )
 
