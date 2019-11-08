@@ -1355,7 +1355,9 @@
 
         for (var i=_.currentSlide, max=i+_.options.slidesToShow; i < max; i++) {
           if (_.options.focusOnChange) {
-            _.$slides.eq(i).attr({'tabindex': '0'});
+            //_.$slides.eq(i).attr({'tabindex': '0'});
+            // edited by welison menezes
+            _.$slides.eq(i).find('a').attr({'tabindex': '0'});
           } else {
             _.$slides.eq(i).removeAttr('tabindex');
           }

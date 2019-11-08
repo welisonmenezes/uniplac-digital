@@ -761,3 +761,9 @@ textarea.form-control{
 .blog_details p[data-f-id="pbf"]{
     display: none !important;
 }
+
+a:focus,
+.form-control:focus,
+button:focus{
+    box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, .2) !important;
+}
