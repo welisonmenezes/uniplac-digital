@@ -253,23 +253,23 @@ select.form-control, .dataTables_wrapper select{
     .table-label{
         display: inline-block;
     }
-    .table,
-    .table tbody,
-    .table tfoot,
-    .table tr,
-    .table th,
-    .table td{
+    .table-mbl,
+    .table-mbl tbody,
+    .table-mbl tfoot,
+    .table-mbl tr,
+    .table-mbl th,
+    .table-mbl td{
         display: block !important;
     }
-    .table thead{
+    .table-mbl thead{
         display: none;
     }
-    .table td{
+    .table-mbl td{
         padding-top: 10px;
         padding-bottom: 10px;
         border: none !important;
     }
-    .table tr{
+    .table-mbl tr{
         margin-bottom: 10px;
     }
 
@@ -281,6 +281,10 @@ select.form-control, .dataTables_wrapper select{
     }
     .table .form-check{
         display: inline-block;
+    }
+
+    .bootstrap-datetimepicker-widget{
+        width: 100% !important;
     }
 }
 
