@@ -30,12 +30,13 @@ h2 {
     height: 60vh;
     overflow: hidden;
 }
-.wrapper .slideshow .slick-slide>div {
+.wrapper .slideshow .slick-slide>div>div{
     height: 60vh;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat
 }
+
 
 .wrapper .slideshow .slick-slide img {
     width: 100%;

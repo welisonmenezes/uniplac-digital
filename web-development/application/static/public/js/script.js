@@ -1,12 +1,13 @@
 $(".slideshow").slick({
     lazyLoad: 'ondemand',
     arrows: false,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 4000,
     infinite: true,
     fade: false,
     pauseOnHover: false,
-    pauseOnFocus: false
+    pauseOnFocus: false,
+    dots: false
 });
 
 $(".carousel").slick({
@@ -18,6 +19,8 @@ $(".carousel").slick({
     slidesToScroll: 1,
     pauseOnHover: false,
     pauseOnFocus: false,
+    arrows: false,
+    dots: false,
     responsive: [
         {
             breakpoint: 1024,
