@@ -27,7 +27,7 @@
             {% if users %}
             <div class="col-md-2">
                 <div class="form-group">
-                    <select name="author" class="form-control" name="category">
+                    <select name="author" class="form-control">
                         <option value="">Autor</option>
                         {% for user in users %}
                         <option {{ 'selected' if author == user.id|string else '' }} value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>

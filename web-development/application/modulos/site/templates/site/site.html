@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<section>
+<div>
     <div class="wrapper">
         <div class="slideshow">
             {% for image in configuration.images %}
@@ -15,7 +15,7 @@
             {% endfor %}
         </div>
     </div>
-</section>
+</div>
 
 {% include 'includes/public/form-filter.html' %}
 
