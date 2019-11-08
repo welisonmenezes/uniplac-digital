@@ -371,3 +371,21 @@ button:focus,
 span:focus{
     box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, .2) !important;
 }
+
+
+@media screen and (max-width: 991px) {
+    .sidebar-offcanvas {
+        width: 100%;
+        height: fit-content;
+        min-height: auto;
+        right: 0;
+        top: -100%;
+        border-bottom: 1px solid #e3e3e3;
+    }
+    .sidebar-offcanvas.active {
+        top: 60px;
+    }
+    .sidebar-offcanvas ul{
+        margin-bottom: 0 !important;
+    }
+}
