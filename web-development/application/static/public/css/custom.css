@@ -381,7 +381,7 @@
         margin: 0;
     }
     #navbarSupportedContent .col-lg-2{
-        text-align: left !important;
+        text-align: center !important;
         margin-bottom: 30px;
         margin-top: 30px;
     }
@@ -766,4 +766,50 @@ a:focus,
 .form-control:focus,
 button:focus{
     box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, .2) !important;
+}
+
+
+@media (max-width: 991px) {
+    #navbarSupportedContent{
+        position: fixed;
+        background: #fff;
+        width: 100%;
+        left: 0;
+        top: 100px;
+    }
+    #navbarSupportedContent > div{
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+    }
+    #navbarSupportedContent > div > div{
+        padding: 0 !important;
+    }
+    #navbarSupportedContent li{
+        margin: 0;
+        width: 100%;
+        text-align: center;
+    }
+    #navbarSupportedContent ul.nav{
+        float: none;
+    }
+
+    .header_area{
+        position: fixed;
+        overflow: hidden;
+    }
+    .body-wrap{
+        padding-top: 102px;
+    }
+    .navbar_fixed #navbarSupportedContent{
+        top: 70px;
+    }
+}
+
+@media (max-width:575px){
+    .body-wrap{
+        padding-top: 72px;
+    }
+    #navbarSupportedContent{
+        top: 70px;
+    }
 }
