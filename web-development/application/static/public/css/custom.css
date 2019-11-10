@@ -776,6 +776,7 @@ button:focus{
         width: 100%;
         left: 0;
         top: 100px;
+        border-bottom: solid 1px #e3e3e3;
     }
     #navbarSupportedContent > div{
         margin-right: 0 !important;
