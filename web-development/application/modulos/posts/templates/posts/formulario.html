@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
-        <div class="ul-breadcrumb">
+        <ul class="ul-breadcrumb">
             <li>
                 <a href="{{ url_for('dashboard.dash') }}" title="Dashboard">Dashboard</a>
             </li>
@@ -32,7 +32,7 @@
             <li>
                 <b>{{ titulo }}</b>
             </li>
-        </div>
+        </ul>
     </div>
 </div>
 
@@ -45,14 +45,14 @@
                     {{ form.csrf_token }}
                     {{ render_field(form.title, 'required', '100') }}
                     {{ render_field(form.description, 'required', '255') }}
-                    {{ render_tags_field(form.tag , '', '100', 'tagsinput') }}
+                    {{ render_tags_field(form.tag , '', '100') }}
                     <div class="rich-text-editor-container">
                         {{ render_field(form.content, 'required') }}
                         <input type="file" name="imagesContent" id="contentImageSender" accept=".jpg,.jpeg,.png,.gif" />
                     </div>
-                    {{ render_field(form.category_id, '') }}
+                    {{ render_field(form.category_id, '', None) }}
                     {% if session.get('user_role', '') != 'user'  %}
-                    {{ render_field(form.status, 'required') }}
+                    {{ render_field(form.status, 'required', None) }}
                     {% endif %}
                     <div class="row">
                         <div class="col-md-6 wrap-date">
@@ -70,7 +70,7 @@
                                 <div class="cropp-result"></div>
                             </div>
                             <div class="cropp-box-2 cropp-img-result cropp-hide">
-                                <img class="cropp-cropped" src="" alt="Imagem cropada">
+                                <img class="cropp-cropped" src="&nbsp;" alt="Imagem cropada">
                             </div>
                             <div class="cropp-box">
                                 <button type="button" class="btn btn-secondary cropp-cropp cropp-hide">
@@ -80,6 +80,10 @@
                                     Enviar Imagem
                                 </button>
                             </div>
+                        </div>
+
+                        <div class="upload-loading">
+                            <img src="{{ url_for('static', filename='admin/images/loading.gif') }}" alt="loading...">
                         </div>
 
                         <div class="image-container">
@@ -155,6 +159,7 @@
     href="{{ url_for('static', filename='admin/vendors/froala/css/third_party/spell_checker.css') }}">
 <link rel="stylesheet"
     href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/special_characters.css') }}">
+ <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/bootstrap-tagsinput.css') }}">
 {% endblock especifcstyles %}
 
 
@@ -164,75 +169,39 @@
 <script src="{{ url_for('static', filename='admin/js/tempusdominus-bootstrap-4.js')}}"></script>
 
 <!-- rich editor froala -->
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/froala_editor.min.js') }}">
-</script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/align.min.js') }}">
-</script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/char_counter.min.js') }}"></script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/code_beautifier.min.js') }}"></script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/code_view.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/colors.min.js') }}">
-</script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/draggable.min.js') }}"></script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/emoticons.min.js') }}"></script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/entities.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/file.min.js') }}">
-</script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/font_size.min.js') }}"></script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/font_family.min.js') }}"></script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/fullscreen.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/image.min.js') }}">
-</script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/image_manager.min.js') }}"></script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/line_breaker.min.js') }}"></script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/inline_style.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/link.min.js') }}">
-</script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/lists.min.js') }}">
-</script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/paragraph_format.min.js') }}"></script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/paragraph_style.min.js') }}"></script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/quick_insert.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/quote.min.js') }}">
-</script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/table.min.js') }}">
-</script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/save.min.js') }}">
-</script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/url.min.js') }}">
-</script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/video.min.js') }}">
-</script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/help.min.js') }}">
-</script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/print.min.js') }}">
-</script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/third_party/spell_checker.min.js') }}"></script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/special_characters.min.js') }}"></script>
-<script type="text/javascript"
-    src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/word_paste.min.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='admin/distt/bootstrap-tagsinput.min.js') }}">
-</script>
-
-
-
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/froala_editor.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/align.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/char_counter.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/code_beautifier.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/code_view.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/colors.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/draggable.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/emoticons.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/entities.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/file.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/font_size.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/font_family.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/fullscreen.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/image.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/image_manager.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/line_breaker.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/inline_style.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/link.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/lists.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/paragraph_format.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/paragraph_style.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/quick_insert.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/quote.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/table.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/save.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/url.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/video.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/help.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/print.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/third_party/spell_checker.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/special_characters.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/vendors/froala/js/plugins/word_paste.min.js') }}"></script>
+<script src="{{ url_for('static', filename='admin/js/bootstrap-tagsinput.min.js') }}"></script>
 
 <script>
     var contentArea = document.getElementById('content');

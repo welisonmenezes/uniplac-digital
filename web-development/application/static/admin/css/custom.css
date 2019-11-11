@@ -276,27 +276,23 @@ select.form-control,
     .table-label {
         display: inline-block;
     }
-
-    .table,
-    .table tbody,
-    .table tfoot,
-    .table tr,
-    .table th,
-    .table td {
+    .table-mbl,
+    .table-mbl tbody,
+    .table-mbl tfoot,
+    .table-mbl tr,
+    .table-mbl th,
+    .table-mbl td{
         display: block !important;
     }
-
-    .table thead {
+    .table-mbl thead{
         display: none;
     }
-
-    .table td {
+    .table-mbl td{
         padding-top: 10px;
         padding-bottom: 10px;
         border: none !important;
     }
-
-    .table tr {
+    .table-mbl tr{
         margin-bottom: 10px;
     }
 
@@ -311,6 +307,14 @@ select.form-control,
 
     .table .form-check {
         display: inline-block;
+    }
+
+    .bootstrap-datetimepicker-widget{
+        width: 100% !important;
+    }
+
+    .bootstrap-tagsinput{
+        height: auto;
     }
 }
 
@@ -392,4 +396,48 @@ select.form-control,
     display: block;
     width: 12px;
     height: 12px;
+}
+
+.fr-wrapper a[href="https://www.froala.com/wysiwyg-editor?k=u"]{
+    display: none !important;
+}
+
+.upload-loading{
+    display: none;
+}
+.upload-loading.show{
+    display: block;
+}
+
+
+a:focus,
+.form-control:focus,
+button:focus,
+span:focus{
+    box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, .2) !important;
+}
+
+
+@media screen and (max-width: 991px) {
+    .sidebar-offcanvas {
+        width: 100%;
+        height: fit-content;
+        min-height: auto;
+        right: 0;
+        top: -100%;
+        border-bottom: 1px solid #e3e3e3;
+    }
+    .sidebar-offcanvas.active {
+        top: 60px;
+    }
+    .sidebar-offcanvas ul{
+        margin-bottom: 0 !important;
+    }
+}
+
+@media (max-width:575px){
+    #chart_div, #chart_div_2{
+        min-width: 300px !important;
+        margin-left: -30px !important;
+    }
 }

@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
-        <div class="ul-breadcrumb">
+        <ul class="ul-breadcrumb">
             <li>
                 <a href="{{ url_for('dashboard.dash') }}" title="Dashboard">Dashboard</a>
             </li>
@@ -20,7 +20,7 @@
             <li>
                 <b>{{ titulo }}</b>
             </li>
-        </div>
+        </ul>
     </div>
 </div>
 
@@ -43,7 +43,7 @@
                     {{ render_field(form.password, 'required', '100') }}
                     {% endif %}
 
-                    {{ render_field(form.role, 'required') }}
+                    {{ render_field(form.role, 'required', None) }}
                     <div>
                         {{ render_file_field(form.image, '') }}
 
@@ -52,7 +52,7 @@
                                 <div class="cropp-result"></div>
                             </div>
                             <div class="cropp-box-2 cropp-img-result cropp-hide">
-                                <img class="cropp-cropped" src="" alt="">
+                                <img class="cropp-cropped" src="&nbsp;" alt="">
                             </div>
                             <div class="cropp-box">
                                 <button type="button" class="btn btn-secondary cropp-cropp cropp-hide">
@@ -62,6 +62,10 @@
                                     Enviar Imagem
                                 </button>
                             </div>
+                        </div>
+
+                        <div class="upload-loading">
+                            <img src="{{ url_for('static', filename='admin/images/loading.gif') }}" alt="loading...">
                         </div>
 
                         <div class="image-container">

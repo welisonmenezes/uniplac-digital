@@ -67,7 +67,7 @@
                 <div class="media contact-info">
                     <span class="contact-info__icon"><i class="ti-tablet"></i></span>
                     <div class="media-body">
-                        <h3><a href="tel:(49) 3251 1022"></a>{{ configuration.phone }}</a></h3>
+                        <h3>{{ configuration.phone }}</h3>
                         <p>{{ configuration.schedules }}</p>
                     </div>
                 </div>
@@ -87,6 +87,7 @@
 
 {% endblock %}
 {% block footer_script %}
+<script src="{{ url_for('static', filename='share/js/vanilla-validator.concat.js') }}"></script>
 <script>
     var validator = new VanillaValidator({
         messages: {

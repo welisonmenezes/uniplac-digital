@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <meta charset="utf-8">
     <script>
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
@@ -14,12 +15,20 @@
         ga('send', 'pageview');
     </script>
     <!-- End Google Analytics -->
-    
-    <meta charset="utf-8">
+
+    <script>
+        window.smartlook || (function (d) {
+            var o = smartlook = function () { o.api.push(arguments) }, h = d.getElementsByTagName('head')[0];
+            var c = d.createElement('script'); o.api = new Array(); c.async = true; c.type = 'text/javascript';
+            c.charset = 'utf-8'; c.src = 'https://rec.smartlook.com/recorder.js'; h.appendChild(c);
+        })(document);
+        smartlook('init', '0551b6bcf1164a1c0744d11e7731472f55d425a9');
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="" name="description">
     <title>{% block title %}{% endblock %}</title>
-    <style type="text/css">
+    <style>
         body {
             -moz-opacity: 0.00;
             -khtml-opacity: 0.00;

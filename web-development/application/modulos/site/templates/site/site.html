@@ -4,18 +4,15 @@
 
 {% block content %}
 
-<section>
+<div>
     <div class="wrapper">
         <div class="slideshow">
             {% for image in configuration.images %}
-            <div>
-                <div class="animated-bg-zoom"
-                    style="background-image:  url({{request.url_root}}api/media/{{image.id}})"></div>
-            </div>
+            <div class="animated-bg-zoom" style="background-image:  url({{request.url_root}}api/media/{{image.id}})"></div>
             {% endfor %}
         </div>
     </div>
-</section>
+</div>
 
 {% include 'includes/public/form-filter.html' %}
 {% if ads %}
@@ -101,7 +98,7 @@
                                 {% endif %}
                                 <div class="short_details">
                                     <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
-                                        title="{{ post.title }}">
+                                        title="{{ post.title }}" class="d-block">
                                         <h3>{{ post.title }}</h3>
                                     </a>
                                     <ul class="blog-info-link mt-3 mb-4">

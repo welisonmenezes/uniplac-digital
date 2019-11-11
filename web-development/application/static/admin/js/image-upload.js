@@ -171,6 +171,10 @@ document.addEventListener('DOMContentLoaded', function () {
     sendFileToServer = function () {
         var el = current_el;
         var file = imgSrc;
+
+        var loading = $('.upload-loading');
+        loading.addClass('show');
+
         fetch(GLOBALS.BASE_URL + 'api/image', {
             method: 'POST',
             headers: {
@@ -190,6 +194,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 } else {
                     addImageHTML(null, data.message);
                 }
+
+                loading.removeClass('show');
             }, error => {
                 if (el.hasClass('multiple')) {
                     addMultipleImageHTML(null, error);
@@ -197,6 +203,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     addImageHTML(null, error);
                 }
                 element.value = null;
+                loading.removeClass('show');
             });
     }
 

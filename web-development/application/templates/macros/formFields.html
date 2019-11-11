@@ -1,4 +1,4 @@
-{% macro render_field(field, cssClass='', maxLength='') %}
+{% macro render_field(field, cssClass='', maxLength='255') %}
 <div class="form-group">
     {{ field.label }}
 
@@ -14,12 +14,20 @@
     {% endif %}
 
     {% if field.errors %}
+    {% if maxLength == None %}
+    {{ field(class="form-control is-invalid "+cssClass) }}
+    {% else %}
     {{ field(class="form-control is-invalid "+cssClass, maxLength=""+maxLength) }}
+    {% endif %}
     {% for error in field.errors %}
     <span class="invalid-feedback">{{ error }}</span>
     {% endfor %}
     {% else %}
+    {% if maxLength == None %}
+    {{ field(class="form-control "+cssClass) }}
+    {% else %}
     {{ field(class="form-control "+cssClass, maxLength=""+maxLength) }}
+    {% endif %}
     {% endif %}
 </div>
 {% endmacro %}
@@ -58,12 +66,18 @@
 {% macro render_field_date(field, cssClass='') %}
 <div class="form-group">
     {{ field.label }}
+    {% if field.name == 'entry_date' %}
     <sup>
-        <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="Certifique-se de que a data/hora selecionada seja maior que do que a data/hora atual."></i>
+        <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="A data/hora de entrada será quando o post estreará na área pública do site."></i>
     </sup>
+    {% elif field.name == 'departure_date' %}
+    <sup>
+        <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="A data/hora de saída será quando o post deixará de estar disponível na área pública do site. Esta deve ser maior que a data/hora de entrada."></i>
+    </sup>
+    {% endif %}
     {% if field.errors %}
     <div class="input-group">
-        {{ field(class="form-control is-invalid mask-date "+cssClass, data_toggle="datetimepicker", data_target="#"+field.name) }}
+        {{ field(class="form-control is-invalid mask-date "+cssClass, data_toggle="datetimepicker", data_target="#"+field.name, autocomplete="off") }}
         <span class="input-group-append">
             <button type="button" class="btn btn-outline-secondary" data-toggle="datetimepicker" data-target="#{{ field.name }}">
                 <i class="mdi mdi-calendar"></i>
@@ -75,7 +89,7 @@
     {% endfor %}
     {% else %}
     <div class="input-group date">
-        {{ field(class="form-control mask-date "+cssClass, data_toggle="datetimepicker", data_target="#"+field.name) }}
+        {{ field(class="form-control mask-date "+cssClass, data_toggle="datetimepicker", data_target="#"+field.name, autocomplete="off") }}
         <span class="input-group-append">
             <button type="button" class="btn btn-outline-secondary" data-toggle="datetimepicker" data-target="#{{ field.name }}">
                 <i class="mdi mdi-calendar"></i>
@@ -107,20 +121,20 @@
 </div>
 {% endmacro %}
 
-{% macro render_tags_field(field, cssClass='', maxLength='', dataRole='') %}
+{% macro render_tags_field(field, cssClass='', maxLength='') %}
 <div class="form-group">
         {{ field.label }}
         <sup>
             <i class="mdi mdi-help-circle" data-toggle="tooltip" data-html="true" title="Adicione tags separando-as por vírgula."></i>
         </sup>
         {% if field.errors %}
-        {{ field(class="form-control is-invalid "+cssClass, maxLength=""+maxLength, dataRole=""+dataRole) }}
+        {{ field(class="form-control is-invalid "+cssClass, maxLength=""+maxLength) }}
         
         {% for error in field.errors %}
         <span class="invalid-feedback">{{ error }}</span>
         {% endfor %}
         {% else %}
-        {{ field(class="form-control "+cssClass, maxLength=""+maxLength, dataRole=""+dataRole) }}
+        {{ field(class="form-control "+cssClass, maxLength=""+maxLength) }}
         {% endif %}
     </div>
 {% endmacro %}
