@@ -18,9 +18,9 @@ def index():
     current_datetime = datetime.now()
     tags = Tag.query.join(Post, Tag.posts).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved')).order_by(asc(Tag.name)).all()
 
-    news = Post.query.outerjoin(User, User.id == Post.user_id).outerjoin(Category, Category.id == Post.category_id).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='news', Post.status=='approved')).order_by(desc(Post.id)).limit(10)
-    ads = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='ad', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
-    notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6)
+    news = Post.query.outerjoin(User, User.id == Post.user_id).outerjoin(Category, Category.id == Post.category_id).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='news', Post.status=='approved')).order_by(desc(Post.id)).limit(10).all()
+    ads = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='ad', Post.status=='approved')).order_by(desc(Post.id)).limit(6).all()
+    notices = Post.query.filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.genre=='notice', Post.status=='approved')).order_by(desc(Post.id)).limit(6).all()
 
     return render_template('site/site.html',tags=tags, news=news, ads=ads, notices=notices, configuration=configuration, categories=categories, categories_highlighted=categories_highlighted, users=users), 200
 

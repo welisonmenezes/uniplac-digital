@@ -352,8 +352,8 @@
                         {% if(titulo == 'Tag'): %}
                         {% if currentPage > 1 %}
                         <li class="page-item">
-                            <a href="{{ url_for('site.tag', page=paginate.prev_num, tag=tag) }}"
-                                class="page-link" aria-label="Previous" title="Página Anterior">
+                            <a href="{{ url_for('site.tag', page=paginate.prev_num, tag=tag) }}" class="page-link"
+                                aria-label="Previous" title="Página Anterior">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-left"></span>
                                 </span>
@@ -367,16 +367,16 @@
                         </li>
                         {% else %}
                         <li class="page-item {{ 'active' if currentPage == page else '' }}">
-                            <a href="{{ url_for('site.tag', page=page, tag=tag) }}"
-                                class="page-link" title="Página {{page}}">{{ page }}</a>
+                            <a href="{{ url_for('site.tag', page=page, tag=tag) }}" class="page-link"
+                                title="Página {{page}}">{{ page }}</a>
                         </li>
                         {% endif %}
                         {% endfor %}
                         {% if paginate.next_num != None %}
                         {% if currentPage < paginate.next_num %}
                         <li class="page-item">
-                            <a href="{{ url_for('site.tag', page=paginate.next_num, tag=tag) }}"
-                                class="page-link" aria-label="Next" title="Próxima Página">
+                            <a href="{{ url_for('site.tag', page=paginate.next_num, tag=tag) }}" class="page-link"
+                                aria-label="Next" title="Próxima Página">
                                 <span aria-hidden="true">
                                     <span class="ti-arrow-right"></span>
                                 </span>

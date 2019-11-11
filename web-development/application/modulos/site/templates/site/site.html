@@ -15,7 +15,7 @@
 </div>
 
 {% include 'includes/public/form-filter.html' %}
-
+{% if ads %}
 <div class="carouse">
     <div class="container">
         <div class="row">
@@ -65,7 +65,7 @@
                     <div class="col">
                         <a href="{{ url_for('site.anuncios') }}" class="btn btn-info btn-sm btn-block"
                             title="Ver todos os anúnicios">
-                            Ver todos os anúnicios
+                            Ver todos os anúncios
                         </a>
                     </div>
                 </div>
@@ -73,11 +73,12 @@
         </div>
     </div>
 </div>
-
+{% endif %}
 <section class="blog-area section-gap">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
+                {% if news %}
                 <div class="row">
                     <div class="col">
                         <h2>Últimas Notícias</h2>
@@ -151,13 +152,15 @@
                             title="Ver todas as notícias">Ver todas as notícias</a>
                     </div>
                 </div>
+                {% else %}
+                <p class="no-content-found">Nenhuma notícia cadastrada.</p>
+                {% endif %}
             </div>
             <div class="col-lg-4">
 
                 {% include 'includes/public/sidebar.html' %}
             </div>
         </div>
-
     </div>
 
 </section>

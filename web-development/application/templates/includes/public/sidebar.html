@@ -1,5 +1,6 @@
 <div class="blog_right_sidebar">
     {% if titulo != 'Avisos'%}
+    {% if notices %}
     <aside class="single_sidebar_widget popular_post_widget">
         <h3 class="widget_title">Avisos Recentes</h3>
         {% for post in notices %}
@@ -33,9 +34,11 @@
         {% endif %}
         {% endfor%}
         <div class="action">
-            <a href="{{ url_for('site.avisos') }}" class="btn btn-info btn-sm btn-block" title="Ver todos os avisos">Ver todos os avisos</a>
+            <a href="{{ url_for('site.avisos') }}" class="btn btn-info btn-sm btn-block" title="Ver todos os avisos">Ver
+                todos os avisos</a>
         </div>
     </aside>
+    {% endif %}
     {% endif %}
     {% if categories %}
     <aside class="single_sidebar_widget post_category_widget">
@@ -59,7 +62,8 @@
                 <select name="author" class="form-control author-search-field">
                     <option value="">Autor</option>
                     {% for user in users %}
-                    <option {{ 'selected' if author == user.id|string else '' }} value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+                    <option {{ 'selected' if author == user.id|string else '' }} value="{{ user.id }}">
+                        {{ user.first_name }} {{ user.last_name }}</option>
                     {% endfor %}
                 </select>
             </div>
