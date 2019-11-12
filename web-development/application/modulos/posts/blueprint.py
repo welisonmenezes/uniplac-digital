@@ -3,7 +3,7 @@ from flask import current_app, Blueprint, render_template, request, url_for, fla
 from modulos.posts.formularios import PostForm
 from app import app
 from sqlalchemy import desc, or_, and_, asc
-from database.Model import Configuration, db, Post, Category, User, Tag, TagPost
+from database.Model import Configuration, db, Post, Category, User, Tag, TagPost, Category
 from datetime import datetime
 from flask_mail import Message
 from app import mail, executor
@@ -193,6 +193,14 @@ def render_post_register_by_type(post_type, title):
         if session.get('user_role', '') == 'user':
             form.status.validators = []
 
+    form.category_id.choices = [('', 'Selecione')]
+    try:
+        categories = Category.query.all()
+        for category in categories:
+            form.category_id.choices.append((str(category.id), category.name))
+    except:
+        pass
+
     if form.validate_on_submit():
         try:
             form.user_id = session.get('user_id', '')
@@ -318,6 +326,14 @@ def render_post_edit_by_type(post_type, title, id):
 
         # preenche formulário com post recuperado pelo id
         fillForm(form, post, post_type)
+
+    form.category_id.choices = [('', 'Selecione')]
+    try:
+        categories = Category.query.all()
+        for category in categories:
+            form.category_id.choices.append((str(category.id), category.name))
+    except:
+        pass
 
     if post_type == 'ad':
         # se usuário nível 4, remove validator

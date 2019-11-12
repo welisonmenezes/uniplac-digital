@@ -8,7 +8,9 @@
     <div class="wrapper">
         <div class="slideshow">
             {% for image in configuration.images %}
-            <div class="animated-bg-zoom" style="background-image:  url({{request.url_root}}api/media/{{image.id}})"></div>
+            <div>
+                <img src="{{request.url_root}}api/media/{{image.id}}" alt="Banner Uniplac Digital">
+            </div>
             {% endfor %}
         </div>
     </div>

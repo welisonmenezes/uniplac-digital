@@ -27,11 +27,11 @@ h2 {
 }
 
 .wrapper .slideshow .slick-slide{
-    height: 60vh;
+    /* height: 60vh; */
     overflow: hidden;
 }
 .wrapper .slideshow .slick-slide>div>div{
-    height: 60vh;
+    /* height: 60vh; */
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat

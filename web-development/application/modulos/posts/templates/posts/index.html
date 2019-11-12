@@ -144,6 +144,7 @@
                                         class="{{ 'active' if order_by=='created_at' else '' }} {{ order }}"
                                         title="Ordenar por Data">Data </a>
                                 </th>
+                                <th>Tipo</th>
                                 <th>
                                     Status
                                     <sup class="small">
@@ -158,7 +159,6 @@
                                             title="Os posts atuais também dependem que o status do post esteja marcado como aprovado para estarem visíveis no site. Veja o campo Status na edição do post."></i>
                                     </sup>
                                 </th>
-                                <th>Tipo</th>
                                 <th>Ver/Editar/Deletar</th>
                             </tr>
                         </thead>
@@ -169,6 +169,14 @@
                                 <td><strong class="table-label">Título: </strong> {{ post.title }}</td>
                                 <td><strong class="table-label">Data: </strong>
                                     {{ post.created_at|format_datetime('%d/%m/%Y')}}</td>
+                                <td>
+                                    <strong class="table-label">Tipo: </strong>
+                                    <label class="badge-color {{post.genre}}">
+                                        {% if post.genre =='notice' %}Aviso{% endif %}
+                                        {% if post.genre =='ad' %}Anúncio{% endif %}
+                                        {% if post.genre =='news' %}Notícia{% endif %}
+                                    </label>
+                                </td>
                                 <td>
                                     <strong class="table-label">Status: </strong>
                                     {% if post.status == 'approved' %}
@@ -188,14 +196,6 @@
                                     {% elif post.entry_date > current_datetime %}
                                         <label class="ball ball-warning">Agendado</label>
                                     {% endif %}
-                                </td>
-                                <td>
-                                    <strong class="table-label">Tipo: </strong>
-                                    <label class="badge-color {{post.genre}}">
-                                        {% if post.genre =='notice' %}Aviso{% endif %}
-                                        {% if post.genre =='ad' %}Anúncio{% endif %}
-                                        {% if post.genre =='news' %}Notícia{% endif %}
-                                    </label>
                                 </td>
                                 <td>
                                     {# Diferenciando pelo tipo de post #}

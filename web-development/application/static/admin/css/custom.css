@@ -387,6 +387,9 @@ select.form-control,
 .table thead th i.mdi-help-circle {
     margin: 0;
 }
+.table thead th{
+    vertical-align: middle;
+}
 
 .table sup.small {
     display: inline-block;

@@ -25,7 +25,7 @@ app = Flask(__name__, template_folder='templates', static_folder='static')
 # apply app configurations
 app.config.from_pyfile('config.py')
 
-# configurações do recaptcha
+# configuracoes do recaptcha
 app.config['RECAPTCHA_USE_SSL']= False
 app.config['RECAPTCHA_PUBLIC_KEY']= '6LccGOISAAAAAPVdDHhzpAXI64FnnX1vYL7Yea23'
 app.config['RECAPTCHA_PRIVATE_KEY']='6LccGOISAAAAAFhRBXgRg5-1x_U2S0m9sxQJjdOW'
@@ -59,7 +59,7 @@ app.register_blueprint(tagBP)
 
 
 
-#formata a data para padrão PT_BR
+#formata a data para padrao PT_BR
 @app.template_filter('format_datetime')
 def format_datetime(value, format="%d-%m-%Y %H:%M:%S"):
     """Format a date time to (Default): d Mon YYYY HH:MM P"""
