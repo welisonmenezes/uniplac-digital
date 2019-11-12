@@ -286,7 +286,7 @@ def render_post_edit_by_type(post_type, title, id):
     # pega o post pelo id 
     post = Post.query.filter(and_(Post.id==id)).first()
 
-    if not post:
+    if not post or post.genre != post_type:
         if post_type == 'news':
             flash('A notícia solicitada não existe', 'info')
             return redirect(url_for('posts.noticias_index'))
@@ -425,7 +425,7 @@ def render_post_delete_by_type(post_type, title, id):
     post = Post.query.filter(and_(Post.id==id)).first()
 
     # se não existe a noticia, bye
-    if not post:
+    if not post or post.genre != post_type:
         if post_type == 'news':
             flash('A notícia solicitada não existe', 'info')
             return redirect(url_for('posts.noticias_index'))
