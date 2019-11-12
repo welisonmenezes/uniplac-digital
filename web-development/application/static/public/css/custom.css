@@ -814,3 +814,33 @@ button:focus{
         top: 70px;
     }
 }
+
+@media (max-width:1199px){
+    .carouse .carousel div .card a .no-image{
+        height: 148.5px;
+    }
+}
+
+@media (max-width:991px){
+    .carouse .carousel div .card a .no-image{
+        height: 108.5px;
+    }
+}
+
+@media (max-width:767px){
+    .carouse .carousel div .card a .no-image{
+        height: 78.5px;
+    }
+}
+
+@media (max-width:599px){
+    .carouse .carousel div .card a .no-image{
+        height: 122.5px;
+    }
+}
+
+@media (max-width:479px){
+    .carouse .carousel div .card a .no-image{
+        height: 216px;
+    }
+}

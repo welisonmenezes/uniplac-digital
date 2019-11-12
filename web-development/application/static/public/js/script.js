@@ -1,7 +1,7 @@
 $(".slideshow").slick({
     lazyLoad: 'ondemand',
     arrows: false,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 4000,
     infinite: true,
     fade: false,
@@ -12,7 +12,7 @@ $(".slideshow").slick({
 
 $(".carousel").slick({
     lazyLoad: 'ondemand',
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 4000,
     infinite: true,
     slidesToShow: 3,
