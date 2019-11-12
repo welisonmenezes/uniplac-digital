@@ -36,6 +36,16 @@ document.addEventListener('DOMContentLoaded', function() {
         $('input.date, .input-group.date').datetimepicker({
             format: 'DD-MM-YYYY HH:mm:ss'
         });
+
+        $('input.date').on('input', function(ev){
+            $(this).datetimepicker('hide');
+        });
+
+        $(document).on('click', function(event) {
+            if (!event.target.hasAttribute('data-toggle') && ! $(event.target).hasClass('mdi-calendar')) {
+                $('input.date, .input-group.date').datetimepicker('hide');
+            }
+        });
     }
     
 
