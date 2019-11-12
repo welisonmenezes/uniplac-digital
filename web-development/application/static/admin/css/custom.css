@@ -369,19 +369,19 @@ select.form-control,
     padding: 3px;
 }
 
-.badge.news {
-    color: #fff;
-    background-color: #009eef;
+.badge-color{
+    color: #ccc;
+    font-weight: bold;
 }
-
-.badge.ad {
-    color: #fff;
-    background-color: #851878;
+.badge-color.news {
+    color: #009eef;
+    
 }
-
-.badge.notice {
-    color: #fff;
-    background-color: #990000;
+.badge-color.ad {
+    color: #851878;
+}
+.badge-color.notice {
+    color: #990000;
 }
 
 .table thead th i.mdi-help-circle {
@@ -440,4 +440,40 @@ span:focus{
         min-width: 300px !important;
         margin-left: -30px !important;
     }
+}
+
+.ball{
+    display: inline-block;
+    position: relative;
+    padding-left: 15px;
+}
+.ball::before{
+    content: " ";
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 8px;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    background: #ccc;
+    color: #ccc;
+}
+.ball.ball-success{
+    color: #71c016;
+}
+.ball.ball-success::before{
+    background: #71c016;
+}
+.ball.ball-danger{
+    color: #ff4747;
+}
+.ball.ball-danger::before{
+    background: #ff4747;
+}
+.ball.ball-warning{
+    color: #ffc100;
+}
+.ball.ball-warning::before{
+    background: #ffc100;
 }

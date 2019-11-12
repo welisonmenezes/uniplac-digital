@@ -171,21 +171,27 @@
                                     {{ post.created_at|format_datetime('%d/%m/%Y')}}</td>
                                 <td>
                                     <strong class="table-label">Status: </strong>
-                                    <label class="badge {{post.status}}">{{ post.status }}</label>
+                                    {% if post.status == 'approved' %}
+                                    <label class="badge {{post.status}}">Aprovado</label>
+                                    {% elif post.status == 'denied' %}
+                                    <label class="badge {{post.status}}">Negado</label>
+                                    {% elif post.status == 'pending' %}
+                                    <label class="badge {{post.status}}">Pendente</label>
+                                    {% endif %}
                                 </td>
                                 <td>
                                     <strong class="table-label">Status de publicação: </strong>
                                     {% if post.entry_date <= current_datetime and post.departure_date >= current_datetime %}
-                                        <label class="badge badge-success">Atual</label>
+                                        <label class="ball ball-success">Atual</label>
                                     {% elif post.departure_date < current_datetime %}
-                                        <label class="badge badge-danger">Expirado</label>
+                                        <label class="ball ball-danger">Expirado</label>
                                     {% elif post.entry_date > current_datetime %}
-                                        <label class="badge badge-warning">Agendado</label>
+                                        <label class="ball ball-warning">Agendado</label>
                                     {% endif %}
                                 </td>
                                 <td>
                                     <strong class="table-label">Tipo: </strong>
-                                    <label class="badge {{post.genre}}">
+                                    <label class="badge-color {{post.genre}}">
                                         {% if post.genre =='notice' %}Aviso{% endif %}
                                         {% if post.genre =='ad' %}Anúncio{% endif %}
                                         {% if post.genre =='news' %}Notícia{% endif %}
