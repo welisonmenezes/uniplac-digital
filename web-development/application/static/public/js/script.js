@@ -15,7 +15,7 @@ $('.carousel').on('init', function (event, slick) {
 });
 $('.carousel').slick({
     lazyLoad: 'ondemand',
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 4000,
     infinite: true,
     slidesToShow: 3,
