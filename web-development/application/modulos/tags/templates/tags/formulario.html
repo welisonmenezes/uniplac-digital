@@ -56,7 +56,7 @@
                 fn: function (field, message, container) {
                     var self = this;
                     this.asyncValidationStart(field, 'message during process', container);
-                    if ($('#old-tag') && $('#old-tag').val() === field.value) {
+                    if ($('#old-tag') && $('#old-tag').val() === field.value && field.value !== '') {
                         self.asyncValidationFinish(field, '', container, true);
                     } else {
                         if (field.value === '') {

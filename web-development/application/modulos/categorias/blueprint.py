@@ -190,3 +190,12 @@ def changeCategoryHightlight():
             return jsonify({'message': 'Desculpe-nos, não foi possível alterar a categoria.'})
 
     return jsonify({'message': 'Dados para a requisição incompletos.'})
+
+
+@categoriaBP.route('/async-check', methods=['POST'])
+def asyncCheck():
+    if (request.form['name']):
+        category = Category.query.filter((Category.name==request.form['name'])).first()
+        if category:
+            return jsonify({'message': 'error'})
+    return jsonify({'message': 'success'})

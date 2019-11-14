@@ -9,7 +9,8 @@ class CategoriaForm(FlaskForm):
             DataRequired(message="Campo obrigatório")
         ],
         render_kw = {
-            'placeholder':'Nome'
+            'placeholder':'Nome',
+            'data-async-key': 'category-input'
         }
     )
 

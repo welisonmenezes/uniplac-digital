@@ -3,7 +3,7 @@ from database.Model import Category
 
 def validateCategoryToCreate(form):
     try:
-        if hasCategoryWithName(form.name.data):
+        if not hasCategoryWithName(form.name.data):
             return False
 
         return True
@@ -15,7 +15,7 @@ def validateCategoryToUpdate(form, category):
     try:
         # se a matrícula for diferente, chama validação
         if (category.name != form.name.data):
-            if hasCategoryWithName(form.name.data):
+            if not hasCategoryWithName(form.name.data):
                 return False
         
         return True
@@ -28,3 +28,4 @@ def hasCategoryWithName(name):
     if categoryWithName:
         flash('O nome informado já foi cadastrado', 'danger')
         return False
+    return True
