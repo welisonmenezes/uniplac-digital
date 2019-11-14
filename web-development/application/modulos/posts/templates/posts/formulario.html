@@ -59,7 +59,7 @@
                             {{ render_field_date(form.entry_date, 'date required') }}
                         </div>
                         <div class="col-md-6 wrap-date">
-                            {{ render_field_date(form.departure_date, 'date required') }}
+                            {{ render_field_date(form.departure_date, 'date required custom-validate') }}
                         </div>
                     </div>
                     <div>
@@ -159,7 +159,7 @@
     href="{{ url_for('static', filename='admin/vendors/froala/css/third_party/spell_checker.css') }}">
 <link rel="stylesheet"
     href="{{ url_for('static', filename='admin/vendors/froala/css/plugins/special_characters.css') }}">
- <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/bootstrap-tagsinput.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/css/bootstrap-tagsinput.css') }}">
 {% endblock especifcstyles %}
 
 
@@ -247,15 +247,15 @@
                     var reader = new FileReader();
                     reader.onloadend = () => {
                         fetch(GLOBALS.BASE_URL + 'api/image', {
-                                method: 'POST',
-                                headers: {
-                                    'Accept': 'application/json',
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    image: reader.result
-                                })
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                image: reader.result
                             })
+                        })
                             .then(data => data.json())
                             .then(data => {
                                 if (data && data.id) {
@@ -300,7 +300,30 @@
         },
         selectors: {
             date: 'xxdate'
+        },
+        customValidates: {
+            'check-dates': {
+                message: 'A data/hora de saída deve ser 60 minutos maior que a data/hora de entrada',
+                fn: function (field, container) {
+                    if ($('#entry_date').val() !== '' && $('#departure_date').val() !== '') {
+                        var entry = $('#entry_date').val().toDateFromDatetime().addHours(1);
+                        var departure = $('#departure_date').val().toDateFromDatetime();
+                        if (departure <= entry) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+            }
         }
     });
+    Date.prototype.addHours= function(h){
+        this.setHours(this.getHours()+h);
+        return this;
+    }
+    String.prototype.toDateFromDatetime = function() {
+        var parts = this.split(/[- :]/);
+        return new Date(parts[0], parts[1] - 1, parts[2], parts[3], parts[4], parts[5]);
+    };
 </script>
 {% endblock footer_script %}
