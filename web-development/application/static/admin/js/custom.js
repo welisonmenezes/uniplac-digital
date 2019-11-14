@@ -48,5 +48,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+});
 
+
+$('.open-mbl-search-form').on('click', function () {
+    var row = $('.mbl-hided-row');
+    if (row.hasClass('opened')) {
+        row.removeClass('opened');
+    } else {
+        row.addClass('opened');
+    }
 });
