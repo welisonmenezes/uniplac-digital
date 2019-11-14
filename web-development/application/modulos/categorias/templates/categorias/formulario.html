@@ -56,7 +56,7 @@
                 message: 'verificando disponibilidade do nome...',
                 fn: function (field, message, container) {
                     var self = this;
-                    this.asyncValidationStart(field, 'message during process', container);
+                    this.asyncValidationStart(field, 'verificando disponibilidade do nome...', container);
                     if ($('#old-category') && $('#old-category').val() === field.value && field.value !== '') {
                         self.asyncValidationFinish(field, '', container, true);
                     } else {
