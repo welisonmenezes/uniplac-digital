@@ -31,7 +31,7 @@
                 <a class="navbar-brand logo_h" href="{{ url_for('site.index') }}" title="Portal Uniplac">
                     <img src="{{ url_for('static', filename='public/img/logo.png') }}" alt="logo" />
                 </a>
-                <span class="btn-search go-to-form-search show-768"><i class="ti-search"></i></span>
+                <span class="btn-search go-to-form-search show-992"><i class="ti-search"></i></span>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation" tabindex="-1">
@@ -63,6 +63,9 @@
                                         <a class="nav-link" href="{{ url_for('dashboard.dash') }}" title="Painel Administrativo">Painel Administrativo</a>
                                     </li>
                                 {% endif %}
+                                <li class="nav-item hide-992">
+                                        <span class="btn-search go-to-form-search"><i class="ti-search"></i></span>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-lg-2 pr-0 text-right">
@@ -82,5 +85,6 @@
             </nav>
         </div>
     </div>
+    {% include 'includes/public/form-filter.html' %}
 </header>
 {% endblock header %}

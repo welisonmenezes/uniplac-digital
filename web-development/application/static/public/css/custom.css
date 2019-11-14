@@ -62,6 +62,13 @@
     color: #333;
 }
 
+.header_area{
+    position: fixed;
+}
+.body-wrap{
+    padding-top: 110px;
+}
+
 .header_area .navbar .icons {
     line-height: normal;
     margin-top: 30px;
@@ -236,6 +243,15 @@
 
 .single-post .tags {
     margin-top: 25px;
+    margin-bottom: 60px;
+}
+
+.navbar_fixed .nav-item .btn-search{
+    top: 25px;
+}
+.nav-item .btn-search{
+    position: relative;
+    top: 29px;
 }
 
 .single-post .tags .badge {
@@ -456,6 +472,15 @@ textarea.form-control {
 @media (max-width: 992px) {
     .show-992 {
         display: block;
+    }
+    .hide-992{
+        display: none;
+    }
+
+    .btn-search{
+        position: absolute;
+        top: 26px;
+        right: 40px;
     }
 }
 
@@ -904,15 +929,6 @@ a:focus, .form-control:focus, button:focus {
     }
 }
 
-@media (max-width:575px) {
-    .body-wrap {
-        padding-top: 72px;
-    }
-    #navbarSupportedContent {
-        top: 70px;
-    }
-}
-
 .btn-search {
     color: #007bff;
     cursor: pointer;
@@ -927,10 +943,29 @@ a:focus, .form-control:focus, button:focus {
     color: #0069d9;
 }
 
+.search-form-wrap{
+    width: 100%;
+    position: fixed;
+    background: #f6f6f6;
+    top: 0;
+    border-bottom: solid 1px #ccc;
+    z-index: 9;
+    padding-top: 110px;
+    display: none;
+}
+
+.navbar_fixed .search-form-wrap{
+    padding-top: 70px;
+}
+.header_area .top_menu,
+.header_area .main_menu{
+    position: relative;
+    z-index: 99;
+}
+
 @media (max-width:768px) {
     .blog_area, .sct-contact {
         padding-top: 0;
-        padding-bottom: 0;
     }
     .search-form {
         margin: 40px 0 40px 0;
@@ -999,4 +1034,16 @@ a:focus, .form-control:focus, button:focus {
 }
 .btn.btn-sm{
     font-size: 14px;
+}
+
+@media (max-width:575px) {
+    .body-wrap {
+        padding-top: 72px;
+    }
+    #navbarSupportedContent {
+        top: 70px;
+    }
+    .search-form-wrap{
+        padding-top: 90px;
+    }
 }

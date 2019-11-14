@@ -148,11 +148,12 @@ $('.open-mbl-search-form').on('click', function () {
 });
 
 $('.go-to-form-search').on('click', function () {
-    var form = $('.search-form');
-    $('html, body').stop().animate({
-        scrollTop: form.offset().top - 100
-    }, 600, function () {
-        var row = $('.mbl-hided-row');
-        row.addClass('opened');
-    });
+    // var form = $('.search-form');
+    // $('html, body').stop().animate({
+    //     scrollTop: form.offset().top - 100
+    // }, 600, function () {
+    //     var row = $('.mbl-hided-row');
+    //     row.addClass('opened');
+    // });
+    $('.search-form-wrap').slideToggle(300);
 });
