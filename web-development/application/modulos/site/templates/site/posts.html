@@ -7,7 +7,7 @@
     <div class="banner_inner d-flex align-items-center">
         <div class="container">
             <div class="banner_content d-md-flex justify-content-between align-items-center">
-                <div class="mb-3 mb-md-0">
+                <div class="">
                     <h2>{{ titulo }}</h2>
                 </div>
                 <div class="page_link">
@@ -19,8 +19,6 @@
     </div>
 </section>
 
-{% include 'includes/public/form-filter.html' %}
-
 <section class="blog_area section_gap">
     <div class="container">
         <div class="row">
@@ -30,36 +28,40 @@
                 <div class="blog_left_sidebar">
                     {% if posts %}
                     {% for post in posts %}
-                    <div class="blog_item">
+                    <div class="single-blog">
 
                         {% if post.genre == 'news' %}
-                        <div class="d-block">
+                        <div>
                             {% if post.image_id != None%}
-                            <a class="blog_item_img" href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
+                            <a class="thumb" href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
                                 title="{{ post.title }}">
                                 <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
                                     alt="{{ post.title }}">
                             </a>
                             {% endif %}
 
-                            <div class="blog_details">
-                                <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" title="{{ post.title }}" class="d-block">
-                                    <h2>{{ post.title }}</h2>
+                            <div class="short_details">
+                                <div class="post_marker_wrap">
+                                    <a href="{{ url_for('site.noticias') }}" title=""
+                                        class="post_marker {{post.genre}}">
+                                        Notícia
+                                    </a>
+                                </div>
+                                <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" title="{{ post.title }}"
+                                    class="d-block">
+                                    <h3>{{ post.title }}</h3>
+                                    <div class="text-wrap">
+                                        <p>{{ post.description }}</p>
+                                    </div>
                                 </a>
-                                <ul class="blog-info-link mt-3 mb-4">
-                                    <li>
-                                        <a href="{{ url_for('site.noticias') }}" title=""
-                                            class="post_marker {{post.genre}}">
-                                            Notícia
-                                        </a>
-                                    </li>
+                                <ul class="blog-info-link">
                                     <li>
                                         <span class="date">
                                             <i class="ti-calendar"></i>
                                             {{ post.created_at|format_datetime('%d/%m/%Y') }}
                                         </span>
                                     </li>
-                                    <li>
+                                    <li class="hide-768">
                                         <a class="author" href="{{ url_for('site.filtro', author=post.user.id) }}"
                                             title="Autor {{ post.user.first_name }} {{ post.user.last_name }}">
                                             <i class="ti-user"></i> Por {{ post.user.first_name }}
@@ -75,42 +77,39 @@
                                     </li>
                                     {% endif %}
                                 </ul>
-                                <p>{{ post.description }}</p>
-                                <a class="blog_btn" href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
-                                    title="{{ post.title }}">
-                                    Ver Mais
-                                    <span class="ml-2 ti-arrow-right"></span>
-                                </a>
                             </div>
                         </div>
 
                         {% elif post.genre == 'ad' %}
-                        <div class="d-block">
+                        <div>
                             {% if post.image_id != None%}
-                            <a class="blog_item_img" href="{{ url_for('site.anuncios_detalhes', id=post.id) }}"
+                            <a class="thumb" href="{{ url_for('site.anuncios_detalhes', id=post.id) }}"
                                 title="{{ post.title }}">
                                 <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
                                     alt="{{ post.title }}">
                             </a>
                             {% endif %}
-                            <div class="blog_details">
+                            <div class="short_details">
+                                <div class="post_marker_wrap">
+                                    <a href="{{ url_for('site.anuncios') }}" title=""
+                                        class="post_marker {{post.genre}}">
+                                        Anúncio
+                                    </a>
+                                </div>
                                 <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" title="{{ post.title }}">
-                                    <h2>{{ post.title }}</h2>
+                                    <h3>{{ post.title }}</h3>
+                                    <div class="text-wrap">
+                                        <p>{{ post.description }}</p>
+                                    </div>
                                 </a>
-                                <ul class="blog-info-link mt-3 mb-4">
-                                    <li>
-                                        <a href="{{ url_for('site.anuncios') }}" title=""
-                                            class="post_marker {{post.genre}}">
-                                            Anúncio
-                                        </a>
-                                    </li>
+                                <ul class="blog-info-link">
                                     <li>
                                         <span class="date">
                                             <i class="ti-calendar"></i>
                                             {{ post.created_at|format_datetime('%d/%m/%Y') }}
                                         </span>
                                     </li>
-                                    <li>
+                                    <li class="hide-768">
 
                                         <a class="author" href="{{ url_for('site.filtro', author=post.user.id) }}"
                                             title="Autor {{ post.user.first_name }} {{ post.user.last_name }}">
@@ -127,42 +126,38 @@
                                     </li>
                                     {% endif %}
                                 </ul>
-                                <p>{{ post.description }}</p>
-                                <a class="blog_btn" href="{{ url_for('site.anuncios_detalhes', id=post.id) }}"
-                                    title="{{ post.title }}">
-                                    Ver Mais
-                                    <span class="ml-2 ti-arrow-right"></span>
-                                </a>
                             </div>
                         </div>
 
                         {% elif post.genre == 'notice' %}
-                        <div class="d-block">
+                        <div>
                             {% if post.image_id != None%}
-                            <a class="blog_item_img" href="{{ url_for('site.avisos_detalhes', id=post.id) }}"
+                            <a class="thumb" href="{{ url_for('site.avisos_detalhes', id=post.id) }}"
                                 title="{{ post.title }}">
                                 <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
                                     alt="{{ post.title }}">
                             </a>
                             {% endif %}
-                            <div class="blog_details">
+                            <div class="short_details">
+                                <div class="post_marker_wrap">
+                                    <a href="{{ url_for('site.avisos') }}" title="" class="post_marker {{post.genre}}">
+                                        Aviso
+                                    </a>
+                                </div>
                                 <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" title="{{ post.title }}">
-                                    <h2>{{ post.title }}</h2>
+                                    <h3>{{ post.title }}</h3>
+                                    <div class="text-wrap">
+                                        <p>{{ post.description }}</p>
+                                    </div>
                                 </a>
-                                <ul class="blog-info-link mt-3 mb-4">
-                                    <li>
-                                        <a href="{{ url_for('site.avisos') }}" title=""
-                                            class="post_marker {{post.genre}}">
-                                            Aviso
-                                        </a>
-                                    </li>
+                                <ul class="blog-info-link">
                                     <li>
                                         <span class="date">
                                             <i class="ti-calendar"></i>
                                             {{ post.created_at|format_datetime('%d/%m/%Y') }}
                                         </span>
                                     </li>
-                                    <li>
+                                    <li class="hide-768">
                                         <a class="author" href="{{ url_for('site.filtro', author=post.user.id) }}"
                                             title="Autor {{ post.user.first_name }} {{ post.user.last_name }}">
                                             <i class="ti-user"></i> Por {{ post.user.first_name }}
@@ -178,12 +173,6 @@
                                     </li>
                                     {% endif %}
                                 </ul>
-                                <p>{{ post.description }}</p>
-                                <a class="blog_btn" href="{{ url_for('site.avisos_detalhes', id=post.id) }}"
-                                    title="{{ post.title }}">
-                                    Ver Mais
-                                    <span class="ml-2 ti-arrow-right"></span>
-                                </a>
                             </div>
                         </div>
                         {% endif %}
@@ -398,5 +387,7 @@
         </div>
     </div>
 </section>
+
+{% include 'includes/public/form-filter.html' %}
 
 {% endblock %}

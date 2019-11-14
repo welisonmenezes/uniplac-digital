@@ -40,7 +40,7 @@
                             <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" class="blog_btn"
                                 title="{{ post.title }}">
                                 {% if post.image_id == None %}
-                                <div class="no-image">
+                                <div class="no-image auto-height">
                                     <div>
                                         <p>{{ post.description }}</p>
                                     </div>
@@ -90,7 +90,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="single-blog">
-                            <div class="blog_btn">
+                            <div>
                                 {% if post.image_id != None %}
                                 <a class="thumb" href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
                                     title="{{ post.title }}">
@@ -99,24 +99,29 @@
                                 </a>
                                 {% endif %}
                                 <div class="short_details">
+                                    <div class="post_marker_wrap">
+                                        <a href="{{ url_for('site.noticias') }}" title=""
+                                            class="post_marker {{post.genre}}">
+                                            Notícia
+                                        </a>
+                                    </div>
                                     <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
                                         title="{{ post.title }}" class="d-block">
                                         <h3>{{ post.title }}</h3>
+                                        <div class="text-wrap">
+                                            <p>
+                                                {{ post.description }}
+                                            </p>
+                                        </div>
                                     </a>
-                                    <ul class="blog-info-link mt-3 mb-4">
-                                        <li>
-                                            <a href="{{ url_for('site.noticias') }}" title=""
-                                                class="post_marker {{post.genre}}">
-                                                Notícia
-                                            </a>
-                                        </li>
+                                    <ul class="blog-info-link">
                                         <li>
                                             <span class="date">
                                                 <i class="ti-calendar"></i>
                                                 {{ post.created_at|format_datetime('%d/%m/%Y') }}
                                             </span>
                                         </li>
-                                        <li>
+                                        <li class="hide-768">
                                             <a class="author" href="{{ url_for('site.filtro', author=post.user.id) }}"
                                                 title="Autor {{ post.user.first_name }} {{ post.user.last_name }}">
                                                 <i class="ti-user"></i> Por {{ post.user.first_name }}
@@ -132,16 +137,6 @@
                                         </li>
                                         {% endif %}
                                     </ul>
-                                    <div class="text-wrap">
-                                        <p>
-                                            {{ post.description }}
-                                        </p>
-                                    </div>
-                                    <a class="blog_btn" href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
-                                        title="{{ post.title }}">
-                                        Ver Mais
-                                        <span class="ml-2 ti-arrow-right"></span>
-                                    </a>
                                 </div>
                             </div>
                         </div>
