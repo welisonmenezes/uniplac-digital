@@ -116,11 +116,14 @@
 		display: block;
 		width: 25px;
 		height: 3px;
-		background: #1641ff;
+		background: #007bff;
 		margin: auto;
 		margin-bottom: 4px;
 		transition: all 400ms linear;
 		cursor: pointer;
+	}
+	.navbar-toggler:hover span{
+		background: #0069d9;
 	}
     .navbar .container{
         padding-left: 15px;

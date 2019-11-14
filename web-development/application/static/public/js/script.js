@@ -10,7 +10,7 @@ $('.slideshow').slick({
     dots: false
 });
 
-$('.carousel').on('init', function(event, slick){
+$('.carousel').on('init', function (event, slick) {
     autoHeight();
 });
 $('.carousel').slick({
@@ -51,16 +51,16 @@ $('.carousel').slick({
 });
 
 function autoHeight() {
-    $('.auto-height').each(function() {
+    $('.auto-height').each(function () {
         var t = $(this);
         var w = t.width();
         t.css({
-            height: (w/2)+'px'
+            height: (w / 2) + 'px'
         })
     });
 }
 
-$(window).on('resize', function() {
+$(window).on('resize', function () {
     autoHeight();
 });
 
@@ -98,41 +98,51 @@ $(window).on('resize', function() {
 
 function _scrollToTop(scrollDuration) {
     var scrollStep = -window.scrollY / (scrollDuration / 15),
-        scrollInterval = setInterval(function(){
-        if ( window.scrollY != 0 ) {
-            window.scrollBy( 0, scrollStep );
-        }
-        else clearInterval(scrollInterval); 
-    },15);
+        scrollInterval = setInterval(function () {
+            if (window.scrollY != 0) {
+                window.scrollBy(0, scrollStep);
+            }
+            else clearInterval(scrollInterval);
+        }, 15);
 }
 
- function onBackToTop() {
-     var element = document.getElementById('on-back-to-top');
-     if (element) {
-         element.addEventListener('click', function(event) {
-             _scrollToTop(600);
-         });
-     }
- }
- onBackToTop();
+function onBackToTop() {
+    var element = document.getElementById('on-back-to-top');
+    if (element) {
+        element.addEventListener('click', function (event) {
+            _scrollToTop(600);
+        });
+    }
+}
+onBackToTop();
 
- function showHideBackToTopButton() {
-     var element = document.getElementById('on-back-to-top');
-     if (element) {
-         window.onscroll = function() {
-             var nVScroll = document.documentElement.scrollTop || document.body.scrollTop;
-             if (nVScroll > 300) {
-                 element.classList.add('show');
-             } else {
-                 element.classList.remove('show');
-             }
-         }
-     }
- }
- showHideBackToTopButton();
+function showHideBackToTopButton() {
+    var element = document.getElementById('on-back-to-top');
+    if (element) {
+        window.onscroll = function () {
+            var nVScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            if (nVScroll > 300) {
+                element.classList.add('show');
+            } else {
+                element.classList.remove('show');
+            }
+        }
+    }
+}
+showHideBackToTopButton();
 
 
 
- $('.author-search-field').on('change', function() {
-     $('.author-search-form').submit();
- });
+$('.author-search-field').on('change', function () {
+    $('.author-search-form').submit();
+});
+
+
+$('.btn-search').on('click', function () {
+    var row = $('.mbl-hided-row');
+    if (row.hasClass('opened')) {
+        row.removeClass('opened');
+    } else {
+        row.addClass('opened');
+    }
+});
