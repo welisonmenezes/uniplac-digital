@@ -27,7 +27,8 @@ class UsuarioForm(FlaskForm):
             Regexp('[0-9]{6,6}', message="Apenas números")
         ],
         render_kw = {
-            'placeholder':'Nº da matrícula'
+            'placeholder':'Nº da matrícula',
+            'data-async-key': 'registry-input'
         }
     )
 
@@ -55,7 +56,8 @@ class UsuarioForm(FlaskForm):
             Email(message="Email inválido")
         ],
         render_kw = {
-            'placeholder':'Email'
+            'placeholder':'Email',
+            'data-async-key': 'email-input'
         }
     )
 
