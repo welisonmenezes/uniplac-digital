@@ -140,6 +140,10 @@
     color: #26507e;
 }
 
+.post_item .blog_btn {
+    color: #17a2b8 !important;
+}
+
 .single-blog a p {
     color: #797979;
     text-transform: none;
@@ -544,6 +548,9 @@ textarea.form-control {
     max-width: 100%;
     display: block;
     margin: 0 auto;
+    margin-bottom: 15px;
+}
+.feature-img img{
     margin-bottom: 0;
 }
 
@@ -983,3 +990,4 @@ a:focus, .form-control:focus, button:focus {
         margin-bottom: 20px;
     }
 }
+

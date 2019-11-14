@@ -443,6 +443,7 @@ span:focus{
         min-width: 300px !important;
         margin-left: -30px !important;
     }
+    #rc-imageselect, .g-recaptcha {transform:scale(0.80);-webkit-transform:scale(0.80);transform-origin:0 0;-webkit-transform-origin:0 0;}
 }
 
 .ball{
