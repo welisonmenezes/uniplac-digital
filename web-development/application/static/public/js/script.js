@@ -1,4 +1,4 @@
-$(".slideshow").slick({
+$('.slideshow').slick({
     lazyLoad: 'ondemand',
     arrows: false,
     autoplay: true,
@@ -10,7 +10,10 @@ $(".slideshow").slick({
     dots: false
 });
 
-$(".carousel").slick({
+$('.carousel').on('init', function(event, slick){
+    autoHeight();
+});
+$('.carousel').slick({
     lazyLoad: 'ondemand',
     autoplay: false,
     autoplaySpeed: 4000,
@@ -47,6 +50,19 @@ $(".carousel").slick({
     ]
 });
 
+function autoHeight() {
+    $('.auto-height').each(function() {
+        var t = $(this);
+        var w = t.width();
+        t.css({
+            height: (w/2)+'px'
+        })
+    });
+}
+
+$(window).on('resize', function() {
+    autoHeight();
+});
 
 
 

@@ -851,7 +851,7 @@ button:focus{
     }
 }
 
-@media (max-width:1199px){
+/* @media (max-width:1199px){
     .carouse .carousel div .card a .no-image{
         height: 148.5px;
     }
@@ -879,4 +879,4 @@ button:focus{
     .carouse .carousel div .card a .no-image{
         height: 216px;
     }
-}
+} */
