@@ -991,3 +991,12 @@ a:focus, .form-control:focus, button:focus {
     }
 }
 
+.btn{
+    font-size: 16px;
+}
+.btn-tag{
+    font-size: 12px;
+}
+.btn.btn-sm{
+    font-size: 14px;
+}
