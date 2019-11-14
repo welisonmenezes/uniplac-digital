@@ -907,12 +907,13 @@ a:focus, .form-control:focus, button:focus {
 }
 
 .btn-search {
-    font-size: 24px;
     color: #007bff;
     cursor: pointer;
     font-weight: bold;
-    width: 24px;
-    height: 24px;
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
 }
 
 .btn-search:hover {
@@ -920,7 +921,7 @@ a:focus, .form-control:focus, button:focus {
 }
 
 @media (max-width:768px) {
-    .blog_area {
+    .blog_area, .sct-contact {
         padding-top: 0;
         padding-bottom: 0;
     }
@@ -943,10 +944,42 @@ a:focus, .form-control:focus, button:focus {
     .search-form h4 .btn-search {
         position: absolute;
         right: 0;
-        top: -2px;
+        top: 0px;
+    }
+
+    .banner_area{
+        margin-bottom: 60px;
+    }
+    .banner_area .banner_inner{
+        padding-bottom: 20px;
+    }
+    .form-contact{
+        margin-bottom: 40px;
     }
 }
 
 .banner_area .banner_inner .banner_content h2{
     margin-bottom: 0;
+}
+
+@media (max-width:480px) {
+    .blog_right_sidebar .media>a{
+        display: block;
+    }
+    .blog_right_sidebar .media>a img{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .blog_right_sidebar .popular_post_widget .post_item .media-body{
+        padding-left: 0;
+    }
+    .single_sidebar_widget .media{
+        border-bottom: 1px solid #dcdcdc;
+    }
+    .blog_right_sidebar .popular_post_widget .post_item+.post_item{
+        margin-top: 30px;
+    }
+    .single_sidebar_widget .media{
+        margin-bottom: 20px;
+    }
 }

@@ -138,11 +138,21 @@ $('.author-search-field').on('change', function () {
 });
 
 
-$('.btn-search').on('click', function () {
+$('.open-mbl-search-form').on('click', function () {
     var row = $('.mbl-hided-row');
     if (row.hasClass('opened')) {
         row.removeClass('opened');
     } else {
         row.addClass('opened');
     }
+});
+
+$('.go-to-form-search').on('click', function () {
+    var form = $('.search-form');
+    $('html, body').stop().animate({
+        scrollTop: form.offset().top - 100
+    }, 600, function () {
+        var row = $('.mbl-hided-row');
+        row.addClass('opened');
+    });
 });
