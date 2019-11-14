@@ -113,10 +113,10 @@ def render_post_list_by_type(post_type, title):
     configuration = Configuration.query.first()
     titulo = title
     current_datetime = datetime.now()
-    categories = Category.query.filter()
+    categories = Category.query.join(Post, Post.category_id == Category.id).order_by(asc(Category.name)).all()
     users = None
     if post_type != 'meus-posts':
-        users = User.query.filter(or_(User.role == 'admin', User.role == 'editor')).all()
+        users = User.query.order_by(asc(User.first_name)).filter(or_(User.role == 'admin', User.role == 'editor')).all()
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
     page = '1' if (request.args.get('page') == None) else request.args.get('page')
