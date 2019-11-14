@@ -1,5 +1,5 @@
 import os
-from flask import current_app, Blueprint, render_template, request, url_for, flash, redirect, session
+from flask import current_app, Blueprint, render_template, request, url_for, flash, redirect, session, jsonify
 from wtforms.validators import Length
 from sqlalchemy import or_, desc, asc
 from app import app, bcrypt
@@ -222,3 +222,21 @@ def updateLoggedUserSession(user):
         session['user_avatar'] = user.image_id
         session['user_name'] = user.first_name
         session['user_role'] = user.role
+
+
+@usuarioBP.route('/async-check', methods=['POST'])
+def asyncCheck():
+    if (request.form['registry']):
+        user = User.query.filter((User.registry==request.form['registry'])).first()
+        if user:
+            return jsonify({'message': 'error'})
+    return jsonify({'message': 'success'})
+
+
+@usuarioBP.route('/async-check-email', methods=['POST'])
+def asyncCheckEmail():
+    if (request.form['email']):
+        user = User.query.filter((User.email==request.form['email'])).first()
+        if user:
+            return jsonify({'message': 'error'})
+    return jsonify({'message': 'success'})

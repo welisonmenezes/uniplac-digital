@@ -9,6 +9,7 @@ class TagForm(FlaskForm):
             DataRequired(message="Campo obrigatório")
         ],
         render_kw = {
-            'placeholder':'Nome'
+            'placeholder':'Nome',
+            'data-async-key': 'tag-input'
         }
     )

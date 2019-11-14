@@ -31,7 +31,8 @@
                 <h4 class="card-title">{{ titulo }}</h4>
                 <form class="forms-sample" method="POST" novalidate>
                     {{ form.csrf_token }}
-                    {{ render_field(form.name, 'required', '45') }}
+                    {{ render_field(form.name, 'required async', '45') }}
+                    <input type="hidden" id="old-category" value="{{ form.name.data }}" />
                     {{ render_field(form.description, '', '255') }}
                     {{ render_checkbox_field(form.destacado, '', 'Destacar Categoria?') }}
                     <br />
@@ -49,6 +50,34 @@
     var validator = new VanillaValidator({
         messages: {
             required: 'Campo obrigatório'        
+        },
+        asyncValidates: {
+            'category-input': {
+                message: 'verificando disponibilidade do nome...',
+                fn: function (field, message, container) {
+                    var self = this;
+                    this.asyncValidationStart(field, 'message during process', container);
+                    if ($('#old-category') && $('#old-category').val() === field.value && field.value !== '') {
+                        self.asyncValidationFinish(field, '', container, true);
+                    } else {
+                        if (field.value === '') {
+                            self.asyncValidationFinish(field, 'Campo obrigatório', container, false);
+                        } else {
+                            $.ajax({
+                                method: 'POST',
+                                url: '/admin/categorias/async-check',
+                                data: { name: field.value }
+                            }).done(function (data) {
+                                if (data && data.message && data.message === 'success') {
+                                    self.asyncValidationFinish(field, '', container, true);
+                                } else {
+                                    self.asyncValidationFinish(field, 'Uma Categoria com este nome já existe na base de dados', container, false);
+                                }
+                             });
+                        }
+                    }
+                }
+            }
         }
     });
   </script>

@@ -82,7 +82,8 @@ class PostForm(FlaskForm):
             InputRequired(message="Campo obrigatório")
         ],
         render_kw = {
-            'placeholder':'Informe a data'
+            'placeholder':'Informe a data',
+            'data-validate-key': 'check-dates'
         },
         format='%d-%m-%Y %H:%M:%S'
     )
