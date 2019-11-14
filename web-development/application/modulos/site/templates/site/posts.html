@@ -30,23 +30,23 @@
                 <div class="blog_left_sidebar">
                     {% if posts %}
                     {% for post in posts %}
-                    <div class="blog_item">
+                    <div class="single-blog">
 
                         {% if post.genre == 'news' %}
-                        <div class="d-block">
+                        <div>
                             {% if post.image_id != None%}
-                            <a class="blog_item_img" href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
+                            <a class="thumb" href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
                                 title="{{ post.title }}">
                                 <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
                                     alt="{{ post.title }}">
                             </a>
                             {% endif %}
 
-                            <div class="blog_details">
+                            <div class="short_details">
                                 <a href="{{ url_for('site.noticias_detalhes', id=post.id) }}" title="{{ post.title }}" class="d-block">
-                                    <h2>{{ post.title }}</h2>
+                                    <h3>{{ post.title }}</h3>
                                 </a>
-                                <ul class="blog-info-link mt-3 mb-4">
+                                <ul class="blog-info-link">
                                     <li>
                                         <a href="{{ url_for('site.noticias') }}" title=""
                                             class="post_marker {{post.genre}}">
@@ -75,7 +75,9 @@
                                     </li>
                                     {% endif %}
                                 </ul>
-                                <p>{{ post.description }}</p>
+                                <div class="text-wrap">
+                                    <p>{{ post.description }}</p>
+                                </div>
                                 <a class="blog_btn" href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
                                     title="{{ post.title }}">
                                     Ver Mais
@@ -85,19 +87,19 @@
                         </div>
 
                         {% elif post.genre == 'ad' %}
-                        <div class="d-block">
+                        <div>
                             {% if post.image_id != None%}
-                            <a class="blog_item_img" href="{{ url_for('site.anuncios_detalhes', id=post.id) }}"
+                            <a class="thumb" href="{{ url_for('site.anuncios_detalhes', id=post.id) }}"
                                 title="{{ post.title }}">
                                 <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
                                     alt="{{ post.title }}">
                             </a>
                             {% endif %}
-                            <div class="blog_details">
+                            <div class="short_details">
                                 <a href="{{ url_for('site.anuncios_detalhes', id=post.id) }}" title="{{ post.title }}">
-                                    <h2>{{ post.title }}</h2>
+                                    <h3>{{ post.title }}</h3>
                                 </a>
-                                <ul class="blog-info-link mt-3 mb-4">
+                                <ul class="blog-info-link">
                                     <li>
                                         <a href="{{ url_for('site.anuncios') }}" title=""
                                             class="post_marker {{post.genre}}">
@@ -127,7 +129,9 @@
                                     </li>
                                     {% endif %}
                                 </ul>
-                                <p>{{ post.description }}</p>
+                                <div class="text-wrap">
+                                    <p>{{ post.description }}</p>
+                                </div>
                                 <a class="blog_btn" href="{{ url_for('site.anuncios_detalhes', id=post.id) }}"
                                     title="{{ post.title }}">
                                     Ver Mais
@@ -137,17 +141,17 @@
                         </div>
 
                         {% elif post.genre == 'notice' %}
-                        <div class="d-block">
+                        <div>
                             {% if post.image_id != None%}
-                            <a class="blog_item_img" href="{{ url_for('site.avisos_detalhes', id=post.id) }}"
+                            <a class="thumb" href="{{ url_for('site.avisos_detalhes', id=post.id) }}"
                                 title="{{ post.title }}">
                                 <img class="card-img rounded-0" src="{{request.url_root}}api/media/{{post.image_id}}"
                                     alt="{{ post.title }}">
                             </a>
                             {% endif %}
-                            <div class="blog_details">
+                            <div class="short_details">
                                 <a href="{{ url_for('site.avisos_detalhes', id=post.id) }}" title="{{ post.title }}">
-                                    <h2>{{ post.title }}</h2>
+                                    <h3>{{ post.title }}</h3>
                                 </a>
                                 <ul class="blog-info-link mt-3 mb-4">
                                     <li>
@@ -178,7 +182,9 @@
                                     </li>
                                     {% endif %}
                                 </ul>
-                                <p>{{ post.description }}</p>
+                                <div class="text-wrap">
+                                    <p>{{ post.description }}</p>
+                                </div>
                                 <a class="blog_btn" href="{{ url_for('site.avisos_detalhes', id=post.id) }}"
                                     title="{{ post.title }}">
                                     Ver Mais

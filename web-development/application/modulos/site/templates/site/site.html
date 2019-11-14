@@ -90,7 +90,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="single-blog">
-                            <div class="blog_btn">
+                            <div>
                                 {% if post.image_id != None %}
                                 <a class="thumb" href="{{ url_for('site.noticias_detalhes', id=post.id) }}"
                                     title="{{ post.title }}">
@@ -103,7 +103,7 @@
                                         title="{{ post.title }}" class="d-block">
                                         <h3>{{ post.title }}</h3>
                                     </a>
-                                    <ul class="blog-info-link mt-3 mb-4">
+                                    <ul class="blog-info-link">
                                         <li>
                                             <a href="{{ url_for('site.noticias') }}" title=""
                                                 class="post_marker {{post.genre}}">
