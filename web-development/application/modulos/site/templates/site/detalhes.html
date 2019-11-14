@@ -38,36 +38,35 @@
             <div class="col-lg-8 posts-list">
 
                 <div class="single-post">
-                    {% if post.image_id != None%}
-                    <div class="feature-img">
-                        <img class="img-fluid" src="{{request.url_root}}api/media/{{post.image_id}}"
-                            alt="{{ post.title }}">
-                    </div>
-                    {% endif %}
+
                     <div class="blog_details">
-                        <h2>{{ post.title }}</h2>
-                        <ul class="blog-info-link mt-3 mb-4">
+                        <h1 class="title-post-detail">{{ post.title }}</h1>
+                        <ul class="blog-info-link">
                             <li>
-                                {% if post.genre == 'news' %}
-                                <a href="{{ url_for('site.noticias') }}" title="" class="post_marker {{post.genre}}">
-                                    Notícia
-                                </a>
-                                {% elif post.genre == 'ad' %}
-                                <a href="{{ url_for('site.anuncios') }}" title="" class="post_marker {{post.genre}}">
-                                    Anúncio
-                                </a>
-                                {% elif post.genre == 'notice' %}
-                                <a href="{{ url_for('site.avisos') }}" title="" class="post_marker {{post.genre}}">
-                                    Aviso
-                                </a>
-                                {% endif %}
+                                <div class="post_marker_wrap">
+                                    {% if post.genre == 'news' %}
+                                    <a href="{{ url_for('site.noticias') }}" title=""
+                                        class="post_marker {{post.genre}}">
+                                        Notícia
+                                    </a>
+                                    {% elif post.genre == 'ad' %}
+                                    <a href="{{ url_for('site.anuncios') }}" title=""
+                                        class="post_marker {{post.genre}}">
+                                        Anúncio
+                                    </a>
+                                    {% elif post.genre == 'notice' %}
+                                    <a href="{{ url_for('site.avisos') }}" title="" class="post_marker {{post.genre}}">
+                                        Aviso
+                                    </a>
+                                    {% endif %}
+                                </div>
                             </li>
                             <li>
                                 <span>
                                     <i class="ti-calendar"></i> {{ post.created_at|format_datetime('%d/%m/%Y') }}
                                 </span>
                             </li>
-                            <li>
+                            <li class="hide-768">
                                 <a class="author" href="{{ url_for('site.filtro', author=user.id) }}"
                                     title="Autor {{ user.first_name }} {{ user.last_name }}">
                                     <i class="ti-user"></i> Por {{ user.first_name }} {{ user.last_name }}
@@ -83,14 +82,14 @@
                             {% endif %}
                             {% if session.get('user_role', '')  %}
                             {% if post.genre == 'news' and (session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'editor')  %}
-                            <li>
+                            <li class="hide-768">
                                 <a href="{{ url_for('posts.noticias_editar', id=post.id) }}" target="_blank"
                                     title="Editar aviso">
                                     <i class="ti-pencil fa-lg"></i> Editar notícia
                                 </a>
                             </li>
                             {% elif post.genre == 'notice' and (session.get('user_role', '') == 'admin' or session.get('user_role', '') == 'author')  %}
-                            <li>
+                            <li class="hide-768">
                                 <a href="{{ url_for('posts.avisos_editar', id=post.id) }}" target="_blank"
                                     title="Editar aviso">
                                     <i class="ti-pencil fa-lg"></i> Editar aviso
@@ -99,7 +98,7 @@
                             {% elif post.genre == 'ad'  %}
                             {% if session.get('user_role', '') == 'user' %}
                             {% if post.user_id == session.get('user_id', '') %}
-                            <li>
+                            <li class="hide-768">
                                 <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}" target="_blank"
                                     title="Editar anúncio">
                                     <i class="ti-pencil fa-lg"></i> Editar anúncio
@@ -107,7 +106,7 @@
                             </li>
                             {% endif %}
                             {% else %}
-                            <li>
+                            <li class="hide-768">
                                 <a href="{{ url_for('posts.anuncios_editar', id=post.id) }}" target="_blank"
                                     title="Editar anúncio">
                                     <i class="ti-pencil fa-lg"></i> Editar anúncio
@@ -117,9 +116,16 @@
                             {% endif  %}
                             {% endif %}
                         </ul>
-                        <p>
+                        {% if post.image_id != None%}
+                        <div class="feature-img">
+                            <img class="img-fluid" src="{{request.url_root}}api/media/{{post.image_id}}"
+                                alt="{{ post.title }}">
+                        </div>
+                        {% endif %}
+                        <div class="post-content">
                             {{ post.content|safe }}
-                        </p>
+                        </div>
+
                     </div>
                     <div class="clear"></div>
                     {% if post.tags %}

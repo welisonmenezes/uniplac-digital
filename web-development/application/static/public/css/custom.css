@@ -502,12 +502,15 @@ textarea.form-control{
     color: #797979;
 }
 
+.single-post-area .blog_details{
+    padding-top: 0;
+}
 .blog_details img{
     width: auto;
     max-width: 100%;
     display: block;
     margin: 0 auto;
-    margin-bottom: 15px;
+    margin-bottom: 0;
 }
 .blog_details p,
 .blog_details div,
@@ -533,8 +536,15 @@ textarea.form-control{
     float: left;
     margin-right: 15px;
 }
+.single-post-area .blog_details{
+    padding-top: 0;
+}
 .blog_details h1{
-    font-size: 24px;
+    font-size: 26px;
+}
+.title-post-detail{
+    margin-bottom: 30px !important;
+    font-size: 32px !important;
 }
 .blog_details h2{
     font-size: 22px;
@@ -740,7 +750,13 @@ textarea.form-control{
     .hide-768{
         display: none;
     }
-    .blog-info-link li{}
+    .blog-info-link li::before{
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .title-post-detail{
+        font-size: 28px !important;
+    }
 }
 
 
