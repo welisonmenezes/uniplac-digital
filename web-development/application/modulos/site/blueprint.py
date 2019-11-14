@@ -13,8 +13,8 @@ siteBP = Blueprint('site', __name__, url_prefix='/', template_folder='templates'
 def index():
     current_datetime = datetime.now()
     configuration = Configuration.query.first()
-    categories = Category.query.join(Post, Post.category_id == Category.id).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved')).order_by(desc(Category.id)).all()
-    categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
+    categories = Category.query.join(Post, Post.category_id == Category.id).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved')).order_by(asc(Category.name)).all()
+    categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(asc(Category.name)).all()
     users = User.query.order_by(asc(User.first_name)).all()
     tags = Tag.query.join(Post, Tag.posts).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved')).order_by(asc(Tag.name)).all()
 
@@ -69,8 +69,8 @@ def tag():
 def contato():
     current_datetime = datetime.now()
     configuration = Configuration.query.first()
-    categories = Category.query.join(Post, Post.category_id == Category.id).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved')).order_by(desc(Category.id)).all()
-    categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
+    categories = Category.query.join(Post, Post.category_id == Category.id).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved')).order_by(asc(Category.name)).all()
+    categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(asc(Category.name)).all()
     users = User.query.order_by(asc(User.first_name)).all()
 
     form = ContactForm(request.form)
@@ -101,8 +101,8 @@ def render_post_list_by_type(post_type, title):
     titulo = title
     current_datetime = datetime.now()
     configuration = Configuration.query.first()
-    categories = Category.query.join(Post, Post.category_id == Category.id).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved')).order_by(desc(Category.id)).all()
-    categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
+    categories = Category.query.join(Post, Post.category_id == Category.id).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved')).order_by(asc(Category.name)).all()
+    categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(asc(Category.name)).all()
     users = User.query.order_by(asc(User.first_name)).all()
     tags = Tag.query.join(Post, Tag.posts).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved')).order_by(asc(Tag.name)).all()
     tag = ''
@@ -156,8 +156,8 @@ def render_post_detail_by_type(post_type, title, id):
     titulo = title 
     current_datetime = datetime.now()
     configuration = Configuration.query.first()
-    categories = Category.query.join(Post, Post.category_id == Category.id).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved')).order_by(desc(Category.id)).all()
-    categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(desc(Category.id)).all()
+    categories = Category.query.join(Post, Post.category_id == Category.id).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved')).order_by(asc(Category.name)).all()
+    categories_highlighted = Category.query.filter((Category.is_highlighted==1)).order_by(asc(Category.name)).all()
     users = User.query.order_by(asc(User.first_name)).all()
     tags = Tag.query.join(Post, Tag.posts).filter(and_(Post.entry_date <= current_datetime, Post.departure_date >= current_datetime, Post.status=='approved')).order_by(asc(Tag.name)).all()
 
