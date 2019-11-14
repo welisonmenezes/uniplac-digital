@@ -1047,3 +1047,18 @@ a:focus, .form-control:focus, button:focus {
         padding-top: 90px;
     }
 }
+
+
+@media (max-height:600px) {
+    .nice-select .list{
+        max-height: 150px;
+        overflow: auto;
+    }
+}
+
+@media (max-height:500px) {
+    .select-type .nice-select .list{
+        top: auto;
+        bottom: 40px;
+    }
+}
