@@ -33,6 +33,8 @@
     {% block pagestyles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/bootstrap.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='public/css/themify-icons.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='public/css/fontawesome-free-5.11.2-web/css/all.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='public/vendors/nice-select/css/nice-select.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='public/css/slick-theme.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='public/css/slick.css') }}" />
@@ -56,6 +58,10 @@
         <span id="on-back-to-top" class="on-back-to-top">
             <img src="{{ url_for('static', filename='public/img/navigate-up-arrow.svg') }}" alt="Voltar para o topo">
         </span>
+        <div class="audiovisual">
+            <a href="http://vlibras.gov.br/" target="_blank" class="libras" title="Libras"><i class="fa fa-sign-language"></i></a>
+            <a href="http://cegosbrasil.net/downloads/download-do-nvda" target="_blank" class="braile" title="Braile"><i class="mdi mdi-braille"></i></a>
+        </div>
     </div>
     {% block scripts %}
     <script src="{{ url_for('static', filename='public/js/jquery-3.2.1.min.js') }}"></script>
