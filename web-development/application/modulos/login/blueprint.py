@@ -1,7 +1,7 @@
 import os
 from flask import current_app, Blueprint, render_template, request, url_for, redirect, flash, session
 from app import app, bcrypt
-from sqlalchemy import and_, desc
+from sqlalchemy import and_, desc, or_
 from flask_mail import Message
 from app import mail, executor
 from database.Model import db, User
@@ -18,7 +18,7 @@ def inicio():
     configuration = Configuration.query.first()
     form= LoginForm(request.form)
     if form.validate_on_submit():
-        user = User.query.filter(User.registry == form.registry.data).first()
+        user = User.query.filter(or_(User.registry == form.registry.data, User.email == form.registry.data)).first()
         if user:
             if bcrypt.check_password_hash(user.password, form.password.data):
                 session.clear()
