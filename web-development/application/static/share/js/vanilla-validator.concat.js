@@ -694,7 +694,7 @@ var VanillaValidator = (function(){
 				customValidate: 'custom-validate',
 				async: 'async',
 				asyncWaiting: 'vv-async-waiting',
-				error: 'error',
+				error: 'is-invalid',
 				formError: 'form-error',
 				messageError: 'msg-error',
 				wrapErrors: 'wrap-errors'

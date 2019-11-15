@@ -25,9 +25,16 @@
             <div class="card-body">
                 <h4 class="card-title">{{ titulo }}</h4>
                 <form class="formm-search posts" novalidate>
-
-                    <div class="row">
-                        <div class="col-md-1">
+                    <div class="row show-768">
+                        <div class="col-md-12">
+                            <p class="btn filtro">
+                                Filtro:
+                                <span class="btn-search show-768 open-mbl-search-form"><i class="mdi mdi-magnify"></i></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row mbl-hided-row">
+                        <div class="col-md-1 hide-768">
                             <p class="btn filtro">Filtro:</p>
                         </div>
                         <div class="col-md-4">
@@ -65,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row mbl-hided-row">
                         <div class="col-md-1">
                         </div>
                         {% if(titulo != 'Minhas Publicações' and session.get('user_role', '') != 'user'): %}

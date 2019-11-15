@@ -29,7 +29,6 @@ def dash():
         elif pg[1] == 'notice':
             per_genre[2] = pg[0]
 
-
     results_per_status = db.engine.execute('SELECT COUNT(id), status FROM post WHERE created_at >= "' + str(last_month) + '" GROUP BY status ORDER BY status ASC')
     ps_arr = [(row[0], row[1]) for row in results_per_status]
     per_status = [0, 0, 0]
@@ -39,8 +38,7 @@ def dash():
         elif pg[1] == 'denied':
             per_status[1] = pg[0]
         elif pg[1] == 'pending':
-            per_genre[2] = pg[0]
-
+            per_status[2] = pg[0]
     
     titulo = 'Dashboard'
     return render_template('dashboard/index.html',titulo=titulo, configuration=configuration, posts_per_genre=per_genre, posts_per_status=per_status), 200

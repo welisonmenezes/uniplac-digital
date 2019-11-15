@@ -1,4 +1,4 @@
-from flask import current_app, Blueprint, render_template, request, url_for, redirect, flash, session
+from flask import current_app, Blueprint, render_template, request, url_for, redirect, flash, session, jsonify
 from sqlalchemy import desc, or_, and_, asc
 from app import app
 #trocar informações daqui.....
@@ -141,7 +141,8 @@ def deletar(id):
         tagId = request.values.get('tagId')
         if tagId:
             # verifica se a tags esta em algum post
-            post = Post.query.filter_by(id=tagId).all()
+            filter = (Post.tags.any(id=tagId),)
+            post = Post.query.filter(*filter).all()
             if not post:
             
                 try:
@@ -164,3 +165,12 @@ def deletar(id):
     # popula os campos do formuário
 def fillForm(form, tag):
     form.name.data = tag.name
+
+
+@tagBP.route('/async-check', methods=['POST'])
+def asyncCheck():
+    if (request.form['name']):
+        tag = Tag.query.filter((Tag.name==request.form['name'])).first()
+        if tag:
+            return jsonify({'message': 'error'})
+    return jsonify({'message': 'success'})

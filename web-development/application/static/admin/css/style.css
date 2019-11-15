@@ -10607,13 +10607,17 @@ textarea.form-control {
   color: #dc3545;
 }
 
-.msg-error{
+.msg-error,
+.vv-async-waiting{
 
   display: block;
   width: 100%;
   margin-top: 0.25rem;
   font-size: 80%;
   color: #dc3545;
+}
+.vv-async-waiting{
+  color: #856400;
 }
 .invalid-tooltip {
   position: absolute;

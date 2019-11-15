@@ -9,24 +9,19 @@
                         <p>email: {{ configuration.email }}</p>
                     </div>
                 </div>
+                {% if session.get('user_role', '') != '' %}
                 <div class="col-lg-5">
                     <div class="float-right">
                         <ul class="right_side">
-                            <li>
-                                <a href="{{ url_for('site.contato') }}" title="Contato" tabindex="1">
-                                    Contato
-                                </a>
-                            </li>
-                            {% if session.get('user_role', '') != '' %}
                                 <li>
                                     <a href="{{ url_for('dashboard.dash') }}" title="Painel Administrativo">
                                         Painel Administrativo
                                     </a>
                                 </li>
-                            {% endif %}
                         </ul>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -36,6 +31,7 @@
                 <a class="navbar-brand logo_h" href="{{ url_for('site.index') }}" title="Portal Uniplac">
                     <img src="{{ url_for('static', filename='public/img/logo.png') }}" alt="logo" />
                 </a>
+                <span class="btn-search go-to-form-search show-992"><i class="ti-search"></i></span>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation" tabindex="-1">
@@ -59,7 +55,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ url_for('site.avisos') }}" title="Avisos">Avisos</a>
                                 </li>
-                                <li class="nav-item show-992">
+                                <li class="nav-item">
                                     <a class="nav-link" href="{{ url_for('site.contato') }}" title="Contato">Contato</a>
                                 </li>
                                 {% if session.get('user_role', '') != '' %}
@@ -67,6 +63,9 @@
                                         <a class="nav-link" href="{{ url_for('dashboard.dash') }}" title="Painel Administrativo">Painel Administrativo</a>
                                     </li>
                                 {% endif %}
+                                <li class="nav-item hide-992">
+                                        <span class="btn-search go-to-form-search"><i class="ti-search"></i></span>
+                                </li>
                             </ul>
                         </div>
                         <div class="col-lg-2 pr-0 text-right">
@@ -86,5 +85,6 @@
             </nav>
         </div>
     </div>
+    {% include 'includes/public/form-filter.html' %}
 </header>
 {% endblock header %}

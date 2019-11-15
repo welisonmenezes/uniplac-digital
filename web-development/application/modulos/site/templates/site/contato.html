@@ -10,7 +10,7 @@
     <div class="banner_inner d-flex align-items-center">
         <div class="container">
             <div class="banner_content d-md-flex justify-content-between align-items-center">
-                <div class="mb-3 mb-md-0">
+                <div class="">
                     <h2>Contato</h2>
                 </div>
                 <div class="page_link">
@@ -22,7 +22,7 @@
     </div>
 </section>
 
-<section class="section_gap">
+<section class="sct-contact section_gap">
     <div class="container">
         <div class="d-none d-sm-block mb-5 pb-4 Contact">
             {{ configuration.map|safe }}
@@ -82,8 +82,6 @@
         </div>
     </div>
 </section>
-
-{% include 'includes/public/form-filter.html' %}
 
 {% endblock %}
 {% block footer_script %}

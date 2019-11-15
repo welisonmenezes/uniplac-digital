@@ -31,11 +31,12 @@
                 <h4 class="card-title">{{ titulo }} de Tags</h4>
                 <form class="forms-sample" method="POST" novalidate>
                     {{ form.csrf_token }}
-                    {{ render_field(form.name, 'required', '45') }}
-
+                    {{ render_field(form.name, 'required async', '45') }}
+                    <input type="hidden" id="old-tag" value="{{ form.name.data }}" />
                     <br />
                     <button type="submit" class="btn btn-primary mr-2">Enviar</button>
-                    <button type="button" class="btn btn-light" onClick="history.go(-1); return false;">Cancelar</button>
+                    <button type="button" class="btn btn-light"
+                        onClick="history.go(-1); return false;">Cancelar</button>
                 </form>
             </div>
         </div>
@@ -47,8 +48,36 @@
 <script>
     var validator = new VanillaValidator({
         messages: {
-            required: 'Campo obrigatório'        
+            required: 'Campo obrigatório'
+        },
+        asyncValidates: {
+            'tag-input': {
+                message: 'verificando disponibilidade do nome...',
+                fn: function (field, message, container) {
+                    var self = this;
+                    this.asyncValidationStart(field, 'verificando disponibilidade do nome...', container);
+                    if ($('#old-tag') && $('#old-tag').val() === field.value && field.value !== '') {
+                        self.asyncValidationFinish(field, '', container, true);
+                    } else {
+                        if (field.value === '') {
+                            self.asyncValidationFinish(field, 'Campo obrigatório', container, false);
+                        } else {
+                            $.ajax({
+                                method: 'POST',
+                                url: '/admin/tags/async-check',
+                                data: { name: field.value }
+                            }).done(function (data) {
+                                if (data && data.message && data.message === 'success') {
+                                    self.asyncValidationFinish(field, '', container, true);
+                                } else {
+                                    self.asyncValidationFinish(field, 'Uma Tag com este nome já existe na base de dados', container, false);
+                                }
+                             });
+                        }
+                    }
+                }
+            }
         }
     });
-  </script>
+</script>
 {% endblock footer_script %}

@@ -33,8 +33,10 @@
                     {{ form.csrf_token }}
                     {{ render_field(form.first_name, 'required', '100') }}
                     {{ render_field(form.last_name, 'required', '100') }}
-                    {{ render_field(form.registry, 'mask-number required numeric', '6') }}
-                    {{ render_field(form.email, 'required email', '255') }}
+                    {{ render_field(form.registry, 'mask-number required numeric async', '6') }}
+                    <input type="hidden" id="old-registry" value="{{ form.registry.data }}" />
+                    {{ render_field(form.email, 'required email async', '255') }}
+                    <input type="hidden" id="old-email" value="{{ form.email.data }}" />
                     {{ render_field(form.phone, 'mask-phone phone required') }}
 
                     {% if titulo == 'Editar Usuário' %}
@@ -112,6 +114,64 @@
             email: 'E-mail inválido',
             phone: 'Número de telefone inválido',
             numeric: 'Apenas números'
+        },
+        asyncValidates: {
+            'registry-input': {
+                message: 'verificando disponibilidade número da matricula...',
+                fn: function (field, message, container) {
+                    var self = this;
+                    this.asyncValidationStart(field, 'message during process', container);
+                    if ($('#old-registry') && $('#old-registry').val() === field.value && field.value !== '') {
+                        self.asyncValidationFinish(field, '', container, true);
+                    } else if (field.value !== '' && field.value.length < 6) {
+                        self.asyncValidationFinish(field, 'Por favor, informe 6 números', container, false);
+                    } else {
+                        if (field.value === '') {
+                            self.asyncValidationFinish(field, 'Campo obrigatório', container, false);
+                        } else {
+                            $.ajax({
+                                method: 'POST',
+                                url: '/admin/usuarios/async-check',
+                                data: { registry: field.value }
+                            }).done(function (data) {
+                                if (data && data.message && data.message === 'success') {
+                                    self.asyncValidationFinish(field, '', container, true);
+                                } else {
+                                    self.asyncValidationFinish(field, 'Um usuário com esta matrícula já existe na base de dados', container, false);
+                                }
+                             });
+                        }
+                    }
+                }
+            },
+            'email-input': {
+                message: 'verificando disponibilidade e-mail...',
+                fn: function (field, message, container) {
+                    var self = this;
+                    this.asyncValidationStart(field, 'verificando disponibilidade e-mail...', container);
+                    if ($('#old-email') && $('#old-email').val() === field.value && field.value !== '') {
+                        self.asyncValidationFinish(field, '', container, true);
+                    } else if (field.value !== '' && ! /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(field.value)) {
+                        self.asyncValidationFinish(field, 'E-mail inválido', container, false);
+                    } else {
+                        if (field.value === '') {
+                            self.asyncValidationFinish(field, 'Campo obrigatório', container, false);
+                        } else {
+                            $.ajax({
+                                method: 'POST',
+                                url: '/admin/usuarios/async-check-email',
+                                data: { email: field.value }
+                            }).done(function (data) {
+                                if (data && data.message && data.message === 'success') {
+                                    self.asyncValidationFinish(field, '', container, true);
+                                } else {
+                                    self.asyncValidationFinish(field, 'Um usuário com este e-mail já existe na base de dados', container, false);
+                                }
+                             });
+                        }
+                    }
+                }
+            }
         }
     });
 </script>

@@ -1,4 +1,4 @@
-$(".slideshow").slick({
+$('.slideshow').slick({
     lazyLoad: 'ondemand',
     arrows: false,
     autoplay: true,
@@ -10,9 +10,12 @@ $(".slideshow").slick({
     dots: false
 });
 
-$(".carousel").slick({
+$('.carousel').on('init', function (event, slick) {
+    autoHeight();
+});
+$('.carousel').slick({
     lazyLoad: 'ondemand',
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 4000,
     infinite: true,
     slidesToShow: 3,
@@ -47,6 +50,19 @@ $(".carousel").slick({
     ]
 });
 
+function autoHeight() {
+    $('.auto-height').each(function () {
+        var t = $(this);
+        var w = t.width();
+        t.css({
+            height: (w / 2) + 'px'
+        })
+    });
+}
+
+$(window).on('resize', function () {
+    autoHeight();
+});
 
 
 
@@ -82,41 +98,62 @@ $(".carousel").slick({
 
 function _scrollToTop(scrollDuration) {
     var scrollStep = -window.scrollY / (scrollDuration / 15),
-        scrollInterval = setInterval(function(){
-        if ( window.scrollY != 0 ) {
-            window.scrollBy( 0, scrollStep );
-        }
-        else clearInterval(scrollInterval); 
-    },15);
+        scrollInterval = setInterval(function () {
+            if (window.scrollY != 0) {
+                window.scrollBy(0, scrollStep);
+            }
+            else clearInterval(scrollInterval);
+        }, 15);
 }
 
- function onBackToTop() {
-     var element = document.getElementById('on-back-to-top');
-     if (element) {
-         element.addEventListener('click', function(event) {
-             _scrollToTop(600);
-         });
-     }
- }
- onBackToTop();
+function onBackToTop() {
+    var element = document.getElementById('on-back-to-top');
+    if (element) {
+        element.addEventListener('click', function (event) {
+            _scrollToTop(600);
+        });
+    }
+}
+onBackToTop();
 
- function showHideBackToTopButton() {
-     var element = document.getElementById('on-back-to-top');
-     if (element) {
-         window.onscroll = function() {
-             var nVScroll = document.documentElement.scrollTop || document.body.scrollTop;
-             if (nVScroll > 300) {
-                 element.classList.add('show');
-             } else {
-                 element.classList.remove('show');
-             }
-         }
-     }
- }
- showHideBackToTopButton();
+function showHideBackToTopButton() {
+    var element = document.getElementById('on-back-to-top');
+    if (element) {
+        window.onscroll = function () {
+            var nVScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            if (nVScroll > 300) {
+                element.classList.add('show');
+            } else {
+                element.classList.remove('show');
+            }
+        }
+    }
+}
+showHideBackToTopButton();
 
 
 
- $('.author-search-field').on('change', function() {
-     $('.author-search-form').submit();
- });
+$('.author-search-field').on('change', function () {
+    $('.author-search-form').submit();
+});
+
+
+$('.open-mbl-search-form').on('click', function () {
+    var row = $('.mbl-hided-row');
+    if (row.hasClass('opened')) {
+        row.removeClass('opened');
+    } else {
+        row.addClass('opened');
+    }
+});
+
+$('.go-to-form-search').on('click', function () {
+    // var form = $('.search-form');
+    // $('html, body').stop().animate({
+    //     scrollTop: form.offset().top - 100
+    // }, 600, function () {
+    //     var row = $('.mbl-hided-row');
+    //     row.addClass('opened');
+    // });
+    $('.search-form-wrap').slideToggle(300);
+});
