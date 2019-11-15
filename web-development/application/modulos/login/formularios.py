@@ -6,7 +6,7 @@ from database.Model import User
 
 class LoginForm(FlaskForm):
     registry = StringField(
-        'Login',
+        'Login  <small class="sup"><b>(E-mail ou Nº da matrícula)</b></small>',
         validators = [DataRequired(message="Campo obrigatório")
         ],
         render_kw = {
