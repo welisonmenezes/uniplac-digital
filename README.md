@@ -22,10 +22,10 @@ O host que conseguimos é free, por tanto, a conexão com o banco de dados é in
 
 Foram cadastrados 4 usuários, cada qual com um nível de permissão. Estes são:
 
-- login: admin, senha: 123456, permissão: Administrador (Nível 1);
-- login: editor, senha: 123456, permissão: Editor (Nível 2);
-- login: author, senha: 123456, permissão: Autor (Nível 3);
-- login: user, senha: 123456, permissão: Usuário (Nível 4)
+- login: 111111, senha: 123456, permissão: Administrador (Nível 1);
+- login: 222222, senha: 123456, permissão: Editor (Nível 2);
+- login: 333333, senha: 123456, permissão: Autor (Nível 3);
+- login: 444444, senha: 123456, permissão: Usuário (Nível 4)
 
 #### Na raíz dos diretórios de cada disciplina contém um arquivo README.md contendo informações sobre nossos entregáveis. Por favor, consulte-os se necessário.
 

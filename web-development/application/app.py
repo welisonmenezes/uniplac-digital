@@ -38,6 +38,10 @@ bcrypt = Bcrypt(app)
 executor = Executor(app)
 mail = Mail(app)
 
+@app.teardown_appcontext
+def shutdown_session(response_or_exc):
+    db.session.close()
+
 @app.errorhandler(500)
 def serverError(error):
     return redirect( url_for('error.pageError') )
