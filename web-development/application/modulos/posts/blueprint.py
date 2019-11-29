@@ -115,8 +115,12 @@ def render_post_list_by_type(post_type, title):
     current_datetime = datetime.now()
     categories = Category.query.join(Post, Post.category_id == Category.id).order_by(asc(Category.name)).all()
     users = None
-    if post_type != 'meus-posts':
+    if post_type == 'news':
         users = User.query.order_by(asc(User.first_name)).filter(or_(User.role == 'admin', User.role == 'editor')).all()
+    elif post_type == 'notice':
+        users = User.query.order_by(asc(User.first_name)).filter(or_(User.role == 'admin', User.role == 'author')).all()
+    elif post_type == 'ad':
+        users = User.query.order_by(asc(User.first_name)).filter().all()
 
     # pega os argumentos da string, se existir, senão, seta valores padrão
     page = '1' if (request.args.get('page') == None) else request.args.get('page')
