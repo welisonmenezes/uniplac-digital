@@ -37,9 +37,9 @@ document.addEventListener('DOMContentLoaded', function() {
             format: 'DD-MM-YYYY HH:mm:ss'
         });
 
-        $('input.date').on('input', function(ev){
-            $(this).datetimepicker('hide');
-        });
+        // $('input.date').on('input', function(ev){
+        //     $(this).datetimepicker('hide');
+        // });
 
         $(document).on('click', function(event) {
             if (!event.target.hasAttribute('data-toggle') && ! $(event.target).hasClass('mdi-calendar')) {
